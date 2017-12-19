@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  slot: 2017-09-12 09:42:06
+  grade: 1
+
+two:
+  slot: 2017-09-12 09:42:06
+  grade: 1

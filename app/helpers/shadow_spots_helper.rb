@@ -1,0 +1,2 @@
+module ShadowSpotsHelper
+end
