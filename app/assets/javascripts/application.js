@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$('.submit-button').on('ajax:success', addStudent);
+
+function addStudent(event, data) {
+  console.log("in addStudent")
+}
