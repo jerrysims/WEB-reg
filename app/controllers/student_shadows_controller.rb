@@ -1,7 +1,7 @@
 class StudentShadowsController < ApplicationController
   def index
     @student = Student.find(params[:student])
-  @grade = @student.grade
+    @grade = @student.grade
     @shadow_spots = []
     ShadowSpot.all.each do |ss|
       @shadow_spots << "#{ss.date}, #{ss.time}, #{ss.subject.name}"

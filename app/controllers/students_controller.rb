@@ -3,8 +3,11 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @student = Student.create(student_params)
-    redirect_to student_shadows_path(student: @student)
+    @student = Student.where(student_params).first
+    @student = Student.create(student_params) if @student.nil?
+    respond_to do |format|
+      format.js { }
+    end
   end
 
   def show
