@@ -1,0 +1,25 @@
+<h1>Come visit the WEB Tutorial.</h1>
+<h2>First, tell us about your student<h2>
+<div id="students">
+<%= form_for(Student.new, remote: true, html: { class: "new-student-form" }) do |f| %>
+
+  <%= f.label :email_address %>:
+  <%= f.text_field :email_address %> <br />
+
+  <%= f.label :parent_first_name %>:
+  <%= f.text_field :parent_first_name %><br/>
+  <%= f.label :parent_last_name %>:
+  <%= f.text_field :parent_last_name %><br />
+
+  <%= f.label :first_name %>:
+  <%= f.text_field :first_name %><br />
+  <%= f.label :last_name %>:
+  <%= f.text_field :last_name %><br />
+
+  <%= f.label :grade %>
+  <%= f.select :grade, [ 5, 6, 7, 8 ] %>
+
+  <%= f.submit "Find / Create Student", class: "new-student-submit-button" %>
+</div>
+
+<% end %>
