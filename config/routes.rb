@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
   devise_for :parents
+
+  devise_scope :parent do
+    authenticated :parent do
+      root 'students#index', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
+
   get 'shadow_spots/create'
   resources :students
   resources :student_shadows
@@ -9,7 +20,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  root 'students#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
