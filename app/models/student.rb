@@ -1,6 +1,7 @@
 class Student < ActiveRecord::Base
   has_one :student_shadow
   has_one :shadow_spot, through: :student_shadow
+  belongs_to :parent
   belongs_to :shadow_spot
   accepts_nested_attributes_for :student_shadow
 

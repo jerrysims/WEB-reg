@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :parents
   get 'shadow_spots/create'
   resources :students
   resources :student_shadows
