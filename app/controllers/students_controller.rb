@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   def index
+    @students = current_parent.students
   end
 
   def create
@@ -21,8 +22,7 @@ class StudentsController < ApplicationController
 
   private
   def student_params
-    params.require(:student).permit(:email_address, :first_name, :grade,
-      :last_name, :parent_first_name, :parent_last_name, :shadow_spot)
+    params.require(:student).permit(:first_name, :grade, :last_name, :parent_id).merge(parent_id: current_parent.id)
     end
 
 

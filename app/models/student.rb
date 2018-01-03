@@ -7,9 +7,6 @@ class Student < ActiveRecord::Base
 
   validates :first_name, presence: :true
   validates :last_name, presence: :true
-  validates :parent_last_name,
-    presence: :true,
-    uniqueness: { scope: [ :first_name, :last_name, :parent_first_name ] }
 
   attr_accessor :shadow_spot
 
@@ -18,6 +15,6 @@ class Student < ActiveRecord::Base
   end
 
   def parents_full_name
-    "#{parent_first_name.capitalize} #{parent_last_name.capitalize}"
+    "#{parent.first_name.capitalize} #{parent.last_name.capitalize}"
   end
 end
