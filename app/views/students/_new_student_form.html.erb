@@ -1,0 +1,28 @@
+<div class='container'>
+  <h1>Come visit the WEB Tutorial.</h1>
+  <h2>First, tell us about your student<h2>
+  <div id="students">
+  <%= form_for(Student.new, remote: true, html: { class: "new-student-form" }) do |f| %>
+    <div class="form-group">
+      <%= f.label :first_name %>:
+      <div class="col-offset-2">
+        <%= f.text_field :first_name %><br />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :last_name %>:
+      <div class="col-offset-8">
+      <%= f.text_field :last_name %><br />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "Grade (fall 2018):" %>
+      <%= f.select :grade, [ 5, 6, 7, 8 ] %>
+    </div>
+
+      <%= f.submit "Create Student", class: "new-student-submit-button" %>
+  <% end %>
+  </div>
+</div>

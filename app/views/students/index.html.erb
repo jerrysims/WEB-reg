@@ -1,1 +1,5 @@
-<%= render "index" %>
+<% if @students.empty? %>
+  <%= render "new_student_form" %>
+<% else %>
+  <%= render "student_list" %>
+<% end %>
