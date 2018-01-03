@@ -4,5 +4,9 @@ class Parent < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :phone_number, presence: true
+
   has_many :students
 end
