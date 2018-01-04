@@ -1,0 +1,9 @@
+<div class="card border-primary" style="width: 20rem; border: solid">
+  <div class="card-block">
+    <h4 class="card-title"><%= student.full_name %></h4>
+    <p class="card-text">Grade: <%= student.grade %></p>
+    <%= link_to "Change #{student.first_name}'s schedule",
+      edit_student_path(student.id),
+      html_options = { class: "btn btn-primary", style: "color: inherit;" } %>
+  </div>
+</div>
