@@ -3,8 +3,11 @@
   <div id="student_shadows">
   <%= form_for(StudentShadow.new, remote: true, html: { class: "new-student-shadow-form" }) do |f| %>
     <%= f.hidden_field :student, value: @student.id %>
-    <div class="form-group">
+    <div id="current_student_shadows" class="form-group">
       <%= f.label "Student: " %>: <strong><%= @student.full_name %></strong><br>
+      <% unless @student.shadow_spots.empty? %>
+        <%= render "student_shadow_list" %>
+      <% end %>
     </div>
 
     <div class="form-group">
