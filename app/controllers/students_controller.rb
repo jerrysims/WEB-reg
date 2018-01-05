@@ -29,7 +29,6 @@ class StudentsController < ApplicationController
   private
   def student_params
     params.require(:student).permit(:first_name, :grade, :last_name, :parent_id).merge(parent_id: current_parent.id)
-    end
-
+  end
 
 end

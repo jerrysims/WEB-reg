@@ -2,14 +2,8 @@
   <div class="card-block">
     <h4 class="card-title"><%= student.full_name %></h4>
     <p class="card-text">Grade: <%= student.grade %></p>
-    <% if student.shadow_spots.empty? %>
-      <%= link_to "Sign #{student.first_name} up to shadow",
-        new_student_shadow_path(student_id: student.id),
-        html_options = { class: "btn btn-primary" } %>
-    <% else %>
-      <%= link_to "Change #{student.first_name}'s schedule",
-        edit_student_shadow_path(student.id),
-        html_options = { class: "btn btn-primary" } %>
-    <% end %>
+    <%= link_to student.shadow_spots.empty? ? "Sign #{student.first_name} up to shadow" : "Change #{student.first_name}'s schedule",
+      new_student_shadow_path(student_id: student.id),
+      html_options = { class: "btn btn-primary" } %>
   </div>
 </div>
