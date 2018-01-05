@@ -1,3 +1,24 @@
 // Place all the styles related to the Student controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.student-list-container {
+  .student-tile {
+    padding: 20px;
+    display: inline-block;
+  }
+}
+
+.student-tile-card {
+  width: 100%;
+  margin: 0;
+  border: solid;
+  padding: 1rem;
+}
+
+.card-block {
+  margin: 0;
+  h4, p, a {
+    margin: 0 auto;
+    text-align: center;
+  }
+}
