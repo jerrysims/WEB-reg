@@ -8,8 +8,13 @@ class StudentShadowsController < ApplicationController
     end
   end
 
+  def new
+    @student = Student.find(params[:student_id]) unless params[:student_id].nil?
+  end
+
   def create
     @student = Student.new
     @shadow_spots = ShadowSpot.all
   end
+
 end
