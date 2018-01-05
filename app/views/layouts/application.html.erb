@@ -8,30 +8,33 @@
 </head>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
- <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
-      <div id="logo" data-content-field="site-title">
-        <h1 class="logo" data-shrink-original-size="32" style="letter-spacing: 0.125em;"><a href="/">WEB Tutorial {Nashville}</a></h1>
-        <div class="tagline">Weekday Eastside Bridge</div>
-      </div>
-      <div class="container nav-container">
-        <nav>
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Home", root_path %></li>
-            <li><%= link_to "Help",   '#' %></li>
-            <li>
-              <% if current_parent %>
-                <%= link_to "Sign Out", destroy_parent_session_path, method: :delete %></li>
-              <% else %>
-                <%= link_to "Log in", new_parent_sessions_path, method: :get %>
-              <% end %>
+  <body>
+    <div id="canvas">
+      <header >
+        <div id="logo" data-content-field="site-title">
+          <h1 class="logo" data-shrink-original-size="32" style="letter-spacing: 0.125em;"><a href="/">WEB Tutorial {Nashville}</a></h1>
+          <div class="tagline">Weekday Eastside Bridge</div>
+        </div>
+        <div class="container nav-container">
+          <nav>
+            <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to "Home", root_path %></li>
+              <li><%= link_to "Help",   '#' %></li>
+              <li>
+                <% if current_parent %>
+                  <%= link_to "Sign Out", destroy_parent_session_path, method: :delete %></li>
+                <% else %>
+                  <%= link_to "Log in", new_parent_sessions_path, method: :get %>
+                <% end %>
 
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <div class="container content-container" style="margin-top: 100px;">
+        <%= yield %>
       </div>
-    </header>
-    <div class="container content-container">
-      <%= yield %>
     </div>
+    <!-- / #canvas -->
   </body>
 </html>

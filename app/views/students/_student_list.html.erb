@@ -1,5 +1,9 @@
 <h1>We found the following students:</h1>
-<% @students.each do |s| %>
-  <%= render "student_tile", student: s %>
-<% end %>
+<div class="container student-list-container">
+  <% @students.each do |s| %>
+    <div class="student-tile">
+      <%= render "student_tile", student: s %>
+    </div>
+  <% end %>
+</div>
 <%= link_to "Add a new student", new_student_path, method: :get %>

@@ -13,8 +13,9 @@ class StudentShadowsController < ApplicationController
   end
 
   def create
-    @student = Student.new
-    @shadow_spots = ShadowSpot.all
+    @shadow_spot = ShadowSpot.find(params[:student_shadow][:shadow_spot])
+    @student = Student.find(params[:student_shadow][:student])
+    StudentShadow.create(student: @student, shadow_spot: @shadow_spot)
   end
 
 end

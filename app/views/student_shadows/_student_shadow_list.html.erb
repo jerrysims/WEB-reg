@@ -1,0 +1,6 @@
+<%= @student.first_name %> currently has the following schedule:
+<ul>
+<% @student.shadow_spots.each do |ss| %>
+  <li><%= ss.name_for_select %></li>
+<% end %>
+</ul>

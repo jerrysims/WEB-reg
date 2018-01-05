@@ -2,12 +2,16 @@
   <h1>Sign up for a shadow spot below</h1>
   <div id="student_shadows">
   <%= form_for(StudentShadow.new, remote: true, html: { class: "new-student-shadow-form" }) do |f| %>
-    <div class="form-group">
+    <%= f.hidden_field :student, value: @student.id %>
+    <div id="current_student_shadows" class="form-group">
       <%= f.label "Student: " %>: <strong><%= @student.full_name %></strong><br>
+      <% unless @student.shadow_spots.empty? %>
+        <%= render "student_shadow_list" %>
+      <% end %>
     </div>
 
     <div class="form-group">
-      <%= f.collection_select :shadow_spot, ShadowSpot.select{ |ss| ss.subject_grade == @grade }, :id, :name_for_select %><br />
+      <%= f.collection_select :shadow_spot, ShadowSpot.select{ |ss| ss.subject_grade == @student.grade }, :id, :name_for_select %><br />
     </div>
 
       <%= f.submit "Sign up for this shadow slot", class: "new-student-submit-button" %>
