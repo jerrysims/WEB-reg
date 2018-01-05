@@ -2,8 +2,14 @@
   <div class="card-block">
     <h4 class="card-title"><%= student.full_name %></h4>
     <p class="card-text">Grade: <%= student.grade %></p>
-    <%= link_to "Change #{student.first_name}'s schedule",
-      edit_student_path(student.id),
-      html_options = { class: "btn btn-primary", style: "color: inherit;" } %>
+    <% if student.shadow_spots.empty? %>
+      <%= link_to "Sign #{student.first_name} up to shadow",
+        new_student_shadow_path(student_id: student.id),
+        html_options = { class: "btn btn-primary", style: "color: inherit;" } %>
+    <% else %>
+      <%= link_to "Change #{student.first_name}'s schedule",
+        edit_student_shadow_path(student.id),
+        html_options = { class: "btn btn-primary", style: "color: inherit;" } %>
+    <% end %>
   </div>
 </div>
