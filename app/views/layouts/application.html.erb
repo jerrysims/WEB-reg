@@ -24,14 +24,14 @@
                 <% if current_parent %>
                   <%= link_to "Sign Out", destroy_parent_session_path, method: :delete %></li>
                 <% else %>
-                  <%= link_to "Log in", new_parent_sessions_path, method: :get %>
+                  <%= link_to "Log in", new_parent_session_path, method: :get %>
                 <% end %>
 
             </ul>
           </nav>
         </div>
       </header>
-      <div class="container content-container" style="margin-top: 100px;">
+      <div class="container content-container">
         <%= yield %>
       </div>
     </div>
