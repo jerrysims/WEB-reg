@@ -3,6 +3,10 @@ class StudentShadowsController < ApplicationController
     @student_shadow = StudentShadow.create(student_shadow_params)
     @shadow_spot = ShadowSpot.find(params[:student_shadow][:shadow_spot_id])
     @student = Student.find(params[:student_shadow][:student_id])
+    @available_shadow_spots = ShadowSpot.select {
+      |ss| ss.subject.grade == @student.grade } .select {
+      |ss| !@student.shadow_spots.include?(ss)
+    }
   end
 
   def edit

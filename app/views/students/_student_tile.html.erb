@@ -2,8 +2,17 @@
   <div class="card-block">
     <h4 class="card-title"><%= student.full_name %></h4>
     <p class="card-text">Grade: <%= student.grade %></p>
-    <%= link_to student.shadow_spots.empty? ? "Sign #{student.first_name} up to shadow" : "Change #{student.first_name}'s schedule",
+    <% unless student.shadow_spots.empty? %>
+      <ul>Current shadow schedule:
+        <% student.shadow_spots.each do |shadow_spot| %>
+          <li><%= shadow_spot.name_for_select %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <div class="student-tile-div">
+    <%= link_to student.shadow_spots.empty? ? "Sign up to shadow" : "Change schedule",
       new_student_shadow_path(student_id: student.id),
-      html_options = { class: "btn btn-primary" } %>
+      html_options = { class: "btn btn-primary student-tile-btn" } %>
+    </div>
   </div>
 </div>

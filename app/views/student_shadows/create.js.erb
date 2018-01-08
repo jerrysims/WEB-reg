@@ -1,3 +1,2 @@
-$("#student-shadow-list").remove()
-debugger
-$("#current_student_shadows").append("<%= escape_javascript(render 'student_shadow_list') %>")
+$("#new_student_shadow_container").empty()
+$("#new_student_shadow_container").append("<%= escape_javascript(render 'new_student_shadow_form') %>")
