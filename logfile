@@ -1,0 +1,21 @@
+2018-01-08 13:27:24.638 CST [40013] LOG:  listening on IPv6 address "::1", port 5432
+2018-01-08 13:27:24.638 CST [40013] LOG:  listening on IPv6 address "fe80::1%lo0", port 5432
+2018-01-08 13:27:24.638 CST [40013] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2018-01-08 13:27:24.640 CST [40013] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2018-01-08 13:27:24.651 CST [40014] LOG:  database system was shut down at 2018-01-08 13:27:01 CST
+2018-01-08 13:27:24.653 CST [40013] LOG:  database system is ready to accept connections
+2018-01-08 13:34:25.427 CST [40512] ERROR:  syntax error at or near "exit" at character 1
+2018-01-08 13:34:25.427 CST [40512] STATEMENT:  exit
+	quit
+	;
+2018-01-08 13:34:31.217 CST [40512] ERROR:  syntax error at or near "exit" at character 1
+2018-01-08 13:34:31.217 CST [40512] STATEMENT:  exit;
+2018-01-08 13:34:33.897 CST [40512] ERROR:  syntax error at or near "quit" at character 1
+2018-01-08 13:34:33.897 CST [40512] STATEMENT:  quit;
+2018-01-08 13:36:10.503 CST [43278] FATAL:  role "WEB" does not exist
+2018-01-08 13:36:10.523 CST [43279] FATAL:  role "WEB" does not exist
+2018-01-08 13:36:11.719 CST [43287] FATAL:  role "WEB" does not exist
+2018-01-08 13:41:51.301 CST [45958] FATAL:  role "WEB" does not exist
+2018-01-08 13:41:51.305 CST [45959] FATAL:  role "WEB" does not exist
+2018-01-08 13:41:52.469 CST [45966] FATAL:  role "WEB" does not exist
+2018-01-08 13:42:08.990 CST [46074] FATAL:  database "jerry" does not exist
