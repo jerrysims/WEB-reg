@@ -1,8 +1,20 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-*, h1 {
+*, h1, h2, .alert, .notice, .student-form {
   font-family: Futura, Futura-Medium, "Futura Medium", "Century Gothic", CenturyGothic, "Apple Gothic", AppleGothic, "URW Gothic L", "Avant Garde", sans-serif;
+}
+
+.alert {
+  color: red;
+}
+
+.notice {
+  color: black;
+}
+
+.alert, .notice {
+  text-align: center;
 }
 
 .nav-container {

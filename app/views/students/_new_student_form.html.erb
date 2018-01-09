@@ -1,8 +1,8 @@
 <div class='container'>
-  <h1>Come visit the WEB Tutorial.</h1>
-  <h2>First, tell us about your student<h2>
+  <h1 class='student-form'>Come visit the WEB Tutorial.</h1>
+  <h2 class='student-form'>First, tell us about your student</h2>
   <div id="students">
-  <%= form_for(Student.new, remote: true, html: { class: "new-student-form" }) do |f| %>
+  <%= form_for(Student.new, html: { class: "new-student-form" }) do |f| %>
     <div class="form-group">
       <%= f.label :first_name %>:
       <div class="col-offset-2">
