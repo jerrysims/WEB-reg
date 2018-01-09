@@ -6,9 +6,8 @@ class StudentsController < ApplicationController
   def create
     @student = Student.where(student_params).first
     @student = Student.create(student_params) if @student.nil?
-    respond_to do |format|
-      format.js { }
-    end
+    @students = current_parent.students
+    render 'index'
   end
 
   def edit
