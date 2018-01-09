@@ -1,11 +1,15 @@
 class StudentShadowsController < ApplicationController
   def create
-    @student_shadow = StudentShadow.create(student_shadow_params)
-    @shadow_spot = ShadowSpot.find(params[:student_shadow][:shadow_spot_id])
     @student = Student.find(params[:student_shadow][:student_id])
+    @student_shadow = StudentShadow.create(student_shadow_params)
+    if @student_shadow.errors[:student].include? 'may not shadow more than twice'
+      drop_schedule
+      @student_shadow = StudentShadow.create(student_shadow_params)
+      @student.reload
+    end
     @available_shadow_spots = ShadowSpot.select {
       |ss| ss.subject.grade == @student.grade } .select {
-      |ss| !@student.shadow_spots.include?(ss)
+      |ss| !@student.shadow_spots.include?(ss) }.select {
     }
   end
 
@@ -39,6 +43,11 @@ class StudentShadowsController < ApplicationController
 
   def student_shadow_params
     params.require(:student_shadow).permit(:student_id, :shadow_spot_id)
+  end
+
+  def drop_schedule
+    @student.student_shadows.destroy_all
+    @student.shadow_spots.destroy_all
   end
 
 end
