@@ -14,12 +14,6 @@ class StudentShadowsController < ApplicationController
   end
 
   def edit
-    @student = Student.find(params[:id])
-    @shadow_spots = @student.shadow_spots
-    @available_shadow_spots = ShadowSpot.select {
-      |ss| ss.subject.grade == @student.grade } .select {
-      |ss| !@student.shadow_spots.include?(ss)
-    }
   end
 
   def index
