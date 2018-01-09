@@ -6,24 +6,39 @@
     <p><strong><i>Choosing a different date below will release the shadow spots that are already scheduled.</i></strong></p>
   <% end %>
   <div id="student_shadows">
-  <%= form_for(StudentShadow.new, remote: true, html: { class: "new-student-shadow-form" }) do |f| %>
-    <%= f.hidden_field :student_id, value: @student.id %>
-    <div id="current_student_shadows" class="form-group">
-      <%= f.label "Student: " %>: <strong><%= @student.full_name %></strong><br>
-      <% unless @student.shadow_spots.empty? %>
-        <%= render "student_shadow_list" %>
+    <%= form_for(StudentShadow.new, remote: true, html: { class: "new-student-shadow-form" }) do |f| %>
+      <%= f.hidden_field :student_id, value: @student.id %>
+      <div id="current_student_shadows" class="form-group">
+        <%= f.label "Student: " %>: <strong><%= @student.full_name %></strong><br>
+        <% unless @student.shadow_spots.empty? %>
+          <%= render "student_shadow_list" %>
+        <% end %>
+      </div>
+
+      <div class="form-group" id="shadow-spot-selection">
+        <%= f.collection_select :shadow_spot_id, @available_shadow_spots, :id, :name_for_select %><br />
+      </div>
+
+      <% if @student.shadow_spots.empty? %>
+        <%= f.submit "Sign up for this shadow slot", class: "new-student-submit-button" %>
+      <% else %>
+        <%= f.submit "Change Schedule", class: "new-student-submit-button" %>
       <% end %>
-    </div>
-
-    <div class="form-group" id="shadow-spot-selection">
-      <%= f.collection_select :shadow_spot_id, @available_shadow_spots, :id, :name_for_select %><br />
-    </div>
-
-    <% if @student.shadow_spots.empty? %>
-      <%= f.submit "Sign up for this shadow slot", class: "new-student-submit-button" %>
-    <% else %>
-      <%= f.submit "Change Schedule", class: "new-student-submit-button" %>
     <% end %>
-  <% end %>
+    <% if @student.should_be_offered_lunch? %>
+      <%= form_for(@student, remote: true, html: { class: 'lunch-select-form' }) do |f| %>
+        <%= f.hidden_field :id, value: @student.id %>
+        <label class='lunch-select'>
+          <%= check_box_tag(
+            'lunch',
+            1,
+            @student.lunch?,
+            data: { remote: true, url: change_lunch_path(@student), method: :post }
+          ) %>
+          Check here if this student is staying for lunch
+        </label>
+      <% end %>
+    <% end %>
   </div>
+
 </div>

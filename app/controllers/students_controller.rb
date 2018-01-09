@@ -25,6 +25,11 @@ class StudentsController < ApplicationController
     @shadow_spot = @student.shadow_spot
   end
 
+  def change_lunch
+    @student = Student.find(params[:id])
+    @student.update_attribute(:lunch, !!params[:lunch])
+  end
+
   private
   def student_params
     params.require(:student).permit(:first_name, :grade, :last_name, :parent_id).merge(parent_id: current_parent.id)

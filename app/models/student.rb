@@ -17,4 +17,9 @@ class Student < ActiveRecord::Base
   def parents_full_name
     "#{parent.first_name.capitalize} #{parent.last_name.capitalize}"
   end
+
+  def should_be_offered_lunch?
+    !shadow_spots.select { |ss| ss.time == "10:15 AM" }.empty?
+  end
+
 end
