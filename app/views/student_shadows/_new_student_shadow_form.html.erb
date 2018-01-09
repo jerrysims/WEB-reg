@@ -1,8 +1,8 @@
 <div class='container' id="new_student_shadow_container">
   <% if @student.shadow_spots.empty? %>
-    <h1>Sign up for a shadow spot below</h1>
+    <h1 class='student-shadow-form'>Sign up for a shadow spot below</h1>
   <% else %>
-    <h1>Edit schedule</h1>
+    <h1 class='student-shadow-form'>Edit schedule</h1>
     <p><strong><i>Choosing a different date below will release the shadow spots that are already scheduled.</i></strong></p>
   <% end %>
   <div id="student_shadows">
