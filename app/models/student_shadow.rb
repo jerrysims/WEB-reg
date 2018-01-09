@@ -10,6 +10,10 @@ class StudentShadow < ActiveRecord::Base
     errors.add(:shadow_spot, "may only have one student at a time")
   end
 
+  def should_offer_lunch?
+    shadow_spot.time == "10:15 AM"
+  end
+
   def student_may_only_shadow_one_day
     spots = StudentShadow.where(student: student)
     return true if spots.empty?

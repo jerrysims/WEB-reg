@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104161446) do
+ActiveRecord::Schema.define(version: 20180109121524) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -24,9 +27,9 @@ ActiveRecord::Schema.define(version: 20180104161446) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "parents", force: :cascade do |t|
     t.string   "email",                             default: "", null: false
@@ -46,8 +49,8 @@ ActiveRecord::Schema.define(version: 20180104161446) do
     t.string   "last_name"
   end
 
-  add_index "parents", ["email"], name: "index_parents_on_email", unique: true
-  add_index "parents", ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true
+  add_index "parents", ["email"], name: "index_parents_on_email", unique: true, using: :btree
+  add_index "parents", ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true, using: :btree
 
   create_table "shadow_spots", force: :cascade do |t|
     t.text     "time"
@@ -60,12 +63,13 @@ ActiveRecord::Schema.define(version: 20180104161446) do
   create_table "student_shadows", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "shadow_spot_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "lunch",          default: false
   end
 
-  add_index "student_shadows", ["shadow_spot_id"], name: "index_student_shadows_on_shadow_spot_id"
-  add_index "student_shadows", ["student_id"], name: "index_student_shadows_on_student_id"
+  add_index "student_shadows", ["shadow_spot_id"], name: "index_student_shadows_on_shadow_spot_id", using: :btree
+  add_index "student_shadows", ["student_id"], name: "index_student_shadows_on_student_id", using: :btree
 
   create_table "students", force: :cascade do |t|
     t.string   "first_name"
