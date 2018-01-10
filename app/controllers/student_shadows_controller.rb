@@ -9,7 +9,7 @@ class StudentShadowsController < ApplicationController
     end
     @available_shadow_spots = ShadowSpot.select {
       |ss| ss.subject.grade == @student.grade } .select {
-      |ss| !@student.shadow_spots.include?(ss) }.select {
+      |ss| !@student.shadow_spots.include?(ss)
     }
   end
 
