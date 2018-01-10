@@ -99,4 +99,7 @@ ActiveRecord::Schema.define(version: 20180109151032) do
     t.integer  "subject_id"
   end
 
+  add_foreign_key "student_shadows", "shadow_spots"
+  add_foreign_key "student_shadows", "students"
+  add_foreign_key "students", "parents"
 end
