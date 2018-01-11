@@ -10,13 +10,13 @@ class StudentShadowsController < ApplicationController
       end
     end
     @should_show_selection_box = get_should_show_selection_box(@student, params[:commit])
-    @available_shadow_spots = ShadowSpot.select {
-      |ss| ss.subject.grade == @student.grade } .select {
-      |ss| !@student.shadow_spots.include?(ss)
-    }
+    @available_shadow_spots = get_available_shadow_spots(@student, params[:commit])
   end
 
   def edit
+    params[:student_shadow]= { student_id: params[:id] }
+    params[:commit] = "Change Date"
+    create
   end
 
   def index
@@ -31,10 +31,7 @@ class StudentShadowsController < ApplicationController
   def new
     @student = Student.find(params[:student_id]) unless params[:student_id].nil?
     @should_show_selection_box = get_should_show_selection_box(@student)
-    @available_shadow_spots = ShadowSpot.select {
-      |ss| ss.subject.grade == @student.grade } .select {
-      |ss| !@student.shadow_spots.include?(ss)
-    }
+    @available_shadow_spots = get_available_shadow_spots(@student, params[:commit])
   end
 
   private
@@ -45,7 +42,26 @@ class StudentShadowsController < ApplicationController
 
   def drop_schedule
     @student.student_shadows.destroy_all
-    @student.shadow_spots.destroy_all
+  end
+
+  def get_available_shadow_spots(student, commit)
+    if student.shadow_spots.count == 1 && commit == "Change Date"
+      @available_shadow_spots = ShadowSpot.select {
+        |ss| ss.subject.grade == student.grade } .select {
+        |ss| !student.shadow_spots.include?(ss)
+      }
+    elsif student.shadow_spots.count == 1
+      @available_shadow_spots = ShadowSpot.select {
+        |ss| ss.subject != student.shadow_spots.first.subject &&
+        ss.date == student.shadow_spots.first.date &&
+        ss.subject.grade == student.shadow_spots.first.subject.grade
+      }
+    else
+      @available_shadow_spots = ShadowSpot.select {
+        |ss| ss.subject.grade == student.grade } .select {
+        |ss| !student.shadow_spots.include?(ss)
+      }
+    end
   end
 
   def get_should_show_selection_box(student, commit = nil)
