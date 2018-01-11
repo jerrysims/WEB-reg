@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to WEB Tutorial, <%= @parent.first_name %></h1>
+    <h2>Your <%= @parent.students.count > 1 ? "children's" : "child's" %> Shadow Schedule is below</h2>
+    <% @parent.students.each do |s| %>
+      <%= render "students/student_tile", student: s %>
+    <% end %>
+    </p>
+  </body>
+</html>

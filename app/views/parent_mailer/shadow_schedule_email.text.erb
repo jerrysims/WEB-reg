@@ -1,0 +1,18 @@
+Welcome to WEB Tutorial, <%= @parent.first_name %>
+============================================
+
+Your <%= @parent.students.count > 1 ? "children's" : "child's" %> Shadow Schedule is below:
+
+<% @parent.students.each do |s| %>
+  Student: <%= s.full_name %>
+  Grade: <%= s.grade %>
+  <% unless s.shadow_spots.empty? %>
+  Current shadow schedule:
+    <% s.shadow_spots.each do |shadow_spot| %>
+    Subject: <%= shadow_spot.subject.name %>
+    Date:    <%= shadow_spot.date.strftime("%-m/%-d/%Y") %>
+    Time:    <%= shadow_spot.time %>
+
+    <% end %>
+  <% end %>
+<% end %>

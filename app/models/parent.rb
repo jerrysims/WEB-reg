@@ -9,4 +9,8 @@ class Parent < ActiveRecord::Base
   validates :phone_number, presence: true
 
   has_many :students
+
+  def full_name
+    #{first_name} #{last_name}
+  end
 end
