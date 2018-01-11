@@ -16,7 +16,7 @@ class StudentShadow < ActiveRecord::Base
     if spots.count > 1
       errors.add(:student, "may not shadow more than twice")
     elsif
-      unless spots.select { |s| s.shadow_spot.date != shadow_spot.date }.empty?
+      unless shadow_spot.present? && spots.select { |s| s.shadow_spot.date != shadow_spot.date }.empty?
         errors.add(:student, "may not shadow on separate dates")
       end
     end
