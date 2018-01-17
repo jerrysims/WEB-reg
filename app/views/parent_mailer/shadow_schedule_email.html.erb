@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1>Welcome to WEB Tutorial, <%= @parent.first_name %></h1>
-    <h2>Your <%= @parent.students.count > 1 ? "children's" : "child's" %> Shadow Schedule is below</h2>
-    <% @parent.students.each do |s| %>
-      <%= render "students/student_tile", student: s %>
-    <% end %>
-    </p>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+Dear <%= @parent.first_name.capitalize %>,
+
+<p>
+<%= @parent.students.first.first_name %> is confirmed to shadow on <%= @shadow_date_for_print %>. The full shadow schedule is printed below.
+The teacher<br>for this class is copied above if you have any questions. I would be happy to meet with you at <%= @meeting_time %><br>just after classes get started and you drop <%= @students.first.first_name %> off.</p>
+
+<p>As a reminder, WEB meets at Dalewood UMC, 2300 Ridgecrest Drive. You will enter through the double<br>glass doors under the awning.</p>
+
+<p>Should there be severe weather on your scheduled shadow day, please contact me at 615-496-9995 to<br>see if classes are meeting as planned.</p>
+
+<p>
+Your <%= @student_count > 1 ? "children's" : "child's" %> full shadow schedule follows:
+<% @parent.students.each do |s| %>
+  <%= render "students/student_tile", student: s %>
+  ______________
+<% end %>
+</p>
+
+
+<p>I look forward to meeting you and <%= @students.first.first_name %>!<br>
+Shannon Truss<br>
+Director, WEB<br>
+</p>
   </body>
 </html>

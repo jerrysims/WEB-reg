@@ -1,4 +1,16 @@
-Welcome to WEB Tutorial, <%= @parent.first_name %>
+Dear <%= @parent.first_name.capitalize %>,
+
+<%= @parent.students.first.first_name %> is confirmed to shadow on <%= @shadow_date_for_print %>.
+The full shadow schedule is printed below. The teacher for this class is copied above if you have
+any questions. I would be happy to meet with you at <%= @meeting_time %> just after classes get started and you
+drop <%= @students.first.first_name %> off.
+
+As a reminder, WEB meets at Dalewood UMC, 2300 Ridgecrest Drive. You will enter through the double
+glass doors under the awning.
+
+Should there be severe weather on your scheduled shadow day, please contact me at 615-496-9995 to
+see if classes are meeting as planned.
+
 ============================================
 
 Your <%= @parent.students.count > 1 ? "children's" : "child's" %> Shadow Schedule is below:
@@ -6,13 +18,25 @@ Your <%= @parent.students.count > 1 ? "children's" : "child's" %> Shadow Schedul
 <% @parent.students.each do |s| %>
   Student: <%= s.full_name %>
   Grade: <%= s.grade %>
-  <% unless s.shadow_spots.empty? %>
+  <% if s.shadow_spots.empty? %>
+  ** This student has not yet signed up to shadow **
+  <% else %>
   Current shadow schedule:
+
     <% s.shadow_spots.each do |shadow_spot| %>
     Subject: <%= shadow_spot.subject.name %>
     Date:    <%= shadow_spot.date.strftime("%-m/%-d/%Y") %>
     Time:    <%= shadow_spot.time %>
 
     <% end %>
+  -----------------------------
   <% end %>
 <% end %>
+
+
+============================================
+
+I look forward to meeting you and <%= @students.first.first_name %>!
+
+Shannon Truss
+Director, WEB
