@@ -2,8 +2,7 @@ class ShadowSpot < ActiveRecord::Base
   has_one :student_shadow
   has_one :student, through: :student_shadow
   belongs_to :subject
-  has_many :teachers
-  # belongs_to :student
+  has_one :teacher, through: :subject
 
   validates :time, presence: :true
   validates :date, presence: :true, uniqueness: { scope: [ :subject, :time ]}

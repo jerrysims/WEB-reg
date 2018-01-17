@@ -1,4 +1,3 @@
-<div class='container' id="new_student_shadow_container">
   <!-- Heading -->
   <% if @student.shadow_spots.empty? %>
     <h1 class='student-shadow-form'>Sign up for a shadow spot below</h1>
@@ -27,7 +26,12 @@
         <%= f.submit "Sign up for this shadow slot", class: "new-student-submit-button" %>
       <% elsif @student.shadow_spots.count == 1 %>
         <%= f.submit "Add additional class", class: "new-student-submit-button" %>
-        <p><%= link_to "Accept Schedule", root_path, class: "button btn new-student-submit-button" %><br />
+        <p><%= link_to "Accept Schedule", {
+          controller: "students",
+          action: "index",
+          student_id: @student.id,
+          commit: "Accept Schedule"
+          }, class: "accept-schedule button btn new-student-submit-button" %><br />
         <%= link_to "Change Date", {
           controller: "student_shadows",
           action: "new",
@@ -36,7 +40,12 @@
           }, class: "button btn new-student-submit-button" %></p>
       <% elsif @student.shadow_spots.count > 1 && !@should_show_selection_box %>
         <%= f.submit "Change Date", class: "new-student-submit-button" %>
-        <p><%= link_to "Accept Schedule", root_path, class: "button btn new-student-submit-button" %></p>
+        <p><%= link_to "Accept Schedule", {
+          controller: "students",
+          action: "index",
+          student_id: @student.id,
+          commit: "Accept Schedule"
+          }, class: "accept-schedule button btn new-student-submit-button" %><br />
       <% else %>
         <%= f.submit "Add This Class", class: "new-student-submit-button" %>
         <p><%= link_to "Accept Previous Schedule", root_path, class: "button btn new-student-submit-button" %></p>
@@ -57,5 +66,3 @@
       <% end %>
     <% end %>
   </div><!-- end student_shadows form -->
-
-</div>
