@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   def index
     @students = current_parent.students
-    send_mail(params[:student_id]) if params[:commit] == "Accept Schedule"
+    # send_mail(params[:student_id]) if params[:commit] == "Accept Schedule"
   end
 
   def create
@@ -33,8 +33,8 @@ class StudentsController < ApplicationController
 
   private
   def send_mail(student)
-    current_student = Student.find(student)
-    ParentMailer.shadow_schedule_email(current_parent, current_student).deliver_now
+    # current_student = Student.find(student)
+    # ParentMailer.shadow_schedule_email(current_parent, current_student).deliver_now
   end
 
   def student_params
