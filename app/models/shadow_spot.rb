@@ -7,6 +7,8 @@ class ShadowSpot < ActiveRecord::Base
   validates :time, presence: :true
   validates :date, presence: :true, uniqueness: { scope: [ :subject, :time ]}
 
+  scope :unscheduled, -> { joins("LEFT OUTER JOIN student_shadows ON student_shadows.shadow_spot_id = shadow_spots.id").where("student_shadows.id IS null") }
+
   def name_for_select
     "#{subject.name}: #{date.strftime("%-m/%-d/%Y")}, #{time}"
   end
