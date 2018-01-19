@@ -11,7 +11,7 @@
     <% end %>
     <div class="student-tile-div">
     <%= link_to student.shadow_spots.empty? ? "Sign up to shadow" : "Change schedule",
-      new_student_shadow_path(student_id: student.id),
+      new_student_shadow_path(student_id: student.id, only_path: false),
       html_options = { class: "btn btn-primary student-tile-btn" } %>
     </div>
   </div>
