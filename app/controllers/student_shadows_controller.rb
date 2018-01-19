@@ -46,18 +46,18 @@ class StudentShadowsController < ApplicationController
 
   def get_available_shadow_spots(student, commit)
     if student.shadow_spots.count == 1 && commit == "Change Date"
-      @available_shadow_spots = ShadowSpot.select {
+      @available_shadow_spots = ShadowSpot.unscheduled.select {
         |ss| ss.subject.grade == student.grade } .select {
         |ss| !student.shadow_spots.include?(ss)
       }
     elsif student.shadow_spots.count == 1
-      @available_shadow_spots = ShadowSpot.select {
+      @available_shadow_spots = ShadowSpot.unscheduled.select {
         |ss| ss.subject != student.shadow_spots.first.subject &&
         ss.date == student.shadow_spots.first.date &&
         ss.subject.grade == student.shadow_spots.first.subject.grade
       }
     else
-      @available_shadow_spots = ShadowSpot.select {
+      @available_shadow_spots = ShadowSpot.unscheduled.select {
         |ss| ss.subject.grade == student.grade } .select {
         |ss| !student.shadow_spots.include?(ss)
       }
