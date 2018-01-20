@@ -18,6 +18,7 @@ class ParentMailer < ApplicationMailer
 
     mail(
       to: @parent.email,
+      from: "notifications@webtutorialnashville.com"
       cc: teacher_emails,
       subject: 'Your WEB Shadow Schedule')
   end
