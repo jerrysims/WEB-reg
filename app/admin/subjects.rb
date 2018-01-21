@@ -1,19 +1,16 @@
-ActiveAdmin.register Student do
+ActiveAdmin.register Subject do
   form do |f|
-    f.input :first_name
-    f.input :last_name
+    f.input :name
     f.input :grade
-    f.input :parent
+    f.input :teacher
     actions
   end
   permit_params :first_name, :last_name, :parent_first_name, :parent_last_name
 
   index do
-    column :first_name
-    column :last_name
+    column :name
     column :grade
-    column :parent
-    column :lunch
+    column :teacher
     actions
   end
 end
