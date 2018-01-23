@@ -26,7 +26,7 @@
         <%= f.submit "Sign up for this shadow slot", class: "new-student-submit-button" %>
       <% elsif @student.shadow_spots.count == 1 %>
         <%= f.submit "Add additional class", class: "new-student-submit-button" %>
-        <p><%= link_to "Accept Schedule", {
+        <p><%= link_to "Accept Schedule & Generate Confirmation Email", {
           controller: "students",
           action: "index",
           student_id: @student.id,
@@ -40,7 +40,7 @@
           }, class: "button btn new-student-submit-button" %></p>
       <% elsif @student.shadow_spots.count > 1 && !@should_show_selection_box %>
         <%= f.submit "Change Date", class: "new-student-submit-button" %>
-        <p><%= link_to "Accept Schedule", {
+        <p><%= link_to "Accept Schedule & Generate Confirmation Email", {
           controller: "students",
           action: "index",
           student_id: @student.id,
