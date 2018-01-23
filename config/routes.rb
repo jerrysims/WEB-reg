@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     end
   end
 
+  # defining this route to deal with mysterious error that was sending a GET request
+  # to '/parents'
+  get 'parents', to: 'students#index'
+
   get 'shadow_spots/create'
   resources :students
   resources :student_shadows
