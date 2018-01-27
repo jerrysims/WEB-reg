@@ -8,6 +8,7 @@ ActiveAdmin.register ShadowSpot do
   permit_params :time, :subject, :date
 
   index do
+    selectable_column
     column :time
     column :date
     column :subject
