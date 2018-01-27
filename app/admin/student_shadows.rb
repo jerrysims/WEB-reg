@@ -3,7 +3,7 @@ ActiveAdmin.register StudentShadow do
     column "Student" do |ss|
       ss.student.full_name
     end
-    column "Date" do |ss|
+    column "Date", :sortable do |ss|
       ss.shadow_spot.date.strftime("%-m/%-d/%Y")
     end
     column "Time" do |ss|
