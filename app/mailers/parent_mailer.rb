@@ -9,6 +9,7 @@ class ParentMailer < ApplicationMailer
     @shadow_date = @shadow_spots.first.date
     @shadow_date_for_print = @shadow_date.strftime("%B %-d")
     teacher_emails = @students.map { |s| s.shadow_spots.map { |ss| ss.teacher.email } }.flatten
+    teacher_emails << 'shannontruss@yahoo.com'
     @meeting_time = if student.shadow_spots.count == 1
       student.shadow_spots.first.time
     else
@@ -19,7 +20,7 @@ class ParentMailer < ApplicationMailer
     mail(
       to: @parent.email,
       from: "notifications@webtutorialnashville.com",
-      cc: teacher_emails, 'shannontruss@yahoo.com'
+      cc: teacher_emails, 
       subject: 'Your WEB Shadow Schedule')
   end
 end
