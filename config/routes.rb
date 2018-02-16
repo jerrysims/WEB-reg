@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :student_shadows
   get 'shadow_spots/create'
   get '/enrollment', to: 'enrollments#new', as: :new_enrollment_path
+  get '/enrollment/select_student', to: 'enrollments#select_student', as: :select_student_path
 
   ActiveAdmin.routes(self)
 

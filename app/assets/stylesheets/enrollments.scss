@@ -6,3 +6,44 @@
   text-align: center;
   margin: auto;
 }
+
+.form-group {
+  display: inline-block;
+  float: left;
+}
+
+h2.student-form {
+  text-align: center;
+  margin: auto;
+}
+
+.enrollment-form-radio-button, .enrollment-form-radio-label, .enrollment-form-radio-group {
+  display: inline-block;
+  padding-right: 2px;
+}
+
+li.student-tile {
+  display: block;
+  list-style: inherit disc inside;
+}
+
+.bordered-section {
+  border-color: gray;
+  border-width: thin;
+  border-style: solid;
+}
+
+textarea {
+  width: 100%;
+}
+
+.long-label {
+  height: auto;
+  margin: auto;
+}
+
+.learning-differences-description {
+  font-family: Futura;
+  font-size: 12px;
+  font-weight: lighter;
+}
