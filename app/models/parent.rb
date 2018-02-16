@@ -7,6 +7,11 @@ class Parent < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :phone_number, presence: true
+  validates :email, presence: true
+  validates :street_address_1, presence: true
+  validates :city, presence: true
+  validates :state, presence: true
+  validates :zip_code, presence: true
 
   has_many :students
 

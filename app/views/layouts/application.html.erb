@@ -29,7 +29,9 @@
 
             </ul>
           </nav>
-        </div>
+        <% if current_page?(root_path) %>
+              <%= render 'layouts/registration_announcement' %>
+        <% end %></div>
       </header>
       <div class="container content-container">
         <%= yield %>

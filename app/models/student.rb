@@ -5,8 +5,12 @@ class Student < ActiveRecord::Base
   # belongs_to :shadow_spot
   accepts_nested_attributes_for :student_shadows
 
-  validates :first_name, presence: :true
-  validates :last_name, presence: :true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :date_of_birth, presence: true
+  validates :grade, presence: true
+  validates :emergency_contact, presence: true
+  validates :emergency_phone, presence: true
 
   attr_accessor :shadow_spot
 

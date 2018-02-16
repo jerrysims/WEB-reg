@@ -1,0 +1,163 @@
+<div class="row">
+  <div class="new-enrollment-form card col-md-offset-3"
+    <h1 class="new-enrollment-form">2018-19 WEB Enrollment</h1>
+  </div>
+  <h2 class='student-form'>First, tell us about your student</h2>
+    <%= form_for(@student, html: { class: "new-student-form" }) do |f| %>
+
+      <!-- student information section -->
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6 bordered-section">
+          <div class="form-group col-md-offset-2 col-md-4">
+            <div class="row">
+              <div class="col-12">
+                <%= f.label :first_name %>:
+              </div>
+              <div class="col-12">
+                <%= f.text_field :first_name %><br />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <div class="row">
+              <div class="col-12">
+                <%= f.label :last_name %>:
+              </div>
+              <div class="col-12">
+                <%= f.text_field :last_name %><br />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-offset-2 col-md-4">
+            <div class="row">
+              <div class="col-12">
+                <%= f.label :student_email %>:
+              </div>
+              <div class="col-12">
+                <%= f.text_field :student_email %><br />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <div class="row">
+              <div class="col-12">
+                <%= f.label "Student's Grade (2018/19)" %>:
+              </div>
+              <div class="col-12">
+                <div class="row">
+                    <% (5..8).each do |grade_level| %>
+                    <div class="enrollment-form-radio-group col-md-3">
+                      <div class="enrollment-form-radio-button">
+                        <%= f.radio_button :grade, grade_level %><br />
+                      </div>
+                      <div class="enrollment-form-radio-label">
+                        <%= f.label "grade_#{grade_level}", grade_level %>
+                      </div>
+                    </div>
+                    <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-offset-2 col-md-4">
+            <div class="row">
+              <div class="col-12">
+                <%= f.label :date_of_birth %>:
+              </div>
+              <div class="col-12">
+                <%= f.date_field :date_of_birth %><br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End student information section -->
+
+      <!-- Parent Information section -->
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6 bordered-section">
+          <div class="form-group col-md-offset-2 col-md-4">
+            <div class="row">
+              <div class="col-12">
+                <%= f.label "Parent Email" %>:
+              </div>
+              <div class="col-12">
+                <%= f.text_field :parent_email, { value: current_parent.email, readonly: true } %><br />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="row">
+              <div class="col-12">
+                <%= f.label "Parent Name" %>:
+              </div>
+              <div class="col-12">
+                <%= f.text_field :parent_name, { value: current_parent.full_name, readonly: true } %><br />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-offset-2 col-md-4">
+            <div class="row">
+              <div class="col-12">
+                <%= f.label "Parent Phone" %>:
+              </div>
+              <div class="col-12">
+                <%= f.phone_field :parent_phone, { value: current_parent.phone_number, readonly: true } %><br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end parent information section -->
+
+      <!-- additional information section -->
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6 bordered-section">
+          <div class="form-group col-md-offset-2 col-md-8">
+            <div class="row">
+              <div class="col-12 long-label">
+                <%= f.label "Does your child have any learning differences or requirements?" %>
+                <p class="learning-differences-description"> If so, please give a brief description below. All information shared here is confidential and will only be shared with your child's teachers.</p>
+              </div>
+              <div class="col-12">
+                <%= f.text_area :learning_differences %><br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6 bordered-section">
+          <div class="form-group col-md-offset-2 col-md-4">
+            <div class="row">
+              <div class="col-12">
+                <%= f.label :emergency_contact %>:
+              </div>
+              <div class="col-12">
+                <%= f.text_field :emergency_contact %><br />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="row">
+              <div class="col-12">
+                <%= f.label :emergency_phone %>:
+              </div>
+              <div class="col-12">
+                <%= f.text_field :emergency_phone %><br />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end additional information section -->
+      </div>
+  <% end %>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123195247) do
+ActiveRecord::Schema.define(version: 20180206212955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,11 @@ ActiveRecord::Schema.define(version: 20180123195247) do
     t.string   "phone_number",           limit: 16
     t.string   "first_name"
     t.string   "last_name"
+    t.text     "street_address_1"
+    t.text     "street_address_2"
+    t.text     "city"
+    t.text     "state"
+    t.text     "zip_code"
   end
 
   add_index "parents", ["email"], name: "index_parents_on_email", unique: true, using: :btree
@@ -73,11 +78,16 @@ ActiveRecord::Schema.define(version: 20180123195247) do
   create_table "students", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "grade"
     t.integer  "parent_id"
-    t.boolean  "lunch",      default: false
+    t.boolean  "lunch",                default: false
+    t.date     "date_of_birth"
+    t.text     "student_email"
+    t.text     "learning_differences"
+    t.text     "emergency_contact"
+    t.text     "emergency_phone"
   end
 
   create_table "subjects", force: :cascade do |t|
