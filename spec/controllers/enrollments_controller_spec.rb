@@ -42,5 +42,9 @@ RSpec.describe EnrollmentsController, type: :controller do
         expect(response).to render_template(:select_student)
       end
     end
+
+    describe '#student_info' do
+      
+    end
   end
 end
