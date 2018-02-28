@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206212955) do
+ActiveRecord::Schema.define(version: 20180222162249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,21 @@ ActiveRecord::Schema.define(version: 20180206212955) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+
+  create_table "courses", force: :cascade do |t|
+    t.text     "name"
+    t.text     "description"
+    t.text     "textbooks"
+    t.text     "grades"
+    t.text     "day"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.integer  "fee"
+    t.integer  "class_minimum"
+    t.integer  "class_maximum"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "parents", force: :cascade do |t|
     t.string   "email",                             default: "", null: false

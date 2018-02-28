@@ -3,7 +3,7 @@
     <h1 class="new-enrollment-form">2018-19 WEB Enrollment</h1>
   </div>
   <h2 class='student-form'>First, tell us about your student</h2>
-    <%= form_for(@student, html: { class: "new-student-form" }) do |f| %>
+    <%= form_for(@student,url: { action: "student_info", id: @student.id }, html: { class: "new-student-form" }) do |f| %>
 
       <!-- student information section -->
       <div class="row">
