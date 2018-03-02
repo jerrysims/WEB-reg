@@ -51,3 +51,14 @@ textarea {
 input[type=submit] {
   width: 100%;
 }
+
+.course-description p{
+  font-family: Futura, Futura-Medium, "Futura Medium", "Century Gothic", CenturyGothic, "Apple Gothic", AppleGothic, "URW Gothic L", "Avant Garde", sans-serif;
+  font-style: italic;
+}
+
+.course-card {
+  h3, p {
+    margin: 0px;
+  }
+}

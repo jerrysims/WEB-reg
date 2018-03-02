@@ -1,13 +1,17 @@
-<h1>Click on a student to register:</h1>
-<div class="container">
-  <ul>
-    <% @students.each do |s| %>
-      <li class="student-tile">
-        <%= link_to s.full_name, { controller: "enrollments", action: "new", student_id: s.id } %>
-      </li>
-    <% end %>
-  </ul>
-</div>
+<% if current_parent.students.empty? %>
+  <h1>Click below to create your first student</h1>
+<% else %>
+  <h1>Click on a student to register:</h1>
+  <div class="container">
+    <ul>
+      <% @students.each do |s| %>
+        <li class="student-tile">
+          <%= link_to s.full_name, { controller: "enrollments", action: "new", student_id: s.id } %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <div class="container new-student-btn">
-  <%= link_to "Add a new student", new_student_path, method: :get %>
+  <%= link_to "Add a new student",  { controller: "enrollments", action: "new" } %>
 </div>

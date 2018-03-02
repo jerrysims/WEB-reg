@@ -1,0 +1,8 @@
+Here are the courses for which <%= @student.full_name %> is eligible:
+<div class="row">
+  <div class="col-md-6">
+    <% @available_courses.each do |course| %>
+      <%= render "course_tile", course: course %>
+    <% end %>
+  </div>
+</div>
