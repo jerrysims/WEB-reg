@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   patch '/enrollment/student-info', to: 'enrollments#student_info', as: :student_enrollment_info_path
   post '/enrollment/student-info', to: 'enrollments#new_student_info', as: :new_student_enrollment_info_path
   get '/enrollment/view_course_list', to: 'enrollments#view_course_list', as: :view_course_list_path
+  get '/registrations', to: 'registrations#index', as: :register_path
+  get '/registrations/choose_class', to:'registrations#choose_class', as: :choose_class_path
 
   ActiveAdmin.routes(self)
 

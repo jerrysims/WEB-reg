@@ -1,8 +1,10 @@
 class Student < ActiveRecord::Base
+  belongs_to :parent
   has_many :student_shadows
   has_many :shadow_spots, through: :student_shadows
-  belongs_to :parent
-  # belongs_to :shadow_spot
+  has_many :registrations
+  has_many :courses, through: :registrations
+
   accepts_nested_attributes_for :student_shadows
 
   validates :first_name, presence: true

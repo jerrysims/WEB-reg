@@ -5,4 +5,8 @@ Here are the courses for which <%= @student.full_name %> is eligible:
       <%= render "course_tile", course: course %>
     <% end %>
   </div>
+
+  <div class="col-md-6">
+    <%= link_to "Register for Classes", { controller: "registrations", action: "index", student_id: @student.id } %>
+  </div>
 </div>
