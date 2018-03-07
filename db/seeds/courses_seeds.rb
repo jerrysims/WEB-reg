@@ -52,7 +52,7 @@ courses = Course.create([
     grades: "5,6",
     day: "Tuesday",
     start_time: "11:45",
-    end_time: "1:15",
+    end_time: "13:15",
     fee: $0,
     class_minimum: 12,
     class_maximum: 18
@@ -63,7 +63,7 @@ courses = Course.create([
     grades: "5,6,7",
     day: "Tuesday",
     start_time: "11:45",
-    end_time: "1:15",
+    end_time: "13:15",
     fee: $0,
     class_minimum: 12,
     class_maximum: 18
@@ -74,7 +74,7 @@ courses = Course.create([
     grades: "7,8",
     day: "Tuesday",
     start_time: "11:45",
-    end_time: "1:15",
+    end_time: "13:15",
     fee: $50,
     class_minimum: 12,
     class_maximum: 18
@@ -85,7 +85,7 @@ courses = Course.create([
     grades: "7,8",
     day: "Tuesday",
     start_time: "11:45",
-    end_time: "1:15",
+    end_time: "13:15",
     fee: $125,
     class_minimum: 12,
     class_maximum: 20
@@ -95,8 +95,8 @@ courses = Course.create([
     textbooks: "N/A",
     grades: "5,6,7,8",
     day: "Tuesday",
-    start_time: "1:20",
-    end_time: "2:45",
+    start_time: "13:20",
+    end_time: "14:45",
     fee: $70,
     class_minimum: 12,
     class_maximum: 18
@@ -106,8 +106,8 @@ courses = Course.create([
     textbooks: "N/A",
     grades: "5,6,7,8",
     day: "Tuesday",
-    start_time: "1:20",
-    end_time: "2:45",
+    start_time: "13:20",
+    end_time: "14:45",
     fee: $35,
     class_minimum: 12,
     class_maximum: 15
@@ -117,8 +117,8 @@ courses = Course.create([
     textbooks: "N/A",
     grades: "5,6,7,8",
     day: "Tuesday",
-    start_time: "1:20",
-    end_time: "2:45",
+    start_time: "13:20",
+    end_time: "14:45",
     fee: $0,
     class_minimum: 12,
     class_maximum: 18
@@ -128,8 +128,8 @@ courses = Course.create([
     textbooks: "Derek Owen's Algebra 1",
     grades: "7,8,9",
     day: "Tuesday",
-    start_time: "1:20",
-    end_time: "2:45",
+    start_time: "13:20",
+    end_time: "14:45",
     fee: $50,
     class_minimum: 12,
     class_maximum: 15
@@ -184,7 +184,7 @@ courses = Course.create([
     grades: "5,6,7",
     day: "Thursday",
     start_time: "11:45",
-    end_time: "1:15",
+    end_time: "13:15",
     fee: 0,
     class_minimum: 12,
     class_maximum: 18
@@ -195,7 +195,7 @@ courses = Course.create([
     grades: "6,7,8,9",
     day: "Thursday",
     start_time: "11:45",
-    end_time: "1:15",
+    end_time: "13:15",
     fee: $50,
     class_minimum: 12,
     class_maximum: 15
@@ -206,7 +206,7 @@ courses = Course.create([
     grades: "7,8,9",
     day: "Thursday",
     start_time: "11:45",
-    end_time: "1:15",
+    end_time: "13:15",
     fee: $100,
     class_minimum: 12,
     class_maximum: 15
@@ -217,7 +217,7 @@ courses = Course.create([
     grades: "5,6,7,8",
     day: "Thursday",
     start_time: "11:45",
-    end_time: "1:15",
+    end_time: "13:15",
     fee: $100,
     class_minimum: 10,
     class_maximum: 12
@@ -227,8 +227,8 @@ courses = Course.create([
     textbooks: "",
     grades: "5,6,7,8",
     day: "Thursday",
-    start_time: "1:20",
-    end_time: "2:45",
+    start_time: "13:20",
+    end_time: "14:45",
     fee: $100,
     class_minimum: 10,
     class_maximum: 12
@@ -238,8 +238,8 @@ courses = Course.create([
     textbooks: "",
     grades: "6,7,8",
     day: "Thursday",
-    start_time: "1:20",
-    end_time: "2:45",
+    start_time: "13:20",
+    end_time: "14:45",
     fee: 0,
     class_minimum: 12,
     class_maximum: 15
@@ -250,7 +250,7 @@ courses = Course.create([
     grades: "6,7,8,9",
     day: "Thursday",
     start_time: "1:20",
-    end_time: "2:45",
+    end_time: "14:45",
     fee: $0,
     class_minimum: 10,
     class_maximum: 15

@@ -1,0 +1,25 @@
+Welcome to the registration page for <%= @student.full_name %><br><br>
+<% @days.each do |day| %>
+  <span id="span-<%= day %>"><%= day %> </span>
+  <div class="row" id="day-<%= day %>">
+    <% @start_times.each do |time| %>
+      <div class="col-md-4" id="time-<%= time %>">
+        <div class="row">
+          <div class="col-md-12">
+            <%= time.strftime("%H:%M") %>
+          </div>
+          <% @available_courses.select { |c| c.day == day }.each do |c| %>
+            <% if c.start_time == time %>
+              <% registered = @student.registrations.where(course_id: c.id).empty? ? "" : "registered" %>
+              <%= link_to controller: "registrations", action: "choose_class", remote: true, student_id: @student.id, course_id: c.id do %>
+                <div class="register-grid-class-card bordered-section col-md-12 <%= registered %>" id="course-<%= c.id %>">
+                  <%= c.name %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -15,4 +15,15 @@ RSpec.describe Student, type: :model do
     it { should validate_presence_of(:emergency_contact) }
     it { should validate_presence_of(:emergency_phone) }
   end
+
+  describe 'instance methods' do
+    describe '#full_name' do
+    end
+
+    describe '#parents_full_name' do
+    end
+
+    describe '#eligible_courses' do
+    end
+  end
 end
