@@ -13,6 +13,7 @@ class Student < ActiveRecord::Base
   validates :grade, presence: true
   validates :emergency_contact, presence: true
   validates :emergency_phone, presence: true
+  validates :parent, presence: true
 
   attr_accessor :shadow_spot
 

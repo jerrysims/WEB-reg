@@ -13,6 +13,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def new_student_info
+    params[:student][:parent_id] = current_parent.id
     @student = Student.create(student_info_params)
 
     redirect_to(action: "view_course_list", student_id: @student.id)
@@ -43,7 +44,7 @@ class EnrollmentsController < ApplicationController
 
   def student_info_params
     params.require(:student).permit(:id, :first_name, :last_name, :student_email, :grade,
-      :date_of_birth, :learning_differences, :emergency_contact, :emergency_phone)
+      :date_of_birth, :learning_differences, :emergency_contact, :emergency_phone, :parent_id)
   end
 
   def should_redirect_to_select_student?

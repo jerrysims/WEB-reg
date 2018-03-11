@@ -21,7 +21,10 @@ Rails.application.routes.draw do
   post '/enrollment/student-info', to: 'enrollments#new_student_info', as: :new_student_enrollment_info_path
   get '/enrollment/view_course_list', to: 'enrollments#view_course_list', as: :view_course_list_path
   get '/registrations', to: 'registrations#index', as: :register_path
-  get '/registrations/choose_class', to:'registrations#choose_class', as: :choose_class_path
+  get '/registrations/choose_class', to: 'registrations#choose_class', as: :choose_class_path
+  get '/registrations/complete_parent_info', to: 'registrations#complete_parent_info', as: :complete_parent_info
+  patch '/registrations/update_parent', to: 'registrations#update_parent'
+  get '/registrations/finalize', to: 'registrations#finalize'
 
   ActiveAdmin.routes(self)
 

@@ -12,14 +12,15 @@ class Parent < ActiveRecord::Base
 
   # TODO: The following need to be implemented
   # These validations should run when the user tries to sign a student up for classes
-  # validates :street_address_1, presence: true
-  # validates :city, presence: true
-  # validates :state, presence: true
-  # validates :zip_code, presence: true
+  validates :street_address_1, presence: true, on: :course_registration
+  validates :city, presence: true, on: :course_registration
+  validates :state, presence: true, on: :course_registration
+  validates :zip_code, presence: true, on: :course_registration
 
   has_many :students
 
   def full_name
     "#{self.first_name} #{self.last_name}"
   end
+
 end

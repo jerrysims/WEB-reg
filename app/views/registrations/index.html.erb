@@ -23,3 +23,9 @@ Welcome to the registration page for <%= @student.full_name %><br><br>
     <% end %>
   </div>
 <% end %>
+<br><br>
+<div class="row">
+  <div class="col-md-offset-4 col-md-2">
+    <%= link_to "Finish Registration", { controller: "registrations", action: "finalize", student_id: @student.id }, class: "btn button" %>
+  </div>
+</div>
