@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get '/registrations/choose_class', to: 'registrations#choose_class', as: :choose_class_path
   get '/registrations/complete_parent_info', to: 'registrations#complete_parent_info', as: :complete_parent_info
   patch '/registrations/update_parent', to: 'registrations#update_parent'
-  get '/registrations/finalize', to: 'registrations#finalize'
+  get '/registrations/review', to: 'registrations#review'
 
   ActiveAdmin.routes(self)
 

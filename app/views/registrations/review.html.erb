@@ -1,0 +1,7 @@
+We found the following class schedules for you:
+
+<% current_parent.students.each do |student| %>
+  <div class="row">
+    <%= render "student_schedule", student: student %>
+  </div>
+<% end %>
