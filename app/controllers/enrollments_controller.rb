@@ -48,6 +48,6 @@ class EnrollmentsController < ApplicationController
   end
 
   def should_redirect_to_select_student?
-    params[:student_id].nil? && !current_parent.students.empty?
+    params[:student_id].nil? && !current_parent.students.empty? && !params[:new_student]
   end
 end

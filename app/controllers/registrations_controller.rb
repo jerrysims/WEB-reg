@@ -46,7 +46,6 @@ class RegistrationsController < ApplicationController
   end
 
   def finalize
-    @student = Student.find(params[:student_id])
   end
 
   def update_parent

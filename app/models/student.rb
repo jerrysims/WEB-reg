@@ -17,6 +17,12 @@ class Student < ActiveRecord::Base
 
   attr_accessor :shadow_spot
 
+  DAYS_ORDER = %w(Monday Tuesday Wednesday Thursday Friday)
+
+  def daily_schedule(weekday)
+    courses.where(day: weekday).sort_by { |c| c.start_time }
+  end
+
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
@@ -27,6 +33,10 @@ class Student < ActiveRecord::Base
 
   def should_be_offered_lunch?
     !shadow_spots.select { |ss| ss.time == "10:15 AM" }.empty?
+  end
+
+  def to_s
+    "#{first_name} #{last_name}"
   end
 
 end

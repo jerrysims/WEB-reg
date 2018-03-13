@@ -1,1 +1,16 @@
-Schedule!
+<div class="row student-name">
+  <%= student.to_s %>:
+</div>
+<% %w(Monday Tuesday Wednesday Thursday Friday).each do |day| %>
+  <% unless student.daily_schedule(day).empty? %>
+    <p>
+  <% end %>
+  <% student.daily_schedule(day).each do |course| %>
+    <div class="row course">
+      <%= course.day %>, <%= course.start_time.strftime("%H:%M%p") %>-<%= course.end_time.strftime("%H:%M%p") %> <%= course.name %>
+    </div>
+  <% end %>
+  <% unless student.daily_schedule(day).empty? %>
+    </p>
+  <% end %>
+<% end %>

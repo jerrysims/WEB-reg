@@ -2,6 +2,14 @@ We found the following class schedules for you:
 
 <% current_parent.students.each do |student| %>
   <div class="row">
-    <%= render "student_schedule", student: student %>
+    <div class="col-md-4">
+      <%= render "student_schedule", student: student %>
+    </div>
+    <div class="col-md-6">
+      <%= link_to "Change #{student.first_name}'s schedule", { controller: "registrations", action: "index", student_id: student.id } %>
+    </div>
   </div>
 <% end %>
+<div class="row">
+  <%= link_to "Finalize Registration", { controller: "registrations", action: "finalize" } %>
+</div>
