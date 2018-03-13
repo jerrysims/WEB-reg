@@ -9,7 +9,7 @@ class Registration < ActiveRecord::Base
   private
 
   def one_class_at_a_time
-    unless student.registrations.select { |r| r.course.start_time == course.start_time }.empty?
+    unless student.registrations.select { |r| r.course.start_time == course.start_time && r.course.day == course.day}.empty?
       errors.add(:student, "already has a class at that time")
     end
   end
