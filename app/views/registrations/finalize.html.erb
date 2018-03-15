@@ -1,1 +1,75 @@
-HELLO WORLD
+<div class="row">
+  <div class="col-md-offset-3 col-md-6">
+    In order to reserve your <%= current_parent.students.count > 1 ? "children's" : "child's" %> spot, please pay the registration & class fees.
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-offset-2 col-md-4 invoice bordered-section">
+    <div class="row invoice-title">
+      <h4>Registration & Course Fees</h4>
+    </div>
+
+    <div class="row invoice-registration-fees">
+      <div class="col-md-offset-2 col-md-6">
+        <h5>Registrations Fees</h5>
+      </div>
+    </div>
+    <% current_parent.students.each do |s| %>
+      <div class="row">
+        <div class="col-md-offset-4 col-md-6">
+          <%= s.full_name %>
+        </div>
+        <div class="invoice-amounts col-md-2">
+          $50
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row invoice-course-fees">
+      <div class="col-md-offset-2 col-md-6">
+        <h5>Course Fees</h5>
+      </div>
+    </div>
+    <% current_parent.students.each do |s| %>
+      <div class="row">
+        <div class="col-md-offset-4 col-md-6">
+          <h6><%= s.first_name.capitalize %>'s courses:</h6>
+        </div>
+      </div>
+      <% s.courses.each do |c| %>
+        <div class="row">
+          <div class="col-md-offset-4 col-md-6">
+            <%= c.name %>
+          </div>
+          <div class="invoice-amounts col-md-2">
+            $<%= c.fee %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="row invoice-total">
+      <div class="col-md-offset-4 col-md-6">
+        <h5>Total Due Today</h5>
+      </div>
+      <div class="col-md-2">
+        <h5>$<%= @invoice_total %></h5>
+      </div>
+    </div>
+  </div>
+  <!-- End of Registration / Course Fees Section -->
+
+  <div class="tuition col-md-offset-1 col-md-4 bordered-section">
+    <div class="row invoice-title">
+      <h4>Tuition</h4>
+    </div>
+    <div class="row tuition-amount">
+      <div class="col-md-offset-1 col-md-11">
+        <h5>$<%= @tuition_total %></h5>
+      </div>
+    </div>
+    <div id="payment-preference-section" class="row payment_preference_section">
+      <%= render @payment_preference_section, tuition_total: @tuition_total %>
+    </div>
+  </div>
+  <!-- End of Tuition section -->
+</div>

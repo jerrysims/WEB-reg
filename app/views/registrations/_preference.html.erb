@@ -1,0 +1,21 @@
+<div class="row tuition-message">
+  <div class="col-md-offset-1 col-md-11">
+    You have chosen the following tuition payment option: <h5><%= current_parent.tuition_preference %></h5>
+  </div>
+  <div id="tuition-preference-form" class="row tuition-preference-form">
+    <div id="tuition-preference-form-link" class="col-md-offset-2 col-md-10">
+      <%= link_to "Click Here to Change Payment Option", "#", id: "load_tuition_preference_form" %>
+    </div>
+    <div id="tuition-preference-actual-form" class="row tuition-payment-plan-selection">
+      <div class="col-md-offset-2 col-md-10">
+        <%= form_for(current_parent, url: { action: "update_tuition_preference" }, remote: true) do |f| %>
+          <% %w(Annual Semester Monthly).each do |plan| %>
+            <%= f.radio_button :tuition_preference, plan %>
+            <%= f.label :tuition_preference, plan %>
+          <% end %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

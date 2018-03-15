@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   patch '/registrations/update_parent', to: 'registrations#update_parent'
   get '/registrations/review', to: 'registrations#review'
   get '/registrations/finalize', to: 'registrations#finalize'
+  patch '/registrations/update_tuition_preference', to:'registrations#update_tuition_preference'
 
   ActiveAdmin.routes(self)
 

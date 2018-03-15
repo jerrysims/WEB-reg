@@ -7,3 +7,21 @@
   border-width: thick;
   border-color: rgb(100,100,100);
 }
+
+.invoice-total h5 {
+  border-top: solid black;
+  padding-top: 10px;
+}
+
+.invoice-title {
+  padding-left: 10px;
+}
+
+.invoice, .tuition{
+  margin-top: 20px;
+  padding-bottom: 15px;
+}
+
+#tuition-preference-actual-form {
+  display: none;
+}
