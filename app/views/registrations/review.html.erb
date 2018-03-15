@@ -6,10 +6,10 @@ We found the following class schedules for you:
       <%= render "student_schedule", student: student %>
     </div>
     <div class="col-md-6">
-      <%= link_to "Change #{student.first_name}'s schedule", { controller: "registrations", action: "index", student_id: student.id } %>
+      <%= link_to "Change #{student.first_name}'s schedule", { controller: "registrations", action: "index", student_id: student.id }, class: "custom-button" %>
     </div>
   </div>
 <% end %>
 <div class="row">
-  <%= link_to "Finalize Registration", { controller: "registrations", action: "finalize" } %>
+  <%= link_to "Finalize Registration", { controller: "registrations", action: "finalize" }, class: "custom-button" %>
 </div>
