@@ -1,4 +1,7 @@
 class RegistrationsController < ApplicationController
+  TUITION_BASE = 190
+  REGISTRATION_FEE = 50
+
   def index
     redirect_to(
       action: "complete_parent_info",
@@ -33,7 +36,6 @@ class RegistrationsController < ApplicationController
 
     if @registration.save
       @registered = true
-
     else
       @registered = false
       @error_content = @registration.errors.full_messages.first
@@ -46,6 +48,9 @@ class RegistrationsController < ApplicationController
   end
 
   def finalize
+    @invoice_total = get_invoice_total
+    @tuition_total = get_tuition_total
+    @payment_preference_section = get_payment_preference_section
   end
 
   def update_parent
@@ -61,10 +66,34 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def update_tuition_preference
+    current_parent.update_attributes(tuition_preference: params[:parent][:tuition_preference])
+    @payment_preference_section = get_payment_preference_section
+  end
+
   private
 
   def get_available_courses(student)
     Course.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
+  end
+
+  def get_invoice_total
+    @invoice_total = 0
+    current_parent.students.each do |s|
+      @invoice_total += REGISTRATION_FEE if s.courses.count > 0
+      s.courses.each { |c| @invoice_total += c.fee }
+    end
+    @invoice_total
+  end
+
+  def get_payment_preference_section
+    current_parent.tuition_preference ? "preference" : "no_preference"
+  end
+
+  def get_tuition_total
+    @course_count = 0
+    current_parent.students.each{ |s| @course_count += s.courses.count }
+    @tuition_total = @course_count * TUITION_BASE
   end
 
   def parent_params

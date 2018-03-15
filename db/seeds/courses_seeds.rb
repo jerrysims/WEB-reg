@@ -9,7 +9,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "9:45",
     end_time: "11:15",
-    fee: $25,
+    fee: 25,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -20,7 +20,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "9:45",
     end_time: "11:15",
-    fee: $50,
+    fee: 50,
     class_minimum: 12,
     class_maximum: 16
   },{
@@ -31,7 +31,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "9:45",
     end_time: "11:15",
-    fee: $0,
+    fee: 0,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -42,7 +42,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "9:45",
     end_time: "11:15",
-    fee: $0,
+    fee: 0,
     class_minimum: 12,
     class_maximum: 20
   },{
@@ -53,7 +53,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "11:45",
     end_time: "13:15",
-    fee: $0,
+    fee: 0,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -64,7 +64,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "11:45",
     end_time: "13:15",
-    fee: $0,
+    fee: 0,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -75,7 +75,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "11:45",
     end_time: "13:15",
-    fee: $50,
+    fee: 50,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -86,7 +86,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "11:45",
     end_time: "13:15",
-    fee: $125,
+    fee: 125,
     class_minimum: 12,
     class_maximum: 20
   },{
@@ -97,7 +97,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "13:20",
     end_time: "14:45",
-    fee: $70,
+    fee: 70,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -108,7 +108,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "13:20",
     end_time: "14:45",
-    fee: $35,
+    fee: 35,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -119,7 +119,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "13:20",
     end_time: "14:45",
-    fee: $0,
+    fee: 0,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -130,7 +130,7 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "13:20",
     end_time: "14:45",
-    fee: $50,
+    fee: 50,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -163,7 +163,7 @@ courses = Course.create([
     day: "Thursday",
     start_time: "9:45",
     end_time: "11:15",
-    fee: $50,
+    fee: 50,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -174,7 +174,7 @@ courses = Course.create([
     day: "Thursday",
     start_time: "9:45",
     end_time: "11:15",
-    fee: $0,
+    fee: 0,
     class_minimum: 12,
     class_maximum: 20
   },{
@@ -196,7 +196,7 @@ courses = Course.create([
     day: "Thursday",
     start_time: "11:45",
     end_time: "13:15",
-    fee: $50,
+    fee: 50,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -207,7 +207,7 @@ courses = Course.create([
     day: "Thursday",
     start_time: "11:45",
     end_time: "13:15",
-    fee: $100,
+    fee: 100,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -218,7 +218,7 @@ courses = Course.create([
     day: "Thursday",
     start_time: "11:45",
     end_time: "13:15",
-    fee: $100,
+    fee: 100,
     class_minimum: 10,
     class_maximum: 12
   },{
@@ -229,7 +229,7 @@ courses = Course.create([
     day: "Thursday",
     start_time: "13:20",
     end_time: "14:45",
-    fee: $100,
+    fee: 100,
     class_minimum: 10,
     class_maximum: 12
   },{
@@ -251,7 +251,7 @@ courses = Course.create([
     day: "Thursday",
     start_time: "1:20",
     end_time: "14:45",
-    fee: $0,
+    fee: 0,
     class_minimum: 10,
     class_maximum: 15
   }])
