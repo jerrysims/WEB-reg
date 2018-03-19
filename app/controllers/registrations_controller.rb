@@ -63,6 +63,10 @@ class RegistrationsController < ApplicationController
     @payment_preference_section = get_payment_preference_section
   end
 
+  def review
+    @student = Student.find(params[:student_id])
+  end
+
   def update_parent
 
     current_parent.update_attributes(parent_params)

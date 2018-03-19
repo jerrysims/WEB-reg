@@ -1,5 +1,8 @@
 var ready;
+
+// defines the function that will run when the DOM loads
 ready = function() {
+  debugger;
 
   // ...your javascript goes here...
   $("#load_tuition_preference_form").on('click', function(e){
@@ -15,6 +18,7 @@ ready = function() {
     var cancelButton = document.getElementById('cancel');
     var cancelButtons = document.getElementsByClassName('cancel');
     var submitButtons  = document.getElementsByClassName('submit');
+    var reviewScheduleButtons = document.getElementsByClassName('review-schedule-button')
 
     // Clicking on course that is already selected opens a modal dialog
     for (var i = 0 ; i < selectedCourse.length; i++) {
@@ -55,12 +59,10 @@ ready = function() {
       });
     }
 
-
-    // Form cancel button closes the dialog box
+     // Form cancel button closes the dialog box
     cancelButton.addEventListener('click', function() {
       dropCourseDialog.close();
     });
-
 };
 
 $(document).ready(ready);
