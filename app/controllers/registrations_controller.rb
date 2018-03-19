@@ -8,7 +8,6 @@ class RegistrationsController < ApplicationController
       student_id: params[:student_id]
       ) unless current_parent.valid?(:course_registration)
 
-
     @student = Student.find(params[:student_id])
 
     @available_courses = get_available_courses(@student)
@@ -45,6 +44,17 @@ class RegistrationsController < ApplicationController
   def complete_parent_info
 
     @student_id = params[:student_id]
+  end
+
+  def drop_class
+    @course = Course.find(params[:course_id])
+    r = Registration.where(["student_id = ? and course_id = ?", params[:student_id], params[:course_id]]).first
+    if r
+      r.destroy
+      @dropped = true
+    else
+      @dropped = false
+    end
   end
 
   def finalize

@@ -11,11 +11,11 @@ Welcome to the registration page for <%= @student.full_name %><br><br>
           <% @available_courses.select { |c| c.day == day }.each do |c| %>
             <% if c.start_time == time %>
               <% registered = @student.registrations.where(course_id: c.id).empty? ? "" : "registered" %>
-              <%= link_to controller: "registrations", action: "choose_class", remote: true, student_id: @student.id, course_id: c.id do %>
-                <div class="register-grid-class-card bordered-section col-md-12 <%= registered %>" id="course-<%= c.id %>">
+              <!-- <%= link_to controller: "registrations", action: "choose_class", remote: true, student_id: @student.id, course_id: c.id do %> -->
+                <div class="register-grid-class-card bordered-section col-md-12 <%= registered %>" id="course-<%= c.id %>" data-course="<%= c.id %>" data-student="<%= @student.id %>">
                   <%= c.name %>
                 </div>
-              <% end %>
+              <!-- <% end %> -->
             <% end %>
           <% end %>
         </div>
@@ -29,3 +29,28 @@ Welcome to the registration page for <%= @student.full_name %><br><br>
     <%= link_to "Review Registration", { controller: "registrations", action: "review", student_id: @student.id }, class: "btn button custom-button" %>
   </div>
 </div>
+
+<!-- Dialog box confirm dropping a course from schedule -->
+<dialog id="drop-course-dialog">
+  <form method="dialog">
+    <section>
+      <p><label for="selectCourse">Are you sure you want to drop this course:</label>
+    </section>
+    <menu>
+      <button id="cancel" class="cancel custom-button" type="reset">Cancel</button>
+      <%= link_to "Yes, drop this course", { controller: "registrations", action: "drop_class", remote: true }, class: "custom-button drop-course submit" %>
+    </menu>
+  </form>
+</dialog>
+
+<dialog id="add-course-dialog">
+  <form method="dialog">
+    <section>
+      <p><label for="selectCourse">Would you like to add this course:</label>
+    </section>
+    <menu>
+      <a id="cancel" class="cancel custom-button" type="reset">Cancel</a>
+      <%= link_to "Yes, add this course", { controller: "registrations", action: "choose_class", remote: true }, class: "custom-button add-course submit" %>
+    </menu>
+  </form>
+</dialog>

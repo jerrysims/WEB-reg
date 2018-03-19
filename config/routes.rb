@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get '/enrollment/view_course_list', to: 'enrollments#view_course_list', as: :view_course_list_path
   get '/registrations', to: 'registrations#index', as: :register_path
   get '/registrations/choose_class', to: 'registrations#choose_class', as: :choose_class_path
+  get '/registrations/drop_class', to: 'registrations#drop_class'
   get '/registrations/complete_parent_info', to: 'registrations#complete_parent_info', as: :complete_parent_info
   patch '/registrations/update_parent', to: 'registrations#update_parent'
   get '/registrations/review', to: 'registrations#review'
