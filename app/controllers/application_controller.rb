@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :authenticate_parent!
 
+  alias_method :current_user, :current_parent
+
   protect_from_forgery with: :exception
 
   protected
@@ -21,4 +23,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_admin_user!
+    if current_admin_user.present? and current_user.blank?
+      sign_in current_admin_user, bypass: true
+    end
+
+    super
+  end
+
+  # def current_admin_user
+  #   current_parent
+  # end
+  #
+  # def current_user
+  #   current_parent
+  # end
 end

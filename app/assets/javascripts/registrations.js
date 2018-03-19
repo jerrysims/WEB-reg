@@ -2,7 +2,6 @@ var ready;
 
 // defines the function that will run when the DOM loads
 ready = function() {
-  debugger;
 
   // ...your javascript goes here...
   $("#load_tuition_preference_form").on('click', function(e){
