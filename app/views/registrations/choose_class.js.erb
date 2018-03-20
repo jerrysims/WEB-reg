@@ -5,3 +5,5 @@
   location.reload()
   $("#course-<%= @course.id %>").append("<br><span class='alert'><%= @error_content %></span>");
 <% end %>
+
+$(document).trigger("load")

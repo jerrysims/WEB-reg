@@ -38,7 +38,7 @@ Welcome to the registration page for <%= @student.full_name %><br><br>
     </section>
     <menu>
       <button id="cancel" class="cancel custom-button" type="reset">Cancel</button>
-      <%= link_to "Yes, drop this course", { controller: "registrations", action: "drop_class", remote: true }, class: "custom-button drop-course submit" %>
+      <%= link_to "Yes, drop this course", { controller: "registrations", action: "drop_class", remote: true }, class: "custom-button course-action submit" %>
     </menu>
   </form>
 </dialog>
@@ -50,7 +50,7 @@ Welcome to the registration page for <%= @student.full_name %><br><br>
     </section>
     <menu>
       <a id="cancel" class="cancel custom-button" type="reset">Cancel</a>
-      <%= link_to "Yes, add this course", { controller: "registrations", action: "choose_class", remote: true }, class: "custom-button add-course submit" %>
+      <%= link_to "Yes, add this course", { controller: "registrations", action: "choose_class", remote: true }, class: "custom-button course-action submit" %>
     </menu>
   </form>
 </dialog>

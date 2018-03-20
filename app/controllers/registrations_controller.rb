@@ -42,7 +42,6 @@ class RegistrationsController < ApplicationController
   end
 
   def complete_parent_info
-
     @student_id = params[:student_id]
   end
 
