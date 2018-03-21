@@ -11,8 +11,8 @@ ready = function() {
 
   })
 
-  var dropCourseDialog = document.getElementById('drop-course-dialog');
-  var addCourseDialog = document.getElementById('add-course-dialog');
+  var dropCourseDialog = "Are you sure you want to drop this course?"
+  var addCourseDialog = "Are you sure you want to add this course?"
   var cancelButton = document.getElementById('cancel');
   var cancelButtons = document.getElementsByClassName('cancel');
   var submitButtons  = document.getElementsByClassName('submit');
@@ -24,40 +24,26 @@ ready = function() {
     for (var i = 0 ; i < selectedCourse.length; i++) {
       selectedCourse[i].addEventListener('click', function() {
         dialog = $(this).hasClass("registered") ? dropCourseDialog : addCourseDialog
+        action = $(this).hasClass("registered") ? "drop_class" : "choose_class"
         course_id = $(this).data("course");
         student_id = $(this).data("student");
-        update_href(course_id, student_id, dialog)
-        dialog.showModal();
+        newLocation = get_href(course_id, student_id, dialog, action)
+        if (window.confirm(dialog)) {
+          $.ajax({
+            url: newLocation,
+            success: function(data){ console.log(data) },
+            error: function(data) { console.log(data) }
+          });
+        }
       });
     }
   }
 
   bindCourses();
 
-  for (var i = 0; i < cancelButtons.length; i++) {
-    cancelButtons[i].addEventListener('click', function() {
-      $(this).closest("dialog")[0].close()
-    });
-  }
-
-  for (var i = 0; i < submitButtons.length; i++) {
-    submitButtons[i].addEventListener('click', function() {
-      $(this).closest("dialog")[0].close()
-    });
-  }
-
-   // Form cancel button closes the dialog box
-  cancelButton.addEventListener('click', function() {
-    dropCourseDialog.close();
-  });
-
-
-  var update_href = function(course_id, student_id, dialog) {
-    href = $(dialog.querySelector("a.course-action")).attr("href")
-    if (!href.indexOf('?') == -1)
-      href = href.substr(0, href.indexOf('?'));
-    new_href = href + "?course_id=" + course_id + "&student_id=" + student_id
-    $(dialog.querySelector("a.course-action")).attr("href", new_href)
+  var get_href = function(course_id, student_id, dialog, action) {
+    href = "registrations/" + action + "?course_id=" + course_id + "&student_id=" + student_id
+    return href
   }
 };
 
