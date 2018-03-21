@@ -26,6 +26,7 @@ gem 'devise'
 gem 'pg', '0.20.0'
 gem 'puma'
 gem 'figaro'
+gem 'browser'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

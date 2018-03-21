@@ -8,6 +8,7 @@ class RegistrationsController < ApplicationController
       student_id: params[:student_id]
       ) unless current_parent.valid?(:course_registration)
 
+    @browser = browser.name
     @student = Student.find(params[:student_id])
 
     @available_courses = get_available_courses(@student)
