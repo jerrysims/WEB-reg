@@ -1,9 +1,8 @@
-<% if @dropped %>
-  $("#course-<%=@course.id %>").removeClass("registered");
-  location.reload()
-<% else %>
-  location.reload()
-  $("#course-<%= @course.id %>").append("<br><span class='alert'><%= @error_content %></span>");
-<% end %>
+$selectedCourse = $("#course-<%= @course.id %>")
 
-$(document).trigger("load")
+<% if @dropped %>
+  $selectedCourse.removeClass("registered");
+  $selectedCourse.siblings(".register-grid-class-card").children(".alert").remove()
+<% else %>
+  $selectedCourse.append("<br><span class='alert'><%= @error_content %></span>");
+<% end %>
