@@ -2,8 +2,10 @@ class EnrollmentsController < ApplicationController
   def new
     redirect_to(action: "select_student") if should_redirect_to_select_student?
 
+    @errors = params[:errors]
+
     if params[:student_id].nil?
-      @student = Student.new
+      @student = params[:student] ? Student.new(student_info_params) : Student.new
     else
       @student = Student.find(params[:student_id])
     end
@@ -16,7 +18,12 @@ class EnrollmentsController < ApplicationController
     params[:student][:parent_id] = current_parent.id
     @student = Student.create(student_info_params)
 
-    redirect_to(action: "view_course_list", student_id: @student.id)
+    if @student.valid?
+      redirect_to(action: "view_course_list", student_id: @student.id)
+    else
+      @errors = @student.errors.full_messages
+      redirect_to({ action: "new", student: params[:student], new_student: 1, errors: @errors })
+    end
   end
 
   def select_student
