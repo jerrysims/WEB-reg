@@ -11,7 +11,7 @@
       <div class="col-md-4" id="time-<%= time %>">
         <div class="row">
           <div class="col-md-12">
-            <%= time.strftime("%H:%M") %>
+            <%= time.strftime("%l:%M %p") %>
           </div>
           <% @available_courses.select { |c| c.day == day }.each do |c| %>
             <% if c.start_time == time %>
