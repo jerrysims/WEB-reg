@@ -28,6 +28,12 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def add_to_wait_list
+    WaitListedStudent.create(wait_list_student_params)
+
+    head :no_content
+  end
+
   def choose_class
     @student = Student.find(params[:student_id])
     @course = Course.find(params[:course_id])
@@ -38,6 +44,7 @@ class RegistrationsController < ApplicationController
       @registered = true
     else
       @registered = false
+      @class_is_full = @registration.course.at_max?
       @error_content = @registration.errors.full_messages.first
     end
   end
@@ -114,4 +121,9 @@ class RegistrationsController < ApplicationController
     params.require(:parent).permit(:id, :first_name, :last_name, :email, :phone_number,
       :street_address_1, :street_address_2, :city, :state, :zip_code)
   end
+
+  def wait_list_student_params
+    params.permit(:course_id, :student_id)
+  end
+
 end

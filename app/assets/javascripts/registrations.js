@@ -30,9 +30,7 @@ ready = function() {
         newLocation = get_href(course_id, student_id, dialog, action)
         if (window.confirm(dialog)) {
           $.ajax({
-            url: newLocation,
-            success: function(data){ console.log(data) },
-            error: function(data) { console.log(data) }
+            url: newLocation
           });
         }
       });

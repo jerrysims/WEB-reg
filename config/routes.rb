@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :courses
   devise_for :parents
   devise_for :admin_users, ActiveAdmin::Devise.config
-  
 
   devise_scope :parent do
     authenticated :parent do
@@ -25,6 +24,7 @@ Rails.application.routes.draw do
   get '/registrations', to: 'registrations#index', as: :register_path
   get '/registrations/choose_class', to: 'registrations#choose_class', as: :choose_class_path
   get '/registrations/drop_class', to: 'registrations#drop_class'
+  get '/registrations/add_to_wait_list', to: 'registrations#add_to_wait_list'
   get '/registrations/complete_parent_info', to: 'registrations#complete_parent_info', as: :complete_parent_info
   patch '/registrations/update_parent', to: 'registrations#update_parent'
   get '/registrations/review', to: 'registrations#review'
