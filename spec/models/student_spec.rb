@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Student, type: :model do
   describe 'associations' do
@@ -24,6 +24,38 @@ RSpec.describe Student, type: :model do
     end
 
     describe '#eligible_courses' do
+    end
+
+    describe '#wait_listed_courses' do
+      let(:course_1) { create(:course) }
+      let(:course_2) { create(:course, name: "Physiology 101") }
+      let(:student) { create(:student) }
+
+      context 'when no course has been waitlisted' do
+        it 'returns an empty array' do
+          expect(student.wait_listed_courses).to eq([])
+        end
+      end
+
+      context 'when one course has been waitlisted' do
+        before do
+          WaitListedStudent.create(student: student, course: course_1)
+        end
+
+        it 'returns an array with that one course' do
+          expect(student.wait_listed_courses).to eq([course_1])
+        end
+
+        context 'and then a second course is waitlisted' do
+          before do
+            WaitListedStudent.create(student: student, course: course_2)
+          end
+
+          it 'returns an array with both courses' do
+            expect(student.wait_listed_courses).to eq([course_1, course_2])
+          end
+        end
+      end
     end
   end
 end

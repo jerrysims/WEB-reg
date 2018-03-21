@@ -4,6 +4,7 @@ class Student < ActiveRecord::Base
   has_many :shadow_spots, through: :student_shadows
   has_many :registrations
   has_many :courses, through: :registrations
+  has_many :wait_listed_students
 
   accepts_nested_attributes_for :student_shadows
 
@@ -37,6 +38,10 @@ class Student < ActiveRecord::Base
 
   def to_s
     "#{first_name} #{last_name}"
+  end
+
+  def wait_listed_courses
+    wait_listed_students.map { |wls| wls.course }
   end
 
 end
