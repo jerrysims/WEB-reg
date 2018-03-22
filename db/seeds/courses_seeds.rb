@@ -212,8 +212,8 @@ courses = Course.create([
     class_maximum: 15
   },{
     name: "Studio Art/Portfolio Prep",
-    description: "N/A",
-    textbooks: "",
+    description: "This course is designed to encourage and support students in the development of their unique creative voice. An emphasis will be placed on traditional studio development in drawing, painting, sculpting, photography, and printmaking. Students will learn about constructive art criticism in a supportive and nurturing environment while developing their confidence and technical skills with composition, perception, color theory, figure drawing, shape, and form. The course will culminate in a portfolio collection and curated gallery exhibition.",
+    textbooks: "N/A",
     grades: "5,6,7,8",
     day: "Thursday",
     start_time: "11:30",
@@ -224,7 +224,7 @@ courses = Course.create([
   },{
     name: "Studio Art/Portfolio Prep",
     description: "N/A",
-    textbooks: "",
+    textbooks: "N/A",
     grades: "5,6,7,8",
     day: "Thursday",
     start_time: "13:00",
