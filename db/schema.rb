@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322185733) do
+ActiveRecord::Schema.define(version: 20180322195152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 20180322185733) do
     t.text     "day"
     t.time     "start_time"
     t.time     "end_time"
-    t.integer  "fee"
     t.integer  "class_minimum"
     t.integer  "class_maximum"
     t.datetime "created_at",    null: false

@@ -40,7 +40,7 @@ class EnrollmentsController < ApplicationController
 
   def view_course_list
     @student = Student.find(params[:student_id])
-    @available_courses = get_available_courses(@student)
+    @available_courses = get_available_courses(@student).uniq { |c| c.name }
   end
 
   private

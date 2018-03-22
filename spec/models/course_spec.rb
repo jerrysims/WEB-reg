@@ -87,5 +87,25 @@ RSpec.describe Course, type: :model do
         end
       end
     end
+
+    describe '#fee' do
+      let!(:course) { create(:course) }
+
+      context 'when course has no product associated with it' do
+        it 'returns zero' do
+          expect(course.fee).to eq(0)
+        end
+      end
+
+      context 'when course has a product associated with it' do
+        let!(:product) { create(:product) }
+
+        it 'returns the unit_price of that product' do
+          course.products <<  product
+
+          expect(course.fee).to eq(50)
+        end
+      end
+    end
   end
 end

@@ -9,7 +9,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "11:30",
     end_time: "13:00",
-    fee: 25,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -20,7 +19,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "11:30",
     end_time: "13:00",
-    fee: 75,
     class_minimum: 12,
     class_maximum: 16
   },{
@@ -31,7 +29,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "9:30",
     end_time: "11:00",
-    fee: 15,
     class_minimum: 12,
     class_maximum: 17
   },{
@@ -42,7 +39,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "9:30",
     end_time: "11:00",
-    fee: 15,
     class_minimum: 12,
     class_maximum: 17
   },{
@@ -53,7 +49,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "9:30",
     end_time: "11:00",
-    fee: 15,
     class_minimum: 12,
     class_maximum: 17
   },{
@@ -64,7 +59,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "9:30",
     end_time: "11:00",
-    fee: 15,
     class_minimum: 12,
     class_maximum: 17
   },{
@@ -75,7 +69,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "11:30",
     end_time: "13:00",
-    fee: 50,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -86,7 +79,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "11:30",
     end_time: "13:00",
-    fee: 95,
     class_minimum: 12,
     class_maximum: 20
   },{
@@ -97,7 +89,6 @@ courses = Course.create([
     day: "Thursday",
     start_time: "9:30",
     end_time: "11:00",
-    fee: 70,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -108,7 +99,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "13:00",
     end_time: "14:30",
-    fee: 30,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -119,7 +109,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "13:00",
     end_time: "14:30",
-    fee: 0,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -130,7 +119,6 @@ courses = Course.create([
     day: "Tuesday",
     start_time: "13:00",
     end_time: "14:30",
-    fee: 55,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -141,7 +129,6 @@ courses = Course.create([
     day: "Thursday",
     start_time: "9:30",
     end_time: "11:00",
-    fee: 50,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -152,7 +139,6 @@ courses = Course.create([
     day: "Thursday",
     start_time: "9:30",
     end_time: "11:00",
-    fee: 50,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -163,7 +149,6 @@ courses = Course.create([
     day: "Thursday",
     start_time: "13:00",
     end_time: "14:30",
-    fee: 50,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -174,7 +159,6 @@ courses = Course.create([
     day: "Thursday",
     start_time: "11:30",
     end_time: "13:00",
-    fee: 0,
     class_minimum: 12,
     class_maximum: 20
   },{
@@ -185,7 +169,6 @@ courses = Course.create([
     day: "Thursday",
     start_time: "11:30",
     end_time: "13:00",
-    fee: 50,
     class_minimum: 12,
     class_maximum: 18
   },{
@@ -196,7 +179,6 @@ courses = Course.create([
     day: "Thursday",
     start_time: "13:00",
     end_time: "14:30",
-    fee: 50,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -207,7 +189,6 @@ courses = Course.create([
     day: "Thursday",
     start_time: "11:30",
     end_time: "13:00",
-    fee: 100,
     class_minimum: 12,
     class_maximum: 15
   },{
@@ -218,7 +199,6 @@ courses = Course.create([
     day: "Thursday",
     start_time: "11:30",
     end_time: "13:00",
-    fee: 100,
     class_minimum: 10,
     class_maximum: 12
   },{
@@ -229,9 +209,68 @@ courses = Course.create([
     day: "Thursday",
     start_time: "13:00",
     end_time: "14:30",
-    fee: 100,
     class_minimum: 10,
     class_maximum: 12
+  },{
+    name: "Study Hall",
+    description: "N/A",
+    textbooks: "N/A",
+    grades: "5,6,7,8,9",
+    day: "Tuesday",
+    start_time: "9:30",
+    end_time: "11:00",
+    class_minimum: 0,
+    class_maximum: 100
+  },{
+    name: "Study Hall",
+    description: "N/A",
+    textbooks: "N/A",
+    grades: "5,6,7,8,9",
+    day: "Tuesday",
+    start_time: "11:30",
+    end_time: "13:00",
+    class_minimum: 0,
+    class_maximum: 100
+  },{
+    name: "Study Hall",
+    description: "N/A",
+    textbooks: "N/A",
+    grades: "5,6,7,8,9",
+    day: "Tuesday",
+    start_time: "13:00",
+    end_time: "14:30",
+    class_minimum: 0,
+    class_maximum: 100
+  },{
+    name: "Study Hall",
+    description: "N/A",
+    textbooks: "N/A",
+    grades: "5,6,7,8,9",
+    day: "Thursday",
+    start_time: "9:30",
+    end_time: "11:00",
+    class_minimum: 0,
+    class_maximum: 100
+  },{
+    name: "Study Hall",
+    description: "N/A",
+    textbooks: "N/A",
+    grades: "5,6,7,8,9",
+    day: "Thursday",
+    start_time: "11:30",
+    end_time: "13:00",
+    class_minimum: 0,
+    class_maximum: 100
+  },{
+    name: "Study Hall",
+    description: "N/A",
+    textbooks: "N/A",
+    grades: "5,6,7,8,9",
+    day: "Thursday",
+    start_time: "13:00",
+    end_time: "14:30",
+    class_minimum: 0,
+    class_maximum: 100
   },{
     name: "Spanish Conversation",
     description: "Designed to allow students in Intro to Spanish or Spanish 1 practice their Spanish conversation skills. This course can also follow Spanish 1 to expand conversational skills and can be taken concurrently with a Spanish 2 course online or outside of WEB.",
@@ -240,7 +279,6 @@ courses = Course.create([
     day: "Thursday",
     start_time: "13:00",
     end_time: "14:30",
-    fee: 0,
     class_minimum: 10,
     class_maximum: 15
   }])
@@ -259,7 +297,7 @@ products = Product.create([
     unit_price: 55
   },{
     name: "2018/2019 Class Tuition-Annual",
-    unit_price: 410 
+    unit_price: 410
   },{
     name: "2018/2019 Class Tuition-Semester",
     unit_price: 205
@@ -342,6 +380,10 @@ products = Product.create([
     name: "Spanish 1 Class fee",
     unit_price: 100,
     courses: Course.where(name: ["Spanish 1"] )
+  },{
+    name: "Study Hall Class fee",
+    unit_price: 28,
+    courses: Course.where(name: ["Study Hall"] )
   },{
     name: "American Literature Class fee",
     unit_price: 15,

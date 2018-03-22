@@ -19,4 +19,9 @@ class Course < ActiveRecord::Base
   def at_max?
     students.count >= class_maximum
   end
+
+  def fee
+    products.empty? ? 0 : products.first.unit_price
+  end
+  
 end
