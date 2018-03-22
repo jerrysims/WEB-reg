@@ -7,6 +7,7 @@ RSpec.describe Course, type: :model do
     it { should have_many(:registrations) }
     it { should have_many(:students).through(:registrations) }
     it { should have_many(:wait_listed_students) }
+    it { should have_and_belong_to_many(:products) }
   end
 
   describe 'validations' do

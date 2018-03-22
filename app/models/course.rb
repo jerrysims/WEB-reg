@@ -4,6 +4,7 @@ class Course < ActiveRecord::Base
   has_many :registrations
   has_many :students, through: :registrations
   has_many :wait_listed_students
+  has_and_belongs_to_many :products
 
   validates :day, presence: true
   validates :name, presence: true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180321141817) do
+ActiveRecord::Schema.define(version: 20180322185733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,25 @@ ActiveRecord::Schema.define(version: 20180321141817) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "courses_products", force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "product_id"
+  end
+
+  create_table "invoice_line_items", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "product_id"
+    t.integer  "quantity"
+    t.integer  "invoice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "parents", force: :cascade do |t|
     t.string   "email",                             default: "",    null: false
     t.string   "encrypted_password",                default: "",    null: false
@@ -78,6 +97,13 @@ ActiveRecord::Schema.define(version: 20180321141817) do
 
   add_index "parents", ["email"], name: "index_parents_on_email", unique: true, using: :btree
   add_index "parents", ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true, using: :btree
+
+  create_table "products", force: :cascade do |t|
+    t.text     "name"
+    t.integer  "unit_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "registrations", force: :cascade do |t|
     t.integer  "student_id"
