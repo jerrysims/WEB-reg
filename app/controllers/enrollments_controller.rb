@@ -16,6 +16,7 @@ class EnrollmentsController < ApplicationController
 
   def new_student_info
     params[:student][:parent_id] = current_parent.id
+    get_date_of_birth if params[:student][:date_of_birth].empty?
     @student = Student.create(student_info_params)
 
     if @student.valid?
@@ -47,6 +48,10 @@ class EnrollmentsController < ApplicationController
 
   def get_available_courses(student)
     Course.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
+  end
+
+  def get_date_of_birth
+    params[:student][:date_of_birth] = "#{params[:year]}/#{params[:month]}/#{params[:day]}"
   end
 
   def student_info_params
