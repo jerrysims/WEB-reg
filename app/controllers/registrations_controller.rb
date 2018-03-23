@@ -1,6 +1,4 @@
 class RegistrationsController < ApplicationController
-  TUITION_BASE = 190
-  REGISTRATION_FEE = 50
 
   def index
     redirect_to(
@@ -65,9 +63,13 @@ class RegistrationsController < ApplicationController
   end
 
   def finalize
-    @invoice_total = get_invoice_total
-    @tuition_total = get_tuition_total
+    @registration_fee = Invoice.registration_fee
+    @enrolled_students = current_parent.students.select { |s| s.courses.count > 0 }
+    @discount = @enrolled_students.count > 1 ? Invoice.discount : nil
+    @invoice_total = Invoice.initial_invoice_total(current_parent)
+    @annual, @semester, @monthly = Invoice.get_tuition_totals(current_parent)
     @payment_preference_section = get_payment_preference_section
+    @tuition_total = get_tuition_total
   end
 
   def review
@@ -75,7 +77,6 @@ class RegistrationsController < ApplicationController
   end
 
   def update_parent
-
     current_parent.update_attributes(parent_params)
 
     if current_parent.valid?(:course_registration)
@@ -90,6 +91,8 @@ class RegistrationsController < ApplicationController
   def update_tuition_preference
     current_parent.update_attributes(tuition_preference: params[:parent][:tuition_preference])
     @payment_preference_section = get_payment_preference_section
+    @annual, @semester, @monthly = Invoice.get_tuition_totals(current_parent)
+    @tuition_total = get_tuition_total
   end
 
   private
@@ -98,23 +101,21 @@ class RegistrationsController < ApplicationController
     Course.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
   end
 
-  def get_invoice_total
-    @invoice_total = 0
-    current_parent.students.each do |s|
-      @invoice_total += REGISTRATION_FEE if s.courses.count > 0
-      s.courses.each { |c| @invoice_total += c.fee }
-    end
-    @invoice_total
-  end
-
   def get_payment_preference_section
     current_parent.tuition_preference ? "preference" : "no_preference"
   end
 
   def get_tuition_total
-    @course_count = 0
-    current_parent.students.each{ |s| @course_count += s.courses.count }
-    @tuition_total = @course_count * TUITION_BASE
+    case current_parent.tuition_preference
+      when "Annual"
+        @annual
+      when "Semester"
+        @semester
+      when "Monthly"
+        @monthly
+      else
+        @annual
+    end
   end
 
   def parent_params

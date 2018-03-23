@@ -8,7 +8,6 @@ ready = function() {
     e.preventDefault();
     $("#tuition-preference-form-link").hide();
     $("#tuition-preference-actual-form").show();
-
   })
 
   var dropCourseDialog = "Are you sure you want to drop this course?"

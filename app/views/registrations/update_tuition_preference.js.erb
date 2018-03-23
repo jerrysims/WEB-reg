@@ -1,2 +1,8 @@
 $("#payment-preference-section").empty()
 $("#payment-preference-section").append("<%= escape_javascript(render @payment_preference_section) %>")
+$(".tuition-amount h5").text("$<%= @tuition_total %>")
+$("#load_tuition_preference_form").on('click', function(e){
+  e.preventDefault();
+  $("#tuition-preference-form-link").hide();
+  $("#tuition-preference-actual-form").show();
+})
