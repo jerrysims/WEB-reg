@@ -2,9 +2,9 @@ class Student < ActiveRecord::Base
   belongs_to :parent
   has_many :student_shadows
   has_many :shadow_spots, through: :student_shadows
-  has_many :registrations
+  has_many :registrations, dependent: :destroy
   has_many :courses, through: :registrations
-  has_many :wait_listed_students
+  has_many :wait_listed_students, dependent: :destroy
 
   accepts_nested_attributes_for :student_shadows
 

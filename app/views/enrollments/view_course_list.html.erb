@@ -1,12 +1,19 @@
 Here are the courses for which <%= @student.full_name %> is eligible:
 <div class="row">
   <div class="col-md-6">
-    <% @available_courses.each do |course| %>
-      <%= render "course_tile", course: course %>
+    <% @subject_areas.each do |subject| %>
+      <div class="row">
+        <h4 class="subject"><%= subject %></h4>
+        <div class="col-md-12">
+          <% @available_courses.each do |course| %>
+            <%= render("course_tile", course: course) if course.subject_area == subject %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
 
   <div class="col-md-6">
     <%= link_to "Register for Classes", { controller: "registrations", action: "index", student_id: @student.id } %>
   </div>
-</div>
+<div>

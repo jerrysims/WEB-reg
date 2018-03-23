@@ -1,9 +1,9 @@
 class Course < ActiveRecord::Base
   has_many :course_corequisites
   has_many :corequisites, through: :course_corequisites
-  has_many :registrations
+  has_many :registrations, dependent: :destroy
   has_many :students, through: :registrations
-  has_many :wait_listed_students
+  has_many :wait_listed_students, dependent: :destroy
   has_and_belongs_to_many :products
 
   validates :day, presence: true
@@ -23,5 +23,5 @@ class Course < ActiveRecord::Base
   def fee
     products.empty? ? 0 : products.first.unit_price
   end
-  
+
 end
