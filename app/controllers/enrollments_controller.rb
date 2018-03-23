@@ -34,9 +34,13 @@ class EnrollmentsController < ApplicationController
   def student_info
     @student = Student.find(params[:id])
     if @student
-      @student.update_attributes(student_info_params)
+      if @student.update_attributes(student_info_params)
+        redirect_to(action: "view_course_list", student_id: @student.id)
+      else
+        @errors = @student.errors.full_messages
+        redirect_to({ action: "new", student: params[:student], new_student: 1, errors: @errors })
+      end
     end
-    redirect_to(action: "view_course_list", student_id: @student.id)
   end
 
   def view_course_list
