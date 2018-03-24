@@ -18,6 +18,7 @@ class Parent < ActiveRecord::Base
   validates :zip_code, presence: true, on: :course_registration
 
   has_many :students
+  has_many :invoice_line_items
 
   def full_name
     "#{self.first_name} #{self.last_name}"

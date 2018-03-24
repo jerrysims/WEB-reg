@@ -3,6 +3,6 @@ class Product < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :unit_price
-  validates_inclusion_of :product_type, in: %w( registration tuition fee study)
+  validates_inclusion_of :product_type, in: %w( registration tuition fee study donation)
 
 end

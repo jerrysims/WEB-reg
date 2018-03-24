@@ -20,6 +20,12 @@ class Invoice < ActiveRecord::Base
     [ annual_tuition, semester_tuition, monthly_tuition ]
   end
 
+  def self.get_donation(parent)
+    donation_product = Product.where(name: "Scholarship Donation").first
+    invoice_line_item = parent.invoice_line_items.where(product: donation_product)
+    invoice_line_item.empty? ? nil : invoice_line_item.first
+  end
+
   def self.initial_invoice_total(parent)
     @invoice_total = 0
     parent.students.each do |s|

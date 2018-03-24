@@ -70,6 +70,8 @@ class RegistrationsController < ApplicationController
     @annual, @semester, @monthly = Invoice.get_tuition_totals(current_parent)
     @payment_preference_section = get_payment_preference_section
     @tuition_total = get_tuition_total
+    @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
+    @checked = get_donation_radio_check(@donation.quantity)
   end
 
   def review
@@ -83,7 +85,6 @@ class RegistrationsController < ApplicationController
       # TODO: I must figure out how to get the student's information to this point
       redirect_to(action: "index", student_id: params[:student_id])
     else
-
       redirect_to :back
     end
   end
@@ -99,6 +100,10 @@ class RegistrationsController < ApplicationController
 
   def get_available_courses(student)
     Course.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
+  end
+
+  def get_donation_radio_check(amount)
+    [0,10,25,50].include?(amount) || amount.nil? ? amount.to_s : "Other"
   end
 
   def get_payment_preference_section

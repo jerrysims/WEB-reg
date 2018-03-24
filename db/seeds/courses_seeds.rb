@@ -470,6 +470,10 @@ products = Product.create([
     product_type: "fee",
     unit_price: 100,
     courses: Course.where(name: ["Studio Art/Portfolio Prep"] )
+  },{
+    name: "Scholarship Donation",
+    product_type: "donation",
+    unit_price: 1,
   }])
 
   p "Created #{Product.count} products"

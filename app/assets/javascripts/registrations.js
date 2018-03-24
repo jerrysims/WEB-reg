@@ -10,6 +10,15 @@ ready = function() {
     $("#tuition-preference-actual-form").show();
   })
 
+  $("#invoice_line_item_quantity_other").on('click', function(e){
+    $("#invoice_line_item_other_quantity").focus()
+  })
+
+  $("input[number='true'][type='radio']").on('click', function(e){
+    $("#invoice_line_item_other_quantity").val("")
+  })
+
+
   var dropCourseDialog = "Are you sure you want to drop this course?"
   var addCourseDialog = "Are you sure you want to add this course?"
   var cancelButton = document.getElementById('cancel');

@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   get '/registrations/review', to: 'registrations#review'
   get '/registrations/finalize', to: 'registrations#finalize'
   patch '/registrations/update_tuition_preference', to:'registrations#update_tuition_preference'
+  patch '/invoices/update_donation_amount', to: 'invoices#update_donation_amount'
+  post '/invoices/update_donation_amount', to: 'invoices#update_donation_amount'
 
   ActiveAdmin.routes(self)
 
