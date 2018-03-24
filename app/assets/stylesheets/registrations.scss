@@ -1,6 +1,11 @@
 .register-grid-class-card {
   margin-right: 5px;
   margin-left: 5px;
+  border-radius: 4px;
+}
+
+.register-grid-class-card:hover{
+  border-width: 3px;
 }
 
 .registered {
