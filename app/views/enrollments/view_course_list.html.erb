@@ -1,4 +1,4 @@
-Here are the courses for which <%= @student.full_name %> is eligible:
+Here are the courses for which <%= @student.full_name %> is eligible. Hover over course to see its description.
 <div class="row">
   <div class="col-md-6">
     <% @subject_areas.each do |subject| %>
@@ -14,7 +14,7 @@ Here are the courses for which <%= @student.full_name %> is eligible:
   </div>
 
   <div class="col-md-6">
-    <%= link_to( "Click here to go to the Registration Page", 
+    <%= link_to( "Click here to go to the Registration Page",
           { controller: "registrations", action: "index", student_id: @student.id },
           class: "custom_button go-to-registration-button" )
     %>

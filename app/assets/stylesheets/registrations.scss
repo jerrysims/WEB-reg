@@ -47,7 +47,11 @@
 
 .student-schedule-card {
   border-top: solid black;
+  border-left: solid black;
   padding-top: 10px;
+  padding-left: 25px;
+  background: #fafafa;
+  border-radius: 8px;
 }
 
 .registration-copy {
@@ -61,4 +65,8 @@
 .registration-button-div {
   text-align: center;
   margin: auto;
+}
+
+.view-invoice-button {
+  margin-top: 15px;
 }
