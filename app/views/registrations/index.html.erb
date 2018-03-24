@@ -1,31 +1,34 @@
 <div class="row">
 <h4>Welcome to the registration page for <%= @student.full_name %></h4><br>
-<div class="row">
+<div class="row registration-copy">
   Simply click on a course to add it to your schedule. If you change your mind about a course at a
-  specific time, you must first drop the selected course before adding the new course<br>
+  specific time, you must first drop the selected course before adding the new course.<br>
+  Suggested grade for courses follows in parentheses. Please select the right course for your student based on academic level, not age. Grades provided are guidelines.
 </div>
-<% @days.each do |day| %>
-  <span id="span-<%= day %>"><%= day %> </span>
-  <div class="row" id="day-<%= day %>">
-    <% @start_times.each do |time| %>
-      <div class="col-md-4" id="time-<%= time %>">
-        <div class="row">
-          <div class="col-md-12">
-            <%= time.strftime("%l:%M %p") %>
-          </div>
-          <% @available_courses.select { |c| c.day == day }.each do |c| %>
-            <% if c.start_time == time %>
-              <% registered = @student.registrations.where(course_id: c.id).empty? ? "" : "registered" %>
-                <div class="register-grid-class-card bordered-section col-md-12 <%= registered %>" id="course-<%= c.id %>" data-course="<%= c.id %>" data-student="<%= @student.id %>">
-                  <%= c.name %>
-                </div>
+<div class="registration-grid">
+  <% @days.each do |day| %>
+    <span id="span-<%= day %>"><%= day %> </span>
+    <div class="row" id="day-<%= day %>">
+      <% @start_times.each do |time| %>
+        <div class="col-md-4" id="time-<%= time %>">
+          <div class="row">
+            <div class="col-md-12">
+              <%= time.strftime("%l:%M %p") %>
+            </div>
+            <% @available_courses.select { |c| c.day == day }.each do |c| %>
+              <% if c.start_time == time %>
+                <% registered = @student.registrations.where(course_id: c.id).empty? ? "" : "registered" %>
+                  <div class="register-grid-class-card bordered-section col-md-12 <%= registered %>" id="course-<%= c.id %>" data-course="<%= c.id %>" data-student="<%= @student.id %>">
+                    <%= c.name %> (<%= c.suggested_grade %>)
+                  </div>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 <br><br>
 <div class="row">
   <div class="col-md-offset-4 col-md-2">
