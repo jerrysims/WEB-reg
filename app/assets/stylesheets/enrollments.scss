@@ -91,3 +91,20 @@ input[type=submit] {
 [tooltip]:not([tooltip-persistent]):before {
     pointer-events: none;
 }
+
+.custom-button {
+  background-color: #ccc;
+  border: none;
+  color: black;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+.go-to-registration-button {
+  position: relative;
+  top: 200px;
+}

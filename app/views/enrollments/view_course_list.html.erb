@@ -14,6 +14,9 @@ Here are the courses for which <%= @student.full_name %> is eligible:
   </div>
 
   <div class="col-md-6">
-    <%= link_to "Register for Classes", { controller: "registrations", action: "index", student_id: @student.id } %>
+    <%= link_to( "Click here to go to the Registration Page", 
+          { controller: "registrations", action: "index", student_id: @student.id },
+          class: "custom_button go-to-registration-button" )
+    %>
   </div>
 <div>
