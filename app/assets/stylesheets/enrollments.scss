@@ -65,7 +65,8 @@ input[type=submit] {
 
 [tooltip]:before {
   position : absolute;
-  left: 60%;
+  left: 100%;
+  width: 100%;
   content : attr(tooltip);
   opacity : 0;
 
@@ -80,7 +81,7 @@ input[type=submit] {
 [tooltip]:hover:before {
   opacity : 1;
   /* customizable */
-  background: white;
+  background: #eeeeee;
   margin-top: -50px;
   margin-left: 20px;
   z-index: 100;
