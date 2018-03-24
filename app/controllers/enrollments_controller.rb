@@ -1,7 +1,6 @@
 class EnrollmentsController < ApplicationController
   def new
     redirect_to(action: "select_student") if should_redirect_to_select_student?
-
     @errors = params[:errors]
 
     if params[:student_id].nil?
@@ -9,6 +8,8 @@ class EnrollmentsController < ApplicationController
     else
       @student = Student.find(params[:student_id])
     end
+
+    redirect_to(action: "view_course_list", student_id: @student.id) if @student.valid?(:course_registration)
   end
 
   def update
