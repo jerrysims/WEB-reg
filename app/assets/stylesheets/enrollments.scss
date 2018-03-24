@@ -62,3 +62,30 @@ input[type=submit] {
     margin: 0px;
   }
 }
+
+[tooltip]:before {
+  position : absolute;
+  left: 60%;
+  content : attr(tooltip);
+  opacity : 0;
+
+  /* customizable */
+  transition: all 0.15s ease;
+  padding: 10px;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 2px 2px 1px silver;
+}
+
+[tooltip]:hover:before {
+  opacity : 1;
+  /* customizable */
+  background: white;
+  margin-top: -50px;
+  margin-left: 20px;
+  z-index: 100;
+}
+
+[tooltip]:not([tooltip-persistent]):before {
+    pointer-events: none;
+}
