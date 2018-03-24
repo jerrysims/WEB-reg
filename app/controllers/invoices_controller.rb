@@ -1,11 +1,10 @@
 class InvoicesController < ApplicationController
-  DONATION_PRODUCT = Product.where(name: "Scholarship Donation").first
 
   def update_donation_amount
     p = params[:invoice_line_item]
     p[:quantity] = p[:other_quantity] if p[:quantity] == "Other"
     p.delete("other_quantity")
-    p[:product_id] = DONATION_PRODUCT.id
+    p[:product_id] = Product.where(name: "Scholarship Donation").first.id
     p[:parent_id] = current_parent.id
 
     if params[:invoice_line_item_id].nil?
