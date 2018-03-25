@@ -8,4 +8,10 @@ FactoryGirl.define do
     emergency_phone '6156156155'
     emergency_contact 'Mary Doe'
   end
+
+  trait :incomplete do
+    emergency_phone nil
+    emergency_contact nil
+  end
+
 end

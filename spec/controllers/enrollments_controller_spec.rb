@@ -8,6 +8,7 @@ RSpec.describe EnrollmentsController, type: :controller do
     describe '#new' do
       context 'when parent already has students' do
         let!(:student) { create(:student, parent: parent) }
+        let!(:incomplete_student) { create(:student, parent: parent) }
 
         context 'but the parameter is not present' do
 
@@ -18,10 +19,25 @@ RSpec.describe EnrollmentsController, type: :controller do
         end
 
         context 'and the parameter is present' do
-          it "loads the new enrollment form" do
-            get :new, { student_id: student.id}
+          context 'but student info is complete' do
 
-            expect(response).to render_template(:new)
+            it "loads the view_course_list page if student information is complete" do
+              get :new, { student_id: student.id}
+
+              expect(response).to redirect_to("/enrollment/view_course_list?student_id=#{student.id}")
+            end
+          end
+
+          context 'and student info is incomplete' do
+            before do
+              incomplete_student.update_attribute(:emergency_phone, nil)
+            end
+
+            it 'loads the new student form' do
+              get :new, { student_id: incomplete_student.id }
+
+              expect(response).to render_template(:new)
+            end
           end
         end
       end
@@ -44,7 +60,7 @@ RSpec.describe EnrollmentsController, type: :controller do
     end
 
     describe '#student_info' do
-      
+
     end
   end
 end

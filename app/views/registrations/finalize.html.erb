@@ -110,11 +110,23 @@
       </div>
     </div>
       <div class="row">
-        <div class="col-md-offset-1 col-md-10">
-          <%= f.submit "Update donation amount" %>
+        <div class="col-md-offset-1 col-md-10 edit-parent">
+          <%= f.submit "Update donation amount", class: "update-donation-amount" %>
           <% end %>
         </div>
       </div>
     </div>
-  </div>
   <!-- End Donation Section -->
+
+  <!-- Begin Finalize Button Section -->
+  <div class="finalize col-md-offset-1 col-md-4">
+    In order to finalize your registration, please pay registration and course fees. A quickbooks invoice will follow via email and should be paid within 7 days.
+    <div class="row edit-parent">
+      <%= link_to "Finalize Registration and Generate Invoice",
+        { controller: "invoices", action: "generate_initial_invoice" },
+        { class: "custom-button", data: {
+          confirm: "This will finalize registration for all of your students. Subsequent changes must be made through Shannon Truss will incur a $25 processing fee. Press OK to continue .Press Cancel to return and make changes." } } %>
+
+    </div
+  </div>
+</div>

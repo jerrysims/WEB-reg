@@ -1,5 +1,47 @@
 class Invoice < ActiveRecord::Base
+
+  belongs_to :parent
   has_many :invoice_line_items
+
+  def generate_initial_invoice
+    generate_registration_fees
+    generate_course_fees
+    binding.pry
+    update_donation_amount
+    binding.pry
+  end
+
+  def generate_registration_fees
+    parent.registered_students.each do |student|
+      InvoiceLineItem.create(product: Product::REGISTRATION_FEE, parent: parent, quantity: 1, student_id: student.id, invoice: self)
+    end
+  end
+
+  def generate_course_fees
+    parent.registered_students.each do |student|
+      student.courses.each do |course|
+        if course.fee_product
+          InvoiceLineItem.create(product: course.fee_product, parent: parent, quantity: 1, student_id: student.id, invoice: self)
+        end
+      end
+    end
+  end
+
+  def generate_tuition_fees
+    parent.registered_students.each do |student|
+      student.courses.each do |course|
+        if course.tuition_product
+          InvoiceLineItem.create(product: course.tuition_product, parent: parent, quantity: 1, student_id: student.id, invoice: self)
+        end
+      end
+    end
+  end
+
+  def update_donation_amount
+    if donation_item = InvoiceLineItem.find_by(parent: parent)
+      donation_item.update_attributes(invoice: self)
+    end
+  end
 
   def self.get_tuition_totals(parent)
     course_count = 0

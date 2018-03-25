@@ -1,5 +1,11 @@
 class InvoicesController < ApplicationController
 
+  def generate_initial_invoice
+    parent = params[:parent_id]
+    @invoice = Invoice.find_by(parent_id: current_parent.id) || Invoice.create(parent: current_parent)
+    @invoice.generate_initial_invoice
+  end
+
   def update_donation_amount
     p = params[:invoice_line_item]
     p[:quantity] = p[:other_quantity] if p[:quantity] == "Other"

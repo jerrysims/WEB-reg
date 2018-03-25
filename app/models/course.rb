@@ -24,4 +24,8 @@ class Course < ActiveRecord::Base
     products.empty? ? 0 : products.first.unit_price
   end
 
+  def fee_product
+    products.find_by(product_type: "fee")
+  end
+
 end

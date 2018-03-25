@@ -19,9 +19,13 @@ class Parent < ActiveRecord::Base
 
   has_many :students
   has_many :invoice_line_items
+  has_many :invoices
 
   def full_name
     "#{self.first_name} #{self.last_name}"
   end
 
+  def registered_students
+    students.joins(:registrations).uniq
+  end
 end

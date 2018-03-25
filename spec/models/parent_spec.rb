@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Parent, type: :model do
   describe 'associations' do
     it { should have_many(:students) }
+    it { should have_many(:invoices) }
+    it { should have_many(:invoice_line_items) }
   end
 
   describe 'validations' do
@@ -17,11 +19,30 @@ RSpec.describe Parent, type: :model do
   end
 
   describe 'instance method' do
-    describe '#full_name' do
-      let (:parent) { create(:parent, first_name: "Eddie", last_name: "Rabbit") }
+    let (:parent) { create(:parent, first_name: "Eddie", last_name: "Rabbit") }
 
+    describe '#full_name' do
       it 'should return readable combination of first and last names' do
         expect(parent.full_name).to eql('Eddie Rabbit')
+      end
+    end
+
+    describe '#registered_students' do
+      let(:student) { create(:student, parent: parent) }
+
+      context 'when no students are registered for a course' do
+        it 'returns an empty association' do
+          expect(parent.registered_students).to eq([])
+        end
+      end
+
+      context 'when students are registered' do
+        let(:course) { create(:course, grades: student.grade) }
+        let!(:registration) { create(:registration, student: student, course: course) }
+
+        it 'returns an array with those students' do
+          expect(parent.registered_students).to eq([student])
+        end
       end
     end
   end

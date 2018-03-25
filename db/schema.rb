@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323201457) do
+ActiveRecord::Schema.define(version: 20180325123329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,7 +70,10 @@ ActiveRecord::Schema.define(version: 20180323201457) do
   create_table "invoices", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "parent_id"
   end
+
+  add_index "invoices", ["parent_id"], name: "index_invoices_on_parent_id", using: :btree
 
   create_table "parents", force: :cascade do |t|
     t.string   "email",                             default: "",    null: false
@@ -181,6 +184,7 @@ ActiveRecord::Schema.define(version: 20180323201457) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "invoices", "parents"
   add_foreign_key "student_shadows", "shadow_spots"
   add_foreign_key "student_shadows", "students"
   add_foreign_key "students", "parents"
