@@ -4,16 +4,18 @@
   </div>
   <div id="tuition-preference-form" class="row tuition-preference-form">
     <div id="tuition-preference-form-link" class="col-md-offset-2 col-md-10">
-      <%= link_to "Update Payment", "#", id: "load_tuition_preference_form" %>
+      <%= link_to "Click here to update payment", "#", id: "load_tuition_preference_form" %>
     </div>
     <div id="tuition-preference-actual-form" class="row tuition-payment-plan-selection">
-      <div class="col-md-offset-2 col-md-10">
+      <div class="col-md-offset-2 col-md-8">
         <%= form_for(current_parent, url: { action: "update_tuition_preference" }, remote: true) do |f| %>
           <% %w(Annual Semester Monthly).each do |plan| %>
             <%= f.radio_button :tuition_preference, plan %>
             <%= f.label :tuition_preference, plan %>
           <% end %>
-          <%= f.submit %>
+          <div class="edit-parent row">
+              <%= f.submit "Update Payment", class: "update-payment-button"%>
+          </div>
         <% end %>
       </div>
     </div>

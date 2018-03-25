@@ -70,3 +70,20 @@
 .view-invoice-button {
   margin-top: 15px;
 }
+
+input[type="submit"].update-payment-button, {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+input[type="submit"].update-donation-amount {
+  width: 70%;
+  margin: auto;
+  text-align: center;
+}
+
+.edit-parent {
+  text-align: center;
+  margin: auto;
+}
