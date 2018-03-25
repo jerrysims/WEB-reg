@@ -1,0 +1,42 @@
+<div class="mailer" style="font-family: futura">
+Dear <%= @parent.full_name %>,
+
+<p> Thank you for enrolling for WEB classes for the 2018-19 school year!</p>
+
+<p><% @parent.registered_students.each do |student| %>
+  <%= student.full_name %> is enrolled in the following classes:
+  <% %w(Monday Tuesday Wednesday Thursday Friday).each do |day| %>
+    <% unless student.daily_schedule(day).empty? %>
+      <p>
+    <% end %>
+    <% student.daily_schedule(day).each do |course| %>
+      <div class="row course">
+        - <%= course.day %>, <%= course.start_time.strftime("%l:%M %p") %>-<%= course.end_time.strftime("%l:%M %p") %> <%= course.name %>
+      </div>
+    <% end %>
+    <% unless student.daily_schedule(day).empty? %>
+      </p>
+    <% end %>
+  <% end %>
+  <% unless student.wait_listed_courses.empty? %>
+    <p>Wait List: <%= student.wait_listed_courses.map { |course| course.name }.join(", ") %></p>
+  <% end %>
+<% end %>
+
+
+<p>You have elected to pay <%= @parent.tuition_preference %>. Monthly payment requires an auto bank draft or scheduled credit card payments. An authorization form will be available for you to complete.
+
+<p>You have until midnight on <%= @invoice.created_at.strftime("%m/%d/%Y") %> to make changes to the registration for your family free of charge. Any changes made after this time must be done through me (via email at webututorial2013@gmail.com) and will incur a $25 fee.
+
+<p>An invoice for $<%= @invoice.total_due %> will be issued via Quickbooks and delivered via email. You may pay via ACH draft or credit card. To complete your family’s registration, this invoice must be paid within 7 days of issue. After that point, your registration will be canceled and your student will not be guaranteed a spot in the classes you have selected that are listed above.
+
+<p>If you would be interested in volunteering to supervise a study hall in exchange for a tuition discount, please email me at webtutorial2013@gmail.com.
+
+<p>Whether you are a new or returning WEB family, please plan to join us on Wednesday, May 9 for WEB’s annual picnic at Dalewood UMC. Student work will be on display in the fellowship hall from 10:30-11:30 and the picnic will run from 11:30-1:00.
+
+<p>We look forward to having you at WEB in 2018-19!
+
+<p>Shannon Truss<br>
+Director, WEB<br>
+615-496-9995
+</div>

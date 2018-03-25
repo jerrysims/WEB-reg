@@ -19,7 +19,7 @@ RSpec.describe Parent, type: :model do
   end
 
   describe 'instance method' do
-    let (:parent) { create(:parent, first_name: "Eddie", last_name: "Rabbit") }
+    let!(:parent) { create(:parent, first_name: "Eddie", last_name: "Rabbit", tuition_preference: "monthly") }
 
     describe '#full_name' do
       it 'should return readable combination of first and last names' do
@@ -43,6 +43,16 @@ RSpec.describe Parent, type: :model do
         it 'returns an array with those students' do
           expect(parent.registered_students).to eq([student])
         end
+      end
+    end
+
+    describe '#send_confirmation' do
+      let!(:invoice) { create(:invoice, parent: parent) }
+
+      it 'should call the mailer' do
+        allow_any_instance_of(ConfirmationMailer).to receive(:registration_confirmation_email).with(parent, invoice)
+
+        parent.send_confirmation(invoice)
       end
     end
   end

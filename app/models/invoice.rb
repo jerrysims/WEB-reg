@@ -35,8 +35,14 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def total_due
+    total = 0
+    invoice_line_items.map { |item| total += (item.quantity * item.product.unit_price) }
+    total
+  end
+
   def update_donation_amount
-    if donation_item = InvoiceLineItem.find_by(parent: parent)
+    if donation_item = InvoiceLineItem.find_by(parent: parent, invoice: nil)
       donation_item.update_attributes(invoice: self)
     end
   end

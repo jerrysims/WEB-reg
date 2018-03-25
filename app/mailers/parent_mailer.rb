@@ -20,7 +20,17 @@ class ParentMailer < ApplicationMailer
     mail(
       to: @parent.email,
       from: "notifications@webtutorialnashville.com",
-      cc: teacher_emails, 
+      cc: teacher_emails,
       subject: 'Your WEB Shadow Schedule')
+  end
+
+  def registration_confirmation_email(parent, invoice)
+    @parent = parent
+    @invoice = invoice
+
+    mail(
+      to: @parent.email,
+      from: "notifications@webtutorialnashville.com",
+      subject: 'WEB Registration Confirmation')
   end
 end

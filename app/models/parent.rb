@@ -22,10 +22,14 @@ class Parent < ActiveRecord::Base
   has_many :invoices
 
   def full_name
-    "#{self.first_name} #{self.last_name}"
+    "#{self.first_name.capitalize} #{self.last_name.capitalize}"
   end
 
   def registered_students
     students.joins(:registrations).uniq
+  end
+
+  def send_confirmation(invoice)
+    ConfirmationMailer.registration_confirmation_email(self, invoice).deliver_now
   end
 end

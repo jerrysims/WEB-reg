@@ -4,6 +4,7 @@ class InvoicesController < ApplicationController
     parent = params[:parent_id]
     @invoice = Invoice.find_by(parent_id: current_parent.id) || Invoice.create(parent: current_parent)
     @invoice.generate_initial_invoice
+    parent.send_confirmation(@invoice)
   end
 
   def update_donation_amount
