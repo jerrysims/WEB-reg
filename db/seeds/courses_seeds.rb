@@ -264,7 +264,7 @@ courses = Course.create([
     start_time: "9:30",
     end_time: "11:00",
     class_minimum: 0,
-    class_maximum: 100
+    class_maximum: 8
   },{
     name: "Study Hall",
     description: "N/A",
@@ -276,7 +276,7 @@ courses = Course.create([
     start_time: "11:30",
     end_time: "13:00",
     class_minimum: 0,
-    class_maximum: 100
+    class_maximum: 8
   },{
     name: "Study Hall",
     description: "N/A",
@@ -288,7 +288,7 @@ courses = Course.create([
     start_time: "13:00",
     end_time: "14:30",
     class_minimum: 0,
-    class_maximum: 100
+    class_maximum: 8
   },{
     name: "Study Hall",
     description: "N/A",
@@ -300,7 +300,7 @@ courses = Course.create([
     start_time: "9:30",
     end_time: "11:00",
     class_minimum: 0,
-    class_maximum: 100
+    class_maximum: 8
   },{
     name: "Study Hall",
     description: "N/A",
@@ -312,7 +312,7 @@ courses = Course.create([
     start_time: "11:30",
     end_time: "13:00",
     class_minimum: 0,
-    class_maximum: 100
+    class_maximum: 8
   },{
     name: "Study Hall",
     description: "N/A",
@@ -324,7 +324,19 @@ courses = Course.create([
     start_time: "13:00",
     end_time: "14:30",
     class_minimum: 0,
-    class_maximum: 100
+    class_maximum: 8
+  },{
+    name: "Let's Talk About Books",
+    description: "Designed for students who want a reading class either in lieu of or in addition to a WEB literature class. This course will focus on reading and discussion. Homework will be reading only and class time will be a mixture of discussion and in-class projects. *This class is waiting list only until the teaching position is filled.",
+    textbooks: "TBD",
+    grades: "5,6,7,8",
+    suggested_grade: "5,6,7,8",
+    subject_area: "Literature",
+    day: "Tuesday",
+    start_time: "13:00",
+    end_time: "14:30",
+    class_minimum: 0,
+    class_maximum: 0
   },{
     name: "Spanish Conversation",
     description: "Designed to allow students in Intro to Spanish or Spanish 1 practice their Spanish conversation skills. This course can also follow Spanish 1 to expand conversational skills and can be taken concurrently with a Spanish 2 course online or outside of WEB.",
