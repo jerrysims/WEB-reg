@@ -6,9 +6,7 @@ class Invoice < ActiveRecord::Base
   def generate_initial_invoice
     generate_registration_fees
     generate_course_fees
-    binding.pry
     update_donation_amount
-    binding.pry
   end
 
   def generate_registration_fees
