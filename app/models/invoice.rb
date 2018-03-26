@@ -38,7 +38,11 @@ class Invoice < ActiveRecord::Base
 
   def total_due
     total = 0
-    invoice_line_items.map { |item| total += (item.quantity * item.product.unit_price) }
+    invoice_line_items.each do |item|
+      unless item.product.nil?
+        total += (item.quantity * item.product.unit_price)
+      end
+    end
     total
   end
 
