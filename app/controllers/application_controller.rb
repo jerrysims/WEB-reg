@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   def check_for_locked_parent
     unless params[:controller] == "devise/sessions" || ["review", "destroy"].include?(params[:action])
-      if current_parent.is_locked?
+      if current_parent.locked?
         redirect_to controller: "registrations", action: "review", student_id: current_parent.students.first.id
       end
     end

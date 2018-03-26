@@ -25,15 +25,6 @@ class Parent < ActiveRecord::Base
     "#{self.first_name.capitalize} #{self.last_name.capitalize}"
   end
 
-  def is_locked?
-    locked
-  end
-
-  def lock_out
-    update_attributes(locked: true)
-    binding.pry
-  end
-
   def registered_students
     students.joins(:registrations).uniq
   end
