@@ -25,6 +25,10 @@ class Parent < ActiveRecord::Base
     "#{self.first_name.capitalize} #{self.last_name.capitalize}"
   end
 
+  def is_locked?
+    self.locked
+  end
+
   def lock_out
     update_attributes(locked: true)
     binding.pry

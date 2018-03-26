@@ -5,14 +5,14 @@ We found the following class schedules for you:
     <div class="col-md-4 student-schedule-card">
       <%= render "student_schedule", student: student %>
     </div>
-    <% unless current_parent.locked %>
+    <% unless current_parent.is_locked? %>
       <div class="col-md-6">
         <%= link_to "Change #{student.first_name}'s schedule", { controller: "registrations", action: "index", student_id: student.id }, class: "custom-button" %>
       </div>
     <% end %>
   </div>
 <% end %>
-<% unless current_parent.locked %>
+<% unless current_parent.is_locked? %>
   <div class="row">
     <%= link_to "View Invoice / Tuition", { controller: "registrations", action: "finalize" }, class: "custom-button view-invoice-button" %>
   </div>
