@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180325123329) do
+ActiveRecord::Schema.define(version: 20180326041920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20180325123329) do
     t.text     "zip_code"
     t.text     "tuition_preference"
     t.boolean  "admin",                             default: false
+    t.boolean  "locked",                            default: false
   end
 
   add_index "parents", ["email"], name: "index_parents_on_email", unique: true, using: :btree
