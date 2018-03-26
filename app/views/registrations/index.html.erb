@@ -1,9 +1,12 @@
 <div class="row">
 <h4>Registration Page: <%= @student.full_name %></h4><br>
 <div class="row registration-copy">
-  Simply click on a course to add it to your schedule. If you change your mind about a course at a
-  specific time, you must first drop the selected course before adding the new course.<br>
+  <div class="bordered-section">
+    Simply click on a course to add it to your schedule. If you change your mind about a course at a
+    specific time, you must first drop the selected course before adding the new course.<br>
+  </div>
   Suggested grade for courses follows in parentheses. Please select the right course for your student based on academic level, not age. Grades provided are guidelines.
+  <br><span class="study-hall-alert">Students may only sign up for one study hall session per day.</span>
 </div>
 <div class="registration-grid">
   <% @days.each do |day| %>
@@ -30,6 +33,7 @@
   <% end %>
 </div>
 <br><br>
+* - Reading for Writing is currently a waitlist only course<br><br>
 <div class="row">
   <div class="col-md-12 registration-button-div">
     <%= link_to "Review Registration", { controller: "registrations", action: "review", student_id: @student.id }, class: "btn button custom-button" %>

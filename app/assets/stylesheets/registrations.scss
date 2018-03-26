@@ -22,9 +22,10 @@
   padding-left: 10px;
 }
 
-.invoice, .tuition{
+.invoice, .tuition, .donate {
   margin-top: 20px;
   padding-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 #tuition-preference-actual-form {
@@ -86,4 +87,8 @@ input[type="submit"].update-donation-amount {
 .edit-parent {
   text-align: center;
   margin: auto;
+}
+
+.study-hall-alert {
+  color: red;
 }

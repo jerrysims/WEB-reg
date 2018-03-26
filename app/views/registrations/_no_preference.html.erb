@@ -4,13 +4,19 @@
   </div>
   <div class="row tuition-payment-plan-selection">
     <div class="col-md-offset-2 col-md-10">
-      <%= form_for(current_parent, url: { action: "update_tuition_preference" }, remote: true) do |f| %>
-        <% %w(Annual Semester Monthly).each do |plan| %>
-          <%= f.radio_button :tuition_preference, plan %>
-          <%= f.label :tuition_preference, plan %>
-        <% end %>
-        <div class="col-md-1"
-        <%= f.submit "Update Payment", class: "col-md-2" %>
+      <div class="row">
+        <div class="col-md-12">
+          <%= form_for(current_parent, url: { action: "update_tuition_preference" }, remote: true) do |f| %>
+            <% %w(Annual Semester Monthly).each do |plan| %>
+            <%= f.radio_button :tuition_preference, plan %>
+            <%= f.label :tuition_preference, plan %>
+          <% end %>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <%= f.submit "Update Payment", class: "col-md-2" %>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>

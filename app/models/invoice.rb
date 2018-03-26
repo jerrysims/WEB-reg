@@ -63,14 +63,14 @@ class Invoice < ActiveRecord::Base
 
   def self.get_tuition_totals(parent)
     course_count = 0
-    parent.students.each{ |s| course_count += s.course_count }
+    parent.registered_students.each{ |s| course_count += s.course_count }
     study_hall_count = 0
     parent.students.each{ |s| study_hall_count += s.study_hall_count}
-    annual_unit = Product.where(name: "2018/2019 Class Tuition-Annual").first.unit_price
-    monthly_unit = Product.where(name: "2018/2019 Class Tuition-Monthly").first.unit_price
-    semester_unit = Product.where(name: "2018/2019 Class Tuition-Semester").first.unit_price
-    study_hall_monthly = Product.where(name: "2018/2019 Study Hall - Monthly").first.unit_price
-    study_hall_semester = Product.where(name: "2018/2019 Study Hall-Semester").first.unit_price
+    annual_unit = Product::TUITION[:annual].unit_price
+    monthly_unit = Product::TUITION[:monthly].unit_price
+    semester_unit = Product::TUITION[:semester].unit_price
+    study_hall_monthly = Product::STUDY_HALL[:monthly].unit_price
+    study_hall_semester = Product::STUDY_HALL[:semester].unit_price
     study_hall_annual = study_hall_semester * 2
 
     annual_tuition = (course_count * annual_unit) + (study_hall_count * study_hall_annual)

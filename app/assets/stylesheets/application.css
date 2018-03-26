@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+input[type="submit"].new-registration-login {
+  width: 10%;
+}
+
+input[type="submit"].password-reset-button {
+  width: 30%;
+}
