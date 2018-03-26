@@ -26,7 +26,7 @@ class Parent < ActiveRecord::Base
   end
 
   def is_locked?
-    self.locked
+    locked
   end
 
   def lock_out
