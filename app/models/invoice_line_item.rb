@@ -26,7 +26,7 @@ class InvoiceLineItem < ActiveRecord::Base
       product_id,
       product_name.nil? ? "" : product_name,
       quantity,
-      product.unit_price
+      product_name.nil? ? "" : product.unit_price
     ]
   end
 end
