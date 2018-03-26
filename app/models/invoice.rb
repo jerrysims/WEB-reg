@@ -7,6 +7,7 @@ class Invoice < ActiveRecord::Base
     generate_registration_fees
     generate_course_fees
     update_donation_amount
+    write_to_csv
   end
 
   def generate_registration_fees
@@ -44,6 +45,15 @@ class Invoice < ActiveRecord::Base
   def update_donation_amount
     if donation_item = InvoiceLineItem.find_by(parent: parent, invoice: nil)
       donation_item.update_attributes(invoice: self)
+    end
+  end
+
+  def write_to_csv
+    filepath = File.join(Rails.root, 'data', 'invoices_data.csv')
+    csv_file = CSV.open(filepath, 'a')
+
+    invoice_line_items.each do |item|
+      csv_file << item.to_invoice_array  
     end
   end
 

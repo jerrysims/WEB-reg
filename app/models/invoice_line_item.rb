@@ -8,4 +8,24 @@ class InvoiceLineItem < ActiveRecord::Base
   validates_presence_of :product
   validates_presence_of :parent
   validates_presence_of :quantity
+
+  def to_invoice_array
+    student = Student.find_by(id: student_id)
+
+    [
+      id,
+      student.present? ? student.full_name : "",
+      parent.full_name,
+      parent.street_address_1,
+      parent.street_address_2,
+      parent.city,
+      parent.zip_code,
+      parent.state,
+      parent.email,
+      product_id,
+      product.name,
+      quantity,
+      product.unit_price
+    ]
+  end
 end
