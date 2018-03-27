@@ -12,7 +12,7 @@ class InvoiceLineItem < ActiveRecord::Base
 
   def to_invoice_array
     student = Student.find_by(id: student_id)
-    product_name = Product.find_by(id: product_id)
+    product = Product.find_by(id: product_id)
 
     [
       id,
@@ -25,9 +25,9 @@ class InvoiceLineItem < ActiveRecord::Base
       parent.state,
       parent.email,
       product_id,
-      product_name.nil? ? "" : product_name,
+      product.nil? ? "" : product.name,
       quantity,
-      product_name.nil? ? "" : product.unit_price
+      product.nil? ? "" : product.unit_price
     ]
   end
 end
