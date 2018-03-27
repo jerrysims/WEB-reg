@@ -7,7 +7,7 @@ class InitialInvoiceMailer < ApplicationMailer
 
     mail(
       to: 'jerrysims07@gmail.com',
-      # cc: ['webtutorial2013@gmail.com', 'becky.gore1@gmail.com' ],
+      cc: ['webtutorial2013@gmail.com', 'becky.gore1@gmail.com' ],
       from: "notifications@webtutorialnashville.com",
       subject: "Initial Invoice Export - #{date.strftime('%Y%m%d')}"
     )
