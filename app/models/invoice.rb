@@ -7,7 +7,6 @@ class Invoice < ActiveRecord::Base
     generate_registration_fees
     generate_course_fees
     update_donation_amount
-    # write_to_csv
   end
 
   def generate_registration_fees
@@ -54,12 +53,11 @@ class Invoice < ActiveRecord::Base
   end
 
   def write_to_csv
-    filepath = File.join(Rails.root, 'data', '/invoices_data.csv')
-    csv_file = CSV.open(filepath, 'a')
-
+    csv_data = ""
     invoice_line_items.each do |item|
-      csv_file << item.to_invoice_array
+      csv_data = CSV.generate(csv_data) { |csv| csv << item.to_invoice_array }
     end
+    csv_data
   end
 
   def self.get_tuition_totals(parent)
