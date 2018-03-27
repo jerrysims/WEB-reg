@@ -3,7 +3,7 @@ class InitialInvoiceMailer < ApplicationMailer
 
   def initial_invoice_email(date, csv_data)
     @date = date
-    attachments["initial_invoices_#{date.strftime("%Y%m%d")}"] = { mime_type: 'text/csv', content: csv_data }
+    attachments["initial_invoices_#{date.strftime("%Y%m%d")}.csv"] = { mime_type: 'text/csv', content: csv_data }
 
     mail(
       to: 'jerrysims07@gmail.com',
