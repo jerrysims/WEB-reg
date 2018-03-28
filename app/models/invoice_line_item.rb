@@ -16,7 +16,9 @@ class InvoiceLineItem < ActiveRecord::Base
 
     [
       id,
+      student.present? ? student.id : "",
       student.present? ? student.full_name : "",
+      parent.id,
       parent.full_name,
       parent.street_address_1,
       parent.street_address_2,
