@@ -47,7 +47,7 @@ ActiveAdmin.register Course do
       panel "Waitlisted Students" do
         table_for course.wait_listed_students do
           column "name" do |wait_listed_student|
-            wait_listed_student.full_name
+            wait_listed_student.student.full_name
           end
         end
       end
