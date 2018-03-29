@@ -18,4 +18,15 @@ ActiveAdmin.register Student do
     end
     actions
   end
+
+  csv do
+    column :id
+    column :first_name
+    column :last_name
+    column :parent_id
+    column "Parent Name" do |student|
+      student.parent.present? ? student.parent.full_name : ""
+    end
+
+  end
 end
