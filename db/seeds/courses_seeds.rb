@@ -87,7 +87,7 @@ courses = Course.create([
     class_maximum: 18
   },{
     name: "Physical Science",
-    description: "Students will learn about mechanics, heat, electricity, atomic structure, astronomy and more.",
+    description: "Students will learn about mechanics, heat, electricity, atomic structure, astronomy and more. Students should be enrolled in Pre-Algebra or higher for math to enroll in this class.",
     textbooks: "Derek Owens Physical Science",
     grades: "7,8,9",
     suggested_grade: "8",

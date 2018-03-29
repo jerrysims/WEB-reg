@@ -20,6 +20,9 @@ ActiveAdmin.register Course do
     end
     column :class_maximum
     column :class_minimum
+    column "Waitlist Count" do |course|
+      course.wait_listed_students.count
+    end
     actions
   end
 
@@ -35,12 +38,20 @@ ActiveAdmin.register Course do
         "#{c.students.count} of #{c.class_maximum} filled"
       end
       panel "Enrolled Students" do
-         table_for course.registrations do
-           column "name" do |registration|
-             registration.student.full_name
-           end
-         end
-       end    end
+        table_for course.registrations do
+          column "name" do |registration|
+            registration.student.full_name
+          end
+        end
+      end
+      panel "Waitlisted Students" do
+        table_for course.wait_listed_students do
+          column "name" do |wait_listed_student|
+            wait_listed_student.full_name
+          end
+        end
+      end
+    end
     active_admin_comments
   end
 end
