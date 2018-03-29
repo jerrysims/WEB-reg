@@ -17,6 +17,7 @@
 /tmp
 /data
 .env
+.zsh*
 
 
 # Ignore application configuration
