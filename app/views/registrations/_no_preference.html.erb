@@ -1,11 +1,11 @@
 <div class="row tuition-message">
-  <div class="col-md-offset-1 col-md-11">
+  <div class="col-md-offset-1 col-md-11 col-xs-11">
     How would you prefer to pay tuition?
   </div>
   <div class="row tuition-payment-plan-selection">
     <div class="col-md-offset-2 col-md-10">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-xs-12">
           <%= form_for(current_parent, url: { action: "update_tuition_preference" }, remote: true) do |f| %>
             <% %w(Annual Semester Monthly).each do |plan| %>
             <%= f.radio_button :tuition_preference, plan %>
@@ -14,7 +14,7 @@
         </div>
         <div class="row">
           <div class="col-md-10">
-            <%= f.submit "Update Payment", class: "col-md-2" %>
+            <%= f.submit "Update Payment", class: "col-md-2 col-xs-8 custom-button" %>
           </div>
         </div>
       <% end %>

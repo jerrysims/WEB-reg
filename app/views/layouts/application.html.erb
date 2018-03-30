@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
@@ -12,26 +13,30 @@
     <div id="canvas">
       <header >
         <div id="logo" data-content-field="site-title">
-          <h1 class="logo" data-shrink-original-size="32" style="letter-spacing: 0.125em;"><a href="/">WEB Tutorial {Nashville}</a></h1>
+           <h3 class="logo" data-shrink-original-size="32" style="letter-spacing: 0.125em;"><a href="/">WEB Tutorial {Nashville}</a></h3>
           <div class="tagline">Weekday Eastside Bridge</div>
         </div>
         <div class="container nav-container">
           <nav>
-            <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to "Home", root_path %></li>
-              <li><%= link_to "Help",   '#' %></li>
-              <li>
-                <% if current_parent %>
-                  <%= link_to "Sign Out", destroy_parent_session_path, method: :delete %></li>
-                <% else %>
-                  <%= link_to "Log in", new_parent_session_path, method: :get %>
-                <% end %>
+            <ul class="nav navbar-nav navbar-right col-xs-12">
+              <div class="row">
+                <li class="col-md-offset-8 col-md-1 col-xs-4 inline"><%= link_to "Home", root_path %></li>
+                <li class="col-md-1 col-xs-4 inline"><%= link_to "Help",   '#' %></li>
+                <li class="col-md-2 col-xs-4 inline">
+                  <% if current_parent %>
+                    <%= link_to "Sign Out", destroy_parent_session_path, method: :delete, class: "inline" %>
+                  <% else %>
+                    <%= link_to "Log in", new_parent_session_path, method: :get, class: "inline" %>
+                  <% end %>
+                </li>
+              </div>
 
             </ul>
           </nav>
-        <% if current_page?(root_path) %>
-              <%= render 'layouts/registration_announcement' %>
-        <% end %></div>
+          <% if current_page?(root_path) %>
+            <%= render 'layouts/registration_announcement' %>
+          <% end %>
+        </div>
       </header>
       <div class="container content-container">
         <%= yield %>

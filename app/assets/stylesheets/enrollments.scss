@@ -64,6 +64,11 @@ input[type=submit] {
   }
 }
 
+.mobile-class[tooltip]:before {
+  left: 10%;
+  width: 90%;
+}
+
 [tooltip]:before {
   position : absolute;
   left: 100%;

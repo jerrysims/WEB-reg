@@ -15,9 +15,33 @@
  */
 
 input[type="submit"].new-registration-login {
-  width: 10%;
+  width: 100%;
 }
 
 input[type="submit"].password-reset-button {
   width: 30%;
+}
+
+html, body {
+  width:  100%;
+  height: 100%;
+  margin: 0px;
+}
+
+li.inline {
+  display: inline-block;
+}
+
+.custom-button {
+  background-color: #ccc;
+  border: thin solid #bbb;
+  color: black;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  border-radius: 8px;
+  margin: auto;
+  text-align: center;
 }

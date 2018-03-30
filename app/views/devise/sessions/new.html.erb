@@ -5,12 +5,12 @@
 <h5> If you have not yet created an account, please choose "Sign up" below to get started</h5>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
+  <div class="field login-text-input">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
   </div>
 
-  <div class="field">
+  <div class="field login-text-input">
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "off" %>
   </div>
@@ -22,7 +22,7 @@
     </div>
   <% end -%>
 
-  <div class="actions">
+  <div class="actions col-md-2 col-xs-4 custom-button">
     <%= f.submit "Log in", class: "new-registration-login" %>
   </div>
 <% end %>

@@ -1,6 +1,14 @@
 Here are the courses for which <%= @student.full_name %> is eligible. Hover over course to see its description.
+<% if browser.device.mobile? %>
+  <div class="row">
+    <%= link_to( "Click here to go to the Registration Page",
+          { controller: "registrations", action: "index", student_id: @student.id },
+          class: "custom_button" )
+    %>
+  </div>
+<% end %>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 col-xs-12">
     <% @subject_areas.each do |subject| %>
       <div class="row">
         <h4 class="subject"><%= subject %></h4>
@@ -16,7 +24,7 @@ Here are the courses for which <%= @student.full_name %> is eligible. Hover over
   <div class="col-md-6">
     <%= link_to( "Click here to go to the Registration Page",
           { controller: "registrations", action: "index", student_id: @student.id },
-          class: "custom_button go-to-registration-button" )
+          class: "custom_button #{'go-to-registration-button' unless browser.device.mobile?}" )
     %>
   </div>
 <div>

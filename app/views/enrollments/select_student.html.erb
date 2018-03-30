@@ -1,17 +1,21 @@
-<% if current_parent.students.empty? %>
-  <h1>Click below to create your first student</h1>
-<% else %>
-  <h3>Click on a student to register:</h3>
-  <div class="container">
-    <ul>
-      <% @students.each do |s| %>
-        <li class="student-tile">
-          <%= link_to s.full_name, { controller: "enrollments", action: "new", student_id: s.id } %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-<div class="container new-student-btn">
-  <%= link_to "Add a new student",  { controller: "enrollments", action: "new", new_student: 1 }, class: "custom-button" %>
+  <% if current_parent.students.empty? %>
+    <div class="row">
+      <h1 class="col-xs-12">Click below to create your first student</h1>
+    </div>
+  <% else %>
+    <div class="row">
+      <h3>Click on a student to register:</h3>
+    </div>
+    <div class="container row">
+      <ul>
+        <% @students.each do |s| %>
+          <li class="student-tile row">
+            <%= link_to s.full_name, { controller: "enrollments", action: "new", student_id: s.id }, class: "col-xs-12" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="container new-student-btn row">
+  <%= link_to "Add a new student",  { controller: "enrollments", action: "new", new_student: 1 }, class: "custom-button col-xs-4" %>
 </div>

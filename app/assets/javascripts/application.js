@@ -14,8 +14,20 @@
 //= require jquery_ujs
 //= require_tree .
 
-$('.submit-button').on('ajax:success', addStudent);
+ready = function() {
 
-function addStudent(event, data) {
-  console.log("in addStudent")
-}
+  $('.submit-button').on('ajax:success', addStudent);
+
+  function addStudent(event, data) {
+    console.log("in addStudent")
+  }
+
+  canvas = document.getElementById('canvas');
+
+  // Set canvas dimensions
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
