@@ -4,9 +4,9 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-offset-1 col-md-5 col-xs-12 invoice bordered-section">
+  <div class="col-md-offset-1 col-md-5 col-xs-12 col-sm-12 invoice bordered-section">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 col-sm-offset-2 col-sm-8">
         <div class="row invoice-title">
           <h4>Registration & Course Fees</h4>
         </div>
@@ -18,20 +18,20 @@
         </div>
         <% @enrolled_students.each do |s| %>
           <div class="row">
-            <div class="col-md-offset-4 col-md-6 col-xs-10">
+            <div class="col-md-offset-4 col-md-6 col-xs-10 col-sm-10">
               <%= s.full_name %>
             </div>
-            <div class="invoice-amounts col-md-2 col-xs-2">
+            <div class="invoice-amounts col-md-2 col-xs-2 col-sm-2">
               $<%= @registration_fee %>
             </div>
           </div>
         <% end %>
         <% if @discount %>
           <div class="row">
-            <div class="col-md-offset-4 col-md-6 col-xs-10">
+            <div class="col-md-offset-4 col-md-6 col-xs-10 col-sm-10">
               Family Discount (multiple enrollees)
             </div>
-            <div class="invoice-amounts col-md-2 col-xs-2">
+            <div class="invoice-amounts col-md-2 col-xs-2 col-sm-2">
               $<%= @discount %>
             </div>
           </div>
@@ -51,20 +51,20 @@
           </div>
           <% s.courses.each do |c| %>
             <div class="row">
-              <div class="col-md-offset-4 col-md-6 col-xs-10">
+              <div class="col-md-offset-4 col-md-6 col-xs-10 col-sm-10">
                 <%= c.name %>
               </div>
-              <div class="invoice-amounts col-md-2 col-xs-2">
+              <div class="invoice-amounts col-md-2 col-xs-2 col-sm-2">
                 $<%= c.fee %>
               </div>
             </div>
           <% end %>
         <% end %>
         <div class="row invoice-total">
-          <div class="col-md-offset-4 col-md-6 col-xs-10">
+          <div class="col-md-offset-4 col-md-6 col-xs-10 col-sm-10">
             <h5>Total Due Today</h5>
           </div>
-          <div class="col-md-2 col-xs-2">
+          <div class="col-md-2 col-xs-2 col-sm-2">
             <h5>$<%= @invoice_total %></h5>
           </div>
         </div>
@@ -75,17 +75,21 @@
 
   <div class="tuition col-md-6">
     <div class="row">
-      <div class="col-md-offset-1 col-md-8 bordered-section">
-        <div class="row invoice-title">
-          <h4>Tuition</h4>
-        </div>
-        <div class="row tuition-amount">
-          <div class="col-md-offset-1 col-md-11">
-            <h5>$<%= @tuition_total %></h5>
+      <div class="col-md-offset-1 col-md-8 col-sm-12 bordered-section">
+        <div class="row">
+          <div class="col-md-12 col-sm-offset-2 col-sm-8">
+            <div class="row invoice-title">
+              <h4>Tuition</h4>
+            </div>
+            <div class="row tuition-amount">
+              <div class="col-md-offset-1 col-md-11">
+                <h5>$<%= @tuition_total %></h5>
+              </div>
+            </div>
+            <div id="payment-preference-section" class="row payment_preference_section">
+              <%= render @payment_preference_section, tuition_total: @tuition_total %>
+            </div>
           </div>
-        </div>
-        <div id="payment-preference-section" class="row payment_preference_section">
-          <%= render @payment_preference_section, tuition_total: @tuition_total %>
         </div>
       </div>
     </div>
@@ -93,19 +97,19 @@
 
   <!-- Beginning of Donation section -->
   <div class="row">
-    <div class="donate col-md-offset-1 col-md-8 bordered-section">
+    <div class="donate col-md-offset-1 col-md-8 col-sm-12 bordered-section">
       <div class="row tuition-amount">
-        <div class="col-md-12 col-xs-12">
+        <div class="col-md-12 col-xs-12 col-sm-offset-2 col-sm-10101010101010101010">
           <span>Would you like to donate to the WEB scholarship fund?</span>
         </div>
       </div>
       <div class="row donation-amount-selection">
-        <div class="col-md-12">
+        <div class="col-md-12 col-sm-offset-2 col-sm-10">
           <%= form_for(@donation, url: { controller: "invoices", action: "update_donation_amount", invoice_line_item_id: @donation.id }, remote: true) do |f| %>
             <div class="row">
               <% %w(10 25 50 Other).each do |amount| %>
                 <div class="row">
-                  <div class="col-md-offset-2 col-xs-offset-2">
+                  <div class="col-md-offset-2 col-xs-offset-2 col-sm-offset-2">
                     <%= f.radio_button :quantity, amount, checked: @checked == amount, number: (["10","25","50"].include?(amount))  %>
                     <%= f.label :quantity, amount %>
                     <% if amount == "Other" %>

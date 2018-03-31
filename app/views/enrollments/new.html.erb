@@ -11,8 +11,8 @@
       <% end %>
       <!-- student information section -->
       <div class="row">
-        <div class="col-md-offset-3 col-md-6 bordered-section">
-          <div class="form-group col-md-offset-2 col-md-4">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 bordered-section">
+          <div class="form-group col-md-offset-2 col-md-4 col-sm-6">
             <div class="row">
               <div class="col-12">
                 <%= f.label :first_name %>
@@ -23,7 +23,7 @@
             </div>
           </div>
 
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-4 col-sm-6">
             <div class="row">
               <div class="col-12">
                 <%= f.label :last_name %>
@@ -45,7 +45,7 @@
             </div>
           </div>
 
-          <div class="form-group col-md-offset-2 col-md-8">
+          <div class="form-group col-md-offset-2 col-md-8 col-sm-12">
             <div class="row">
               <div class="col-12">
                 <%= f.label "Student's Grade (2018/19)" %>
@@ -54,12 +54,12 @@
                 <div class="row">
                   <div class="col-md-offset-1"></div>
                   <% (5..9).each do |grade_level| %>
-                    <div class="enrollment-form-radio-group col-md-1">
+                    <div class="enrollment-form-radio-group col-md-1 col-sm-1">
                       <div class="enrollment-form-radio-button">
                         <%= f.radio_button :grade, grade_level %><br />
                       </div>
                     </div>
-                    <div class="enrollment-form-radio-group col-md-1">
+                    <div class="enrollment-form-radio-group col-md-1 col-sm-1">
                       <div class="enrollment-form-radio-label">
                         <%= f.label "grade_#{grade_level}", grade_level %>
                       </div>
@@ -117,7 +117,7 @@
 
       <!-- Parent Information section -->
       <div class="row">
-        <div class="col-md-offset-3 col-md-6 bordered-section">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 bordered-section">
           <div class="form-group col-md-offset-2 col-md-4">
             <div class="row">
               <div class="col-12">
@@ -156,7 +156,7 @@
 
       <!-- additional information section -->
       <div class="row">
-        <div class="col-md-offset-3 col-md-6 bordered-section">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 bordered-section">
           <div class="form-group col-md-offset-2 col-md-8">
             <div class="row">
               <div class="col-12 long-label">
@@ -172,7 +172,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-offset-3 col-md-6 bordered-section">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 bordered-section">
           <div class="form-group col-md-offset-2 col-md-4">
             <div class="row">
               <div class="col-12">
@@ -198,7 +198,7 @@
       </div>
       <div class="row">
         <!-- end additional information section -->
-        <div class="col-md-offset-5 col-md-2">
+        <div class="col-md-offset-5 col-md-2 col-sm-offset-5 col-sm-2">
          <%= f.submit "Save", class: "custom-button" %>
        </div>
       </div>
