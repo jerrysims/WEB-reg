@@ -8,7 +8,6 @@ class InvoiceLineItem < ActiveRecord::Base
   validates_presence_of :product
   validates_presence_of :parent
   validates_presence_of :quantity
-  validates :student_id, uniqueness: { scope: :product_id }
 
   def to_invoice_array
     student = Student.find_by(id: student_id)
