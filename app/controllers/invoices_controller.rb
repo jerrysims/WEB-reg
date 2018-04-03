@@ -1,5 +1,10 @@
 class InvoicesController < ApplicationController
 
+  def donate_now
+    @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
+    @checked = get_donation_radio_check(@donation.quantity)
+  end
+
   def generate_initial_invoice
     @invoice = Invoice.find_by(parent_id: current_parent.id) || Invoice.create(parent: current_parent)
     @invoice.generate_initial_invoice
@@ -30,5 +35,9 @@ class InvoicesController < ApplicationController
 
   def invoice_line_item_params
     params.require(:invoice_line_item).permit(:quantity, :product_id, :parent_id)
+  end
+
+  def get_donation_radio_check(amount)
+    [0,10,25,50].include?(amount) || amount.nil? ? amount.to_s : "Other"
   end
 end

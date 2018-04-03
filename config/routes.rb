@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   patch '/invoices/update_donation_amount', to: 'invoices#update_donation_amount'
   post '/invoices/update_donation_amount', to: 'invoices#update_donation_amount'
   get '/invoices/generate_initial_invoice', to: 'invoices#generate_initial_invoice'
+  get '/invoices/donate_now', to: 'invoices#donate_now'
 
   ActiveAdmin.routes(self)
 
