@@ -11,4 +11,45 @@ ActiveAdmin.register Registration do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+  index do
+    column "Student" do |r|
+      r.student.full_name
+    end
+    column "Student Grade" do |r|
+      r.student.grade
+    end
+    column "Course Name" do |r|
+      r.course.name
+    end
+    column "Day / Time" do |r|
+      r.course.day + ", " + r.course.start_time.strftime("%l:%M %p")
+    end
+    column "Parent Name" do |r|
+      r.student.parent.full_name
+    end
+    column "Payment Plan" do |r|
+      r.student.parent.tuition_preference
+    end
+  end
+
+  csv do
+    column "Student" do |r|
+      r.student.full_name
+    end
+    column "Student Grade" do |r|
+      r.student.grade
+    end
+    column "Course Name" do |r|
+      r.course.name
+    end
+    column "Day / Time" do |r|
+      r.course.day + ", " + r.course.start_time.strftime("%l:%M %p")
+    end
+    column "Parent Name" do |r|
+      r.student.parent.full_name
+    end
+    column "Payment Plan" do |r|
+      r.student.parent.tuition_preference
+    end
+  end
 end
