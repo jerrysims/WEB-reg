@@ -30,6 +30,7 @@ ActiveAdmin.register Registration do
     column "Payment Plan" do |r|
       r.student.parent.tuition_preference
     end
+    actions
   end
 
   csv do
