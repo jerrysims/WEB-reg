@@ -2,7 +2,7 @@ ActiveAdmin.register Course do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-# permit_params :list, :of, :attributes, :on, :model
+permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_time, :class_minimum, :class_maximum, :suggested_grade, :subject_area
 #
 # or
 #
@@ -11,6 +11,7 @@ ActiveAdmin.register Course do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+
   index do
     column :name, sortable: :name do |course|
       link_to course.name, admin_course_path(course)
