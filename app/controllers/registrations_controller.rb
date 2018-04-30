@@ -73,6 +73,7 @@ class RegistrationsController < ApplicationController
     @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
     @program_donation = Invoice.get_program_donation(current_parent) || InvoiceLineItem.new
     @checked = get_donation_radio_check(@donation.quantity)
+    @program_donation_checked = get_program_donation_radio_check(@program_donation.quantity)
   end
 
   def review
@@ -105,6 +106,10 @@ class RegistrationsController < ApplicationController
 
   def get_donation_radio_check(amount)
     [0,10,25,50].include?(amount) || amount.nil? ? amount.to_s : "Other"
+  end
+
+  def get_program_donation_radio_check(amount)
+    [0,75,100,150].include?(amount) || amount.nil? ? amount.to_s : "Other"
   end
 
   def get_payment_preference_section

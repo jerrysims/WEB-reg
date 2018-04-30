@@ -110,10 +110,10 @@
               <% %w(50 75 100 Other).each do |amount| %>
                 <div class="row">
                   <div class="col-md-offset-2 col-xs-offset-2 col-sm-offset-2">
-                    <%= f.radio_button :quantity, amount, checked: @checked == amount, number: (["75","100","150"].include?(amount))  %>
+                    <%= f.radio_button :quantity, amount, checked: @program_donation_checked == amount, number: (["75","100","150"].include?(amount))  %>
                     <%= f.label :quantity, amount %>
                     <% if amount == "Other" %>
-                      <%= f.text_field :other_quantity, value: (@donation.quantity if amount == "Other" && @checked == "Other") %>
+                      <%= f.text_field :other_quantity, value: (@program_donation.quantity if amount == "Other" && @program_donation_checked == "Other") %>
                     <% end %>
                   </div>
                 </div>
