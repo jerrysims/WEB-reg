@@ -81,8 +81,12 @@ class Invoice < ActiveRecord::Base
 
   def self.get_donation(parent)
     donation_product = Product.where(name: "Scholarship Donation").first
-    invoice_line_item = parent.invoice_line_items.where(product: donation_product)
-    invoice_line_item.empty? ? nil : invoice_line_item.first
+    parent.invoice_line_items.find_by(product: donation_product)
+  end
+
+  def self.get_program_donation(parent)
+    program_donation_product = Product.where(name: "Program Donation").first
+    parent.invoice_line_items.find_by(product: program_donation_product)
   end
 
   def self.initial_invoice_total(parent)

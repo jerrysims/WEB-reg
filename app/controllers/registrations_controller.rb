@@ -71,6 +71,7 @@ class RegistrationsController < ApplicationController
     @payment_preference_section = get_payment_preference_section
     @tuition_total = get_tuition_total
     @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
+    @program_donation = Invoice.get_program_donation(current_parent) || InvoiceLineItem.new
     @checked = get_donation_radio_check(@donation.quantity)
   end
 

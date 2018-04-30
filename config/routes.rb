@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   patch '/registrations/update_tuition_preference', to:'registrations#update_tuition_preference'
   patch '/invoices/update_donation_amount', to: 'invoices#update_donation_amount'
   post '/invoices/update_donation_amount', to: 'invoices#update_donation_amount'
+  patch '/invoices/update_program_donation', to: 'invoices#update_program_donation'
+  post '/invoices/update_program_donation', to: 'invoices#update_program_donation'
   get '/invoices/generate_initial_invoice', to: 'invoices#generate_initial_invoice'
   get '/invoices/donate_now', to: 'invoices#donate_now'
 

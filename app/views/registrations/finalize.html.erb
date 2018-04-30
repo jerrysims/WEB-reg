@@ -95,6 +95,43 @@
     </div>
   <!-- End of Tuition section -->
 
+  <!-- Beginning of Program Donation section -->
+  <div class="row">
+    <div class="donate col-md-offset-1 col-md-8 col-sm-12 bordered-section">
+      <div class="row tuition-amount">
+        <div class="col-md-12 col-xs-12 col-sm-10">
+          <span>Would you like to donate to the WEB Program fund?</span>
+        </div>
+      </div>
+      <div class="row donation-amount-selection">
+        <div class="col-md-12 col-sm-offset-2 col-sm-10">
+          <%= form_for(@program_donation, url: { controller: "invoices", action: "update_program_donation", invoice_line_item_id: @program_donation.id }, remote: true) do |f| %>
+            <div class="row">
+              <% %w(50 75 100 Other).each do |amount| %>
+                <div class="row">
+                  <div class="col-md-offset-2 col-xs-offset-2 col-sm-offset-2">
+                    <%= f.radio_button :quantity, amount, checked: @checked == amount, number: (["75","100","150"].include?(amount))  %>
+                    <%= f.label :quantity, amount %>
+                    <% if amount == "Other" %>
+                      <%= f.text_field :other_quantity, value: (@donation.quantity if amount == "Other" && @checked == "Other") %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10 edit-parent">
+          <%= f.submit "Update Program Donation", class: "update-donation-amount custom-button" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Donation Section -->
+
+
   <!-- Beginning of Donation section -->
   <div class="row">
     <div class="donate col-md-offset-1 col-md-8 col-sm-12 bordered-section">
