@@ -1,4 +1,4 @@
-class DeviseCreateParents < ActiveRecord::Migration
+class DeviseCreateParents < ActiveRecord::Migration[5.2]
   def change
     create_table(:parents) do |t|
       ## Database authenticatable

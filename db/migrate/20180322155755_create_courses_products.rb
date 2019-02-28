@@ -1,4 +1,4 @@
-class CreateCoursesProducts < ActiveRecord::Migration
+class CreateCoursesProducts < ActiveRecord::Migration[5.2]
   def change
     create_table :courses_products do |t|
       t.belongs_to :course

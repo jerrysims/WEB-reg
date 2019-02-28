@@ -1,4 +1,4 @@
-class CreateShadowSpots < ActiveRecord::Migration
+class CreateShadowSpots < ActiveRecord::Migration[5.2]
   def change
     create_table :shadow_spots do |t|
       t.datetime :slot

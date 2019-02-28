@@ -22,7 +22,7 @@ RSpec.describe EnrollmentsController, type: :controller do
           context 'but student info is complete' do
 
             it "loads the view_course_list page if student information is complete" do
-              get :new, { student_id: student.id}
+              get :new, params: { student_id: student.id }
 
               expect(response).to redirect_to("/enrollment/view_course_list?student_id=#{student.id}")
             end
@@ -34,7 +34,7 @@ RSpec.describe EnrollmentsController, type: :controller do
             end
 
             it 'loads the new student form' do
-              get :new, { student_id: incomplete_student.id }
+              get :new, params: { student_id: incomplete_student.id }
 
               expect(response).to render_template(:new)
             end

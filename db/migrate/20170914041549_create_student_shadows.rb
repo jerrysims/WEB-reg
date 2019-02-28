@@ -1,4 +1,4 @@
-class CreateStudentShadows < ActiveRecord::Migration
+class CreateStudentShadows < ActiveRecord::Migration[5.2]
   def change
     create_table :student_shadows do |t|
       t.references :student, index: true, foreign_key: true

@@ -2,14 +2,18 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.7.1'
+gem 'rails', '~> 5.2.2'
+gem 'activemodel', '~> 5.2', '>= 5.2.2'
+gem 'devise', '~> 4.6', '>= 4.6.1'
+gem 'railties', '~> 5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
+gem 'bootsnap'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -22,8 +26,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'jquery-ui-rails'
-gem 'devise'
-gem 'pg', '0.20.0'
+gem 'pg', '~> 1.1', '>= 1.1.4'
 gem 'puma'
 gem 'figaro'
 gem 'browser'
@@ -42,20 +45,25 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'pry-rails', '~> 0.3.4'
+  gem 'shoulda'
   gem 'shoulda-matchers'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 3.7'
+  gem 'listen'
+
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.6'
-  gem 'factory_girl_rails'
+  gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
+  gem 'factory_bot'
+  gem 'factory_bot_rails', '~> 5.0'
+  gem 'rails-controller-testing'
   gem 'timecop'
 end
 

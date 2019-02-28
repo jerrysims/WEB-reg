@@ -1,4 +1,4 @@
-class CreateTeachers < ActiveRecord::Migration
+class CreateTeachers < ActiveRecord::Migration[5.2]
   def change
     create_table :teachers do |t|
       t.text :first_name

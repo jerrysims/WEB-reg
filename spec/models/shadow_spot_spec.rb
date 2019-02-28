@@ -10,7 +10,6 @@ RSpec.describe ShadowSpot, type: :model do
 
   describe 'validations' do
     it { should validate_presence_of(:time) }
-    it { should validate_uniqueness_of(:date)}
     it { should validate_uniqueness_of(:date).scoped_to([:subject_id, :time]) }
   end
 

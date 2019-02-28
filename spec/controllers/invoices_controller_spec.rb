@@ -11,7 +11,7 @@ RSpec.describe InvoicesController, type: :controller do
       end
 
       it "should fire email to parent" do
-        get :generate_initial_invoice, { parent_id: parent.id }
+        get :generate_initial_invoice, params: { parent_id: parent.id }
       end
     end
   end

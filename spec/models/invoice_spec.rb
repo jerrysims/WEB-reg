@@ -11,7 +11,7 @@ RSpec.describe Invoice, type: :model do
 
   describe 'instance_methods' do
     let(:parent) { create(:parent) }
-    let(:invoice) { create(:invoice) }
+    let(:invoice) { create(:invoice, parent: parent) }
     let(:product) { create(:product) }
     let(:product_2) { create(:product, name: "Another Product") }
 

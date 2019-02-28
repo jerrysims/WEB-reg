@@ -1,4 +1,4 @@
-class CreateWaitListedStudents < ActiveRecord::Migration
+class CreateWaitListedStudents < ActiveRecord::Migration[5.2]
   def change
     create_table :wait_listed_students do |t|
       t.integer :student_id
