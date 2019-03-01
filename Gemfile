@@ -39,7 +39,7 @@ gem 'browser'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-# gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', github: 'activeadmin'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
