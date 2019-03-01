@@ -66,7 +66,3 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'timecop'
 end
-
-group :production do
-  gem 'rails_12factor'
-end
