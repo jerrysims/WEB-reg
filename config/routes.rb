@@ -37,8 +37,7 @@ Rails.application.routes.draw do
   get '/invoices/generate_initial_invoice', to: 'invoices#generate_initial_invoice'
   get '/invoices/donate_now', to: 'invoices#donate_now'
 
-  ActiveAdmin.routes(self)
-
+  ActiveAdmin.routes(self) rescue ActiveAdmin::DatabaseHitDuringLoad
   root 'students#index'
   post 'students/:id/change_lunch' => 'students#change_lunch', as: :change_lunch
 end
