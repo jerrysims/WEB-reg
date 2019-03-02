@@ -17,7 +17,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  # database: WEB_production
+  database: WEB_production
   pool: 5
   username: web
   password: password1
