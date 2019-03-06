@@ -103,6 +103,6 @@ class Invoice < ActiveRecord::Base
   end
 
   def self.discount
-    Product.where(name: "Family Registration Discount").first.unit_price
+    Product.find_by(name: "Sibling Discount").unit_price
   end
 end
