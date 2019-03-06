@@ -13,7 +13,7 @@ class Invoice < ActiveRecord::Base
     parent.registered_students.each do |student|
       InvoiceLineItem.create(product: Product::REGISTRATION_FEE, parent: parent, quantity: 1, student_id: student.id, invoice: self)
     end
-    InvoiceLineItem.create(product: Product::FAMILY_DISCOUNT, parent: parent, quantity: 1, invoice: self) if parent.registered_students.count > 1
+    InvoiceLineItem.create(product: Product::SIBLING_DISCOUNT, parent: parent, quantity: 1, invoice: self) if parent.registered_students.count > 1
   end
 
   def generate_course_fees
@@ -65,11 +65,11 @@ class Invoice < ActiveRecord::Base
     parent.registered_students.each{ |s| course_count += s.course_count }
     study_hall_count = 0
     parent.students.each{ |s| study_hall_count += s.study_hall_count}
-    annual_unit = Product::TUITION[:annual].unit_price
-    monthly_unit = Product::TUITION[:monthly].unit_price
-    semester_unit = Product::TUITION[:semester].unit_price
-    study_hall_monthly = Product::STUDY_HALL[:monthly].unit_price
-    study_hall_semester = Product::STUDY_HALL[:semester].unit_price
+    annual_unit = Product::CLASS_TUITION[:annual].unit_price
+    monthly_unit = Product::CLASS_TUITION[:monthly].unit_price
+    semester_unit = Product::CLASS_TUITION[:semester].unit_price
+    study_hall_monthly = Product::STUDY_HALL_TUITION[:monthly].unit_price
+    study_hall_semester = Product::STUDY_HALL_TUITION[:semester].unit_price
     study_hall_annual = study_hall_semester * 2
 
     annual_tuition = (course_count * annual_unit) + (study_hall_count * study_hall_annual)
@@ -99,7 +99,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def self.registration_fee
-    Product.where(name: "2018/2019 Registration").first.unit_price
+    Product.where(name: "Registration Fee").first.unit_price
   end
 
   def self.discount

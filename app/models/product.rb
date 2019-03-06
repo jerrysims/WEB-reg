@@ -1,17 +1,23 @@
 class Product < ActiveRecord::Base
   DONATION = Product.find_by(name: "Scholarship Donation")
-  REGISTRATION_FEE = Product.find_by(name: "2018/2019 Registration")
-  TUITION = {
-    annual: Product.find_by(name: "2018/2019 Class Tuition-Annual"),
-    semester: Product.find_by(name: "2018/2019 Class Tuition-Semester"),
-    monthly: Product.find_by(name: "2018/2019 Class Tuition-Monthly")
+  REGISTRATION_FEE = Product.find_by(name: "Registration Fee")
+  ADMINISTRATIVE_FEE = Product.find_by(name: "Administrative Fee")
+  CLASS_TUITION = {
+    annual: Product.find_by(name: "Class Tuition - Annual"),
+    semester: Product.find_by(name: "Class Tuition - Semester"),
+    monthly: Product.find_by(name: "Class Tuition - Monthly")
   }
-  STUDY_HALL = {
-    semester: Product.find_by(name: "2018/2019 Study Hall-Semester"),
-    monthly: Product.find_by(name: "2018/2019 Study Hall - Monthly")
+  STUDY_HALL_TUITION = {
+    semester: Product.find_by(name: "Study Hall Tuition - Semester"),
+    monthly: Product.find_by(name: "Study Hall Tuition - Monthly"),
+    annual: Product.find_by(name: "Study Hall Tuition - Annual")
   }
-  FAMILY_DISCOUNT = Product.find_by(name: "Family Registration Discount")
-
+  MATH_CLASS_TUITION = {
+    annual: Product.find_by(name: "Math Class Tuition - Annual"),
+    semester: Product.find_by(name: "Math Class Tuition - Semester"),
+    monthly: Product.find_by(name: "Math Class Tuition - Monthly")
+  }
+  SIBLING_DISCOUNT = Product.find_by(name: "Family Registration Discount")
 
   has_and_belongs_to_many :courses
 
