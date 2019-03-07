@@ -1,8 +1,13 @@
 $selectedCourse = $("#course-<%= @course.id %>")
+$duplicateCourse = $(".twice_a_week#course-<%= @course.id %>")
 
 <% if @dropped %>
   $selectedCourse.removeClass("registered");
-  $selectedCourse.siblings(".register-grid-class-card").children(".alert").remove()
+  $selectedCourse.siblings(".register-grid-class-card").children(".alert").remove();
+  if ($duplicateCourse.length > 0) {
+    $duplicateCourse.removeClass("registered");
+    $duplicateCourse.siblings(".register-grid-class-card").children(".alert").remove();
+  }
 <% else %>
   $selectedCourse.append("<br><span class='alert'><%= @error_content %></span>");
 <% end %>

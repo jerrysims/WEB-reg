@@ -10,30 +10,31 @@
 </div>
 <div class="registration-grid">
   <% @days.each do |day| %>
-    <span id="span-<%= day %>"><%= day %> </span>
-    <div class="row" id="day-<%= day %>">
-      <% @start_times.each do |time| %>
-        <div class="col-md-4" id="time-<%= time %>">
-          <div class="row">
-            <div class="col-md-12">
-              <%= time.strftime("%l:%M %p") %>
-            </div>
-            <% @available_courses.select { |c| c.day == day }.each do |c| %>
-              <% if c.start_time == time %>
-                <% registered = @student.registrations.where(course_id: c.id).empty? ? "" : "registered" %>
-                  <div class="register-grid-class-card bordered-section col-md-12 <%= registered %>" id="course-<%= c.id %>" data-course="<%= c.id %>" data-student="<%= @student.id %>">
-                    <%= c.name %> (<%= c.suggested_grade %>)
-                  </div>
+    <% unless day == "Tuesday/Thursday" %>
+      <span id="span-<%= day %>"><%= day %> </span>
+      <div class="row" id="day-<%= day %>">
+        <% @start_times.each do |time| %>
+          <div class="col-md-3" id="time-<%= time %>">
+            <div class="row">
+              <div class="col-md-12">
+                <%= time.strftime("%l:%M %p") %>
+              </div>
+              <% @available_courses.select { |c| c.day.include? day }.each do |c| %>
+                <% if c.start_time == time %>
+                  <% registered = @student.registrations.where(course_id: c.id).empty? ? "" : "registered" %>
+                  <% twice_a_week = c.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
+                    <div class="register-grid-class-card bordered-section col-md-12 <%= registered %> <%= twice_a_week %> " id="course-<%= c.id %>" data-course="<%= c.id %>" data-student="<%= @student.id %>">
+                      <%= c.name.truncate(30) %> (<%= c.suggested_grade %>)
+                    </div>
+                <% end %>
               <% end %>
-            <% end %>
+            </div>
           </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>
-<br><br>
-* - Let's Talk About Books is currently a waitlist only course<br><br>
 <div class="row">
   <div class="col-md-12 registration-button-div">
     <%= link_to "Review Registration", { controller: "registrations", action: "review", student_id: @student.id }, class: "btn button custom-button" %>

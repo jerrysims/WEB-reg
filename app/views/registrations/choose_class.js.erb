@@ -1,7 +1,11 @@
 $selectedCourse = $("#course-<%= @course.id %>")
+$duplicateCourse = $(".twice_a_week#course-<%= @course.id %>")
 
 <% if @registered %>
   $selectedCourse.addClass("registered");
+  if ($duplicateCourse.length > 0) {
+    $duplicateCourse.addClass("registered");
+  }
 <% else %>
   $selectedCourse.append("<br><span class='alert'><%= @error_content %></span>");
 <% end %>

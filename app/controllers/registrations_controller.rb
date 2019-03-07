@@ -10,7 +10,7 @@ class RegistrationsController < ApplicationController
     @student = Student.find(params[:student_id])
 
     @available_courses = get_available_courses(@student)
-    day_order = %w(Monday Tuesday Wednesday Thursday Friday)
+    day_order = %w(Tuesday Thursday Tuesday/Thursday)
     @days = @available_courses.map { |c| c.day }.uniq.sort_by { |c| day_order.index(c) }
     @start_times = @available_courses.map { |c| c.start_time }.uniq.sort
     @tuesday_courses = []
@@ -21,6 +21,9 @@ class RegistrationsController < ApplicationController
       when "Tuesday"
         @tuesday_courses << c
       when "Thursday"
+        @thursday_courses << c
+      when "Tuesday/Thursday"
+        @tuesday_courses << c
         @thursday_courses << c
       end
     end
@@ -101,7 +104,7 @@ class RegistrationsController < ApplicationController
   private
 
   def get_available_courses(student)
-    Course.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
+    courses = Course.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
   end
 
   def get_donation_radio_check(amount)
