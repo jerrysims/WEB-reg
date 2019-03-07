@@ -249,8 +249,8 @@ courses = Course.create([
     subject_area: "Elective",
     textbooks: "n/a",
     day: "Thursday",
-    start_time: "13:00",
-    end_time: "14:30",
+    start_time: "13:10",
+    end_time: "14:10",
     class_minimum: 10,
     class_maximum: 15
   },{
@@ -261,8 +261,8 @@ courses = Course.create([
     subject_area: "Study",
     textbooks: "n/a",
     day: "Tuesday",
-    start_time: "13:00",
-    end_time: "14:30",
+    start_time: "13:10",
+    end_time: "14:10",
     class_minimum: 0,
     class_maximum: 6
   },{
@@ -273,8 +273,8 @@ courses = Course.create([
     subject_area: "Study",
     textbooks: "n/a",
     day: "Thursday",
-    start_time: "13:00",
-    end_time: "14:30",
+    start_time: "13:10",
+    end_time: "14:10",
     class_minimum: 0,
     class_maximum: 6
   },{
