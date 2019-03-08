@@ -117,3 +117,5 @@ input[type=submit] {
 .small-text {
   font-size: 11px;
 }
+
+label.required:after{content:"*"}
