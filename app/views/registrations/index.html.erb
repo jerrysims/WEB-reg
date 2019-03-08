@@ -23,9 +23,12 @@
                 <% if c.start_time == time %>
                   <% registered = @student.registrations.where(course_id: c.id).empty? ? "" : "registered" %>
                   <% twice_a_week = c.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
-                    <div class="register-grid-class-card bordered-section col-md-12 <%= registered %> <%= twice_a_week %> " id="course-<%= c.id %>" data-course="<%= c.id %>" data-student="<%= @student.id %>">
-                      <%= c.name.truncate(30) %> (<%= c.suggested_grade %>)
-                    </div>
+                  <div class="register-grid-class-card bordered-section col-md-12 <%= registered %> <%= twice_a_week %> " id="course-<%= c.id %>" data-course="<%= c.id %>" data-student="<%= @student.id %>">
+                    <%= c.name.truncate(30) %> (<%= c.suggested_grade %>)
+                    <% if c.at_max? %>
+                      <br><span>CLASS FULL - click to add to waitlist</span>
+                    <% end %>
+                  </div>
                 <% end %>
               <% end %>
             </div>
