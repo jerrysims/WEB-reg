@@ -24,7 +24,9 @@ class InvoicesController < ApplicationController
     p[:parent_id] = current_parent.id
 
     if params[:invoice_line_item_id].nil?
-      @invoice_line_item = InvoiceLineItem.create( invoice_line_item_params )
+      invoice = Invoice.find_by(parent_id: current_parent.id) || Invoice.create(parent: current_parent)
+      @invoice_line_item = InvoiceLineItem.new(invoice: invoice)
+      @invoice_line_item.update_attributes( invoice_line_item_params )
     else
       @invoice_line_item = InvoiceLineItem.find(params[:invoice_line_item_id])
       @invoice_line_item.update_attributes(invoice_line_item_params)
