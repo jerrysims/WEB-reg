@@ -53,6 +53,5 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
         end
       end
     end
-    active_admin_comments
   end
 end
