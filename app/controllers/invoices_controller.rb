@@ -9,8 +9,11 @@ class InvoicesController < ApplicationController
 
   def generate_initial_invoice
     @invoice = Invoice.find_by(parent_id: current_parent.id) || Invoice.create(parent: current_parent)
-    @invoice.generate_initial_invoice
-    current_parent.send_confirmation(@invoice)
+    unless @invoice.closed?
+      @invoice.generate_initial_invoice
+      current_parent.send_confirmation(@invoice)
+      @invoice.update_attributes(closed: true)
+    end
   end
 
   def update_donation_amount

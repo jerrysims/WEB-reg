@@ -44,8 +44,8 @@ ready = function() {
       });
     }
   }
-
-  bindCourses();
+  if (!$(".invoice-closed").data("closed"))
+    bindCourses();
 
   var get_href = function(course_id, student_id, dialog, action) {
     href = "registrations/" + action + "?course_id=" + course_id + "&student_id=" + student_id

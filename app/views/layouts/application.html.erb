@@ -9,6 +9,9 @@
 </head>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
+<% if current_parent && current_parent.invoice.closed? %>
+  <p class="notice">Initial Invoice has been finalized. No further changes may be made. If you need further assistance, contact Shannon Truss at webtutorial2013@gmail.com </p>
+<% end %>
   <body>
     <div id="canvas">
       <header class="row">

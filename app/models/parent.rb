@@ -19,7 +19,7 @@ class Parent < ActiveRecord::Base
 
   has_many :students
   has_many :invoice_line_items
-  has_many :invoices
+  has_one :invoice
 
   def full_name
     "#{self.first_name.capitalize} #{self.last_name.capitalize}"

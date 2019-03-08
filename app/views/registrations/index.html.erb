@@ -40,3 +40,6 @@
     <%= link_to "Review Registration", { controller: "registrations", action: "review", student_id: @student.id }, class: "btn button custom-button" %>
   </div>
 </div>
+
+<!-- Add content tag to contain the flag for a closed invoice -->
+<%= content_tag :div, class: "invoice-closed", data: { closed: @closed } do %><% end %>
