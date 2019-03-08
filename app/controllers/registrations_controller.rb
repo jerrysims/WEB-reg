@@ -8,7 +8,7 @@ class RegistrationsController < ApplicationController
 
     @browser = browser.name
     @student = Student.find(params[:student_id])
-    @closed = current_parent.invoice.closed?
+    @closed = current_parent.invoice_closed?
 
     @available_courses = get_available_courses(@student)
     day_order = %w(Tuesday Thursday Tuesday/Thursday)
