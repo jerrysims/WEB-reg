@@ -124,7 +124,7 @@
             </div>
         </div>
       </div>
-      <% unless current_parent.invoice.closed? %>
+      <% unless current_parent.invoice_closed? %>
         <div class="row">
           <div class="col-md-offset-1 col-md-10 edit-parent">
             <%= f.submit "Update donation amount", class: "update-donation-amount custom-button" %>
@@ -137,7 +137,7 @@
   <!-- End Donation Section -->
 
   <!-- Begin Finalize Button Section -->
-  <% unless current_parent.invoice.closed? %>
+  <% unless current_parent.invoice_closed? %>
     <div class="finalize col-md-offset-1 col-md-8">
       In order to finalize your registration, please pay registration and course fees. A quickbooks invoice will follow via email and should be paid within 7 days.
       <div class="row edit-parent">
