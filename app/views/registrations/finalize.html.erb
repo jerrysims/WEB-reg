@@ -95,9 +95,6 @@
     </div>
   <!-- End of Tuition section -->
 
-  <!-- Beginning of Program Donation section -->
-
-
   <!-- Beginning of Donation section -->
   <div class="row">
     <div class="donate col-md-offset-1 col-md-8 col-sm-12 bordered-section">
@@ -110,7 +107,7 @@
         <div class="col-md-12 col-sm-offset-2 col-sm-10">
           <%= form_for(@donation, url: { controller: "invoices", action: "update_donation_amount", invoice_line_item_id: @donation.id }, remote: true) do |f| %>
             <div class="row">
-              <% %w(10 25 50 Other).each do |amount| %>
+              <% %w(10 25 50 100 Other).each do |amount| %>
                 <div class="row">
                   <div class="col-md-offset-2 col-xs-offset-2 col-sm-offset-2">
                     <%= f.radio_button :quantity, amount, checked: @checked == amount, number: (["10","25","50"].include?(amount))  %>
