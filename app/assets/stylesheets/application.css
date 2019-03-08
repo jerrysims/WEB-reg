@@ -45,3 +45,11 @@ li.inline {
   margin: auto;
   text-align: center;
 }
+
+a, a:visited, .collectionlink-title a, .collectionlink-title a:visited {
+  color: hsl(194, 90%, 50%);
+}
+
+#logo a:visited{
+  color: hsl(194, 90%, 50%);
+}
