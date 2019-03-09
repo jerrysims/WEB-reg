@@ -53,3 +53,8 @@ a, a:visited, .collectionlink-title a, .collectionlink-title a:visited {
 #logo a:visited{
   color: hsl(194, 90%, 50%);
 }
+
+#logo img.logo{
+  display: inline-block;
+  /* WE NEED TO CENTER THIS IMAGE */
+}
