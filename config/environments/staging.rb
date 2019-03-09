@@ -74,7 +74,7 @@ Rails.application.configure do
   }
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: 'infinite-citadel-24733.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'http://evening-headland-75418.herokuapp.com' }
   config.action_mailer.default_options = { from: 'notifications@webtutorialnashville.com' }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
