@@ -18,14 +18,14 @@ class Student < ActiveRecord::Base
 
   attr_accessor :shadow_spot
 
-  DAYS_ORDER = %w(Monday Tuesday Wednesday Thursday Friday)
+  DAYS_ORDER = %w(Tuesday Thursday)
 
   def course_count
     courses.where.not(name: "Study Hall").count
   end
 
   def daily_schedule(weekday)
-    courses.where(day: weekday).sort_by { |c| c.start_time }
+    courses.where(day: [weekday, "Tuesday/Thursday"]).sort_by { |c| c.start_time }
   end
 
   def full_name
