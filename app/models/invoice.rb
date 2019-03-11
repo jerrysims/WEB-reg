@@ -67,16 +67,21 @@ class Invoice < ActiveRecord::Base
     parent.registered_students.each{ |s| course_count += s.course_count }
     study_hall_count = 0
     parent.students.each{ |s| study_hall_count += s.study_hall_count}
+    math_course_count = 0
+    parent.students.each{ |s| math_course_count += s.math_course_count }
     annual_unit = Product::CLASS_TUITION[:annual].unit_price
     monthly_unit = Product::CLASS_TUITION[:monthly].unit_price
     semester_unit = Product::CLASS_TUITION[:semester].unit_price
     study_hall_monthly = Product::STUDY_HALL_TUITION[:monthly].unit_price
     study_hall_semester = Product::STUDY_HALL_TUITION[:semester].unit_price
     study_hall_annual = study_hall_semester * 2
+    math_annual = Product::MATH_CLASS_TUITION[:annual].unit_price
+    math_semester = Product::MATH_CLASS_TUITION[:semester].unit_price
+    math_monthly = Product::MATH_CLASS_TUITION[:monthly].unit_price
 
-    annual_tuition = (course_count * annual_unit) + (study_hall_count * study_hall_annual)
-    semester_tuition = (course_count * semester_unit) + (study_hall_count * study_hall_semester)
-    monthly_tuition = (course_count * monthly_unit) + (study_hall_count * study_hall_monthly)
+    annual_tuition = (course_count * annual_unit) + (study_hall_count * study_hall_annual) + (math_course_count * math_annual)
+    semester_tuition = (course_count * semester_unit) + (study_hall_count * study_hall_semester) + (math_course_count * math_semester)
+    monthly_tuition = (course_count * monthly_unit) + (study_hall_count * study_hall_monthly) + (math_course_count * math_monthly)
 
     [ annual_tuition, semester_tuition, monthly_tuition ]
   end

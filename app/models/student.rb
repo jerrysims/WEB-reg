@@ -21,7 +21,7 @@ class Student < ActiveRecord::Base
   DAYS_ORDER = %w(Tuesday Thursday)
 
   def course_count
-    courses.where.not(name: "Study Hall").count
+    courses.where.not(name: "Study Hall").count - math_course_count
   end
 
   def daily_schedule(weekday)
@@ -30,6 +30,10 @@ class Student < ActiveRecord::Base
 
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
+  end
+
+  def math_course_count
+    courses.where(subject_area: "Math").count
   end
 
   def parents_full_name
