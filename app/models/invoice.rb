@@ -13,7 +13,9 @@ class Invoice < ActiveRecord::Base
     parent.registered_students.each do |student|
       InvoiceLineItem.create(product: Product::REGISTRATION_FEE, parent: parent, quantity: 1, student_id: student.id, invoice: self)
     end
-    InvoiceLineItem.create(product: Product::SIBLING_DISCOUNT, parent: parent, quantity: 1, invoice: self) if parent.registered_students.count > 1
+    if parent.registered_students.count > 1
+      InvoiceLineItem.create(product: Product::SIBLING_DISCOUNT, parent: parent, quantity: parent.registered_students.count - 1, invoice: self)
+    end
   end
 
   def generate_course_fees
