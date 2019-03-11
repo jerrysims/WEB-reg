@@ -6,7 +6,12 @@ class Invoice < ActiveRecord::Base
   def generate_initial_invoice
     generate_registration_fees
     generate_course_fees
+    generate_administrative_fee
     update_donation_amount
+  end
+
+  def generate_administrative_fee
+    InvoiceLineItem.create(product: Product::ADMINISTRATIVE_FEE, parent: parent, quantity: 1, invoice: self)
   end
 
   def generate_registration_fees
@@ -106,7 +111,7 @@ class Invoice < ActiveRecord::Base
       @invoice_total +=  registration_fee if s.courses.count > 0
       s.courses.each { |c| @invoice_total += c.fee }
     end
-    @invoice_total += Invoice.discount * (parent.enrolled_students_count - 1) unless parent.enrolled_students_count == 0  
+    @invoice_total += Invoice.discount * (parent.enrolled_students_count - 1) unless parent.enrolled_students_count == 0
     @invoice_total += administrative_fee if @invoice_total > 0
 
     @invoice_total
