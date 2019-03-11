@@ -21,6 +21,7 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
     end
     column :class_maximum
     column :class_minimum
+    column :grades
     column "Waitlist Count" do |course|
       course.wait_listed_students.count
     end
