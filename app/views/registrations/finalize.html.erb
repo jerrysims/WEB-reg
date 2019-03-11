@@ -136,7 +136,7 @@
   <!-- Begin Finalize Button Section -->
   <% unless current_parent.invoice_closed? %>
     <div class="finalize col-md-offset-1 col-md-8">
-      In order to finalize your registration, please pay registration and course fees. A quickbooks invoice will follow via email and should be paid within 7 days.
+      In order to finalize your registration, please pay the quickbooks invoice you will receive via email.
       <div class="row edit-parent">
         <%= link_to "Finalize Registration and Generate Invoice",
           { controller: "invoices", action: "generate_initial_invoice" },
