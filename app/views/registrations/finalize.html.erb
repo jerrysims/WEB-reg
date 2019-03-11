@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-offset-3 col-md-6">
-    In order to reserve your <%= @enrolled_students.count > 1 ? "children's" : "child's" %> spot, please pay the registration & class fees.
+    In order to reserve your <%= @current_parent.enrolled_students_count > 1 ? "children's" : "child's" %> spot, please pay the registration & class fees.
   </div>
 </div>
 <div class="row">
@@ -13,7 +13,7 @@
 
         <div class="row invoice-registration-fees">
           <div class="col-md-offset-2 col-md-6">
-            <h5>Registrations Fees</h5>
+            <h5>Registration Fees</h5>
           </div>
         </div>
         <% @enrolled_students.each do |s| %>
@@ -36,6 +36,14 @@
             </div>
           </div>
         <% end %>
+        <div class="row">
+          <div class="col-md-offset-4 col-md-6 col-xs-10 col-sm-10">
+            Administrative Fee
+          </div>
+          <div class="invoice-amounts col-md-2 col-xs-2 col-sm-2">
+            $<%= @administrative_fee %>
+          </div>
+        </div>
 
 
         <div class="row invoice-course-fees">

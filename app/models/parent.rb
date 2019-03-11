@@ -21,6 +21,10 @@ class Parent < ActiveRecord::Base
   has_many :invoice_line_items
   has_one :invoice
 
+  def enrolled_students_count
+    students.select { |s| s.courses.count > 0 }.count
+  end
+
   def full_name
     "#{self.first_name.capitalize} #{self.last_name.capitalize}"
   end

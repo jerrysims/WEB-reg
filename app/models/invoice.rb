@@ -62,6 +62,10 @@ class Invoice < ActiveRecord::Base
     csv_data
   end
 
+  def self.administrative_fee
+    Product.where(name: "Administrative Fee").first.unit_price
+  end
+
   def self.get_tuition_totals(parent)
     course_count = 0
     parent.registered_students.each{ |s| course_count += s.course_count }
@@ -102,6 +106,9 @@ class Invoice < ActiveRecord::Base
       @invoice_total +=  registration_fee if s.courses.count > 0
       s.courses.each { |c| @invoice_total += c.fee }
     end
+    @invoice_total += Invoice.discount * (parent.enrolled_students_count - 1) unless parent.enrolled_students_count == 0  
+    @invoice_total += administrative_fee if @invoice_total > 0
+
     @invoice_total
   end
 

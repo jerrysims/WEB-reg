@@ -67,9 +67,11 @@ class RegistrationsController < ApplicationController
   end
 
   def finalize
+    @administrative_fee = Invoice.administrative_fee
     @registration_fee = Invoice.registration_fee
     @enrolled_students = current_parent.students.select { |s| s.courses.count > 0 }
-    @discount = @enrolled_students.count > 1 ? Invoice.discount : nil
+    student_count = current_parent.enrolled_students_count
+    @discount = student_count > 1 ? (student_count - 1) * Invoice.discount : nil
     @invoice_total = Invoice.initial_invoice_total(current_parent)
     @annual, @semester, @monthly = Invoice.get_tuition_totals(current_parent)
     @payment_preference_section = get_payment_preference_section
