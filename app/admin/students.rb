@@ -27,6 +27,19 @@ ActiveAdmin.register Student do
     column "Parent Name" do |student|
       student.parent.present? ? student.parent.full_name : ""
     end
+    column "Parent Email" do |student|
+      student.parent.present? ? student.parent.email: ""
+    end
+    column "Street Address 1" do |student|
+      student.parent.street_address_1
+    end
+    column "Street Address 2" do |student|
+      student.parent.street_address_2
+    end
+    column "City, St, Zip" do |student|
+      p = student.parent
+      "#{p.city}, #{p.state} #{p.zip_code}"
+    end
 
   end
 end
