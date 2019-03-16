@@ -6,6 +6,7 @@ class Registration < ActiveRecord::Base
   validates :student, presence: true
   validates :course_id, uniqueness: { scope: :student_id }
   validate :course_has_not_reached_max
+  validate :no_other_courses_in_session
   validate :one_class_at_a_time
   validate :student_is_correct_grade
 
@@ -22,6 +23,13 @@ class Registration < ActiveRecord::Base
   def course_has_not_reached_max
     if course && course.at_max?
       errors.add(:course, "is full")
+    end
+  end
+
+  def no_other_courses_in_session
+    return if student.registrations.empty?
+    student.registrations.each do |r|
+      errors.add(:student, "has a class in session at that time") if course.conflicts_with r.course
     end
   end
 

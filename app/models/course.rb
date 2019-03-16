@@ -12,12 +12,18 @@ class Course < ActiveRecord::Base
   validates :start_time, presence: true
   validates :end_time, presence: true
 
-  def waitlist
-    wait_listed_students.order(:created_at).map { |entry| entry.student }
-  end
-
   def at_max?
     students.count >= class_maximum
+  end
+
+  def conflicts_with another_course
+    days_overlap(another_course) &&
+    (another_course.in_session(start_time) || another_course.in_session(end_time) ||
+    in_session(another_course.start_time) || in_session(another_course.end_time))
+  end
+
+  def days_overlap another_course
+    day == another_course.day || day == "Tuesday/Thursday" || another_course.day == "Tuesday/Thursday"
   end
 
   def fee
@@ -26,6 +32,14 @@ class Course < ActiveRecord::Base
 
   def fee_product
     products.find_by(product_type: "fee")
+  end
+
+  def in_session time
+    start_time < time && end_time > time
+  end
+
+  def waitlist
+    wait_listed_students.order(:created_at).map { |entry| entry.student }
   end
 
 end
