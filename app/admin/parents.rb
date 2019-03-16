@@ -11,6 +11,7 @@ ActiveAdmin.register Parent do
   permit_params :first_name, :last_name, :email, :phone_number, :password, :password_confirmation
 
   index do
+    column :id
     column :email
     column :first_name
     column :last_name
