@@ -17,7 +17,7 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
       link_to course.name, admin_course_path(course)
     end
     column "Day/Time" do |course|
-      "#{course.day}, #{course.start_time}"
+      "#{course.day}, #{course.start_time.strftime("%l:%M")}"
     end
     column "Seats Filled" do |course|
       course.students.count
