@@ -16,6 +16,9 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
     column :name, sortable: :name do |course|
       link_to course.name, admin_course_path(course)
     end
+    column "Day/Time" do |course|
+      "#{course.day}, #{course.start_time}"
+    end
     column "Seats Filled" do |course|
       course.students.count
     end
