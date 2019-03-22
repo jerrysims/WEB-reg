@@ -11,6 +11,14 @@ permit_params :course_id, :student_id, :status
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+  form do |f|
+    f.inputs do
+      f.input :course, as: :select, collection: options_from_collection_for_select(Course.all, :id, lambda { |c| "#{c.name}, #{c.day}, #{c.start_time.strftime("%l:%M")}"})
+      f.input :student
+      actions
+    end
+  end
+
   index do
     column "Student" do |r|
       r.student.full_name
