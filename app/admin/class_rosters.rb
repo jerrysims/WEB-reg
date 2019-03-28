@@ -1,6 +1,8 @@
 ActiveAdmin.register Course, as: "Class Rosters" do
   menu parent: "Reports"
 
+  filter :name, as: :select
+
   index do |course|
     column :name
     column do |course|
