@@ -1,4 +1,6 @@
 ActiveAdmin.register Parent do
+  menu parent: "Admin"
+
   form do |f|
     f.input :email
     f.input :first_name

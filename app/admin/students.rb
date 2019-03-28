@@ -1,4 +1,6 @@
 ActiveAdmin.register Student do
+  menu parent: "Admin"
+
   form do |f|
     f.input :first_name
     f.input :last_name
