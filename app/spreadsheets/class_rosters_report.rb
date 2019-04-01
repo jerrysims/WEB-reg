@@ -28,6 +28,10 @@ class ClassRostersReport
       sheet.row(row_index).concat [ s.full_name, s.grade, course.name, "#{course.day} #{course.start_time.strftime("%H:%M")}", s.parent.full_name, s.parent.email, s.learning_differences ]
       row_index += 1
     end
+
+    row_index += 1
+    sheet.row(row_index).concat [ "Class Count:", course.students.count ]
+    sheet.row(row_index).default_format = Spreadsheet::Format.new weight: :bold
   end
 
   def build_sheet_name course
