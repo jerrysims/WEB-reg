@@ -14,7 +14,19 @@ ActiveAdmin.register Course, as: "Class Rosters" do
         end
       end
     end
+
   end
+  controller do
+    def index
+      index! do |format|
+        format.xls {
+          spreadsheet = ClassRostersReport.new Course.all.sort_by { |c| c.name }
+          send_data spreadsheet.generate_xls, filename: "class_rosters_#{Time.now.strftime("%Y%m%d_%H%M")}.xls"
+        }
+      end
+    end
+  end
+
 
   csv do
     column "Course Name / Time" do |c|
