@@ -17,11 +17,11 @@ class DailySignInSheets
       end
     end
     @thursday = {
-      students: @thursday_students.sort_by! { |s| s.last_name }.uniq.reverse,
+      students: @thursday_students.sort_by! { |s| s.last_name.downcase }.uniq,
       name: "Thursday"
     }
     @tuesday = {
-      students: @tuesday_students.sort_by! { |s| s.last_name }.uniq.reverse,
+      students: @tuesday_students.sort_by! { |s| s.last_name.downcase }.uniq,
       name: "Tuesday"
     }
   end
