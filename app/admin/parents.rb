@@ -18,6 +18,7 @@ ActiveAdmin.register Parent do
     column :first_name
     column :last_name
     column :phone_number
+    column :tuition_preference
     column :sign_in_count
     column "# of Students" do |p|
       p.students.count
