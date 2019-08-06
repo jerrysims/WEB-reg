@@ -20,12 +20,12 @@ class ClassRostersReport
 
   def create_body sheet, course
     # Header row with a specific format
-    sheet.row(0).concat %w{Student Grade Course_Name Day/Time Parent_Name Parent_Email Learning_Differences}
+    sheet.row(0).concat %w{Student Email Grade Course_Name Day/Time Parent_Name Parent_Email Learning_Differences}
     sheet.row(0).default_format = Spreadsheet::Format.new weight: :bold
 
     row_index = 1
     course.students.each do |s|
-      sheet.row(row_index).concat [ s.full_name, s.grade, course.name, "#{course.day} #{course.start_time.strftime("%H:%M")}", s.parent.full_name, s.parent.email, s.learning_differences ]
+      sheet.row(row_index).concat [ s.full_name, s.student_email, s.grade, course.name, "#{course.day} #{course.start_time.strftime("%H:%M")}", s.parent.full_name, s.parent.email, s.learning_differences ]
       row_index += 1
     end
 
