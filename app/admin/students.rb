@@ -25,6 +25,7 @@ ActiveAdmin.register Student do
     column :id
     column :first_name
     column :last_name
+    column :date_of_birth
     column :parent_id
     column "Parent Name" do |student|
       student.parent.present? ? student.parent.full_name : ""
