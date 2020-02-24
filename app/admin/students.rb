@@ -18,6 +18,7 @@ ActiveAdmin.register Student do
     column "Parent ID" do |c|
       c.parent_id
     end
+    column :confirmed_grade
     actions
   end
 
