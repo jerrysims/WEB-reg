@@ -15,6 +15,10 @@ class EnrollmentsController < ApplicationController
   def update
   end
 
+  def confirm_grade
+    @unconfirmed_students = current_parent.students.select { |s| !s.confirmed_grade? } 
+  end
+
   def new_student_info
     params[:student][:parent_id] = current_parent.id
     get_date_of_birth if params[:student][:date_of_birth].empty?
@@ -29,6 +33,8 @@ class EnrollmentsController < ApplicationController
   end
 
   def select_student
+    redirect_to(action: "confirm_grade") if should_redirect_to_confirm_grade?
+
     @students = current_parent.students
   end
 
@@ -63,6 +69,10 @@ class EnrollmentsController < ApplicationController
   def student_info_params
     params.require(:student).permit(:id, :first_name, :last_name, :student_email, :grade,
       :date_of_birth, :learning_differences, :emergency_contact, :emergency_phone, :parent_id)
+  end
+
+  def should_redirect_to_confirm_grade?
+    !current_parent.students.select { |s| !s.confirmed_grade? }.empty?
   end
 
   def should_redirect_to_select_student?
