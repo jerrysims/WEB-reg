@@ -1,0 +1,34 @@
+<h4>
+  Please confirm the grade level for your
+  <% if current_parent.students.count == 1 %>
+    student.
+  <% else %>
+    students.
+  <% end %>
+</h4>
+<div class="row">
+  <% @unconfirmed_students.each do |student| %>
+    <div class="col-md-3">
+    <%= form_for(student,url: { action: "update", controller: "students", id: student.id }) do |f| %>
+      <%= f.label :grade, "#{student.full_name}'s 2020/21 Grade" %>:<br>
+      <% (5..12).each do |grade_level| %>
+      <div class="col-md-12">
+        <div class="grade-form col-md-6">
+          <div class="enrollment-form-radio-group col-md-6 col-sm-1">
+            <div class="enrollment-form-radio-button">
+              <%= f.radio_button :grade, grade_level %><br />
+            </div>
+          </div>
+          <div class="enrollment-form-radio-group col-md-6 col-sm-1">
+            <div class="enrollment-form-radio-label">
+              <%= f.label "grade_#{grade_level}", grade_level %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <%= f.submit "Save #{student.first_name}'s grade", class: "custom-button" %>
+    <% end %>
+    </div>
+  <% end %>
+</div>

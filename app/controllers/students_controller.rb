@@ -21,9 +21,10 @@ class StudentsController < ApplicationController
   end
 
   def update
-    @student = Student.find(params[:id])
-    @student.shadow_spot = ShadowSpot.find(student_params[:shadow_spot])
-    @shadow_spot = @student.shadow_spot
+    student = Student.find(params[:id])
+    student.update_attributes(params[:student].permit(:grade))
+    student.update_attributes(confirmed_grade: true)
+    redirect_to ({ action: "confirm_grade", controller: "enrollments" })
   end
 
   def change_lunch

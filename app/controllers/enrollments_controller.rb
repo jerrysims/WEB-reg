@@ -16,7 +16,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def confirm_grade
-    @unconfirmed_students = current_parent.students.select { |s| !s.confirmed_grade? } 
+    @unconfirmed_students = current_parent.students.select { |s| !s.confirmed_grade? }
   end
 
   def new_student_info
