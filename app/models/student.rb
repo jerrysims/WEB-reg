@@ -45,7 +45,7 @@ class Student < ActiveRecord::Base
   end
 
   def study_hall_count
-    courses.where(name: "Study Hall").count
+    courses.select { |c| c.name.include? "Study Hall"}.count
   end
 
   def to_s
