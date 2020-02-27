@@ -1,5 +1,5 @@
 <div class="row course-card bordered-section">
-  <div class="col-md-12 col-xs-12 <%= 'mobile-class' if browser.device.mobile? %>" tooltip="<%= course.description %>">
+  <div class="col-md-12 col-xs-12 <%= 'mobile-class' if browser.device.mobile? %>" tooltip="<%= "#{course.description} - Recommended Grades: #{course.suggested_grade}" %>">
     <span class="course-name">
       <%= course.name %> <span class="small-text"><%= "- One-Time Course Fee: $#{course.fee}" if course.fee > 0 %></span>
     </span>
