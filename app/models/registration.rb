@@ -27,7 +27,7 @@ class Registration < ActiveRecord::Base
   end
 
   def no_other_courses_in_session
-    return if student.registrations.empty?
+    return if student.nil? || student.registrations.empty?
     student.registrations.each do |r|
       errors.add(:student, "has a class in session at that time") if course.conflicts_with r.course
     end
