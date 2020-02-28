@@ -24,6 +24,6 @@ permit_params :email
     f.inputs "Admin Details" do
       f.input :email
     end
-  f.button "Save"
+    f.actions
   end
 end
