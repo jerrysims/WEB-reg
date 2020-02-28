@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_parent!
+
+  rescue_from SecurityError do |exception|
+    redirect_to root_url
+  end
   # before_filter :check_for_locked_parent
 
   alias_method :current_user, :current_parent
@@ -25,11 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    if current_admin_user.present? and current_user.blank?
-      sign_in current_admin_user, bypass: true
-    end
-
-    super
+    raise SecurityError unless current_user.try(:is_admin?)
   end
 
   # def check_for_locked_parent
