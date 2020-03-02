@@ -16806,7 +16806,7 @@ img[data-src]:not([src]) {
     content: ' –'
   }
   #canvas {
-    padding: 30px
+    padding: 150px
   }
   .show-site-info-icon #details #info-data {
     width: auto !important;

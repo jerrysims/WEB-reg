@@ -25864,9 +25864,7 @@ img[data-src]:not([src]) {
   #mobileNav .folder-toggle-box:checked~.folder-toggle-label:after {
     content: ' –'
   }
-  #canvas {
-    padding: 30px
-  }
+  
   .show-site-info-icon #details #info-data {
     width: auto !important;
     padding: 30px
