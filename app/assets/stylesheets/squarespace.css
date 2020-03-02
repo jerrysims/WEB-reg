@@ -14949,6 +14949,7 @@ nav ul, nav ol {
 }
 
 #canvas {
+  padding-bottom: 150px;
   width: 1140px;
   max-width: 100%;
   margin: 0 auto;

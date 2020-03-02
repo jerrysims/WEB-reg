@@ -58,3 +58,7 @@ a, a:visited, .collectionlink-title a, .collectionlink-title a:visited {
   display: inline-block;
   /* WE NEED TO CENTER THIS IMAGE */
 }
+
+#canvas {
+  padding-bottom: 150 px;
+}
