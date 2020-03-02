@@ -120,7 +120,7 @@ class RegistrationsController < ApplicationController
   end
 
   def get_payment_preference_section
-    current_parent.tuition_preference ? "preference" : "no_preference"
+    current_parent.tuition_preference && current_parent.payment_preference ? "preference" : "no_preference"
   end
 
   def get_tuition_total
