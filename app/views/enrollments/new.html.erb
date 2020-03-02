@@ -1,7 +1,4 @@
 <div class="row">
-  <div class="new-enrollment-form card col-md-offset-3"
-    <h1 class="new-enrollment-form">2018-19 WEB Enrollment</h1>
-  </div>
   <h2 class='student-form'>First, tell us about your student</h2>
   <h5 class="new-enrollment-form">Fields mark with * are required</h5>
     <%= form_for(@student,url: { action: "student_info", id: @student.id }, html: { class: "new-student-form" }) do |f| %>
@@ -46,23 +43,24 @@
             </div>
           </div>
 
-          <div class="form-group col-md-offset-2 col-md-8 col-sm-12">
+          <div class="form-group col-md-offset-2 col-md-10 col-sm-12">
             <div class="row">
               <div class="col-12">
                 <%= f.label "Student's Grade (2020/21)", class: "required" %>
               </div>
               <div class="col-12">
                 <div class="row">
-                  <div class="col-md-offset-1"></div>
                   <% (5..12).each do |grade_level| %>
-                    <div class="enrollment-form-radio-group col-md-1 col-sm-1">
-                      <div class="enrollment-form-radio-button">
-                        <%= f.radio_button :grade, grade_level %><br />
+                    <div class="row">
+                      <div class="enrollment-form-radio-group col-md-1 col-sm-1">
+                        <div class="enrollment-form-radio-button">
+                          <%= f.radio_button :grade, grade_level %><br />
+                        </div>
                       </div>
-                    </div>
-                    <div class="enrollment-form-radio-group col-md-1 col-sm-1">
-                      <div class="enrollment-form-radio-label">
-                        <%= f.label "grade_#{grade_level}", grade_level %>
+                      <div class="enrollment-form-radio-group col-md-1 col-sm-1">
+                        <div class="enrollment-form-radio-label">
+                          <%= f.label "grade_#{grade_level}", grade_level %>
+                        </div>
                       </div>
                     </div>
                   <% end %>
