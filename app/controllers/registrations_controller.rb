@@ -98,10 +98,11 @@ class RegistrationsController < ApplicationController
   end
 
   def update_tuition_preference
-    current_parent.update_attributes(tuition_preference: params[:parent][:tuition_preference])
+    current_parent.update_attributes(parent_params)
     @payment_preference_section = get_payment_preference_section
     @annual, @semester, @monthly = Invoice.get_tuition_totals(current_parent)
     @tuition_total = get_tuition_total
+    redirect_to action: "finalize"
   end
 
   private
@@ -137,7 +138,7 @@ class RegistrationsController < ApplicationController
 
   def parent_params
     params.require(:parent).permit(:id, :first_name, :last_name, :email, :phone_number,
-      :street_address_1, :street_address_2, :city, :state, :zip_code)
+      :street_address_1, :street_address_2, :city, :state, :zip_code, :tuition_preference, :payment_preference)
   end
 
   def wait_list_student_params
