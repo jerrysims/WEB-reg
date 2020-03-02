@@ -1,7 +1,7 @@
 <div class="mailer" style="font-family: futura">
 Dear <%= @parent.full_name %>,
 
-<p> Thank you for enrolling for WEB classes for the 2019-20 school year!</p>
+<p> Thank you for enrolling for WEB classes for the 2020-21 school year!</p>
 
 <p><% @parent.registered_students.each do |student| %>
   <%= student.full_name %> is enrolled in the following classes:
@@ -24,11 +24,11 @@ Dear <%= @parent.full_name %>,
 <% end %>
 
 
-<p>You have elected to pay <%= @parent.tuition_preference %> and to make registration and tuition payments via <%= @parent.payment_preference %>.
+<p>You have elected to pay <%= @parent.tuition_preference %> and to make registration and tuition payments via <%= parent.payment_preference %>.
 
 <p>You have until midnight tomorrow to make changes to the registration free of charge. Any changes made after this time will incur a $25 fee.
 
-<p>An invoice for <%= @invoice.total_due %> will be issued via Quickbooks and delivered via email. You may pay this invoice via the payment method indicated above.
+<p>An invoice for $<%= @invoice.total_due %> will be issued via Quickbooks and delivered via email. You may pay this invoice via the payment method indicated above.
 
 <p>To complete your family’s registration, this invoice must be paid by April 1 or alternate arrangements made with Shannon Truss. After that point, your registration will be canceled and your student will not be guaranteed a spot in the classes listed above.
 
