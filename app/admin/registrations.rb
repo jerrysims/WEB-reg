@@ -16,10 +16,23 @@ permit_params :course_id, :student_id, :status
   form do |f|
     f.inputs do
       f.input :course, as: :select, collection: options_from_collection_for_select(Course.all, :id, lambda { |c| "#{c.name}, #{c.day}, #{c.start_time.strftime("%l:%M")}"})
-      f.input :student
+      f.input :student, as: :select, collection: options_from_collection_for_select(Student.all, :id, lambda { |s| "#{s.full_name}"})
       actions
     end
   end
+
+  controller do
+    def registration_params
+      params.require(:registration).permit(:course_id, :student_id)
+    end
+
+    def create
+      @registration= Registration.new(registration_params)
+      @registration.save!(validate: false)
+      redirect_to admin_registrations_path
+    end
+  end
+
 
   index do
     column "Student" do |r|
@@ -63,4 +76,5 @@ permit_params :course_id, :student_id, :status
       r.student.parent.tuition_preference
     end
   end
+
 end
