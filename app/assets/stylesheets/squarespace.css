@@ -14949,11 +14949,11 @@ nav ul, nav ol {
 }
 
 #canvas {
-  padding-bottom: 150px;
   width: 1140px;
   max-width: 100%;
   margin: 0 auto;
   padding: 50px;
+  padding-bottom: 150px;
   position: relative;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
