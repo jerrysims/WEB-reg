@@ -16,7 +16,7 @@ permit_params :course_id, :student_id, :status
   form do |f|
     f.inputs do
       f.input :course, as: :select, collection: options_from_collection_for_select(Course.all.sort_by { |c| c.name }, :id, lambda { |c| "#{c.name}, #{c.day}, #{c.start_time.strftime("%l:%M")}"})
-      f.input :student, as: :select, collection: options_from_collection_for_select(Student.all.sort_by { |s| s.last_name }, :id, lambda { |s| "#{s.full_name}"})
+      f.input :student, as: :select, collection: options_from_collection_for_select(Student.all.sort_by { |s| s.last_name.downcase }, :id, lambda { |s| "#{s.full_name}"})
       actions
     end
   end
