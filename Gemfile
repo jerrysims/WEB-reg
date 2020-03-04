@@ -27,7 +27,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'jquery-ui-rails'
 gem 'pg', '~> 1.1', '>= 1.1.4'
-gem 'puma'
+gem 'puma', ">= 3.12.4"
 gem 'figaro'
 gem 'browser'
 
