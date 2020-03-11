@@ -33,7 +33,7 @@ class MasterSchedule
   end
 
   def column_headers
-    headers = ["Student Name"]
+    headers = ["Student First", "Student Last", "Parent First", "Parent Last", "Parent Phone", "Parent Email"]
     @start_times.each do |k, v|
       v.each do |time|
         headers << "#{k} #{time.strftime("%l:%M")}"
@@ -43,7 +43,14 @@ class MasterSchedule
   end
 
   def get_student_row(student)
-    row = [student.full_name]
+    row = [
+      student.first_name,
+      student.last_name,
+      student.parent.first_name,
+      student.parent.last_name,
+      student.parent.phone_number,
+      student.parent.email
+    ]
     @start_times.each do | day, t |
       t.each do |start_time|
         cell_value = student.courses.where(day: day.to_s).where(start_time: start_time).first.try(:name)
