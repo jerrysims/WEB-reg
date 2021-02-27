@@ -39,7 +39,8 @@ gem 'browser'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'activeadmin', github: 'activeadmin'
+# gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', '~> 2.9'
 gem 'rails_12factor', group: 'production'
 gem 'spreadsheet'
 
