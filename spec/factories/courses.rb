@@ -9,6 +9,8 @@ FactoryBot.define do
     end_time { "2018-02-22 10:22:49" }
     class_minimum { 12 }
     class_maximum { 18 }
+    suggested_grade { 6 }
+    subject_area { "Math" }
   end
 
 end

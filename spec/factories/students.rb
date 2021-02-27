@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :student do
-    first_name { "Ritchie" }
-    last_name { "Valens" }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
     date_of_birth { 13.years.ago }
     grade { 5 }
-    parent
-    emergency_phone { '6156156155' }
-    emergency_contact { 'Mary Doe' }
+    parent { create(:parent) }
+    emergency_phone { Faker::Number.number digits: 10 }
+    emergency_contact { Faker::Name.full_name }
   end
 
   trait :incomplete do

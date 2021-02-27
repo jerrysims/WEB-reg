@@ -4,7 +4,9 @@ ActiveAdmin.register Course, as: "Master Schedule" do
   filter :name, as: :select
 
   index do
-
+    column "Student" do |course|
+      course.students
+    end
   end
 
   controller do

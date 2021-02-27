@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :parent do
-    first_name { "Buddy" }
-    last_name { "Holly" }
-    phone_number { "6156156156" }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    phone_number { Faker::Number.number digits: 10 }
     password { 'password' }
-    email { 'test@testy.com' }
-    street_address_1 { '123 Any Ave.' }
-    city { 'Nashville' }
-    state { 'TN' }
-    zip_code { '37206' }
+    email { Faker::Internet.email }
+    street_address_1 { Faker::Address.street_address }
+    city { Faker::Address.city }
+    state { Faker::Address.state_abbr }
+    zip_code { Faker::Address.zip }
   end
 end

@@ -48,7 +48,7 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
       panel "Enrolled Students" do
         table_for course.registrations do
           column "name" do |registration|
-            registration.student.full_name
+            link_to registration.student.full_name 
           end
         end
       end
