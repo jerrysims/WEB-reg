@@ -2,10 +2,10 @@ source 'https://rubygems.org'
 ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 5.2', '>= 5.2.4.3'
 gem 'activemodel', '~> 5.2', '>= 5.2.2'
 gem 'devise', '~> 4.6', '>= 4.6.1'
-gem 'railties', '~> 5.0'
+gem 'railties', '~> 5.2', '>= 5.2.4.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
