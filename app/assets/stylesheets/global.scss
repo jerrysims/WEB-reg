@@ -1,0 +1,69 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+@import "bootstrap";
+@import "squarespace";
+ */
+$primarycolor: #f6f2ea;
+
+.canvas {
+  background-color: darken($primarycolor, 50%);
+}
+
+input[type="submit"].new-registration-login {
+  width: 100%;
+}
+
+input[type="submit"].password-reset-button {
+  width: 30%;
+}
+
+html, body {
+  width:  100%;
+  height: 100%;
+  margin: 0px;
+}
+
+li.inline {
+  display: inline-block;
+}
+
+.custom-button {
+  background-color: #ccc;
+  border: thin solid #bbb;
+  color: black;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  border-radius: 8px;
+  margin: auto;
+  text-align: center;
+}
+
+a, a:visited, .collectionlink-title a, .collectionlink-title a:visited {
+  color: hsl(194, 90%, 50%);
+}
+
+#logo a:visited{
+  color: hsl(194, 90%, 50%);
+}
+
+#logo img.logo{
+  display: inline-block;
+  /* WE NEED TO CENTER THIS IMAGE */
+}
+
+#canvas {
+  padding-bottom: 150 px;
+}

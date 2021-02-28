@@ -1,5 +1,7 @@
 /*! Squarespace LESS Compiler  (less.js language v1.3.3)  */
 
+$primarycolor: #f6f2ea;
+
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
   display: block
 }
@@ -14736,7 +14738,8 @@ body {
 }
 
 #canvas {
-  background-color: #fff
+  background-color: #fff;
+  opacity: .95;
 }
 
 .site-title .logo a {

@@ -21,7 +21,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 2.0', '>= 2.0.4'
 gem 'spreadsheet'
 gem 'uglifier', '>= 1.3.0'
-gem "bootstrap-sass", ">= 3.4.1"
 
 group :development do
   gem 'listen'

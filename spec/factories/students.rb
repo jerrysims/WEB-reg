@@ -6,7 +6,7 @@ FactoryBot.define do
     grade { 5 }
     parent { create(:parent) }
     emergency_phone { Faker::Number.number digits: 10 }
-    emergency_contact { Faker::Name.full_name }
+    emergency_contact { Faker::Name.name }
   end
 
   trait :incomplete do
