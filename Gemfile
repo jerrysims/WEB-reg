@@ -17,6 +17,7 @@ gem 'puma', '~> 5.2', '>= 5.2.1'
 gem 'rails_12factor', group: 'production'
 gem 'rails', '~> 5.2', '>= 5.2.4.3'
 gem 'railties', '~> 5.2', '>= 5.2.4.3'
+gem "rolify"
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 2.0', '>= 2.0.4'
 gem 'spreadsheet'

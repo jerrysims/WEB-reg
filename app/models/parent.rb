@@ -1,4 +1,5 @@
 class Parent < ActiveRecord::Base
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -20,6 +21,12 @@ class Parent < ActiveRecord::Base
   has_many :students
   has_many :invoice_line_items
   has_one :invoice
+
+  after_create :assign_default_role
+
+  def assign_default_role
+    self.add_role(:active) if self.roles.blank?
+  end
 
   def enrolled_students_count
     students.select { |s| s.courses.count > 0 }.count
