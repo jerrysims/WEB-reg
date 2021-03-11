@@ -8,12 +8,16 @@
   <div class="row box">
     <%= f.input :first_name, class: "required" %>
     <%= f.input :last_name, class: "required" %>
+    <%= f.input :nickname %>
     <%= f.input :student_email %>
+    <%= f.input :web_email %>
     <%= f.input :grade, label: "Student's Grade (2020/21)", collection: 5..12, class: "required" %>
     <%= f.input :date_of_birth,
                 as: :string,
                 input_html: { class: "required datepicker",
                               data: {provide: "datepicker", date_default_view_date: "1/1/2011" } } %>
+    <%= f.input :pronouns, as: :select, collection: Student::PRONOUN_OPTIONS %>
+    <%= f.input :race, as: :select, collection: Student::RACE_OPTIONS %>
   </div>
   <!-- End student information section -->
 

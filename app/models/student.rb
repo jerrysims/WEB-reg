@@ -1,4 +1,6 @@
 class Student < ActiveRecord::Base
+  include StudentHelper
+
   belongs_to :parent
   has_many :student_shadows
   has_many :shadow_spots, through: :student_shadows
@@ -8,15 +10,20 @@ class Student < ActiveRecord::Base
 
   accepts_nested_attributes_for :student_shadows
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
   validates :date_of_birth, presence: true
-  validates :grade, presence: true
   validates :emergency_contact, presence: true
   validates :emergency_phone, presence: true
+  validates :first_name, presence: true
+  validates :grade, presence: true
+  validates :last_name, presence: true
   validates :parent, presence: true
+  validates :pronouns, presence: true
+  validates :race, presence: true
 
   attr_accessor :shadow_spot
+
+  scope :unconfirmed, -> { where(confirmed_grade: nil) }
+
 
   DAYS_ORDER = %w(Tuesday Thursday)
 

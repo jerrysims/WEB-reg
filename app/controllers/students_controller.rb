@@ -55,15 +55,19 @@ class StudentsController < ApplicationController
   #
   def student_params
     params.require(:student).permit(
+      :date_of_birth,
+      :emergency_contact,
+      :emergency_phone,
       :first_name,
       :grade,
-      :last_name,
-      :student_email,
       :grade,
-      :date_of_birth,
+      :last_name,
       :learning_differences,
-      :emergency_phone,
-      :emergency_contact
+      :nickname,
+      :pronouns,
+      :race,
+      :student_email,
+      :web_email
     )
   end
 end
