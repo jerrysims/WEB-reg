@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_28_035731) do
+ActiveRecord::Schema.define(version: 2021_03_06_210212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,10 +152,10 @@ ActiveRecord::Schema.define(version: 2021_02_28_035731) do
     t.bigint "parent_id"
     t.boolean "lunch", default: false
     t.date "date_of_birth"
-    t.text "student_email"
+    t.string "student_email"
     t.text "learning_differences"
-    t.text "emergency_contact"
-    t.text "emergency_phone"
+    t.string "emergency_contact"
+    t.string "emergency_phone"
     t.boolean "confirmed_grade", default: true
     t.index ["parent_id"], name: "index_students_on_parent_id"
   end
