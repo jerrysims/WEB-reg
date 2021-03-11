@@ -1,119 +1,29 @@
+<h2>Update Parent Info</h2>
 <div class="row">
-  <div class="complete-parent-info-form card col-md-offset-3"
-    <h1 class="complete-parent-info-form">Update Parent Info</h1>
-  </div>
-  <h2 class='parent-form'>To register, we need to know just a little more about you:</h2>
-    <%= form_for(current_parent, url: { action: "update_parent", id: current_parent.id, student_id: @student_id }, html: { class: "complete-parent-info-form" }) do |f| %>
-
-      <!--  parent information section -->
-      <div class="row">
-        <div class="col-md-offset-3 col-md-6 bordered-section">
-          <div class="form-group col-md-offset-2 col-md-4">
-            <div class="row">
-              <div class="col-12">
-                <%= f.label :first_name %>:
-              </div>
-              <div class="col-12">
-                <%= f.text_field :first_name %><br />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group col-md-4">
-            <div class="row">
-              <div class="col-12">
-                <%= f.label :last_name %>:
-              </div>
-              <div class="col-12">
-                <%= f.text_field :last_name %><br />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group col-md-offset-2 col-md-4">
-            <div class="row">
-              <div class="col-12">
-                <%= f.label :email %>:
-              </div>
-              <div class="col-12">
-                <%= f.text_field :email %><br />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group col-md-4">
-            <div class="row">
-              <div class="col-12">
-                <%= f.label :phone_number %>:
-              </div>
-              <div class="col-12">
-                <%= f.text_field :phone_number %><br />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group col-md-offset-2 col-md-4">
-            <div class="row">
-              <div class="col-12">
-                <%= f.label :street_address_1 %>:
-              </div>
-              <div class="col-12">
-                <%= f.text_field :street_address_1 %><br />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group col-md-4">
-            <div class="row">
-              <div class="col-12">
-                <%= f.label :city %>:
-              </div>
-              <div class="col-12">
-                <%= f.text_field :city %><br />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group col-md-offset-2 col-md-4">
-            <div class="row">
-              <div class="col-12">
-                <%= f.label :street_address_2 %>:
-              </div>
-              <div class="col-12">
-                <%= f.text_field :street_address_2 %><br />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group col-md-4">
-            <div class="row">
-              <div class="col-12">
-                <%= f.label :state %>:
-              </div>
-              <div class="col-12">
-                <%= f.text_field :state %><br />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group col-md-offset-2 col-md-4">
-            <div class="row">
-              <div class="col-12">
-                <%= f.label :zip_code %>:
-              </div>
-              <div class="col-12">
-                <%= f.text_field :zip_code %><br />
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-      <!-- end parent information section -->
-        <div class="col-md-offset-5 col-md-2">
-         <%= f.submit "Save" %>
-       </div>
-      </div>
+  To register, we need to know just a little more about you:
+</div>
+<div class="row">
+  <%= simple_form_for(current_parent, url: { action: "update_parent", id: current_parent.id, student_id: @student_id }) do |f| %>
+    <% if @errors %>
+      <% @errors.each do |e| %>
+        <div class="alert error-section"><%= e %></div>
+      <% end %>
+    <% end %>
+    <!--  parent information section -->
+    <div class="row box">
+      <%= f.input :first_name %>
+      <%= f.input :last_name %>
+      <%= f.input :email %>
+      <%= f.input :phone_number %>
+      <%= f.input :street_address_1 %>
+      <%= f.input :city %>
+      <%= f.input :street_address_2 %>
+      <%= f.input :state %>
+      <%= f.input :zip_code %>
+    </div>
+    <!-- end parent information section -->
+    <div class="col-md-offset-5 col-md-2">
+     <%= f.submit "Save" %>
+    </div>
   <% end %>
 </div>

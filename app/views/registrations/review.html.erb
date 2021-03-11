@@ -1,19 +1,38 @@
+<h2>Schedule Review</h2>
 We found the following class schedules for you:
 
-<% current_parent.students.each do |student| %>
-  <div class="row">
-    <div class="col-md-4 student-schedule-card">
-      <%= render "student_schedule", student: student %>
+<div class="row">
+  <% current_parent.students.each do |student| %>
+    <div class="box student-box shadow col-md-6 d-md-inline-block d-sm-block" >
+      <p><strong><%= student.to_s %></strong></p>
+      <% %w(Tuesday Thursday).each do |day| %>
+        <div class="review-day-box">
+          <ul class="schedule-day-box">
+            <span><%= day %></span>
+            <% student.daily_schedule(day).each do |course| %>
+              <li class="schedule-list-item row course">
+                <%= course.start_time.strftime("%l:%M %p") %>-<%= course.end_time.strftime("%l:%M %p") %> <%= course.name %>
+              </li>
+            <% end %>
+          </ul>
+          <% unless student.daily_schedule(day).empty? %>
+            </p>
+          <% end %>
+        </div>
+      <% end %>
+      <% unless student.wait_listed_courses.empty? %>
+        <p>Wait List: <%= student.wait_listed_courses.map { |course| course.name }.join(", ") %>
+      <% end %>
+      <!-- <% unless current_parent.locked %> -->
+    <div class="col">
+      <%= link_to "Change #{student.first_name}'s schedule", { controller: "registrations", action: "index", student_id: student.id }, class: "custom-button" %>
     </div>
-    <!-- <% unless current_parent.locked %> -->
-      <div class="col-md-6">
-        <%= link_to "Change #{student.first_name}'s schedule", { controller: "registrations", action: "index", student_id: student.id }, class: "custom-button" %>
-      </div>
-  <!-- <% end %> -->
-  </div>
-<% end %>
+    </div>
+      <!-- <% end %> -->
+  <% end %>
+</div>
 <!-- <% unless current_parent.locked %> -->
-  <div class="row">
-    <%= link_to "Continue to Invoice / Tuition", { controller: "registrations", action: "finalize" }, class: "custom-button view-invoice-button" %>
-  </div>
+<div class="row">
+  <%= link_to "Continue to Invoice / Tuition", { controller: "registrations", action: "finalize" }, class: "custom-button view-invoice-button" %>
+</div>
 <!-- <% end %> -->

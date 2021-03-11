@@ -1,46 +1,48 @@
+<h2>Registration Page: <%= @student.full_name %></h2><br>
 <div class="row">
-<h4>Registration Page: <%= @student.full_name %></h4><br>
-<div class="row registration-copy">
-  <div class="bordered-section">
-    Simply click on a course to add it to your schedule. If you change your mind about a course at a
-    specific time, you must first drop the selected course before adding the new course.<br>
+  <div>
+    Click on a course to add it to your schedule. If you change your mind about a course at a
+    specific time, you must first drop the selected course before adding the new course.
+    Suggested grade for courses follows in parentheses. Please select the right course for your student based on academic level, not age. Grades provided are guidelines.
+    <br><span class="study-hall-alert">Students may only sign up for one study hall session per day.</span>
   </div>
-  Suggested grade for courses follows in parentheses. Please select the right course for your student based on academic level, not age. Grades provided are guidelines.
-  <br><span class="study-hall-alert">Students may only sign up for one study hall session per day.</span>
 </div>
-<div class="registration-grid">
+<div class="row box shadow">
+<!-- <div class="registration-grid"> -->
   <% @days.each do |day| %>
     <% unless day == "Tuesday/Thursday" %>
-      <span id="span-<%= day %>"><%= day %> </span>
-      <div class="row" id="day-<%= day %>">
-        <% @start_times.each do |time| %>
-          <div class="col-md-3" id="time-<%= time %>">
-            <div class="row">
-              <div class="col-md-12">
-                <%= time.strftime("%l:%M %p") %>
-              </div>
-              <% @available_courses.select { |c| c.day.include? day }.each do |c| %>
-                <% if c.start_time == time %>
-                  <% registered = @student.registrations.where(course_id: c.id).empty? ? "" : "registered" %>
-                  <% twice_a_week = c.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
-                  <div class="register-grid-class-card bordered-section col-md-12 <%= registered %> <%= twice_a_week %> " id="course-<%= c.id %>" data-course="<%= c.id %>" data-student="<%= @student.id %>">
-                    <%= c.name.truncate(30) %> (<%= c.suggested_grade %>)
-                    <% if c.at_max? %>
-                      <br><span>CLASS FULL - click to add to waitlist</span>
-                    <% end %>
-                  </div>
+      <div class="box shadow-sm">
+        <h5 id="span-<%= day %>"><%= day %> </h5>
+        <div class="row" id="day-<%= day %>">
+          <% @start_times.each do |time| %>
+            <div class="col-md-3" id="time-<%= time %>">
+              <div class="row">
+                <div class="col-md-12">
+                  <%= time.strftime("%l:%M %p") %>
+                </div>
+                <% @available_courses.select { |c| c.day.include? day }.each do |c| %>
+                  <% if c.start_time == time %>
+                    <% registered = @student.registrations.where(course_id: c.id).empty? ? "" : "registered" %>
+                    <% twice_a_week = c.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
+                    <div class="btn register-grid-class-card bordered-section col-md-12 <%= registered %> <%= twice_a_week %> " id="course-<%= c.id %>" data-course="<%= c.id %>" data-student="<%= @student.id %>">
+                      <small><%= c.name.truncate(30) %> (<%= c.suggested_grade %>)</small>
+                      <% if c.at_max? %>
+                        <br><span><small class="alert">CLASS FULL - click to add to waitlist</small></span>
+                      <% end %>
+                    </div>
+                  <% end %>
                 <% end %>
-              <% end %>
+              </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     <% end %>
   <% end %>
 </div>
 <div class="row">
   <div class="col-md-12 registration-button-div">
-    <%= link_to "Review Registration", { controller: "registrations", action: "review", student_id: @student.id }, class: "btn button custom-button" %>
+    <%= link_to "Review Registration", { controller: "registrations", action: "review", student_id: @student.id }, class: "custom-button" %>
   </div>
 </div>
 

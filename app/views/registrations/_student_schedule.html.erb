@@ -1,19 +1,20 @@
-<div class="row student-name">
-  <%= student.to_s %>:
+<div class="">
+  <p><h5><%= student.to_s %></p></h5>
+  <% %w(Tuesday Thursday).each do |day| %>
+    <% unless student.daily_schedule(day).empty? %>
+      <p>
+    <% end %>
+    <% student.daily_schedule(day).each do |course| %>
+      <ul>
+        <li class="row course">
+          - <%= day %>, <%= course.start_time.strftime("%l:%M %p") %>-<%= course.end_time.strftime("%l:%M %p") %> <%= course.name %>
+        </div>
+    <% end %>
+    <% unless student.daily_schedule(day).empty? %>
+      </p>
+    <% end %>
+  <% end %>
+  <% unless student.wait_listed_courses.empty? %>
+    <p>Wait List: <%= student.wait_listed_courses.map { |course| course.name }.join(", ") %>
+  <% end %>
 </div>
-<% %w(Tuesday Thursday).each do |day| %>
-  <% unless student.daily_schedule(day).empty? %>
-    <p>
-  <% end %>
-  <% student.daily_schedule(day).each do |course| %>
-    <div class="row course">
-      - <%= day %>, <%= course.start_time.strftime("%l:%M %p") %>-<%= course.end_time.strftime("%l:%M %p") %> <%= course.name %>
-    </div>
-  <% end %>
-  <% unless student.daily_schedule(day).empty? %>
-    </p>
-  <% end %>
-<% end %>
-<% unless student.wait_listed_courses.empty? %>
-  <p>Wait List: <%= student.wait_listed_courses.map { |course| course.name }.join(", ") %>
-<% end %>

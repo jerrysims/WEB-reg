@@ -93,7 +93,9 @@ class RegistrationsController < ApplicationController
       # TODO: I must figure out how to get the student's information to this point
       redirect_to(action: "index", student_id: params[:student_id])
     else
-      redirect_to :back
+      redirect_back fallback_location: {
+        action: "complete_parent_info", student_id: params[:student_id]
+      }
     end
   end
 
