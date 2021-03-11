@@ -5,6 +5,7 @@ gem 'activeadmin', '~> 2.9'
 gem 'activemodel', '~> 5.2', '>= 5.2.2'
 gem 'bootsnap'
 gem 'bootstrap', '~> 4.6'
+gem 'bootstrap-datepicker-rails', '~> 1.9', '>= 1.9.0.1'
 gem 'browser'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'devise', '~> 4.7'
@@ -20,7 +21,9 @@ gem 'railties', '~> 5.2', '>= 5.2.4.3'
 gem "rolify"
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 2.0', '>= 2.0.4'
+gem 'simple_form', '~> 5.1'
 gem 'spreadsheet'
+gem 'stripe'
 gem 'uglifier', '>= 1.3.0'
 
 group :development do
