@@ -1,0 +1,24 @@
+<h2>Grade Confirmation</h2>
+<span>Please confirm the grade level for your
+  <% if current_parent.students.count == 1 %>
+    student.
+  <% else %>
+    students.
+  <% end %>
+</span>
+<div class="row">
+  <% @unconfirmed_students.each do |student| %>
+    <div class="col-md-3">
+      <%= simple_form_for(student,url: { action: "update", controller: "students", id: student.id }) do |f| %>
+        <div class="box row justify-content-center">
+          <div class="col-12">
+            <div class="row"><%= f.input :grade, label: "#{student.full_name}", as: :select, collection: 5..12 %></div>
+            <div class="row justify-content-center">
+              <div class="col-6"><%= f.submit "Save" %></div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

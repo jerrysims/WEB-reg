@@ -35,12 +35,12 @@ class StudentsController < ApplicationController
   # def show
   # end
   #
-  # def update
-  #   student = Student.find(params[:id])
-  #   student.update_attributes(params[:student].permit(:grade))
-  #   student.update_attributes(confirmed_grade: true)
-  #   redirect_to ({ action: "confirm_grade", controller: "enrollments" })
-  # end
+  def update
+    student = Student.find(params[:id])
+    student.update_attributes(params[:student].permit(:grade))
+    student.update_attributes(confirmed_grade: true)
+    redirect_to parent_confirm_grade_path(current_parent.id)
+  end
   #
   # def change_lunch
   #   @student = Student.find(params[:id])
