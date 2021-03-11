@@ -14,13 +14,34 @@
 @import "squarespace";
  */
 $primarycolor: #f6f2ea;
+$secondarycolor: #777;
+
+.box {
+  border: 1px solid $primarycolor;
+  padding: 25px;
+  border-radius: 5px;
+
+  &.shadow {
+    box-shadow: 0 .15rem 1.75rem 0 darken($primarycolor, 30%)
+  }
+}
+
+.btn-primary {
+  background-color: $secondarycolor;
+  border-color: darken($secondarycolor, 15%);
+}
+
+.btn-primary:hover {
+  background-color: darken($secondarycolor, 10%);
+  border-color: darken($secondarycolor, 15%);
+}
+
+.container {
+  margin-left: 15px;
+}
 
 .canvas {
   background-color: darken($primarycolor, 50%);
-}
-
-input[type="submit"].new-registration-login {
-  width: 100%;
 }
 
 input[type="submit"].password-reset-button {
@@ -55,6 +76,23 @@ a, a:visited, .collectionlink-title a, .collectionlink-title a:visited {
   color: hsl(194, 90%, 50%);
 }
 
+.schedule-day-box {
+  border: none;
+}
+
+.schedule-list-item {
+  display: list-item;
+  list-style: circle;
+}
+
+.row {
+  margin-top: 20px;
+}
+
+.student-box {
+  padding: 15px;
+}
+
 #logo a:visited{
   color: hsl(194, 90%, 50%);
 }
@@ -65,5 +103,8 @@ a, a:visited, .collectionlink-title a, .collectionlink-title a:visited {
 }
 
 #canvas {
-  padding-bottom: 150 px;
+  padding-top: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 75px;
 }
