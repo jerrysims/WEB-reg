@@ -51,14 +51,14 @@ RSpec.describe EnrollmentsController, type: :controller do
       end
     end
 
-    describe '#select_student' do
-      it 'loads the select_student template' do
-        get :select_student
-
-        expect(response).to render_template(:select_student)
-      end
-    end
-
+    # describe '#select_student' do
+    #   it 'loads the select_student template' do
+    #     get :select_student
+    #
+    #     expect(response).to render_template(:select_student)
+    #   end
+    # end
+    # 
     describe '#student_info' do
 
     end

@@ -34,7 +34,7 @@
                   <div class="navbar bg-light col-6">
                     <ul class="navbar-nav mr-auto">
                       <li class="nav-item col inline">
-                        <%= link_to "Home", root_path(parent_id: current_parent.id), class: "nav-link" %>
+                        <%= link_to "Home", root_path(parent_id: current_parent.try(:id)), class: "nav-link" %>
                       </li>
                       <li class="nav-item col inline">
                         <% if current_parent %>
