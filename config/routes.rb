@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   devise_scope :parent do
     authenticated :parent do
-      root 'enrollments#select_student', as: :authenticated_root
+      root to: "parents#show", as: :authenticated_root
     end
 
     unauthenticated do
@@ -13,13 +13,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :students
+  resources :parents
+  resources :students do
+    get 'view_course_list'
+  end
   resources :student_shadows
   get 'shadow_spots/create'
   get '/enrollment', to: 'enrollments#new', as: :new_enrollment_path
   get '/enrollment/select_student', to: 'enrollments#select_student', as: :select_student_path
   get '/enrollment/confirm_grade', to: 'enrollments#confirm_grade', as: :confirm_grade_path
-  patch '/enrollment/confirm_grade', to: 'enrollments#confirm_grade' 
+  patch '/enrollment/confirm_grade', to: 'enrollments#confirm_grade'
   patch '/enrollment/student-info', to: 'enrollments#student_info', as: :student_enrollment_info_path
   post '/enrollment/student-info', to: 'enrollments#new_student_info', as: :new_student_enrollment_info_path
   get '/enrollment/view_course_list', to: 'enrollments#view_course_list', as: :view_course_list_path
