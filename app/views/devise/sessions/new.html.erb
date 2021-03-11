@@ -1,32 +1,20 @@
-<!-- <h1>There was a mistake in the email you received. Please follow this link: <a href="https://register.webtutorialnashville.com">register.webtutorialnashville.com </a> -->
-
-
 <h2>Log in</h2>
-<h5> If you have not yet created an account, please choose "Sign up" below to get started</h5>
 <div class="row">
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field login-text-input">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+  <div class="col-12 box shadow">
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="row field login-text-input">
+        <%= f.input :email, input_html: {autofocus: true, class: "col-6"} %>
+        <%= f.input :password, input_html: { autocomplete: "off", class: "col-6"} %>
+        <% if devise_mapping.rememberable? -%>
+            <%= f.input :remember_me, as: :boolean%>
+        <% end -%>
+      </div>
+      <div class="actions col-4 col-xs-12 ">
+        <%= f.submit "Log in", class: "btn-primary col-12" %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field login-text-input">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+  <div class="row">
+    <%= render "devise/shared/links" %>
   </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
-
-<div class="actions col-md-2 col-xs-4 custom-button">
-  <%= f.submit "Log in", class: "new-registration-login" %>
-</div>
-</div>
-<% end %>
-<div class="row">
-  <%= render "devise/shared/links" %>
 </div>
