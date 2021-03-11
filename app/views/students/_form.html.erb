@@ -1,0 +1,45 @@
+<%= simple_form_for @student do |f| %>
+  <% if @errors %>
+    <% @errors.each do |e| %>
+      <div class="alert error-section"><%= e %></div>
+    <% end %>
+  <% end %>
+  <!-- student information section -->
+  <div class="row box">
+    <%= f.input :first_name, class: "required" %>
+    <%= f.input :last_name, class: "required" %>
+    <%= f.input :student_email %>
+    <%= f.input :grade, label: "Student's Grade (2020/21)", collection: 5..12, class: "required" %>
+    <%= f.input :date_of_birth,
+                as: :string,
+                input_html: { class: "required datepicker",
+                              data: {provide: "datepicker", date_default_view_date: "1/1/2011" } } %>
+  </div>
+  <!-- End student information section -->
+
+  <!-- Parent Information section -->
+  <div class="row box">
+    <%= f.simple_fields_for :parent do |p| %>
+      <%= p.input :email, label: "Parent's Email", input_html: { value: current_parent.email, readonly: true } %>
+      <%= p.input :name, label: "Parent's Name", input_html: { value: current_parent.full_name, readonly: true } %>
+      <%= p.input :phone, label: "Parent's Phone", input_html: {
+        value: current_parent.phone_number, readonly: true } %>
+    <% end %>
+  </div>
+  <!-- end parent information section -->
+
+  <!-- additional information section -->
+  <div class="row box">
+    <%= f.label "Does your child have any learning differences or requirements?" %>
+    <p class="learning-differences-description"> If so, please give a brief description below. All information shared here is confidential and will only be shared with your child's teachers.</p>
+    <%= f.input :learning_differences %><br />
+  </div>
+
+  <div class="row box">
+    <%= f.input :emergency_contact, class: "required" %>
+    <%= f.input :emergency_phone, class: "required" %>
+  </div>
+  <div class="row">
+     <%= f.submit "Save", class: "custom-button" %>
+  </div>
+<% end %>

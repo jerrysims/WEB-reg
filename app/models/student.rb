@@ -20,6 +20,10 @@ class Student < ActiveRecord::Base
 
   DAYS_ORDER = %w(Tuesday Thursday)
 
+  def available_courses
+    Course.all.select { |c| c.grades.split(',').include?(grade.to_s) }
+  end
+
   def course_count
     courses.count - math_course_count - study_hall_count
   end
