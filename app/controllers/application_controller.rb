@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_parent!
 
   rescue_from SecurityError do |exception|
+    flash[:notice] = "You are not authorized to view that page"
     redirect_to root_url
   end
   # before_filter :check_for_locked_parent
