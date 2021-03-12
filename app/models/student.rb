@@ -17,8 +17,6 @@ class Student < ActiveRecord::Base
   validates :grade, presence: true
   validates :last_name, presence: true
   validates :parent, presence: true
-  validates :pronouns, presence: true
-  validates :race, presence: true
 
   attr_accessor :shadow_spot
 

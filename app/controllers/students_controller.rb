@@ -37,8 +37,11 @@ class StudentsController < ApplicationController
   #
   def update
     student = Student.find(params[:id])
-    student.update_attributes(params[:student].permit(:grade))
-    student.update_attributes(confirmed_grade: true)
+
+    if student.update_attributes(params[:student].permit(:grade))
+      student.update_attributes(confirmed_grade: true)
+    end
+
     redirect_to parent_confirm_grade_path(current_parent.id)
   end
   #
