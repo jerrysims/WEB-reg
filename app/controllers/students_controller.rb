@@ -11,7 +11,9 @@ class StudentsController < ApplicationController
       parent: current_parent
     )
     if @student.save
-      redirect_to student_view_course_list_path(@student.id)
+      # TEMP - THIS MUST LINE MUST BE REMOVED FOR REGISTRATION
+      # redirect_to student_view_course_list_path(@student.id)
+      redirect_to root_path
     else
       @errors = @student.errors.full_messages
       redirect_to({ action: "new", student: params[:student], new_student: 1, errors: @errors })
@@ -42,7 +44,7 @@ class StudentsController < ApplicationController
       student.update_attributes(confirmed_grade: true)
     end
 
-    redirect_to parent_confirm_grade_path(current_parent.id)
+    redirect_to root_path
   end
   #
   # def change_lunch
