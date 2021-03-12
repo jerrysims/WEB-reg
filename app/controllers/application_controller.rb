@@ -13,6 +13,12 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  def authenticate_admin_user!
+    return if current_user.has_role?(:admin)
+
+    raise SecurityError
+  end
+
   protected
 
   def configure_permitted_parameters
@@ -28,9 +34,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authenticate_admin_user!
-    raise SecurityError unless current_user.try(:is_admin?)
-  end
 
   # def check_for_locked_parent
   #   unless params[:controller] == "devise/sessions" || ["review", "destroy"].include?(params[:action])
