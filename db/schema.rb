@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_11_052411) do
+ActiveRecord::Schema.define(version: 2021_03_20_085134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,15 +25,11 @@ ActiveRecord::Schema.define(version: 2021_03_11_052411) do
     t.text "description"
     t.text "textbooks"
     t.text "grades"
-    t.text "day"
-    t.time "start_time"
-    t.time "end_time"
-    t.integer "class_minimum"
-    t.integer "class_maximum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "suggested_grade"
     t.text "subject_area"
+    t.string "teacher"
   end
 
   create_table "courses_products", force: :cascade do |t|
@@ -123,6 +119,16 @@ ActiveRecord::Schema.define(version: 2021_03_11_052411) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.string "day"
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "class_minimum"
+    t.integer "class_maximum"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "shadow_spots", force: :cascade do |t|

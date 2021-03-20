@@ -1,16 +1,26 @@
 class Course < ActiveRecord::Base
+  SUBJECT_AREAS = [
+    "Art",
+    "Art/Science",
+    "Elective",
+    "Foreign Language",
+    "Language Arts",
+    "Math",
+    "Science",
+    "Social Studies",
+    "Study Hall"
+  ]
+
   has_many :course_corequisites
   has_many :corequisites, through: :course_corequisites
   has_many :registrations, dependent: :destroy
+  has_many :sections, dependent: :destroy
   has_many :students, through: :registrations
   has_many :wait_listed_students, dependent: :destroy
   has_and_belongs_to_many :products
 
-  validates :day, presence: true
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :grades, presence: true
-  validates :start_time, presence: true
-  validates :end_time, presence: true
 
   def at_max?
     students.count >= class_maximum
