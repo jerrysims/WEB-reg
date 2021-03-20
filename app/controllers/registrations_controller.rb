@@ -1,35 +1,4 @@
 class RegistrationsController < ApplicationController
-
-  def index
-    redirect_to(
-      action: "complete_parent_info",
-      student_id: params[:student_id]
-      ) unless current_parent.valid?(:course_registration)
-
-    @browser = browser.name
-    @student = Student.find(params[:student_id])
-    @closed = current_parent.invoice_closed?
-
-    @available_courses = get_available_courses(@student)
-    day_order = %w(Tuesday Thursday Tuesday/Thursday)
-    @days = @available_courses.map { |c| c.day }.uniq.sort_by { |c| day_order.index(c) }
-    @start_times = @available_courses.map { |c| c.start_time }.uniq.sort
-    @tuesday_courses = []
-    @thursday_courses = []
-
-    @available_courses.map do |c|
-      case c.day
-      when "Tuesday"
-        @tuesday_courses << c
-      when "Thursday"
-        @thursday_courses << c
-      when "Tuesday/Thursday"
-        @tuesday_courses << c
-        @thursday_courses << c
-      end
-    end
-  end
-
   def add_to_wait_list
     WaitListedStudent.create(wait_list_student_params)
 
@@ -38,15 +7,13 @@ class RegistrationsController < ApplicationController
 
   def choose_class
     @student = Student.find(params[:student_id])
-    @course = Course.find(params[:course_id])
-
-    @registration = Registration.new(student: @student, course: @course)
-
+    @section = Section.find(params[:section_id])
+    @registration = Registration.new(student_id: @student.id, section_id: @section.id)
     if @registration.save
       @registered = true
     else
       @registered = false
-      @class_is_full = @registration.course.at_max?
+      @class_is_full = @registration.section.at_max?
       @error_content = @registration.errors.full_messages.first
     end
   end
@@ -56,8 +23,8 @@ class RegistrationsController < ApplicationController
   end
 
   def drop_class
-    @course = Course.find(params[:course_id])
-    r = Registration.where(["student_id = ? and course_id = ?", params[:student_id], params[:course_id]]).first
+    @section = Section.find(params[:section_id])
+    r = Registration.where(["student_id = ? and section_id = ?", params[:student_id], params[:section_id]]).first
     if r
       r.destroy
       @dropped = true
@@ -69,7 +36,7 @@ class RegistrationsController < ApplicationController
   def finalize
     @administrative_fee = Invoice.administrative_fee
     @registration_fee = Invoice.registration_fee
-    @enrolled_students = current_parent.students.select { |s| s.courses.count > 0 }
+    @enrolled_students = current_parent.students.select { |s| s.sections.count > 0 }
     student_count = current_parent.enrolled_students_count
     @discount = student_count > 1 ? (student_count - 1) * Invoice.discount : nil
     @invoice_total = Invoice.initial_invoice_total(current_parent)
@@ -82,7 +49,38 @@ class RegistrationsController < ApplicationController
     @program_donation_checked = get_program_donation_radio_check(@program_donation.quantity)
   end
 
+  def index
+    redirect_to(
+      action: "complete_parent_info",
+      student_id: params[:student_id]
+      ) unless current_parent.valid?(:course_registration)
+
+    @browser = browser.name
+    @student = Student.find(params[:student_id])
+    @closed = current_parent.invoice_closed?
+
+    @available_sections = available_sections(@student)
+    day_order = %w(Tuesday Thursday Tuesday/Thursday)
+    @days = @available_sections.map { |c| c.day }.uniq.sort_by { |c| day_order.index(c) }
+    @start_times = @available_sections.map { |c| c.start_time }.uniq.sort
+    @tuesday_courses = []
+    @thursday_courses = []
+
+    @available_sections.map do |c|
+      case c.day
+      when "Tuesday"
+        @tuesday_courses << c
+      when "Thursday"
+        @thursday_courses << c
+      when "Tuesday/Thursday"
+        @tuesday_courses << c
+        @thursday_courses << c
+      end
+    end
+  end
+
   def review
+    # THIS IS WHERE WE ARE RIGHT NOW!!!
     @student = Student.find(params[:student_id])
   end
 
@@ -109,8 +107,8 @@ class RegistrationsController < ApplicationController
 
   private
 
-  def get_available_courses(student)
-    courses = Course.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
+  def available_sections(student)
+    Section.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
   end
 
   def get_donation_radio_check(amount)
@@ -144,7 +142,7 @@ class RegistrationsController < ApplicationController
   end
 
   def wait_list_student_params
-    params.permit(:course_id, :student_id)
+    params.permit(:section_id, :student_id)
   end
 
 end

@@ -33,9 +33,9 @@ ready = function() {
       selectedCourse[i].addEventListener('click', function() {
         dialog = $(this).hasClass("registered") ? dropCourseDialog : addCourseDialog
         action = $(this).hasClass("registered") ? "drop_class" : "choose_class"
-        course_id = $(this).data("course");
+        section_id = $(this).data("section");
         student_id = $(this).data("student");
-        newLocation = get_href(course_id, student_id, dialog, action)
+        newLocation = get_href(section_id, student_id, dialog, action)
         if (window.confirm(dialog)) {
           $.ajax({
             url: newLocation
@@ -47,8 +47,8 @@ ready = function() {
   if (!$(".invoice-closed").data("closed"))
     bindCourses();
 
-  var get_href = function(course_id, student_id, dialog, action) {
-    href = "registrations/" + action + "?course_id=" + course_id + "&student_id=" + student_id
+  var get_href = function(section_id, student_id, dialog, action) {
+    href = "registrations/" + action + "?section_id=" + section_id + "&student_id=" + student_id
     return href
   }
 };

@@ -20,13 +20,13 @@
                 <div class="col-md-12">
                   <%= time.strftime("%l:%M %p") %>
                 </div>
-                <% @available_courses.select { |c| c.day.include? day }.each do |c| %>
-                  <% if c.start_time == time %>
-                    <% registered = @student.registrations.where(course_id: c.id).empty? ? "" : "registered" %>
-                    <% twice_a_week = c.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
-                    <div class="btn register-grid-class-card bordered-section col-md-12 <%= registered %> <%= twice_a_week %> " id="course-<%= c.id %>" data-course="<%= c.id %>" data-student="<%= @student.id %>">
-                      <small><%= c.name.truncate(30) %> (<%= c.suggested_grade %>)</small>
-                      <% if c.at_max? %>
+                <% @available_sections.select { |c| c.day.include? day }.each do |s| %>
+                  <% if s.start_time == time %>
+                    <% registered = @student.registrations.where(section_id: s.id).empty? ? "" : "registered" %>
+                    <% twice_a_week = s.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
+                    <div class="btn register-grid-class-card bordered-section col-md-12 <%= registered %> <%= twice_a_week %> " id="section-<%= s.id %>" data-section="<%= s.id %>" data-student="<%= @student.id %>">
+                      <small><%= s.name.truncate(30) %> (<%= s.suggested_grade %>)</small>
+                      <% if s.at_max? %>
                         <br><span><small class="alert">CLASS FULL - click to add to waitlist</small></span>
                       <% end %>
                     </div>

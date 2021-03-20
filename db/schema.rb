@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_20_085134) do
+ActiveRecord::Schema.define(version: 2021_03_20_214030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,10 +105,12 @@ ActiveRecord::Schema.define(version: 2021_03_20_085134) do
 
   create_table "registrations", force: :cascade do |t|
     t.integer "student_id"
-    t.integer "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "selected"
+    t.bigint "section_id"
+    t.index ["section_id"], name: "index_registrations_on_section_id"
+    t.index ["student_id", "section_id"], name: "index_registrations_on_student_id_and_section_id", unique: true
   end
 
   create_table "roles", force: :cascade do |t|
@@ -129,6 +131,7 @@ ActiveRecord::Schema.define(version: 2021_03_20_085134) do
     t.integer "class_maximum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "course_id"
   end
 
   create_table "shadow_spots", force: :cascade do |t|
@@ -191,14 +194,18 @@ ActiveRecord::Schema.define(version: 2021_03_20_085134) do
 
   create_table "wait_listed_students", force: :cascade do |t|
     t.integer "student_id"
-    t.integer "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "section_id"
+    t.index ["section_id"], name: "index_wait_listed_students_on_section_id"
+    t.index ["student_id", "section_id"], name: "index_wait_listed_students_on_student_id_and_section_id", unique: true
   end
 
   add_foreign_key "invoices", "parents"
+  add_foreign_key "registrations", "sections"
   add_foreign_key "student_shadows", "shadow_spots"
   add_foreign_key "student_shadows", "students"
   add_foreign_key "students", "parents"
   add_foreign_key "subjects", "teachers"
+  add_foreign_key "wait_listed_students", "sections"
 end

@@ -1,13 +1,14 @@
-$selectedCourse = $("#course-<%= @course.id %>")
-$duplicateCourse = $(".twice_a_week#course-<%= @course.id %>")
+$selectedSection = $("#section-<%= @section.id %>")
+$duplicateSection = $(".twice_a_week#section-<%= @section.id %>")
 
 <% if @dropped %>
-  $selectedCourse.removeClass("registered");
-  $selectedCourse.siblings(".register-grid-class-card").children(".alert").remove();
-  if ($duplicateCourse.length > 0) {
-    $duplicateCourse.removeClass("registered");
-    $duplicateCourse.siblings(".register-grid-class-card").children(".alert").remove();
+  $selectedSection.removeClass("registered");
+  $selectedSection.siblings(".register-grid-class-card").children(".alert").remove();
+  if ($duplicateSection.length > 0) {
+    $duplicateSection.removeClass("registered");
+    $duplicateSection.siblings(".register-grid-class-card").children(".alert").remove();
   }
 <% else %>
-  $selectedCourse.append("<br><span class='alert'><%= @error_content %></span>");
+  $selectedSection.append("<br><span class='alert'><%= @error_content %></span>");
 <% end %>
+  

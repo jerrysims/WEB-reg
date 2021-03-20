@@ -258,12 +258,12 @@ GEM
       tilt
     sdoc (2.0.4)
       rdoc (>= 5.0)
-    shoulda (3.6.0)
-      shoulda-context (~> 1.0, >= 1.0.1)
-      shoulda-matchers (~> 3.0)
-    shoulda-context (1.2.2)
-    shoulda-matchers (3.1.3)
-      activesupport (>= 4.0.0)
+    shoulda (4.0.0)
+      shoulda-context (~> 2.0)
+      shoulda-matchers (~> 4.0)
+    shoulda-context (2.0.0)
+    shoulda-matchers (4.5.1)
+      activesupport (>= 4.2.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -330,8 +330,8 @@ DEPENDENCIES
   rspec-rails (~> 3.8, >= 3.8.2)
   sass-rails (~> 5.0)
   sdoc (~> 2.0, >= 2.0.4)
-  shoulda
-  shoulda-matchers
+  shoulda (~> 4.0)
+  shoulda-matchers (~> 4.5, >= 4.5.1)
   simple_form (~> 5.1)
   spreadsheet
   spring

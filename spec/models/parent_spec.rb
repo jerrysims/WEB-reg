@@ -37,8 +37,8 @@ RSpec.describe Parent, type: :model do
       end
 
       context 'when students are registered' do
-        let(:course) { create(:course, grades: student.grade) }
-        let!(:registration) { create(:registration, student: student, course: course) }
+        let(:section) { create(:section, course: FactoryBot.create(:course, grades: student.grade))}
+        let!(:registration) { create(:registration, student_id: student.id, section: section) }
 
         it 'returns an array with those students' do
           expect(parent.registered_students).to eq([student])

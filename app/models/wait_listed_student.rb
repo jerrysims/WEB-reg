@@ -1,8 +1,9 @@
 class WaitListedStudent < ActiveRecord::Base
-  belongs_to :course
+  belongs_to :section
+  has_one :course, through: :section
   belongs_to :student
 
-  validates :course_id, presence: true, uniqueness: { scope: :student_id }
+  validates :section_id, presence: true, uniqueness: { scope: :student_id }
   validates :student_id, presence: true
   # validate :student_is_correct_grade
 

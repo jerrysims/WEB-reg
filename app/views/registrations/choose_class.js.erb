@@ -1,21 +1,21 @@
-$selectedCourse = $("#course-<%= @course.id %>")
-$duplicateCourse = $(".twice_a_week#course-<%= @course.id %>")
+$selectedSection = $("#section-<%= @section.id %>")
+$duplicateSection = $(".twice_a_week#section-<%= @section.id %>")
 
 <% if @registered %>
-  $selectedCourse.addClass("registered");
-  if ($duplicateCourse.length > 0) {
-    $duplicateCourse.addClass("registered");
+  $selectedSection.addClass("registered");
+  if ($duplicateSection.length > 0) {
+    $duplicateSection.addClass("registered");
   }
 <% else %>
-  $selectedCourse.append("<br><span class='alert'><%= @error_content %></span>");
+  $selectedSection.append("<br><span class='alert'><%= @error_content %></span>");
 <% end %>
 
 <% if @class_is_full %>
   if (window.confirm("Class is full. Would you like to be added to the wait list")) {
     $.ajax({
-      url: "/registrations/add_to_wait_list?course_id=" + <%= @course.id %> + "&student_id=" + <%= @student.id %>,
+      url: "/registrations/add_to_wait_list?section_id=" + <%= @section.id %> + "&student_id=" + <%= @student.id %>,
       success: function(){
-        window.alert("<%= "You have been added to the wait list for #{@course.name}" %>");
+        window.alert("<%= "You have been added to the wait list for #{@section.name}" %>");
       }
     });
   }

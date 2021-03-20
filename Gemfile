@@ -40,7 +40,7 @@ group :development, :test do
   gem 'pry-rails', '~> 0.3.4'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
-  gem 'shoulda-matchers'
-  gem 'shoulda'
+  gem 'shoulda-matchers', '~> 4.5', '>= 4.5.1'
+  gem 'shoulda', '~> 4.0'
   gem 'timecop'
 end

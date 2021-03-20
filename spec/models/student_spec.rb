@@ -28,7 +28,9 @@ RSpec.describe Student, type: :model do
 
     describe '#wait_listed_courses' do
       let(:course_1) { create(:course) }
-      let(:course_2) { create(:course, name: "Physiology 101") }
+      let(:course_2) { create(:course) }
+      let(:section_1) { create(:section, course: course_1) }
+      let(:section_2) { create(:section, course: course_2) }
       let(:student) { create(:student) }
 
       context 'when no course has been waitlisted' do
@@ -39,7 +41,7 @@ RSpec.describe Student, type: :model do
 
       context 'when one course has been waitlisted' do
         before do
-          WaitListedStudent.create(student: student, course: course_1)
+          WaitListedStudent.create(student: student, section: section_1)
         end
 
         it 'returns an array with that one course' do
@@ -48,7 +50,7 @@ RSpec.describe Student, type: :model do
 
         context 'and then a second course is waitlisted' do
           before do
-            WaitListedStudent.create(student: student, course: course_2)
+            WaitListedStudent.create(student: student, section: section_2)
           end
 
           it 'returns an array with both courses' do
