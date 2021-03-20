@@ -1,0 +1,20 @@
+<h2>Web Email</h2>
+<span>Each student will be assigned a WEB email address. We recommend the following address(es)
+</span>
+<div class="row">
+  <% @students.each do |student| %>
+    <% s = student[:student] %>
+    <div class="col-md-12">
+      <%= simple_form_for(s, url: student_update_web_email_url(student_id: s.id)) do |f| %>
+        <div class="box row justify-content-center">
+          <div class="col-12">
+            <div class="row"><%= f.input :web_email, label: "#{student[:student].full_name}", as: :radio_buttons, collection: student[:suggestions] %></div>
+            <div class="row justify-content-center">
+              <div class="col-6"><%= f.submit "Save" %></div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
