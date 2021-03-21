@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def add_to_wait_list
     WaitListedStudent.create(wait_list_student_params)
 
@@ -22,6 +24,28 @@ class RegistrationsController < ApplicationController
     @student_id = params[:student_id]
   end
 
+  def create_checkout_session
+    session = Stripe::Checkout::Session.create({
+      payment_method_types: ['card'],
+      line_items: [{
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'T-shirt',
+          },
+          unit_amount: 2000,
+        },
+        quantity: 1,
+      }],
+      mode: 'payment',
+      # These placeholder URLs will be replaced in a following step.
+      success_url:  registrations_finalize_url,
+      cancel_url: registrations_finalize_url,
+    })
+
+    render json: session
+  end
+
   def drop_class
     @section = Section.find(params[:section_id])
     r = Registration.where(["student_id = ? and section_id = ?", params[:student_id], params[:section_id]]).first
@@ -40,9 +64,9 @@ class RegistrationsController < ApplicationController
     student_count = current_parent.enrolled_students_count
     @discount = student_count > 1 ? (student_count - 1) * Invoice.discount : nil
     @invoice_total = Invoice.initial_invoice_total(current_parent)
-    @annual, @semester, @monthly = Invoice.get_tuition_totals(current_parent)
-    @payment_preference_section = get_payment_preference_section
-    @tuition_total = get_tuition_total
+    @semester, @monthly = Invoice.tuition_totals(current_parent)
+    @payment_preference_section = payment_preference_section
+    @tuition_total = tuition_total
     @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
     @program_donation = Invoice.get_program_donation(current_parent) || InvoiceLineItem.new
     @checked = get_donation_radio_check(@donation.quantity)
@@ -80,7 +104,6 @@ class RegistrationsController < ApplicationController
   end
 
   def review
-    # THIS IS WHERE WE ARE RIGHT NOW!!!
     @student = Student.find(params[:student_id])
   end
 

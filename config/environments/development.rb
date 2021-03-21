@@ -60,3 +60,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
+
+Stripe.api_key = "sk_test_51H2jFbGTkur4XSpDhbP2LeRPtMMvFuE50s4OfTHH7cgIuikFpzH8zPANGKcYSemTOsnbEbKL9aNMWOjjTCscnXWk005K8XI0Vu"

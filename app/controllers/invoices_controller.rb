@@ -1,5 +1,4 @@
 class InvoicesController < ApplicationController
-
   def donate_now
     @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
     @checked = get_donation_radio_check(@donation.quantity)

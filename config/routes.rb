@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     get "confirm_grade"
     get "confirm_web_email"
   end
-  
+
   resources :students do
     get 'view_course_list'
     patch 'update_web_email'
@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   patch '/invoices/update_program_donation', to: 'invoices#update_program_donation'
   post '/invoices/update_program_donation', to: 'invoices#update_program_donation'
   get '/invoices/donate_now', to: 'invoices#donate_now'
+  post "registrations/create_checkout_session", to: "registrations#create_checkout_session"
 
   ActiveAdmin.routes(self) rescue ActiveAdmin::DatabaseHitDuringLoad
   root 'students#index'
