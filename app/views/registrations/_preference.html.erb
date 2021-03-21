@@ -13,48 +13,15 @@
     <div id="tuition-preference-actual-form" class="row tuition-payment-plan-selection">
       <div class="col-md-10 col-xs-offset-1 col-xs-11">
         Please select your payment schedule:
-        <%= form_for(current_parent, url: { action: "update_tuition_preference" }) do |f| %>
+        <%= simple_form_for(current_parent, url: { action: "update_tuition_preference" }) do |f| %>
           <div class="row">
-            <div class="col-md-12 col-xs-12">
-              <% %w(Annual Semester Monthly).each do |plan| %>
-                <% case plan %>
-                <% when "Annual" %>
-                  <% total = "$#{@annual}/yr." %>
-                <% when "Semester" %>
-                  <% total = "$#{@semester}/sem." %>
-                <% when "Monthly" %>
-                  <% total = "$#{@monthly}/mo." %>
-                <% end %>
-              <div class="row">
-                <%= f.radio_button :tuition_preference, plan %>
-                <%= f.label :tuition_preference, "#{plan} #{total}" %>
-              </div>
-              <% end %>
-            </div>
-          </div>
-      </div>
-      <div class="col-md-9 col-xs-offset-1 col-xs-11">
-        How will you pay fees? (Note: Debit/Credit payment will incur 3% fee)
-        <div class="row tuition-payment-plan-selection">
-          <div class="col-md-12 col-xs-12">
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                  <% %w(Cash/Check ACH Debit/Credit).each do |pay_pref| %>
-                    <div class="row">
-                    <%= f.radio_button :payment_preference, pay_pref %>
-                    <%= f.label :payment_preference, pay_pref %>
-                    </div>
-                  <% end %>
-                </div>
-            </div>
+            <%= f.input :tuition_preference, label: "Payment Schedule", as: :select, collection: %w(Semester Monthly) %>
           </div>
           <div class="row">
-            <div class="col-md-10">
-              <%= f.submit "Update Payment", class: "col-md-2 col-xs-8 custom-button payment-button" %>
-            </div>
-            <% end %>
+            <%= f.input :payment_preference, label: "Payment Type", as: :select, collection: %w(Cash/Check ACH Debit/Credit)%>
           </div>
-        </div>
+          <%= f.submit "Update Payment", class: "btn-standard" %>
+        <% end %>
       </div>
     </div>
   </div>

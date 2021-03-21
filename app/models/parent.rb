@@ -29,7 +29,7 @@ class Parent < ActiveRecord::Base
   end
 
   def enrolled_students_count
-    students.select { |s| s.courses.count > 0 }.count
+    students.select { |s| s.sections.count > 0 }.count
   end
 
   def full_name

@@ -3,19 +3,20 @@ class Product < ActiveRecord::Base
   REGISTRATION_FEE = Product.find_by(name: "Registration Fee")
   ADMINISTRATIVE_FEE = Product.find_by(name: "Administrative Fee")
   CLASS_TUITION = {
-    annual: Product.find_by(name: "Class Tuition - Annual"),
     semester: Product.find_by(name: "Class Tuition - Semester"),
     monthly: Product.find_by(name: "Class Tuition - Monthly")
   }
   STUDY_HALL_TUITION = {
     semester: Product.find_by(name: "Study Hall Tuition - Semester"),
     monthly: Product.find_by(name: "Study Hall Tuition - Monthly"),
-    annual: Product.find_by(name: "Study Hall Tuition - Annual")
   }
   MATH_CLASS_TUITION = {
-    annual: Product.find_by(name: "Math Class Tuition - Annual"),
     semester: Product.find_by(name: "Math Class Tuition - Semester"),
     monthly: Product.find_by(name: "Math Class Tuition - Monthly")
+  }
+  HIGH_SCHOOL_LANGUAGE_TUITION = {
+    semester: Product.find_by(name: "High School Language Tuition - Semester"),
+    monthly: Product.find_by(name: "High School Language Tuition - Monthly")
   }
   SIBLING_DISCOUNT = Product.find_by(name: "Sibling Discount")
 

@@ -122,9 +122,9 @@ class RegistrationsController < ApplicationController
 
   def update_tuition_preference
     current_parent.update_attributes(parent_params)
-    @payment_preference_section = get_payment_preference_section
-    @annual, @semester, @monthly = Invoice.get_tuition_totals(current_parent)
-    @tuition_total = get_tuition_total
+    @payment_preference_section = payment_preference_section
+    @semester, @monthly = Invoice.tuition_totals(current_parent)
+    @tuition_total = tuition_total
     redirect_to action: "finalize"
   end
 
@@ -142,20 +142,18 @@ class RegistrationsController < ApplicationController
     [0,75,100,150].include?(amount) || amount.nil? ? amount.to_s : "Other"
   end
 
-  def get_payment_preference_section
+  def payment_preference_section
     current_parent.tuition_preference && current_parent.payment_preference ? "preference" : "no_preference"
   end
 
-  def get_tuition_total
+  def tuition_total
     case current_parent.tuition_preference
-      when "Annual"
-        @annual
       when "Semester"
         @semester
       when "Monthly"
         @monthly
       else
-        @annual
+        @semester
     end
   end
 

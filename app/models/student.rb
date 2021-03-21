@@ -5,7 +5,8 @@ class Student < ActiveRecord::Base
   has_many :student_shadows
   has_many :shadow_spots, through: :student_shadows
   has_many :registrations, dependent: :destroy
-  has_many :courses, through: :registrations
+  has_many :sections, through: :registrations
+  has_many :courses, through: :sections
   has_many :wait_listed_students, dependent: :destroy
 
   accepts_nested_attributes_for :student_shadows
@@ -29,12 +30,12 @@ class Student < ActiveRecord::Base
     Course.all.select { |c| c.grades.split(',').include?(grade.to_s) }
   end
 
-  def course_count
+  def standard_course_count
     courses.count - math_course_count - study_hall_count
   end
 
   def daily_schedule(weekday)
-    courses.where(day: [weekday, "Tuesday/Thursday"]).sort_by { |c| c.start_time }
+    sections.where(day: [weekday, "Tuesday/Thursday"]).sort_by { |c| c.start_time }
   end
 
   def full_name
@@ -61,8 +62,8 @@ class Student < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def wait_listed_courses
-    wait_listed_students.map { |wls| wls.course }
+  def wait_listed_sections
+    wait_listed_students.map { |wls| wls.section }
   end
 
 end

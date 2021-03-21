@@ -71,28 +71,24 @@ class Invoice < ActiveRecord::Base
     Product.where(name: "Administrative Fee").first.unit_price
   end
 
-  def self.get_tuition_totals(parent)
-    course_count = 0
-    parent.registered_students.each{ |s| course_count += s.course_count }
+  def self.tuition_totals(parent)
+    standard_course_count = 0
+    parent.registered_students.each{ |s| standard_course_count += s.standard_course_count }
     study_hall_count = 0
     parent.students.each{ |s| study_hall_count += s.study_hall_count}
     math_course_count = 0
     parent.students.each{ |s| math_course_count += s.math_course_count }
-    annual_unit = Product::CLASS_TUITION[:annual].unit_price
     monthly_unit = Product::CLASS_TUITION[:monthly].unit_price
     semester_unit = Product::CLASS_TUITION[:semester].unit_price
     study_hall_monthly = Product::STUDY_HALL_TUITION[:monthly].unit_price
     study_hall_semester = Product::STUDY_HALL_TUITION[:semester].unit_price
-    study_hall_annual = study_hall_semester * 2
-    math_annual = Product::MATH_CLASS_TUITION[:annual].unit_price
     math_semester = Product::MATH_CLASS_TUITION[:semester].unit_price
     math_monthly = Product::MATH_CLASS_TUITION[:monthly].unit_price
 
-    annual_tuition = (course_count * annual_unit) + (study_hall_count * study_hall_annual) + (math_course_count * math_annual)
-    semester_tuition = (course_count * semester_unit) + (study_hall_count * study_hall_semester) + (math_course_count * math_semester)
-    monthly_tuition = (course_count * monthly_unit) + (study_hall_count * study_hall_monthly) + (math_course_count * math_monthly)
+    semester_tuition = (standard_course_count * semester_unit) + (study_hall_count * study_hall_semester) + (math_course_count * math_semester)
+    monthly_tuition = (standard_course_count * monthly_unit) + (study_hall_count * study_hall_monthly) + (math_course_count * math_monthly)
 
-    [ annual_tuition, semester_tuition, monthly_tuition ]
+    [ semester_tuition, monthly_tuition ]
   end
 
   def self.get_donation(parent)
@@ -108,8 +104,8 @@ class Invoice < ActiveRecord::Base
   def self.initial_invoice_total(parent)
     @invoice_total = 0
     parent.students.each do |s|
-      @invoice_total +=  registration_fee if s.courses.count > 0
-      s.courses.each { |c| @invoice_total += c.fee }
+      @invoice_total +=  registration_fee if s.sections.count > 0
+      s.sections.each { |section| @invoice_total += section.course_fee }
     end
     @invoice_total += Invoice.discount * (parent.enrolled_students_count - 1) unless parent.enrolled_students_count == 0
     @invoice_total += administrative_fee if @invoice_total > 0

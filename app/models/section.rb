@@ -20,6 +20,10 @@ class Section < ApplicationRecord
     in_session(another_section.start_time) || in_session(another_section.end_time))
   end
 
+  def course_fee
+    course.fee
+  end
+
   def days_overlap another_section
     day == another_section.day || day == "Tuesday/Thursday" || another_section.day == "Tuesday/Thursday"
   end
