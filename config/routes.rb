@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :students do
     get 'view_course_list'
     patch 'update_web_email'
+    patch 'update_grade_confirmed'
   end
 
   get '/enrollment', to: 'enrollments#new', as: :new_enrollment_path
