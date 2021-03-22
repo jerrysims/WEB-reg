@@ -10,10 +10,13 @@ class ParentsController < ApplicationController
   end
 
   def show
-    redirect_to parent_confirm_grade_path(current_parent.id) if should_redirect_to_confirm_grade?
-    redirect_to parent_confirm_web_email_path(current_parent.id) if should_confirm_web_email?
-
-    @students = current_parent.students
+    if should_redirect_to_confirm_grade?
+      redirect_to parent_confirm_grade_path(current_parent.id)
+    elsif should_confirm_web_email?
+      redirect_to parent_confirm_web_email_path(current_parent.id)
+    else
+      @students = current_parent.students
+    end
   end
 
   private
@@ -21,7 +24,7 @@ class ParentsController < ApplicationController
     suggestions = []
     f = student.first_name.downcase.strip
     l = student.last_name.downcase.strip
-    n = student.nickname.nil? ? nil : student.nickname.downcase.strip 
+    n = student.nickname.nil? ? nil : student.nickname.downcase.strip
     suggestions << "#{f}.#{l}@webtutorialnashville.com"
     suggestions << "#{n}.#{l}@webtutorialnashville.com" unless n.nil?
     suggestions
