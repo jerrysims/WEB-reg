@@ -46,14 +46,14 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
         "#{c.students.count} of #{c.class_maximum} filled"
       end
       panel "Enrolled Students" do
-        table_for section.registrations do
+        table_for resource.registrations do
           column "name" do |registration|
             link_to registration.student.full_name
           end
         end
       end
       panel "Waitlisted Students" do
-        table_for section.wait_listed_students do
+        table_for resource.wait_listed_students do
           column "name" do |wait_listed_student|
             wait_listed_student.student.full_name
           end
