@@ -25,20 +25,11 @@ class RegistrationsController < ApplicationController
   end
 
   def create_checkout_session
+    @line_items = line_items
     session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
-      line_items: [{
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: 'T-shirt',
-          },
-          unit_amount: 2000,
-        },
-        quantity: 1,
-      }],
+      line_items: @line_items,
       mode: 'payment',
-      # These placeholder URLs will be replaced in a following step.
       success_url:  registrations_finalize_url,
       cancel_url: registrations_finalize_url,
     })
@@ -140,6 +131,41 @@ class RegistrationsController < ApplicationController
 
   def get_program_donation_radio_check(amount)
     [0,75,100,150].include?(amount) || amount.nil? ? amount.to_s : "Other"
+  end
+
+  def line_items
+    reg_fees = {
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: Product::REGISTRATION_FEE.name,
+        },
+        unit_amount: Product::REGISTRATION_FEE.unit_price,
+      },
+      quantity: current_parent.students.registeted.count
+    }
+    admin_fees = {
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: Product::ADMINISTRATIVE_FEE.name,
+        },
+        unit_amount: Product::ADMINISTRATIVE_FEE.unit_price,
+      },
+      quantity: 1
+    }
+    sibling_discount = {
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: Product::SIBLING_DISCOUNT.name,
+        },
+        unit_amount: Product::SIBLING_DISCOUNT.unit_price,
+      },
+      quantity: current_parent.students.registered.count > 1 ? current_parent.students.registered.count : 0
+    }
+
+    [ reg_fees, admin_fees, sibling_discount ]
   end
 
   def payment_preference_section
