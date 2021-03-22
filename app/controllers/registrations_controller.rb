@@ -25,12 +25,9 @@ class RegistrationsController < ApplicationController
   end
 
   def create_checkout_session
-    student_count = current_parent.registered_students.count
-    total_fees = ((Invoice.registration_fee * student_count) +
-                 Invoice.administrative_fee + (student_count > 1 ? Invoice.discount : 0)) * 100
     session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
-      line_items: [{name: "Registration & Admin Fees", amount: total_fees, quantity: 1, currency: "usd"}],
+      line_items: [{name: "Registration & Admin Fees", amount: total_fees * 100, quantity: 1, currency: "usd"}],
       mode: 'payment',
       success_url:  registrations_finalize_url,
       cancel_url: registrations_finalize_url,
@@ -142,7 +139,7 @@ class RegistrationsController < ApplicationController
   def total_fees
     student_count = current_parent.registered_students.count
     total_fees = ((Invoice.registration_fee * student_count) +
-                 Invoice.administrative_fee + (student_count > 1 ? Invoice.discount : 0)) * 100
+                 Invoice.administrative_fee + (student_count > 1 ? Invoice.discount : 0))
 
     total_fees
   end
