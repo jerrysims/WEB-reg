@@ -33,11 +33,15 @@ class Student < ActiveRecord::Base
   end
 
   def standard_course_count
-    courses.count - math_course_count - study_hall_count
+    courses.count - math_course_count - study_hall_count - fl_course_count
   end
 
   def daily_schedule(weekday)
     sections.where(day: [weekday, "Tuesday/Thursday"]).sort_by { |c| c.start_time }
+  end
+
+  def fl_course_count
+    sections.where(day: "Tuesday/Thursday").select{ |s| s.course.subject_area == "Foreign Language" }.count
   end
 
   def full_name

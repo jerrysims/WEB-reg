@@ -42,7 +42,8 @@
       </div>
       <div class="row">
         In order to reserve your <%= @current_parent.enrolled_students_count > 1 ? "students'" : "student's" %> spot, please pay the registration fees.
-        <p><button id="checkout-button">Checkout</button></p>
+        <p><button id="checkout-button">Click here to pay Registration & Admin Fee</button></p>
+        <p>After completing Stripe payment, you will be returned to this page.</p>
       </div>
     </div>
   </div>
@@ -53,19 +54,6 @@
   <div class="box shadow col-md-12 col-xs-12 col-sm-12">
     <div class="col-md-12 col-sm-8">
       <h4>Tuition</h4>
-      <% @enrolled_students.each do |s| %>
-        <% s.courses.each do |c| %>
-          <div class="row">
-            <div class="col-md-offset-4 col-md-6 col-xs-10 col-sm-10">
-              <%= c.name %> Course Fee (<%=s.first_name%>)
-            </div>
-            <div class="invoice-amounts col-md-2 col-xs-2 col-sm-2">
-              $<%= c.fee %>
-            </div>
-          </div>
-<!-- WE NEED TO CHANGE THE TUITION TOTAL TO INCLUDE THE COURSE FEES -->
-        <% end %>
-      <% end %>
       <p>Tuition Total:  $<%= @tuition_total%></p>
     </div>
     <div id="payment-preference-section" class="row payment_preference_section">
