@@ -1,7 +1,6 @@
 <div class="mailer" style="font-family: futura">
 Dear <%= @parent.full_name %>,
-
-<p> Thank you for enrolling for WEB classes for the 2020-21 school year!</p>
+Thank you for enrolling for WEB classes for the 2020-21 school year!
 
 <p><% @parent.registered_students.each do |student| %>
   <%= student.full_name %> is enrolled in the following classes:
@@ -9,32 +8,39 @@ Dear <%= @parent.full_name %>,
     <% unless student.daily_schedule(day).empty? %>
       <p>
     <% end %>
-    <% student.daily_schedule(day).each do |course| %>
+    <% student.daily_schedule(day).each do |section| %>
       <div class="row course">
-        - <%= course.day %>, <%= course.start_time.strftime("%l:%M %p") %>-<%= course.end_time.strftime("%l:%M %p") %> <%= course.name %>
+        - <%= section.day %>, <%= section.start_time.strftime("%l:%M %p") %>-<%= section.end_time.strftime("%l:%M %p") %> <%= section.name %>
       </div>
     <% end %>
     <% unless student.daily_schedule(day).empty? %>
       </p>
     <% end %>
   <% end %>
-  <% unless student.wait_listed_courses.empty? %>
-    <p>Wait List: <%= student.wait_listed_courses.map { |course| course.name }.join(", ") %></p>
+  <% unless student.wait_listed_sections.empty? %>
+    <p>Wait List: <%= student.wait_listed_sections.map { |section| section.name }.join(", ") %></p>
   <% end %>
 <% end %>
 
-
 <p>You have elected to pay <%= @parent.tuition_preference %> and to make registration and tuition payments via <%= @parent.payment_preference %>.
 
-<p>You have until midnight tomorrow to make changes to the registration free of charge. Any changes made after this time will incur a $25 fee.
+<p>You will receive an invoice for class fees.</p>
 
-<p>An invoice for $<%= @invoice.total_due %> will be issued via Quickbooks and delivered via email. You may pay this invoice via the payment method indicated above.
+<p>Tuition will be due on August 5 and is billed separately from your non-refundable registration fees.</p>
 
-<p>To complete your family’s registration, this invoice must be paid by April 1 or alternate arrangements made with Shannon Truss. After that point, your registration will be canceled and your student will not be guaranteed a spot in the classes listed above.
-
-<p>Tuition will be due in August and is billed separately from your non-refundable registration fees.
-
-<p>Whether you are a new or returning WEB family, please plan to join us on Thursday, May 7 from 10:00-12:30 for WEB’s annual picnic at Dalewood UMC.
+<p>
+  To request changes to your student's schedule:
+  To change a class: www.webtutorialnashville.com/registration-changes/changeclass
+  To add a class: www.webtutorialnashville.com/add-a-class
+  To drop a class: www.webtutorialnashville.com/drop-class
+</p>
+<p>
+  Please complete the following enrollment forms:
+  Medical Form: www.webtutorialnashville.com/medical-form
+  Photo Consent: www.webtutorialnashville.com/photo-consent
+  Parent Agreement: www.webtutorialnashville.com/parent-agreement
+  Release of Liability: www.webtutorialnashville.com/release-of-liability
+</p>
 
 <p>We look forward to having you at WEB in 2020-21!
 
