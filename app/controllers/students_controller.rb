@@ -50,7 +50,7 @@ class StudentsController < ApplicationController
 
   def update_web_email
     student = Student.find(params[:student_id])
-    student.update web_email: params[:student][:web_email]
+    student.update_column :web_email, params[:student][:web_email]
 
     redirect_to root_path
   end
