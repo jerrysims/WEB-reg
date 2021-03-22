@@ -1,9 +1,5 @@
 class StudentsController < ApplicationController
-  # def index
-  #   @students = current_parent.students
-  #   send_mail(params[:student_id]) if params[:commit] == "Accept Schedule"
-  # end
-  #
+
   def create
     @student = Student.new(student_params)
     @student.update_attributes(
@@ -20,17 +16,30 @@ class StudentsController < ApplicationController
     end
   end
 
+  def edit
+    @student = Student.find(params[:id])
+  end
+
   def new
     @student = Student.new
   end
 
   def view_course_list
     @student = Student.find(params[:student_id])
+
+    redirect_to edit_student_path(@student.id) if should_update? @student
     @available_courses = @student.available_courses
     @subject_areas = @available_courses.map(&:subject_area).uniq
   end
 
   def update
+    @student = Student.find params[:id]
+    @student.update student_params
+
+    redirect_to student_view_course_list_path(student_id: @student.id)
+  end
+
+  def update_grade_confirmed
     student = Student.find(params[:id])
 
     if student.update_attributes(params[:student].permit(:grade))
@@ -48,6 +57,10 @@ class StudentsController < ApplicationController
   end
 
   private
+  def should_update? student
+    ! student.valid?
+  end
+
   def student_params
     params.require(:student).permit(
       :date_of_birth,

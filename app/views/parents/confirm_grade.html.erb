@@ -9,7 +9,7 @@
 <div class="row">
   <% @unconfirmed_students.each do |student| %>
     <div class="col-md-3">
-      <%= simple_form_for(student, url: { action: "update", controller: "students", id: student.id }) do |f| %>
+      <%= simple_form_for(student, url: { action: "update_grade_confirmed", controller: "students", id: student.id }) do |f| %>
         <div class="box row justify-content-center">
           <div class="col-12">
             <div class="row"><%= f.input :grade, label: "#{student.full_name}", as: :select, collection: 5..12 %></div>
