@@ -26,6 +26,7 @@ class RegistrationsController < ApplicationController
 
   def create_checkout_session
     @line_items = line_items
+
     session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
       line_items: @line_items,
