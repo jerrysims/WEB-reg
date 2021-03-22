@@ -55,8 +55,8 @@ class RegistrationsController < ApplicationController
     @registration_fee = Invoice.registration_fee
     @enrolled_students = current_parent.students.select { |s| s.sections.count > 0 }
     student_count = current_parent.enrolled_students_count
-    @discount = student_count > 1 ? (student_count - 1) * Invoice.discount : nil
-    @invoice_total = Invoice.initial_invoice_total(current_parent)
+    @discount = student_count > 1 ? Invoice.discount : nil
+    @invoice_total = total_fees
     @semester, @monthly = Invoice.tuition_totals(current_parent)
     @payment_preference_section = payment_preference_section
     @tuition_total = tuition_total
@@ -137,6 +137,14 @@ class RegistrationsController < ApplicationController
 
   def payment_preference_section
     current_parent.tuition_preference && current_parent.payment_preference ? "preference" : "no_preference"
+  end
+
+  def total_fees
+    student_count = current_parent.registered_students.count
+    total_fees = ((Invoice.registration_fee * student_count) +
+                 Invoice.administrative_fee + (student_count > 1 ? Invoice.discount : 0)) * 100
+
+    total_fees
   end
 
   def tuition_total
