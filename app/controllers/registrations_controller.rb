@@ -25,11 +25,12 @@ class RegistrationsController < ApplicationController
   end
 
   def create_checkout_session
-    @line_items = line_items
-
+    student_count = current_parent.registered_students.count
+    total_fees = ((Invoice.registration_fee * student_count) +
+                 Invoice.administrative_fee + (student_count > 1 ? Invoice.discount : 0)) * 100
     session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
-      line_items: @line_items,
+      line_items: [{name: "Registration & Admin Fees", amount: total_fees, quantity: 1, currency: "usd"}],
       mode: 'payment',
       success_url:  registrations_finalize_url,
       cancel_url: registrations_finalize_url,
@@ -132,41 +133,6 @@ class RegistrationsController < ApplicationController
 
   def get_program_donation_radio_check(amount)
     [0,75,100,150].include?(amount) || amount.nil? ? amount.to_s : "Other"
-  end
-
-  def line_items
-    reg_fees = {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: Product::REGISTRATION_FEE.name,
-        },
-        unit_amount: Product::REGISTRATION_FEE.unit_price,
-      },
-      quantity: current_parent.registered_students.count
-    }
-    admin_fees = {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: Product::ADMINISTRATIVE_FEE.name,
-        },
-        unit_amount: Product::ADMINISTRATIVE_FEE.unit_price,
-      },
-      quantity: 1
-    }
-    sibling_discount = {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: Product::SIBLING_DISCOUNT.name,
-        },
-        unit_amount: Product::SIBLING_DISCOUNT.unit_price,
-      },
-      quantity: current_parent.registered_students.count > 1 ? current_parent.registered_students.count : 0
-    }
-
-    [ reg_fees, admin_fees, sibling_discount ]
   end
 
   def payment_preference_section
