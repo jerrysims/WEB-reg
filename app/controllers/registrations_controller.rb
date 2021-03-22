@@ -142,7 +142,7 @@ class RegistrationsController < ApplicationController
         },
         unit_amount: Product::REGISTRATION_FEE.unit_price,
       },
-      quantity: current_parent.students.registeted.count
+      quantity: current_parent.registered_students.count
     }
     admin_fees = {
       price_data: {
@@ -162,7 +162,7 @@ class RegistrationsController < ApplicationController
         },
         unit_amount: Product::SIBLING_DISCOUNT.unit_price,
       },
-      quantity: current_parent.students.registered.count > 1 ? current_parent.students.registered.count : 0
+      quantity: current_parent.registered_students.count > 1 ? current_parent.registered_students.count : 0
     }
 
     [ reg_fees, admin_fees, sibling_discount ]
