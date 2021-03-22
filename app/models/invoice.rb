@@ -105,9 +105,8 @@ class Invoice < ActiveRecord::Base
     @invoice_total = 0
     parent.students.each do |s|
       @invoice_total +=  registration_fee if s.sections.count > 0
-      s.sections.each { |section| @invoice_total += section.course_fee }
     end
-    @invoice_total += Invoice.discount * (parent.enrolled_students_count - 1) unless parent.enrolled_students_count == 0
+    @invoice_total += Invoice.discount if parent.enrolled_students_count > 0
     @invoice_total += administrative_fee if @invoice_total > 0
 
     @invoice_total
