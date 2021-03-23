@@ -26,6 +26,11 @@ ActiveAdmin.register Parent do
     actions
   end
 
+  filter :first_name
+  filter :last_name
+  filter :students, as: :select, collection: Student.all.order(last_name: :asc)
+
+
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
