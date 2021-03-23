@@ -14,7 +14,7 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
 # end
 
   index do
-    column :name, sortable: :name do |section|
+    column :course, sortable: :"courses.name" do |section|
       link_to section.course.name, admin_section_path(section)
     end
     column "Day/Time" do |section|
@@ -59,6 +59,12 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
           end
         end
       end
+    end
+  end
+
+  controller do
+    def scoped_collection
+      Section.includes(:course)
     end
   end
 end
