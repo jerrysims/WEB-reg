@@ -23,6 +23,14 @@ ActiveAdmin.register Student do
     actions
   end
 
+  filter :first_name
+  filter :last_name
+  filter :parent, as: :select, collection: Parent.all.order(last_name: :asc)
+  filter :grade
+  filter :date_of_birth
+  filter :race
+  filter :pronouns
+
   csv do
     column :id
     column :first_name
@@ -45,6 +53,5 @@ ActiveAdmin.register Student do
       p = student.parent
       "#{p.city}, #{p.state} #{p.zip_code}"
     end
-
   end
 end
