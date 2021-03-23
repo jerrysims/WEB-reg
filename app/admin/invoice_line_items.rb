@@ -13,6 +13,18 @@ ActiveAdmin.register InvoiceLineItem do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+  index do
+    column :student do |c|
+      c.student_id.nil? ? nil : Student.find(c.student_id).full_name
+    end
+    column :product
+    column :quantity
+    column :invoice
+    column :parent
+    column :created_at
+
+    actions
+  end
 
   form do |f|
     f.inputs do
