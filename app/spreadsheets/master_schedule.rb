@@ -3,8 +3,8 @@ class MasterSchedule
 
   def initialize
     @start_times = {}
-    @start_times[:Tuesday] = (Course.where(day: "Tuesday") + Course.where(day: "Tuesday/Thursday")).pluck(:start_time).uniq.sort
-    @start_times[:Thursday] = (Course.where(day: "Thursday") + Course.where(day: "Tuesday/Thursday")).pluck(:start_time).uniq.sort
+    @start_times[:Tuesday] = (Section.where(day: "Tuesday") + Section.where(day: "Tuesday/Thursday")).pluck(:start_time).uniq.sort
+    @start_times[:Thursday] = (Section.where(day: "Thursday") + Section.where(day: "Tuesday/Thursday")).pluck(:start_time).uniq.sort
   end
 
   def generate_xls
@@ -55,9 +55,9 @@ class MasterSchedule
     ]
     @start_times.each do | day, t |
       t.each do |start_time|
-        cell_value = student.courses.where(day: day.to_s).where(start_time: start_time).first.try(:name)
+        cell_value = student.sections.where(day: day.to_s).where(start_time: start_time).first.try(:name)
         if cell_value.nil?
-          cell_value = student.courses.where(day: "Tuesday/Thursday").where(start_time: start_time).first.try(:name) || "-------"
+          cell_value = student.sections.where(day: "Tuesday/Thursday").where(start_time: start_time).first.try(:name) || "-------"
         end
         row << cell_value
       end

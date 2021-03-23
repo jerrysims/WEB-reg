@@ -1,12 +1,26 @@
-ActiveAdmin.register Course, as: "Master Schedule" do
+ActiveAdmin.register Section, as: "Master Schedule" do
   menu parent: "Reports"
 
-  filter :name, as: :select
+  # filter :name, as: :select
 
   index do
-    column "Student" do |course|
-      course.students
+    column :course, sortable: :"courses.name" do |section|
+      link_to section.course.name, admin_section_path(section)
     end
+
+    column :day
+    column :start_time
+    
+    # "section" is a word used in some display methods, so at times I am using the term "resource"
+    column :students do |section|
+      table_for section.students.order(last_name: :asc) do
+        column do |student|
+          student.full_name
+        end
+      end
+    end
+
+    actions
   end
 
   controller do
