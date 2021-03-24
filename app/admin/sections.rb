@@ -45,17 +45,21 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
       row "Capacity" do |c|
         "#{c.students.count} of #{c.class_maximum} filled"
       end
-      panel "Enrolled Students" do
-        table_for resource.registrations do
-          column "name" do |registration|
-            link_to registration.student.full_name
+      panel "Students" do
+        columns do
+          column do
+            table_for resource.registrations do
+              column "Enrolled Students" do |registration|
+                link_to registration.student.full_name
+              end
+            end
           end
-        end
-      end
-      panel "Waitlisted Students" do
-        table_for resource.wait_listed_students do
-          column "name" do |wait_listed_student|
-            wait_listed_student.student.full_name
+          column do
+            table_for resource.wait_listed_students do
+              column "Wait List" do |wait_listed_student|
+                wait_listed_student.student.full_name
+              end
+            end
           end
         end
       end
