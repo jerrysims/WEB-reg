@@ -35,22 +35,22 @@ permit_params :section_id, :student_id, :status
 
 
   index do
-    column "Student" do |r|
+    column "Student", sortable: :"students.last_name" do |r|
       r.student.full_name
     end
-    column "Student Grade" do |r|
+    column "Student Grade", sortable: :"students.grade" do |r|
       r.student.grade
     end
-    column "Section Name" do |r|
+    column "Section Name", sortable: :"sections.name" do |r|
       r.section.name
     end
     column "Day / Time" do |r|
       r.section.day + ", " + r.section.start_time.strftime("%l:%M %p")
     end
-    column "Parent Name" do |r|
+    column "Parent Name", sortable: :"parents.name" do |r|
       r.student.parent.full_name
     end
-    column "Payment Plan" do |r|
+    column "Payment Plan", sortable: :"parent s.tuition_preference" do |r|
       r.student.parent.tuition_preference
     end
     actions
