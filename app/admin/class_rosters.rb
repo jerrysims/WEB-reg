@@ -1,13 +1,13 @@
-ActiveAdmin.register Course, as: "Class Rosters" do
+ActiveAdmin.register Section, as: "Class Rosters" do
   menu parent: "Reports"
 
-  filter :name, as: :select
+  # filter :name, as: :select
 
-  index do |course|
+  index do |section|
     column :name
-    column do |course|
-      unless course.registrations.empty?
-        table_for course.registrations do
+    column do |section|
+      unless section.registrations.empty?
+        table_for section.registrations do
           column "Class Roster" do |registration|
             registration.student.full_name
           end
@@ -20,7 +20,7 @@ ActiveAdmin.register Course, as: "Class Rosters" do
     def index
       index! do |format|
         format.xls {
-          spreadsheet = ClassRostersReport.new Course.all.sort_by { |c| c.name }
+          spreadsheet = ClassRostersReport.new Section.all.sort_by { |c| c.name }
           send_data spreadsheet.generate_xls, filename: "class_rosters_#{Time.now.strftime("%Y%m%d_%H%M")}.xls"
         }
       end

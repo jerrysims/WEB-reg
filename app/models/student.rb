@@ -48,6 +48,10 @@ class Student < ActiveRecord::Base
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
+  def mailing_address
+    "#{parent.street_address_1}, #{parent.street_address_2}, #{parent.city}, #{parent.state}, #{parent.zip_code}"
+  end
+
   def math_course_count
     courses.where(subject_area: "Math").count
   end
