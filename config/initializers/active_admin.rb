@@ -291,3 +291,5 @@ ActiveAdmin.setup do |config|
   #
   # config.order_clause = MyOrderClause
 end
+
+require 'active_admin_exts'
