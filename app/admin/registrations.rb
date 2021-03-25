@@ -1,18 +1,18 @@
 ActiveAdmin.register Registration do
   menu parent: "Admin"
 
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-permit_params :section_id, :student_id, :status
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+  permit_params :section_id, :student_id, :status
+
+  filter :section,
+         as: :select,
+         collection: -> {
+           Section.all.order(
+             course_id: :asc, day: :desc, start_time: :asc
+           ).map { |s| "#{s.course.name.truncate(20)}, #{s.day}, #{s.start_time.strftime("%l:%M")}" } }
+  filter :student,
+         as: :select,
+         collection: Student.enrolled.order(last_name: :asc, first_name: :asc)
+
   form do |f|
     f.inputs do
       f.input :section, as: :select, collection: options_from_collection_for_select(Section.all.sort_by { |c| c.name }, :id, lambda { |c| "#{c.name}, #{c.day}, #{c.start_time.strftime("%l:%M")}"})

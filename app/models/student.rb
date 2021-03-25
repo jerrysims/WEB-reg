@@ -25,6 +25,7 @@ class Student < ActiveRecord::Base
 
   scope :missing_web_email, -> { where(web_email: nil) }
   scope :unconfirmed, -> { where(confirmed_grade: nil) }
+  scope :enrolled, -> { joins(:registrations).distinct }
 
   DAYS_ORDER = %w(Tuesday Thursday)
 
