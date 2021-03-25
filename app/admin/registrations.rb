@@ -5,10 +5,15 @@ ActiveAdmin.register Registration do
 
   filter :section,
          as: :select,
-         collection: -> {
+         collection: Hash[
            Section.all.order(
              course_id: :asc, day: :desc, start_time: :asc
-           ).map { |s| "#{s.course.name.truncate(20)}, #{s.day}, #{s.start_time.strftime("%l:%M")}" } }
+           ).map{ |s| ["#{s.course.name.truncate(20)}, #{s.day}, #{s.start_time.strftime("%l:%M")}", 
+                          s.id]}
+         ]
+         #   :id,
+         #   lambda { |s| "#{s.course.name.truncate(20)}, #{s.day}, #{s.start_time.strftime("%l:%M")}" }
+         # )
   filter :student,
          as: :select,
          collection: Student.enrolled.order(last_name: :asc, first_name: :asc)

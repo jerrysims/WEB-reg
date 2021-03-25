@@ -44,6 +44,10 @@ class Section < ApplicationRecord
     course.suggested_grade
   end
 
+  def to_s
+    "#{s.course.truncate(20)}, #{s.day}, #{s.start_time.strftime("%l:%M")}"
+  end
+
   def waitlist
     wait_listed_students.order(:created_at).map { |entry| entry.student }
   end
