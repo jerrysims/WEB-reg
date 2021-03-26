@@ -8,7 +8,7 @@ ActiveAdmin.register Registration do
          collection: Hash[
            Section.all.order(
              course_id: :asc, day: :desc, start_time: :asc
-           ).map{ |s| ["#{s.course.name.truncate(20)}, #{s.day}, #{s.start_time.strftime("%l:%M")}", 
+           ).map{ |s| ["#{s.course.name.truncate(20)}, #{s.day}, #{s.start_time.strftime("%l:%M")}",
                           s.id]}
          ]
          #   :id,
@@ -57,6 +57,11 @@ ActiveAdmin.register Registration do
     end
     column "Payment Plan", sortable: :"parent s.tuition_preference" do |r|
       r.student.parent.tuition_preference
+    end
+    column "Student ID", :student_id
+    column "Section ID", :section_id
+    column :"Parent ID" do |r|
+      r.student.parent_id
     end
     actions
   end
