@@ -85,9 +85,13 @@ ActiveAdmin.register Registration do
     column "Payment Plan" do |r|
       r.student.parent.tuition_preference
     end
-    column "Student ID", :student_id
-    column "Section ID", :section_id
-    column :"Parent ID" do |r|
+    column "Student ID" do |r|
+      r.student_id
+    end
+    column "Section ID" do |r|
+      r.section_id
+    end
+    column "Parent ID" do |r|
       r.student.parent_id
     end
   end
