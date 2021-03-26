@@ -3,19 +3,9 @@ ActiveAdmin.register Section do
 
   config.sort_order = "course"
 
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_time, :class_minimum, :class_maximum, :suggested_grade, :subject_area
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
-  member_action :drop, only: :index, method: :post do
+  permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_time, :class_minimum, :class_maximum, :suggested_grade, :subject_area
+
+  member_action :drop, only: :show, method: :post do
     student = Student.find(params[:student_id])
     section = Section.find(params[:id])
 
@@ -58,17 +48,17 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
     redirect_to admin_section_path(params[:id])
   end
 
-  action_item :enroll, only: [:show] do
-    link_to 'Enroll in Class', enroll_admin_section_path, method: :post
-  end
+  # action_item :enroll, only: [:show] do
+  #   link_to 'Enroll in Class', enroll_admin_section_path, method: :post
+  # end
 
-  action_item :drop, only: [:show] do
-    link_to "Drop from Section", drop_admin_section_path, method: :post
-  end
+  # action_item :drop, only: [:show] do
+  #   link_to "Drop from Section", drop_admin_section_path, method: :post
+  # end
 
-  action_item :drop_from_waitlist, only: [:show] do
-    link_to "Drop from Waitlist", drop_from_waitlist_admin_section_path, method: :post
-  end
+  # action_item :drop_from_waitlist, only: [:show] do
+  #   link_to "Drop from Waitlist", drop_from_waitlist_admin_section_path, method: :post
+  # end
 
   index do
     column :course, sortable: :"courses.name" do |section|
