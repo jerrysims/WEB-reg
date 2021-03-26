@@ -113,6 +113,19 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
     end
   end
 
+  csv do
+    column "Section Name" do |s|
+      s.name
+    end
+    column :id
+    column :day
+    column :start_time
+    column :end_time
+    column :class_minimum
+    column :class_maximum
+    column :created_at
+    column :updated_at
+  end
 
   controller do
     def scoped_collection
