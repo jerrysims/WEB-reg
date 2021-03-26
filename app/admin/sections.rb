@@ -32,6 +32,13 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
     redirect_to admin_section_path(params[:id])
   end
 
+  member_action :drop_from_waitlist, only: :index, method: :post do
+    binding.pry
+    WaitListedStudent.find_by(student_id: params[:student_id], section_id: params[:id]).destroy
+
+    redirect_to admin_section_path(params[:id])
+  end
+
   action_item :enroll, only: [:show] do
     link_to 'Enroll in Class', enroll_admin_section_path, method: :post
   end
@@ -40,6 +47,9 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
     link_to "Drop from Section", drop_admin_section_path, method: :post
   end
 
+  action_item :drop_from_waitlist, only: [:show] do
+    link_to "Drop from Waitlist", drop_from_waitlist_admin_section_path, method: :post
+  end
 
   index do
     column :course, sortable: :"courses.name" do |section|
@@ -100,6 +110,10 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
                   end
                   column do
                     link_to 'Enroll in Class', enroll_admin_section_path(
+                      student_id: wait_listed_student.student_id), method: :post
+                  end
+                  column do
+                    link_to "Drop from Waitlist", drop_from_waitlist_admin_section_path(
                       student_id: wait_listed_student.student_id), method: :post
                   end
                   column
