@@ -15,21 +15,6 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-  member_action :enroll, only: :index, method: :post do
-    student = Student.find(params[:student_id])
-    section = Section.find(params[:id])
-
-    ActiveRecord::Base.transaction do
-      reg =  Registration.find_or_create_by(section_id: params[:id], student_id: params[:student_id])
-      if reg
-        WaitListedStudent.find_by(section_id: params[:id], student_id: params[:student_id]).destroy
-        flash[:notice] = "#{student.full_name} is now enrolled in #{section.name}"
-      end
-    end
-
-    redirect_to admin_section_path(params[:id])
-  end
-
   member_action :drop, only: :index, method: :post do
     student = Student.find(params[:student_id])
     section = Section.find(params[:id])
@@ -47,6 +32,27 @@ permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_
 
     if WaitListedStudent.find_by(student_id: params[:student_id], section_id: params[:id]).destroy
       flash[:notice] = "#{student.full_name} was dropped from the waitlist for #{section.name}"
+    end
+
+    redirect_to admin_section_path(params[:id])
+  end
+
+  member_action :enroll, only: :index, method: :post do
+    student = Student.find(params[:student_id])
+    section = Section.find(params[:id])
+
+    ActiveRecord::Base.transaction do
+      reg =  Registration.find_or_create_by(section_id: params[:id], student_id: params[:student_id])
+      if reg.valid?
+        WaitListedStudent.find_by(section_id: params[:id], student_id: params[:student_id]).destroy
+        flash[:notice] = "#{student.full_name} is now enrolled in #{section.name}"
+      else
+        message = ""
+        reg.errors.messages.each do |m|
+          message << "#{m[0]} #{m[1][0]}... "
+        end
+        flash[:notice] = message
+      end
     end
 
     redirect_to admin_section_path(params[:id])
