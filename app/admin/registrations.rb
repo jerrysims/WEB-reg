@@ -16,6 +16,8 @@ ActiveAdmin.register Registration do
          as: :select,
          collection: Student.enrolled.order(last_name: :asc, first_name: :asc)
 
+  # filter :missing_invoices, as: :radio, collection: %w[All Only_Missing_Invoices]
+
   form do |f|
     f.inputs do
       f.input :section, as: :select, collection: options_from_collection_for_select(Section.all.sort_by { |c| c.name }, :id, lambda { |c| "#{c.name}, #{c.day}, #{c.start_time.strftime("%l:%M")}"})
@@ -83,6 +85,10 @@ ActiveAdmin.register Registration do
     column "Payment Plan" do |r|
       r.student.parent.tuition_preference
     end
+    column "Student ID", :student_id
+    column "Section ID", :section_id
+    column :"Parent ID" do |r|
+      r.student.parent_id
+    end
   end
-
 end
