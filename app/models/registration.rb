@@ -9,6 +9,8 @@ class Registration < ActiveRecord::Base
   validate :one_class_at_a_time
   validate :student_is_correct_grade
 
+  scope :missing_invoices, -> { where(student: Student.where(parent_id: Parent.left_outer_joins(:invoice).where.not(id: Invoice.closed.pluck(:parent_id)))) }
+
   private
 
   def section_has_not_reached_max
@@ -28,6 +30,10 @@ class Registration < ActiveRecord::Base
     unless student && student.registrations.select { |r| r.section.start_time == section.start_time && (r.section.day == section.day || r.section.day == "Tuesday/Thursday" || section.day == "Tuesday/Thursday")}.empty?
       errors.add(:student, "already has a class at that time")
     end
+  end
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[missing_invoices]
   end
 
   def student_is_correct_grade

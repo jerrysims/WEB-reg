@@ -48,18 +48,6 @@ ActiveAdmin.register Section do
     redirect_to admin_section_path(params[:id])
   end
 
-  # action_item :enroll, only: [:show] do
-  #   link_to 'Enroll in Class', enroll_admin_section_path, method: :post
-  # end
-
-  # action_item :drop, only: [:show] do
-  #   link_to "Drop from Section", drop_admin_section_path, method: :post
-  # end
-
-  # action_item :drop_from_waitlist, only: [:show] do
-  #   link_to "Drop from Waitlist", drop_from_waitlist_admin_section_path, method: :post
-  # end
-
   index do
     column :course, sortable: :"courses.name" do |section|
       link_to section.course.name, admin_section_path(section)

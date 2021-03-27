@@ -16,7 +16,8 @@ ActiveAdmin.register Registration do
          as: :select,
          collection: Student.enrolled.order(last_name: :asc, first_name: :asc)
 
-  # filter :missing_invoices, as: :radio, collection: %w[All Only_Missing_Invoices]
+  scope :all, default: true
+  scope :missing_invoices
 
   form do |f|
     f.inputs do

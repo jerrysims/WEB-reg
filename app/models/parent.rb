@@ -22,6 +22,8 @@ class Parent < ActiveRecord::Base
   has_many :invoice_line_items
   has_one :invoice
 
+  scope :missing_invoice, -> { left_outer_joins(:invoice).where.not(id: Invoice.closed.pluck(:parent_id)) }
+
   after_create :assign_default_role
 
   def assign_default_role

@@ -10,6 +10,29 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
+    # columns do
+    #   column do
+    #     panel "Parents without Invoice" do
+    #       ul do
+    #         Parent.missing_invoice.each do |p|
+    #           li "#{p.full_name}"
+    #           ul do
+    #             p.students.each do |s|
+    #               li "#{s.full_name}"
+    #             end
+    #           end
+    #         end
+    #       end
+    #     end
+    #   end
+    #
+    #   column do
+    #     panel "Info" do
+    #       para "Welcome to ActiveAdmin."
+    #     end
+    #   end
+    # end
+
     # Here is an example of a simple dashboard with columns and panels.
     #
     # columns do

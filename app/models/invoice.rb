@@ -3,6 +3,8 @@ class Invoice < ActiveRecord::Base
   belongs_to :parent
   has_many :invoice_line_items
 
+  scope :closed, -> { where(closed: true) }
+
   def generate_initial_invoice
     generate_registration_fees
     generate_course_fees
