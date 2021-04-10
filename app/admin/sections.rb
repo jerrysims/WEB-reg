@@ -66,6 +66,8 @@ ActiveAdmin.register Section do
     column "Waitlist Count" do |section|
       section.wait_listed_students.count
     end
+
+    actions
   end
 
   show do

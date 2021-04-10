@@ -14,6 +14,7 @@ class Course < ActiveRecord::Base
   has_many :course_corequisites
   has_many :corequisites, through: :course_corequisites
   has_many :sections, dependent: :destroy
+  has_many :registrations
   has_many :students, through: :registrations
   has_and_belongs_to_many :products
 
