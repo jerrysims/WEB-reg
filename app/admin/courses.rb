@@ -5,6 +5,8 @@ ActiveAdmin.register Course do
   #
   # permit_params :name, :description, :textbooks, :grades, :suggested_grade, :subject_area
   #
+  permit_params :name, :grades, :suggested_grade, :subject_area
+
   index do
     column :name
     column :grades
