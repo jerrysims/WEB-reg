@@ -2,6 +2,7 @@ ActiveAdmin.register Section, as: "Master Schedule" do
   menu parent: "Reports"
 
   # filter :name, as: :select
+  index download_links: [:xls]
 
   index do
     column :course, sortable: :"courses.name" do |section|
@@ -10,7 +11,7 @@ ActiveAdmin.register Section, as: "Master Schedule" do
 
     column :day
     column :start_time
-    
+
     # "section" is a word used in some display methods, so at times I am using the term "resource"
     column :students do |section|
       table_for section.students.order(last_name: :asc) do
