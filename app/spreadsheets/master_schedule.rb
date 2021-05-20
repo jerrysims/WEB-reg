@@ -24,7 +24,7 @@ class MasterSchedule
     sheet.row(0).default_format = Spreadsheet::Format.new weight: :bold
 
     row_index = 1
-    Student.all.sort_by { |s| s.last_name.downcase }.each do |s|
+    Student.enrolled.order(:last_name).each do |s|
       sheet.row(row_index).concat get_student_row(s)
       row_index += 1
     end
