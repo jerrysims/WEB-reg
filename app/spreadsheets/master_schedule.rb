@@ -55,10 +55,8 @@ class MasterSchedule
     ]
     @start_times.each do | day, t |
       t.each do |start_time|
-        cell_value = student.sections.where(day: day.to_s, start_time: start_time).first.try(:name)
-        if cell_value.nil?
-          cell_value = student.sections.where(day: "Tuesday/Thursday", start_time: start_time).first.try(:name) || "-------"
-        end
+        cell_value = student.sections.find_by(day: [day.to_s, "Tuesday/Thursday"], start_time: start_time).try(:name) ||
+                     "-------"
         row << cell_value
       end
     end
