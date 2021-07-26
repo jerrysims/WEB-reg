@@ -4,6 +4,7 @@ ActiveAdmin.register Student do
   form do |f|
     f.input :first_name
     f.input :last_name
+    f.input :web_email
     f.input :grade
     f.input :parent
     actions
