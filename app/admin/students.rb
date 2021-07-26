@@ -14,6 +14,7 @@ ActiveAdmin.register Student do
     column :first_name
     column :last_name
     column :grade
+    column :web_email
     column :student_email
     column :parent
     column "Parent ID" do |c|
