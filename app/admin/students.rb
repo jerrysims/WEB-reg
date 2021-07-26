@@ -9,7 +9,8 @@ ActiveAdmin.register Student do
     f.input :parent
     actions
   end
-  permit_params :first_name, :last_name, :parent_first_name, :parent_last_name, :grade, :student_email
+  permit_params :first_name, :last_name, :parent_first_name, :parent_last_name, :grade,
+                :student_email, :web_email
 
   index do
     column :first_name
