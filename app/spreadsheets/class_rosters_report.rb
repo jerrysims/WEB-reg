@@ -20,13 +20,13 @@ class ClassRostersReport
 
   def create_body sheet, section
     # Header row with a specific format
-    sheet.row(0).concat %w{Student Pronouns Email Grade section_Name Day/Time Parent_Name Parent_Email Learning_Differences Race Address}
+    sheet.row(0).concat %w{Student Pronouns WEB_Email Email Grade section_Name Day/Time Parent_Name Parent_Email Learning_Differences Race Address}
     sheet.row(0).default_format = Spreadsheet::Format.new weight: :bold
 
     row_index = 1
     section.students.each do |s|
       sheet.row(row_index).concat [
-        s.full_name, s.pronouns, s.student_email, s.grade, section.name,
+        s.full_name, s.pronouns, s.web_email, s.student_email, s.grade, section.name,
         "#{section.day} #{section.start_time.strftime("%H:%M")}", s.parent.full_name,
         s.parent.email, s.learning_differences, s.race, s.mailing_address ]
       row_index += 1
