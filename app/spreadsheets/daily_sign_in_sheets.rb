@@ -2,8 +2,8 @@ class DailySignInSheets
   attr_accessor :courses
 
   def initialize
-    @tuesday_courses = Course.where(day: "Tuesday") + Course.where(day: "Tuesday/Thursday")
-    @thursday_courses = Course.where(day: "Thursday") + Course.where(day: "Tuesday/Thursday")
+    @tuesday_courses = Section.where(day: "Tuesday") + Section.where(day: "Tuesday/Thursday")
+    @thursday_courses = Section.where(day: "Thursday") + Section.where(day: "Tuesday/Thursday")
     @tuesday_students = []
     @thursday_students = []
     @tuesday_courses.each do |c|
