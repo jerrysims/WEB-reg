@@ -23,7 +23,7 @@ class Course < ActiveRecord::Base
 
 
   def fee
-    products.empty? ? 0 : products.first.unit_price
+    products.fees.empty? ? 0 : products.fees.first.unit_price
   end
 
   def fee_product
