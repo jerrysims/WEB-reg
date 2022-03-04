@@ -1,5 +1,7 @@
 class RegistrationsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :set_current_student
+  before_action :set_course_fees
 
   def add_to_wait_list
     WaitListedStudent.create(wait_list_student_params)
@@ -136,6 +138,14 @@ class RegistrationsController < ApplicationController
     current_parent.tuition_preference && current_parent.payment_preference ? "preference" : "no_preference"
   end
 
+  def set_course_fees
+    @course_fees = @current_student.courses.inject(0){|sum,e| sum + e.fee }
+  end
+
+  def set_current_student
+    @current_student = Student.find(params[:student_id])
+  end
+
   def total_fees
     student_count = current_parent.registered_students.count
     total_fees = ((Invoice.registration_fee * student_count) +
@@ -157,7 +167,8 @@ class RegistrationsController < ApplicationController
 
   def parent_params
     params.require(:parent).permit(:id, :first_name, :last_name, :email, :phone_number,
-      :street_address_1, :street_address_2, :city, :state, :zip_code, :tuition_preference, :payment_preference)
+      :secondary_email, :street_address_1, :street_address_2, :city, :state, :zip_code,
+      :tuition_preference, :payment_preference)
   end
 
   def wait_list_student_params

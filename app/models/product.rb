@@ -26,4 +26,5 @@ class Product < ActiveRecord::Base
   validates_presence_of :unit_price
   validates_inclusion_of :product_type, in: PRODUCT_TYPES
 
+  scope :fees, -> { where(product_type: "fee") }
 end
