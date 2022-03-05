@@ -1,7 +1,9 @@
 class Registration < ActiveRecord::Base
+
   belongs_to :section
   belongs_to :student
   has_one :course, through: :section
+  belongs_to :user, class_name: "Parent"
 
   validates :student, presence: true
   validate :section_has_not_reached_max
@@ -10,6 +12,9 @@ class Registration < ActiveRecord::Base
   validate :student_is_correct_grade
 
   scope :missing_invoices, -> { where(student: Student.where(parent_id: Parent.left_outer_joins(:invoice).where.not(id: Invoice.closed.pluck(:parent_id)))) }
+
+  before_save :log_registration
+  before_destroy :log_registration
 
   private
 
@@ -40,5 +45,17 @@ class Registration < ActiveRecord::Base
     unless section && section.grades.split(",").include?(student.grade.to_s)
       errors.add(:student, "is not in the right grade for that section")
     end
+  end
+
+  private
+
+  def log_registration
+    RegistrationLog.create(
+      student: student,
+      section: section,
+      previous_status: self.changes[:status].first,
+      new_status: self.changes[:status].last,
+      user: self.user
+    )
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_04_003316) do
+ActiveRecord::Schema.define(version: 2022_03_05_170547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,14 +104,30 @@ ActiveRecord::Schema.define(version: 2022_03_04_003316) do
     t.text "product_type"
   end
 
+  create_table "registration_logs", force: :cascade do |t|
+    t.bigint "student_id"
+    t.bigint "section_id"
+    t.bigint "user_id", null: false
+    t.string "previous_status"
+    t.string "new_status"
+    t.datetime "changed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["section_id"], name: "index_registration_logs_on_section_id"
+    t.index ["student_id"], name: "index_registration_logs_on_student_id"
+    t.index ["user_id"], name: "index_registration_logs_on_user_id"
+  end
+
   create_table "registrations", force: :cascade do |t|
     t.integer "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "selected"
     t.bigint "section_id"
+    t.bigint "user_id"
     t.index ["section_id"], name: "index_registrations_on_section_id"
     t.index ["student_id", "section_id"], name: "index_registrations_on_student_id_and_section_id", unique: true
+    t.index ["user_id"], name: "index_registrations_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -203,6 +219,10 @@ ActiveRecord::Schema.define(version: 2022_03_04_003316) do
   end
 
   add_foreign_key "invoices", "parents"
+  add_foreign_key "registration_logs", "parents", column: "user_id"
+  add_foreign_key "registration_logs", "sections"
+  add_foreign_key "registration_logs", "students"
+  add_foreign_key "registrations", "parents", column: "user_id"
   add_foreign_key "registrations", "sections"
   add_foreign_key "student_shadows", "shadow_spots"
   add_foreign_key "student_shadows", "students"

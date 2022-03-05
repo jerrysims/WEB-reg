@@ -12,7 +12,8 @@ class RegistrationsController < ApplicationController
   def choose_class
     @student = Student.find(params[:student_id])
     @section = Section.find(params[:section_id])
-    @registration = Registration.new(student_id: @student.id, section_id: @section.id)
+    @registration = Registration.new(student_id: @student.id, section_id: @section.id,
+      status: :pending, user: current_parent)
     if @registration.save
       @registered = true
     else
