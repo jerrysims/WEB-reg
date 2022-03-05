@@ -31,10 +31,13 @@
                   <img class= "col-12" src="/logo.jpg">
                 </div>
                 <div class="navbar row justify-content-center">
-                  <div class="navbar bg-light col-6">
+                  <div class="navbar bg-light col-9">
                     <ul class="navbar-nav mr-auto">
                       <li class="nav-item col inline">
                         <%= link_to "Home", root_path, class: "nav-link" %>
+                      </li>
+                      <li class="nav-item col inline">
+                        <%= link_to "Current Schedules", registrations_review_path, class: "nav-link" %>
                       </li>
                       <li class="nav-item col inline">
                         <% if current_parent %>
