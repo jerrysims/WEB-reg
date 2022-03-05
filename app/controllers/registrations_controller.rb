@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_current_student
-  before_action :set_course_fees
+  before_action :set_current_student, only: [:choose_class, :drop_class, :index]
+  before_action :set_course_fees, only: [:choose_class, :drop_class, :index]
 
   def add_to_wait_list
     WaitListedStudent.create(wait_list_student_params)
@@ -63,6 +63,7 @@ class RegistrationsController < ApplicationController
     @program_donation = Invoice.get_program_donation(current_parent) || InvoiceLineItem.new
     @checked = get_donation_radio_check(@donation.quantity)
     @program_donation_checked = get_program_donation_radio_check(@program_donation.quantity)
+    @api_key = ENV["RAILS_ENV"] == "production" ? "pk_live_51H2jFbGTkur4XSpD7Plmk3JYzi0WmIV4fvaCxgySaZvffKKx3kWJNNtdJE0QbES4kvPHcdf671NjoEIXzpS7NZ6C00H9dC0jiA" : "pk_test_51H2jFbGTkur4XSpD5pU3zfSSgPtwzYTcH6MaAEYEvsudqq2pT0agYCetpiZwtkMhZwx1STYuwyTpAgimF1TvoWhC00sor13DiZ"
   end
 
   def index
