@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get '/invoices/donate_now', to: 'invoices#donate_now'
   get '/invoices/generate_initial_invoice', to: 'invoices#generate_initial_invoice'
   get "/locked_landing", to: "parents#locked_landing", as: :locked_landing
+  get "/registrations/stripe_return", to: "registrations#stripe_return", as: :stripe_return
   get '/registrations', to: 'registrations#index', as: :register_path
   get '/registrations/add_to_wait_list', to: 'registrations#add_to_wait_list'
   get '/registrations/choose_class', to: 'registrations#choose_class', as: :choose_class_path

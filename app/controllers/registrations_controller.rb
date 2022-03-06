@@ -30,10 +30,20 @@ class RegistrationsController < ApplicationController
   def create_checkout_session
     session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
-      line_items: [{name: "Registration & Admin Fees", amount: total_fees * 100, quantity: 1, currency: "usd"}],
+      line_items: [{
+        name: "Registration & Admin Fees",
+        amount: total_fees * 100,
+        quantity: 1,
+        currency: "usd"
+      }],
       mode: 'payment',
-      success_url:  registrations_finalize_url,
+      success_url:  stripe_return_url,
       cancel_url: registrations_finalize_url,
+      customer_email: current_parent.email,
+      client_reference_id: current_parent.id,
+      metadata: {
+        parent_id: current_parent.id
+      }
     })
 
     render json: session
@@ -98,6 +108,14 @@ class RegistrationsController < ApplicationController
   end
 
   def review
+  end
+
+  def stripe_return
+    @semester, @monthly = Invoice.tuition_totals(current_parent)
+    @payment_preference_section = payment_preference_section
+    @tuition_total = tuition_total
+    @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
+    @checked = get_donation_radio_check(@donation.quantity)
   end
 
   def update_parent

@@ -41,75 +41,17 @@
         </div>
       </div>
       <div class="row">
-        In order to reserve your <%= @current_parent.enrolled_students_count > 1 ? "students'" : "student's" %> spot, please pay the registration fees.
-        <p><button id="checkout-button">Click here to pay Registration & Admin Fee</button></p>
-        <p>After completing Stripe payment, you will be returned to this page.</p>
+        <div class="col-8">
+          In order to reserve your <%= @current_parent.enrolled_students_count > 1 ? "students'" : "student's" %> spot, please pay the registration fees.
+          <div class="row justify-content-center"><button id="checkout-button" class="custom-button col-5 justify-content-center">Click here to pay Registration & Admin Fee</button></div>
+          <p><br>After completing Stripe payment, you will be returned to this page.</p>
+        </div>
       </div>
     </div>
   </div>
 </div>
   <!-- End of Registration / Course Fees Section -->
 
-<div class="row">
-  <div class="box shadow col-md-12 col-xs-12 col-sm-12">
-    <div class="col-md-12 col-sm-8">
-      <h4>Tuition</h4>
-      <p>Tuition Total:  $<%= @tuition_total%></p>
-    </div>
-    <div id="payment-preference-section" class="row payment_preference_section">
-      <%= render @payment_preference_section, tuition_total: @tuition_total %>
-    </div>
-  </div>
-</div>
-  <!-- End of Tuition section -->
-
-  <!-- Beginning of Donation section -->
-<div class="row">
-  <div class="box shadow col-md-12 col-xs-12 col-sm-12">
-    <div class="col-md-12 col-sm-8">
-      <h4>Donation</h4>
-      <div class="col-md-12 col-xs-12 col-sm-10">
-        <span>Would you like to donate to the WEB scholarship fund?</span>
-      </div>
-    </div>
-    <div class="row donation-amount-selection">
-      <div class="col-md-10 col-xs-offset-1 col-xs-11">
-        <%= simple_form_for(@donation, url: { controller: "invoices", action: "update_donation_amount", invoice_line_item_id: @donation.id }, remote: true) do |f| %>
-          <div class="row">
-            <%= f.input :quantity, as: :select, collection: %w(10 25 50 100) %>
-          </div>
-          <% unless current_parent.invoice_closed? %>
-              <%= f.submit "Update donation amount", class: "btn-standard" %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-  <!-- End Donation Section -->
-
-  <!-- Begin Finalize Button Section -->
-<% unless current_parent.invoice_closed? %>
-  <% if !current_parent.tuition_preference || !current_parent.payment_preference %>
-    <div class="finalize col-md-offset-1 col-md-8">
-      In order to finalize your registration, you must first choose tuition payment preferences above.
-    </div>
-  <% else %>
-    <div class="finalize col-md-offset-1 col-md-8">
-      In order to finalize your registration, please pay the quickbooks invoice you will receive via email.
-      <div class="row edit-parent">
-        <%= link_to "Finalize Registration and Generate Invoice",
-          { controller: "invoices", action: "generate_initial_invoice" },
-          { class: "custom-button btn-standard", data: {
-            confirm: "IMPORTANT: This will finalize your registration(s) and you will not be able to add another student.
-
-            Subsequent changes must be made through the website (www.webtutorialnashville.com) and will incur a $10 processing fee. Press OK to continue. Press Cancel to return and make changes." } } %>
-
-        <br><%= link_to "Click here to add another student", root_path %>
-      </div
-    </div>
-  <% end %>
-<% end %>
 
 <script type="text/javascript">
   // Create an instance of the Stripe object with your publishable API key
