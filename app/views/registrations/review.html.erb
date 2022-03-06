@@ -23,17 +23,14 @@ We found the following class schedules for you:
       <% unless student.wait_listed_sections.empty? %>
         <p>Wait List: <%= student.wait_listed_sections.map { |section| section.name }.join(", ") %>
       <% end %>
-      <!-- <% unless current_parent.locked %> -->
-    <div class="col">
-      <%= link_to "Change #{student.first_name}'s schedule", { controller: "registrations", action: "index", student_id: student.id }, class: "custom-button" %>
+      <div class="col">
+        <%= link_to "Change #{student.first_name}'s schedule", { controller: "registrations", action: "index", student_id: student.id }, class: "custom-button" %>
+      </div>
     </div>
-    </div>
-      <!-- <% end %> -->
   <% end %>
 </div>
-<!-- <% unless current_parent.locked %> -->
-<div class="row">
-  <%= link_to "Continue to Invoice / Tuition", { controller: "registrations", action: "finalize" }, class: "custom-button view-invoice-button" %>
-</div>
-<!-- <% end %> -->
-  
+<% unless current_parent.locked %>
+  <div class="row">
+    <%= link_to "Continue to Invoice / Tuition", { controller: "registrations", action: "finalize" }, class: "custom-button view-invoice-button col-3" %>
+  </div>
+<% end %>
