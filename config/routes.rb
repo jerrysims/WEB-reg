@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :invoices, only: [:index]
+
   resources :parents do
     get "confirm_grade"
     get "confirm_web_email"

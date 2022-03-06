@@ -15,6 +15,9 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def index
+  end
+
   def update_donation_amount
     p = params[:invoice_line_item]
     p[:quantity] = p[:other_quantity] if p[:quantity] == "Other"
