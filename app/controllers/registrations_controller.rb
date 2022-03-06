@@ -126,16 +126,34 @@ class RegistrationsController < ApplicationController
 
   def update_tuition_preference
     current_parent.update_attributes(parent_params)
-    @payment_preference_section = payment_preference_section
-    @semester, @monthly = Invoice.tuition_totals(current_parent)
-    @tuition_total = tuition_total
-    redirect_to action: "finalize"
+    @donation_total = params[:parent][:donation][:quantity]
+    create_donation(@donation_total)
+
+    redirect_to invoices_path
   end
 
   private
 
   def available_sections(student)
     Section.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
+  end
+
+  def create_donation(donation_total)
+    @invoice = Invoice.find_or_create_by(parent: current_parent)
+    if @donation = Invoice.get_donation(current_parent)
+      @donation.update_attributes(quantity: donation_total)
+    else
+      @donation = InvoiceLineItem.create(
+        invoice: @invoice,
+        product: Product::DONATION,
+        quantity: donation_total,
+        parent: current_parent
+      )
+    end
+  end
+
+  def donation_total
+    params.require(:parent).require(:donation).permit(:quantity)
   end
 
   def get_donation_radio_check(amount)
