@@ -67,13 +67,6 @@ class RegistrationsController < ApplicationController
     student_count = current_parent.enrolled_students_count
     @discount = student_count > 1 ? Invoice.discount : nil
     @invoice_total = total_fees
-    @semester, @monthly = Invoice.tuition_totals(current_parent)
-    @payment_preference_section = payment_preference_section
-    @tuition_total = tuition_total
-    @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
-    @program_donation = Invoice.get_program_donation(current_parent) || InvoiceLineItem.new
-    @checked = get_donation_radio_check(@donation.quantity)
-    @program_donation_checked = get_program_donation_radio_check(@program_donation.quantity)
     @api_key = ENV["RAILS_ENV"] == "production" ? "pk_live_51H2jFbGTkur4XSpD7Plmk3JYzi0WmIV4fvaCxgySaZvffKKx3kWJNNtdJE0QbES4kvPHcdf671NjoEIXzpS7NZ6C00H9dC0jiA" : "pk_test_51H2jFbGTkur4XSpD5pU3zfSSgPtwzYTcH6MaAEYEvsudqq2pT0agYCetpiZwtkMhZwx1STYuwyTpAgimF1TvoWhC00sor13DiZ"
   end
 
