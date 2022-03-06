@@ -9,6 +9,9 @@ class ParentsController < ApplicationController
     @students = populate_email_suggestions
   end
 
+  def locked_landing
+  end
+
   def show
     if should_redirect_to_confirm_grade?
       redirect_to parent_confirm_grade_path(current_parent.id)

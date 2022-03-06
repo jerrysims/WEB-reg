@@ -3,12 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_parent!
+  before_action :check_for_locked_parent
 
   rescue_from SecurityError do |exception|
     flash[:notice] = "You are not authorized to view that page"
     redirect_to root_url
   end
-  # before_filter :check_for_locked_parent
 
   alias_method :current_user, :current_parent
 
@@ -35,20 +35,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_for_locked_parent
+    return if (controller_name == "sessions" || ["review", "destroy", "locked_landing"].include?(action_name))
 
-  # def check_for_locked_parent
-  #   unless params[:controller] == "devise/sessions" || ["review", "destroy"].include?(params[:action])
-  #     if current_parent.locked
-  #       redirect_to controller: "registrations", action: "review", student_id: current_parent.students.first.id
-  #     end
-  #   end
-  # end
-
-  # def current_admin_user
-  #   current_parent
-  # end
-  #
-  # def current_user
-  #   current_parent
-  # end
+    if current_parent.locked?
+      redirect_to locked_landing_path
+    end
+  end
 end
