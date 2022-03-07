@@ -35,7 +35,7 @@ RSpec.describe Student, type: :model do
 
       context 'when no course has been waitlisted' do
         it 'returns an empty array' do
-          expect(student.wait_listed_courses).to eq([])
+          expect(student.wait_listed_sections).to eq([])
         end
       end
 
@@ -45,7 +45,7 @@ RSpec.describe Student, type: :model do
         end
 
         it 'returns an array with that one course' do
-          expect(student.wait_listed_courses).to eq([course_1])
+          expect(student.wait_listed_sections).to eq([section_1])
         end
 
         context 'and then a second course is waitlisted' do
@@ -54,7 +54,7 @@ RSpec.describe Student, type: :model do
           end
 
           it 'returns an array with both courses' do
-            expect(student.wait_listed_courses).to eq([course_1, course_2])
+            expect(student.wait_listed_sections).to eq([section_1, section_2])
           end
         end
       end

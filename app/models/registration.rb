@@ -6,6 +6,7 @@ class Registration < ActiveRecord::Base
   belongs_to :user, class_name: "Parent"
 
   validates :student, presence: true
+  validates :section, presence: true
   validate :section_has_not_reached_max
   validate :no_other_sections_in_session
   validate :one_class_at_a_time
@@ -46,8 +47,9 @@ class Registration < ActiveRecord::Base
   end
 
   def one_class_at_a_time
-    other_registrations = student.registrations - [self]
+    return false if student.nil? || section.nil?
 
+    other_registrations = student.registrations - [self]
     unless other_registrations.select { |r| r.section.start_time == section.start_time && (r.section.day == section.day || r.section.day == "Tuesday/Thursday" || section.day == "Tuesday/Thursday")}.empty?
       errors.add(:student, "already has a class at that time")
     end
