@@ -24,7 +24,7 @@ class Student < ActiveRecord::Base
   attr_accessor :shadow_spot
 
   scope :missing_web_email, -> { where(web_email: nil) }
-  scope :unconfirmed, -> { where(confirmed_grade: nil) }
+  scope :unconfirmed, -> { where(confirmed_grade: false) }
   scope :enrolled, -> { joins(:registrations).distinct }
 
   DAYS_ORDER = %w(Tuesday Thursday)
