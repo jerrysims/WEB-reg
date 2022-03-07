@@ -15,8 +15,22 @@ class Registration < ActiveRecord::Base
 
   before_save :log_registration
   before_destroy :log_registration
+  after_destroy :generate_dropped_course_line_items
 
   private
+
+  def generate_dropped_course_line_items
+    return nil unless status == "confirmed"
+
+    @invoice = Invoice.find_or_create_by(parent: student.parent)
+
+    InvoiceLineItem.create(
+      product: Product::DROPPED_COURSE_FEE,
+      invoice: @invoice,
+      parent: student.parent,
+      quantity: section.course.fee
+    )
+  end
 
   def section_has_not_reached_max
     if section && section.at_max?
@@ -32,7 +46,10 @@ class Registration < ActiveRecord::Base
   end
 
   def one_class_at_a_time
-    unless student && student.registrations.select { |r| r.section.start_time == section.start_time && (r.section.day == section.day || r.section.day == "Tuesday/Thursday" || section.day == "Tuesday/Thursday")}.empty?
+    other_registrations = student.registrations - [self]
+    binding.pry
+
+    unless other_registrations.select { |r| r.section.start_time == section.start_time && (r.section.day == section.day || r.section.day == "Tuesday/Thursday" || section.day == "Tuesday/Thursday")}.empty?
       errors.add(:student, "already has a class at that time")
     end
   end
@@ -53,8 +70,8 @@ class Registration < ActiveRecord::Base
     RegistrationLog.create(
       student: student,
       section: section,
-      previous_status: self.changes[:status].first,
-      new_status: self.changes[:status].last,
+      previous_status: self.changes[:status].nil? ? self.status : self.changes[:status].first,
+      new_status: self.changes[:status].nil? ? self.status : self.changes[:status].last,
       user: self.user
     )
   end

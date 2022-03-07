@@ -67,6 +67,8 @@ ActiveAdmin.register Registration do
     column :"Parent ID" do |r|
       r.student.parent_id
     end
+    column :status
+
     actions
   end
 
