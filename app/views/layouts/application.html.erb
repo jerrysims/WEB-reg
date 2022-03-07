@@ -36,9 +36,17 @@
                       <li class="nav-item col inline">
                         <%= link_to "Home", root_path, class: "nav-link" %>
                       </li>
-                      <li class="nav-item col inline">
-                        <%= link_to "Current Schedules", registrations_review_path, class: "nav-link" %>
-                      </li>
+                      <% if current_parent %>
+                        <li class="nav-item col inline">
+                          <%= link_to "Students List", parent_path(current_parent), class: "nav-link" %>
+                        </li>
+                        <li class="nav-item col inline">
+                          <%= link_to "Create New Student", new_student_path, class: "nav-link" %>
+                        </li>
+                        <li class="nav-item col inline">
+                          <%= link_to "Current Schedules", registrations_review_path, class: "nav-link" %>
+                        </li>
+                      <% end %>
                       <li class="nav-item col inline">
                         <% if current_parent %>
                           <%= link_to "Sign Out", destroy_parent_session_path, method: :delete, class: "nav-link" %>
@@ -49,6 +57,18 @@
                     </ul>
                   </div>
                 </div>
+                <% if current_parent.try(:has_role?, :admin) %>
+                  <div class="navbar row justify-content-center">
+                    <div class="navbar bg-light col-9">
+                      <ul class="navbar-nav mr-auto">
+                        <h4>Admin Actions</h4>
+                        <li class="nav-item col inline">
+                          <%= link_to "Admin Dashboard", admin_root_path, class: "nav-link" %>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                <% end %>
               </div>
               <div class="col-9">
                 <div class="container content-container">
