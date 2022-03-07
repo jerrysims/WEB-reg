@@ -1,12 +1,21 @@
 class ParentsController < ApplicationController
   before_action :authenticate_parent!
 
+  def acknowledge_covid_statement
+    current_parent.update_attributes(covid_statement_acknowledged: true)
+
+    redirect_to parent_path(current_parent)
+  end
+
   def confirm_grade
     @unconfirmed_students = current_parent.students.unconfirmed
   end
 
   def confirm_web_email
     @students = populate_email_suggestions
+  end
+
+  def covid_statement
   end
 
   def locked_landing
@@ -17,6 +26,8 @@ class ParentsController < ApplicationController
       redirect_to parent_confirm_grade_path(current_parent.id)
     elsif should_confirm_web_email?
       redirect_to parent_confirm_web_email_path(current_parent.id)
+    elsif should_see_covid_statement?
+      redirect_to covid_statement_path
     else
       @students = current_parent.students
     end
@@ -50,5 +61,9 @@ class ParentsController < ApplicationController
 
   def should_redirect_to_confirm_grade?
     current_parent.students.unconfirmed.count > 0
+  end
+
+  def should_see_covid_statement?
+    !current_parent.covid_statement_acknowledged?
   end
 end

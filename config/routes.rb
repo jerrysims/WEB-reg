@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     patch 'update_grade_confirmed'
   end
 
+  get "/acknowledge_covid_statement", to: "parents#acknowledge_covid_statement", as: :acknowledge_covid_statement
+  get "/covid_statement", to: "parents#covid_statement", as: :covid_statement
   get '/enrollment', to: 'enrollments#new', as: :new_enrollment_path
   get '/enrollment/select_student', to: 'enrollments#select_student', as: :select_student_path
   get '/enrollment/view_course_list', to: 'enrollments#view_course_list', as: :view_course_list_path
