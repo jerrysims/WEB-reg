@@ -14,8 +14,10 @@ ActiveAdmin.register Section, as: "Class Rosters" do
         end
       end
     end
-
   end
+
+  index download_links: [:xls]
+
   controller do
     def index
       index! do |format|
