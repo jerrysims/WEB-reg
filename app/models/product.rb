@@ -2,9 +2,21 @@ class Product < ActiveRecord::Base
   DONATION = Product.find_by(name: "Scholarship Donation")
   REGISTRATION_FEE = Product.find_by(name: "Registration Fee")
   ADMINISTRATIVE_FEE = Product.find_by(name: "Administrative Fee")
-  CLASS_TUITION = {
-    semester: Product.find_by(name: "Class Tuition - Semester"),
-    monthly: Product.find_by(name: "Class Tuition - Monthly")
+  MIDDLE_SCHOOL_TUITION = {
+    semester: Product.find_by(name: "Middle School Tuition - Semester"),
+    monthly: Product.find_by(name: "Middle School Tuition - Monthly")
+  }
+  MIDDLE_SCHOOL_TUITION_TWICE_WEEKLY = {
+    semester: Product.find_by(name: "Middle School Tuition Twice Weekly - Semester"),
+    monthly: Product.find_by(name: "Middle School Tuition Twice Weekly - Monthly")
+  }
+  HIGH_SCHOOL_TUITION = {
+    semester: Product.find_by(name: "High School Tuition - Semester"),
+    monthly: Product.find_by(name: "High School Tuition - Monthly")
+  }
+  HIGH_SCHOOL_TUITION_TWICE_WEEKLY = {
+    semester: Product.find_by(name: "High School Tuition Twice Weekly - Semester"),
+    monthly: Product.find_by(name: "High School Tuition Twice Weekly - Monthly")
   }
   STUDY_HALL_TUITION = {
     semester: Product.find_by(name: "Study Hall Tuition - Semester"),
