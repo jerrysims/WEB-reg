@@ -19,6 +19,8 @@ class Product < ActiveRecord::Base
     monthly: Product.find_by(name: "High School Language Tuition - Monthly")
   }
   SIBLING_DISCOUNT = Product.find_by(name: "Sibling Discount")
+  DROPPED_COURSE_FEE = Product.find_by(name: "Dropped Course Fee")
+  DROPPED_TUITION_FEE = Product.find_by(name: "Dropped Tuition Fee")
 
   has_and_belongs_to_many :courses
 
