@@ -11,7 +11,7 @@
     <%= f.input :nickname %>
     <%= f.input :student_email %>
     <%= f.input :web_email %>
-    <%= f.input :grade, label: "Student's Grade (#{CURRENT_SCHOOL_YEAR})", collection: 5..12, class: "required" %>
+    <%= f.input :grade, label: "Student's Grade (2022/23)", collection: 5..12, class: "required" %>
     <%= f.input :date_of_birth,
                 as: :string,
                 input_html: { class: "required datepicker",

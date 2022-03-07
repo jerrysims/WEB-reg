@@ -47,7 +47,6 @@ class Registration < ActiveRecord::Base
 
   def one_class_at_a_time
     other_registrations = student.registrations - [self]
-    binding.pry
 
     unless other_registrations.select { |r| r.section.start_time == section.start_time && (r.section.day == section.day || r.section.day == "Tuesday/Thursday" || section.day == "Tuesday/Thursday")}.empty?
       errors.add(:student, "already has a class at that time")

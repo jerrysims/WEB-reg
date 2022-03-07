@@ -9,7 +9,7 @@
           <div class="row"> <%= f.input :payment_preference, label: "Payment Type", as: :select, collection: %w(Cash/Check ACH Debit/Credit)%> </div>
           <%= f.simple_fields_for :donation do |f| %>
             <div class="row">
-              <%= f.input :quantity, label: "Would you like to donate to the WEB scholarship fund?", as: :select, collection: %w(10 25 50 100), selected: @checked %>
+              <%= f.input :quantity, label: "Would you like to donate to the WEB scholarship fund?", as: :select, collection: %w(10 25 50 100), html_input: { include_blank: true, selected: @checked } %>
             </div>
           <% end %>
         </div>
