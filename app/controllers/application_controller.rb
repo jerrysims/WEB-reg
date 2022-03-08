@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_for_locked_parent
-    return nil if (["devise/sessions", "devise/registrations"].include? params[:controller]) || ["review", "destroy", "locked_landing"].include?(action_name)
+    return nil if (["devise/sessions", "devise/registrations", "admin/dashboard"].include? params[:controller]) || ["review", "destroy", "locked_landing"].include?(action_name)
 
     if current_parent.locked?
       redirect_to locked_landing_path
