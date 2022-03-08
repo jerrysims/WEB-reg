@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :dashboards, only: [:index]
   resources :invoices, only: [:index]
 
   resources :parents do
