@@ -19,6 +19,8 @@ class Parent < ActiveRecord::Base
   validates :zip_code, presence: true, on: :course_registration
 
   has_many :students
+  has_many :registrations, through: :students
+  has_many :courses, through: :students
   has_many :invoice_line_items
   has_one :invoice
 

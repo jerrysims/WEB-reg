@@ -1,0 +1,7 @@
+<div class="box">
+  <h4>Tuition Total:</h4>
+  <h5>$<span id="tuition-total"><%= @parent_tuition_total %> / semester</span></h5>
+  <% if current_parent.reg_fees_paid %>
+    <p>Admin & Registrations fees have already been paid</p>
+  <% end %>
+</div>

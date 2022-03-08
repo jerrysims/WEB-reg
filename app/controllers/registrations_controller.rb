@@ -2,6 +2,7 @@ class RegistrationsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_current_student, only: [:choose_class, :drop_class, :index]
   before_action :set_course_and_tuition, only: [:index]
+  before_action :reg_fees_paid, only: [:stripe_return]
 
   def add_to_wait_list
     WaitListedStudent.create(wait_list_student_params)
@@ -34,8 +35,8 @@ class RegistrationsController < ApplicationController
       line_items: line_items_for_checkout,
       mode: 'payment',
       discounts: current_parent.students.count <= 1 ? nil : sibling_discount,
-      success_url:  stripe_return_url,
-      cancel_url: registrations_finalize_url,
+      success_url:  stripe_return_url(parent_id: current_parent.id),
+      cancel_url: registrations_finalize_url(failed: true),
       customer_email: current_parent.email,
       client_reference_id: current_parent.id,
       metadata: {
@@ -104,11 +105,11 @@ class RegistrationsController < ApplicationController
   end
 
   def stripe_return
-    @semester, @monthly = Invoice.tuition_totals(current_parent)
-    @payment_preference_section = payment_preference_section
-    @tuition_total = tuition_total
-    @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
-    @checked = get_donation_radio_check(@donation.quantity)
+    @parent_tuition_total = parent_tuition_total
+    # @semester, @monthly = Invoice.tuition_totals(current_parent)
+    # @payment_preference_section = payment_preference_section
+    # @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
+    # @checked = get_donation_radio_check(@donation.quantity)
   end
 
   def update_parent
@@ -186,13 +187,21 @@ class RegistrationsController < ApplicationController
     items
   end
 
+  def parent_tuition_total
+    current_parent.courses.inject(0){ |sum, e| sum + e.semester_tuition }
+  end
+
   def payment_preference_section
     current_parent.tuition_preference && current_parent.payment_preference ? "preference" : "no_preference"
   end
 
+  def reg_fees_paid
+    current_parent.update_attributes(reg_fees_paid: true) if current_parent.id == params[:parent_id].to_i
+  end
+
   def set_course_and_tuition
     @course_fees = @current_student.courses.inject(0){ |sum,e| sum + e.fee }
-    @tuition_total = @current_student.courses.inject(0){ |sum, e| sum + e.semester_tuition }
+    @student_tuition_total = @current_student.courses.inject(0){ |sum, e| sum + e.semester_tuition }
   end
 
   def set_current_student

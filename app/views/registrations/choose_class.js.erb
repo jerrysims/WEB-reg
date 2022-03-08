@@ -6,7 +6,7 @@ $duplicateSection = $(".twice_a_week#section-<%= @section.id %>")
   if ($duplicateSection.length > 0) {
     $duplicateSection.addClass("registered");
   }
-  $("#tuition-total").text("<%=@tuition_total%>")
+  $("#tuition-total").text("<%=@student_tuition_total%>")
 <% else %>
   $selectedSection.append("<br><span class='alert'><%= @error_content %></span>");
 <% end %>
