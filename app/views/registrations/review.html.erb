@@ -2,7 +2,7 @@
 We found the following class schedules for you:
 
 <div class="row">
-  <% current_parent.students.each do |student| %>
+  <% @enrolled_students.each do |student| %>
     <div class="box student-box shadow col-md-6 d-md-inline-block d-sm-block" >
       <p><strong><%= student.to_s %></strong></p>
       <% %w(Tuesday Thursday).each do |day| %>
@@ -29,6 +29,19 @@ We found the following class schedules for you:
     </div>
   <% end %>
 </div>
+<% unless @not_enrolled.empty? %>
+  <div class="row">
+    <div class="box student-box shadow col-md-6 d-md-inline-block d-sm-block" >
+      <span>There is no schedule for the following students:</span>
+      <ul>
+        <% @not_enrolled.each do |student| %>
+          <li class="box"><div class="col-6 style="float:left"><%= student.full_name %></div><%=link_to "Add schedule", { controller: "registrations", action: "index", student_id: student.id }, class: "custom-button col-6" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
 <% unless current_parent.locked %>
   <div class="row">
     <%= link_to "Continue to Invoice / Tuition", { controller: "registrations", action: "finalize" }, class: "custom-button view-invoice-button col-3" %>

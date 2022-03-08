@@ -99,6 +99,8 @@ class RegistrationsController < ApplicationController
   end
 
   def review
+    @enrolled_students = current_parent.students.enrolled
+    @not_enrolled = current_parent.students - @enrolled_students
   end
 
   def stripe_return
