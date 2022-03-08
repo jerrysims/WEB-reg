@@ -1,5 +1,6 @@
 class ParentsController < ApplicationController
   before_action :authenticate_parent!
+  before_action :check_for_locked_parent
 
   def acknowledge_covid_statement
     current_parent.update_attributes(covid_statement_acknowledged: true)

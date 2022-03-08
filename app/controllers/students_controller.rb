@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  before_action :check_for_locked_parent
 
   def create
     @student = Student.new(student_params)
