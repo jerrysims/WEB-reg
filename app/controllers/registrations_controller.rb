@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_current_student, only: [:choose_class, :drop_class, :index]
-  before_action :set_course_fees, only: [:choose_class, :drop_class, :index]
+  before_action :set_course_and_tuition, only: [:index]
 
   def add_to_wait_list
     WaitListedStudent.create(wait_list_student_params)
@@ -16,6 +16,7 @@ class RegistrationsController < ApplicationController
       status: :pending, user: current_parent)
     if @registration.save
       @registered = true
+      set_course_and_tuition
     else
       @registered = false
       @class_is_full = @registration.section.at_max?
@@ -51,6 +52,7 @@ class RegistrationsController < ApplicationController
     if r
       r.destroy
       @dropped = true
+      set_course_and_tuition
     else
       @dropped = false
     end
@@ -186,8 +188,9 @@ class RegistrationsController < ApplicationController
     current_parent.tuition_preference && current_parent.payment_preference ? "preference" : "no_preference"
   end
 
-  def set_course_fees
-    @course_fees = @current_student.courses.inject(0){|sum,e| sum + e.fee }
+  def set_course_and_tuition
+    @course_fees = @current_student.courses.inject(0){ |sum,e| sum + e.fee }
+    @tuition_total = @current_student.courses.inject(0){ |sum, e| sum + e.semester_tuition }
   end
 
   def set_current_student

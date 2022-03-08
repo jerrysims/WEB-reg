@@ -4,6 +4,7 @@ $duplicateSection = $(".twice_a_week#section-<%= @section.id %>")
 <% if @dropped %>
   $selectedSection.removeClass("registered");
   $selectedSection.siblings(".register-grid-class-card").children(".alert").remove();
+  $("#tuition-total").text("<%=@tuition_total%>")
   if ($duplicateSection.length > 0) {
     $duplicateSection.removeClass("registered");
     $duplicateSection.siblings(".register-grid-class-card").children(".alert").remove();
@@ -11,4 +12,3 @@ $duplicateSection = $(".twice_a_week#section-<%= @section.id %>")
 <% else %>
   $selectedSection.append("<br><span class='alert'><%= @error_content %></span>");
 <% end %>
-  

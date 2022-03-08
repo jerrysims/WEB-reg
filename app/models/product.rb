@@ -41,4 +41,5 @@ class Product < ActiveRecord::Base
   validates_inclusion_of :product_type, in: PRODUCT_TYPES
 
   scope :fees, -> { where(product_type: "fee") }
+  scope :tuition, -> { where(product_type: "tuition") }
 end
