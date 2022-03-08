@@ -30,13 +30,9 @@ class RegistrationsController < ApplicationController
   def create_checkout_session
     session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
-      line_items: [{
-        name: "Registration & Admin Fees",
-        amount: total_fees * 100,
-        quantity: 1,
-        currency: "usd"
-      }],
+      line_items: line_items_for_checkout,
       mode: 'payment',
+      discounts: current_parent.students.count <= 1 ? nil : sibling_discount,
       success_url:  stripe_return_url,
       cancel_url: registrations_finalize_url,
       customer_email: current_parent.email,
@@ -164,6 +160,28 @@ class RegistrationsController < ApplicationController
     [0,75,100,150].include?(amount) || amount.nil? ? amount.to_s : "Other"
   end
 
+  def line_items_for_checkout
+    items = []
+
+    current_parent.registered_students.each do |s|
+      items << {
+        name: "Registration Fee - #{s.full_name}",
+        amount: Product::REGISTRATION_FEE.unit_price * 100,
+        quantity: 1,
+        currency: "usd",
+      }
+    end
+
+    items << {
+      name: "Administrative Fee - #{current_parent.full_name}",
+      amount: Product::ADMINISTRATIVE_FEE.unit_price * 100,
+      quantity: 1,
+      currency: "usd"
+    }
+
+    items
+  end
+
   def payment_preference_section
     current_parent.tuition_preference && current_parent.payment_preference ? "preference" : "no_preference"
   end
@@ -174,6 +192,16 @@ class RegistrationsController < ApplicationController
 
   def set_current_student
     @current_student = Student.find(params[:student_id])
+  end
+
+  def sibling_discount
+    [{
+      coupon: Stripe::Coupon.create(
+        amount_off: 5000,
+        duration: "once",
+        currency: "usd"
+      )
+    }]
   end
 
   def total_fees
