@@ -12,6 +12,7 @@ class InvoicesController < ApplicationController
       @invoice.generate_initial_invoice
       current_parent.send_confirmation(@invoice)
       @invoice.update_attributes(closed: true)
+      @invoice.parent.update_attributes(locked: true)
     end
   end
 
