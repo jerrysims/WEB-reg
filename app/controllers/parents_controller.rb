@@ -4,7 +4,7 @@ class ParentsController < ApplicationController
   def acknowledge_covid_statement
     current_parent.update_attributes(covid_statement_acknowledged: true)
 
-    redirect_to parent_path(current_parent)
+    redirect_to root_path
   end
 
   def confirm_grade
