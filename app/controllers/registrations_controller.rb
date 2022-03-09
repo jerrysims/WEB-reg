@@ -3,6 +3,7 @@ class RegistrationsController < ApplicationController
   before_action :check_for_locked_parent
   before_action :set_current_student, only: [:choose_class, :drop_class, :index]
   before_action :set_course_and_tuition, only: [:index]
+  before_action :set_total_fees_and_tuition, only: [:finalize, :review, :stripe_return]
   before_action :reg_fees_paid, only: [:stripe_return]
 
   def add_to_wait_list
@@ -106,7 +107,6 @@ class RegistrationsController < ApplicationController
   end
 
   def stripe_return
-    @parent_tuition_total = parent_tuition_total
     # @semester, @monthly = Invoice.tuition_totals(current_parent)
     # @payment_preference_section = payment_preference_section
     # @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
@@ -189,7 +189,6 @@ class RegistrationsController < ApplicationController
   end
 
   def parent_tuition_total
-    current_parent.courses.inject(0){ |sum, e| sum + e.semester_tuition }
   end
 
   def payment_preference_section
@@ -208,6 +207,12 @@ class RegistrationsController < ApplicationController
   def set_current_student
     @current_student = Student.find(params[:student_id])
   end
+
+  def set_total_fees_and_tuition
+    @parent_tuition_total = current_parent.courses.inject(0){ |sum, e| sum + e.semester_tuition }
+    @parent_total_course_fees = current_parent.courses.inject(0){ |sum, e| sum + e.fee }
+  end
+
 
   def sibling_discount
     [{
