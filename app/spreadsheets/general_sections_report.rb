@@ -22,7 +22,7 @@ class GeneralSectionsReport
 
     row_index = 1
     sections.each do |s|
-      sheet.row(row_index).concat [ s.course.name, s.day, s.start_time, s.students.count ]
+      sheet.row(row_index).concat [ s.course.name, s.day, s.start_time.strftime("%l:%M"), s.students.count ]
       row_index += 1
     end
   end
