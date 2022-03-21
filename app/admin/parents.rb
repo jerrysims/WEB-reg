@@ -9,7 +9,7 @@ ActiveAdmin.register Parent do
     f.input :tuition_preference
     actions
   end
-  permit_params :first_name, :last_name, :email, :phone_number, :password, :password_confirmation
+  permit_params :first_name, :last_name, :email, :phone_number, :tuition_preference
 
   index do
     column :id
