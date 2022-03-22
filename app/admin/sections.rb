@@ -3,7 +3,8 @@ ActiveAdmin.register Section do
 
   config.sort_order = "course"
 
-  permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_time, :class_minimum, :class_maximum, :suggested_grade, :subject_area
+  permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_time, :user_id,
+                :class_minimum, :class_maximum, :suggested_grade, :subject_area, :course_id
 
   member_action :drop, only: :show, method: :post do
     student = Student.find(params[:student_id])
@@ -32,7 +33,11 @@ ActiveAdmin.register Section do
     section = Section.find(params[:id])
 
     ActiveRecord::Base.transaction do
-      reg =  Registration.find_or_create_by(section_id: params[:id], student_id: params[:student_id])
+      reg =  Registration.find_or_create_by(
+        section_id: params[:id],
+        student_id: params[:student_id], 
+        user_id: current_parent.id
+      )
       if reg.valid?
         WaitListedStudent.find_by(section_id: params[:id], student_id: params[:student_id]).destroy
         flash[:notice] = "#{student.full_name} is now enrolled in #{section.name}"
