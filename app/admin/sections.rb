@@ -35,7 +35,7 @@ ActiveAdmin.register Section do
     ActiveRecord::Base.transaction do
       reg =  Registration.find_or_create_by(
         section_id: params[:id],
-        student_id: params[:student_id],
+        student_id: params[:student_id], 
         user_id: current_parent.id
       )
       if reg.valid?
@@ -52,8 +52,6 @@ ActiveAdmin.register Section do
 
     redirect_to admin_section_path(params[:id])
   end
-
-  index download_links: [:xls, :csv]
 
   index do
     column :course, sortable: :"courses.name" do |section|

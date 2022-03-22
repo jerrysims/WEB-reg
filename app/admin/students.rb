@@ -12,8 +12,6 @@ ActiveAdmin.register Student do
   permit_params :first_name, :last_name, :parent_first_name, :parent_last_name, :grade,
                 :student_email, :web_email
 
-  index download_links: [:xls, :csv]
-  
   index do
     column :first_name
     column :last_name
