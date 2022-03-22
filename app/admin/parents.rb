@@ -11,6 +11,8 @@ ActiveAdmin.register Parent do
   end
   permit_params :first_name, :last_name, :email, :phone_number, :tuition_preference
 
+  index download_links: [:xls, :csv]
+  
   index do
     column :id
     column :email

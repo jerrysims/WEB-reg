@@ -42,6 +42,7 @@ ActiveAdmin.register Registration do
     end
   end
 
+  index download_links: [:xls, :csv]
 
   index do
     column "Student", sortable: :"students.last_name" do |r|
