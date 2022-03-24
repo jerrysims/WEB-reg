@@ -6,6 +6,10 @@ ActiveAdmin.register Section do
   permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_time, :user_id,
                 :class_minimum, :class_maximum, :suggested_grade, :subject_area, :course_id
 
+  action_item :new_wait_list_student do
+    link_to "Add New Waitlist Student", new_admin_wait_listed_student_path
+  end
+
   member_action :drop, only: :show, method: :post do
     student = Student.find(params[:student_id])
     section = Section.find(params[:id])
@@ -35,7 +39,7 @@ ActiveAdmin.register Section do
     ActiveRecord::Base.transaction do
       reg =  Registration.find_or_create_by(
         section_id: params[:id],
-        student_id: params[:student_id], 
+        student_id: params[:student_id],
         user_id: current_parent.id
       )
       if reg.valid?
