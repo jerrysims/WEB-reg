@@ -6,10 +6,25 @@ ActiveAdmin.register Parent do
     f.input :first_name
     f.input :last_name
     f.input :phone_number
-    f.input :tuition_preference
+    f.input :street_address_1, as: :string
+    f.input :street_address_2, as: :string
+    f.input :city, as: :string
+    f.input :state, as: :string
+    f.input :zip_code, as: :string
+    f.input :tuition_preference, as: :select, collection: ["Monthly", "Semester"]
     actions
   end
-  permit_params :first_name, :last_name, :email, :phone_number, :tuition_preference
+
+  permit_params :first_name,
+                :last_name,
+                :email,
+                :phone_number,
+                :street_address_1,
+                :street_address_2,
+                :city,
+                :state,
+                :zip_code,
+                :tuition_preference
 
   index do
     column :id
