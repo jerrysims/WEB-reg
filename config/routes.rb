@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :registration_periods
   resources :courses
   devise_for :parents
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -22,12 +23,17 @@ Rails.application.routes.draw do
   end
 
   resources :students do
+    get 'schedule'
     get 'view_course_list'
     patch 'update_web_email'
     patch 'update_grade_confirmed'
   end
-
+  
   get "/acknowledge_covid_statement", to: "parents#acknowledge_covid_statement", as: :acknowledge_covid_statement
+  get "/admin/clear_search_filters", to: "admins#clear_search_filters", as: :admin_clear_search_filters
+  get "/admin/dashboard", to: "admins#dashboard", as: :admin_dashboard  
+  get "/admin/open_seats", to: "admins#open_seats", as: :admin_open_seats
+  get '/admin/students_schedules', to: 'admins#students_schedules', as: :admin_students_schedules
   get "/covid_statement", to: "parents#covid_statement", as: :covid_statement
   get '/enrollment', to: 'enrollments#new', as: :new_enrollment_path
   get '/enrollment/select_student', to: 'enrollments#select_student', as: :select_student_path
@@ -48,6 +54,7 @@ Rails.application.routes.draw do
   patch '/invoices/update_program_donation', to: 'invoices#update_program_donation'
   patch '/registrations/update_parent', to: 'registrations#update_parent'
   patch '/registrations/update_tuition_preference', to:'registrations#update_tuition_preference'
+  post '/admin/student_schedules', to: 'admins#student_schedule', as: :admin_student_schedule
   post '/enrollment/student-info', to: 'enrollments#new_student_info', as: :new_student_enrollment_info_path
   post '/invoices/update_donation_amount', to: 'invoices#update_donation_amount'
   post '/invoices/update_program_donation', to: 'invoices#update_program_donation'
