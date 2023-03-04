@@ -38,13 +38,13 @@
                       </li>
                       <% if current_parent %>
                         <li class="nav-item col inline">
-                          <%= link_to "Students List", parent_path(current_parent), class: "nav-link" %>
+                          <%= link_to "Students", parent_path(current_parent), class: "nav-link" %>
                         </li>
                         <li class="nav-item col inline">
-                          <%= link_to "Create New Student", new_student_path, class: "nav-link" %>
+                          <%= link_to "New Student", new_student_path, class: "nav-link" %>
                         </li>
                         <li class="nav-item col inline">
-                          <%= link_to "Current Schedules", registrations_review_path, class: "nav-link" %>
+                          <%= link_to "Schedules", registrations_review_path, class: "nav-link" %>
                         </li>
                       <% end %>
                       <li class="nav-item col inline">
@@ -65,7 +65,7 @@
                           <span>Admin Actions</span>
                         </li>
                         <li class="nav-item col inline">
-                          <%= link_to "Admin Dashboard", admin_root_path, class: "nav-link" %>
+                          <%= link_to "Admin Dashboard", admin_dashboard_path, class: "nav-link" %>
                         </li>
                       </ul>
                     </div>
