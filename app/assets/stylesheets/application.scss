@@ -1,3 +1,15 @@
+canvas {
+	width: 100%;
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 50px;
+	padding-bottom: 150px;
+	position: relative;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box
+}
+  
 @import "bootstrap";
 @import "squarespace";
 @import "global";
@@ -12,3 +24,4 @@
 @import "subject";
 @import "teacher";
 @import "bootstrap-datepicker";
+
