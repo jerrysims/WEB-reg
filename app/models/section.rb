@@ -10,6 +10,8 @@ class Section < ApplicationRecord
   validates :class_minimum, numericality: true, presence: true
   validates :class_maximum, numericality: true, presence: true
 
+  scope :open_seats, -> { where("students_count < class_maximum") }
+
   def at_max?
     students.count >= class_maximum
   end
@@ -38,6 +40,14 @@ class Section < ApplicationRecord
 
   def name
     course.name
+  end
+
+  def open_seats_count
+    class_maximum - students_count
+  end
+
+  def students_count
+    students.count
   end
 
   def suggested_grade
