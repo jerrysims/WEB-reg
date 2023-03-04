@@ -1,0 +1,2 @@
+class RegistrationPeriod < ApplicationRecord
+end
