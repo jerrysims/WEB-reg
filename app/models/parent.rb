@@ -23,6 +23,7 @@ class Parent < ActiveRecord::Base
   has_many :courses, through: :students
   has_many :invoice_line_items
   has_one :invoice
+  has_one :parent_agreement
 
   scope :missing_invoice, -> { left_outer_joins(:invoice).where.not(id: Invoice.closed.pluck(:parent_id)) }
   scope :locked, -> { where(locked: true) }

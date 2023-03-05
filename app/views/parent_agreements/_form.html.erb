@@ -1,0 +1,114 @@
+<h1>WEB Parent Agreement</h1>
+<%= simple_form_for @parent_agreement do |f| %>
+  <p>You may complete this form <strong>once</strong> per family.</p>
+  <p>This agreement (“Agreement”) is made and entered into between Weekday Eastside Bridge (WEB) and</p>
+  <%= f.simple_fields_for @parent do |parent_form| %>
+    <div class="row">
+      <p>Parent/Guardian Name</p>
+      <%= parent_form.hidden_field :id, as: :hidden, input_html: { value: @parent.id } %>
+      <%= parent_form.input :first_name, input_html: { value: @parent.first_name } %>
+      <%= parent_form.input :last_name, input_html: { value: @parent.last_name } %>
+    </div>
+    <div class="row">
+      <p>on Behalf of</p>
+      <p>
+      <% @parent.students.each_with_index do |student, i| %> 
+        <% if i > 0 %>
+          , 
+        <% end %>
+        <%= student.full_name %>
+      <% end %>
+      </p>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-md-10 box">
+      <div class="row">
+        I agree to pay tuition according to the published tuition rates for the entire school year 
+        (August 2022 through May 2023) for the classes enrolled in as of July 1, 2022. (If unsure of 
+        class registration, please obtain confirmation before completing this form.) * 
+      </div>
+      <div class="row"><%= f.input :agree_to_pay, label: "I Agree" %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 box">
+      <div class="row">
+        Parents shall pay the full semester tuition on the first day of each semester’s classes or 
+        shall pay tuition monthly on the first day of each month's classes, unless previously arranged 
+        with WEB administration. If a Tuition payment is fourteen (14) calendar days overdue, a late 
+        fee of ten percent will be assessed. If a Tuition payment is thirty (30) calendar days overdue, 
+        WEB may impose any or all of the following sanctions, at the School’s sole discretion, unless 
+        special payment arrangements have been made in writing signed by the administration. Sanctioned 
+        actions include: a. Withdrawing Student from class participation b. Withdrawing Student from 
+        school c. Use a collection agency A family with an unpaid balance for the current school year 
+        may not register for the following school year until the tuition for the current school year is 
+        paid in full, unless special arrangements have been made in writing. *
+      </div>
+      <div class="row"><%= f.input :late_fee_acknowledgment, label: "I Agree" %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 box">
+      <div class="row">
+        If the Student is withdrawn during the school year for any reason other than request by WEB, 
+        ***remaining tuition through the end of the year must be paid in full*** unless the 
+        administrator agrees in writing to refund a portion of the remaining tuition. Otherwise there 
+        will be no refund, credit or reduction for withdrawal, absences, vacations, snow days, 
+        illnesses, holidays or moving. *      
+      </div>
+      <div class="row"><%= f.input :no_refund_on_voluntary_withdraw, label: "I Agree" %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 box">
+      <div class="row">
+        If a Student is asked to withdraw from the School, the undersigned is responsible for the 
+        prorated annual Tuition through the end of the semester in which the Student withdraws. *      
+      </div>
+      <div class="row"><%= f.input :prorate_on_requested_withdraw, label: "I Agree" %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 box">
+      <h6>Volunteer Hours*</h6>
+      <div class="row">
+        The undersigned agrees to volunteer for three hours during the 2021-22 school year or, in 
+        lieu of volunteering pay a $75 volunteer buyout.      
+      </div>
+      <div class="row"><%= f.input :plan_to_volunteer, label: "I plan to volunteer." %></div>
+      <div class="row"><%= f.input :volunteer_buyout, label: "Please invoice me for the $75 volunteer buyout." %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 box">
+      <h6>Drop Off & Pick Up *</h6>
+      <div class="row">
+        I commit to dropping my child off within ten minutes of their class start time in order to 
+        minimize disruption to all WEB students and pick up promptly within ten minutes of their class 
+        end time in order to respect the time and attention of WEB tutors. I understand a late fee 
+        will be assessed if my child is not picked within ten minutes of my pick up time.
+
+        I understand that the School reserves the right to deny enrollment and/or expel a student whom 
+        it determines is unsuitable for enrollment.
+
+        I, the undersigned, have read and understand the Terms and Conditions of this Agreement, for the enrollment of Student(s) for the 2022-2023 school year. I agree to abide by said terms and conditions and agree to fulfill the total financial obligation for payment of tuition as set forth herein.
+      </div>
+      <div class="row"><%= f.input :late_fee_for_late_pickup, label: "I Agree" %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 box">
+      <h6>Parent/Guardian Signature *</h6>
+      <div class="row">
+        I HAVE READ THIS DOCUMENT AND UNDERSTAND IT. 
+ 
+        I understand & agree this is a legal representation of my signature.
+      </div>
+      <div class="row"><%= f.input :signature, label: "Please type full name" %></div>
+    </div>
+  </div>
+  <div class="row">
+    <%= f.submit "SUBMIT", class: 'btn btn-primary' %>
+  </div>
+<% end %>

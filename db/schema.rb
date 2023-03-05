@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_04_182810) do
+ActiveRecord::Schema.define(version: 2023_03_05_043746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -71,6 +71,21 @@ ActiveRecord::Schema.define(version: 2023_03_04_182810) do
     t.bigint "parent_id"
     t.boolean "closed", default: false
     t.index ["parent_id"], name: "index_invoices_on_parent_id"
+  end
+
+  create_table "parent_agreements", force: :cascade do |t|
+    t.boolean "agree_to_pay"
+    t.boolean "late_fee_acknowledgment"
+    t.boolean "no_refund_on_voluntary_withdraw"
+    t.boolean "prorate_on_requested_withdraw"
+    t.boolean "plan_to_volunteer"
+    t.boolean "volunteer_buyout"
+    t.boolean "late_fee_for_late_pickup"
+    t.string "signature"
+    t.bigint "parent_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parent_id"], name: "index_parent_agreements_on_parent_id"
   end
 
   create_table "parents", force: :cascade do |t|
@@ -248,6 +263,7 @@ ActiveRecord::Schema.define(version: 2023_03_04_182810) do
   add_foreign_key "additional_contacts", "students"
   add_foreign_key "courses", "registration_periods"
   add_foreign_key "invoices", "parents"
+  add_foreign_key "parent_agreements", "parents"
   add_foreign_key "registration_logs", "parents", column: "user_id"
   add_foreign_key "registration_logs", "sections"
   add_foreign_key "registration_logs", "students"
