@@ -40,6 +40,25 @@ ActiveAdmin.register Parent do
     actions
   end
 
+  csv do
+    column "quickbooks_id" do |p|
+      "p#{p.id}"
+    end
+    column :id
+    column :email
+    column :first_name
+    column :last_name
+    column :phone_number
+    column :street_address_1
+    column :street_address_2
+    column :city
+    column :state
+    column :zip_code
+    column :tuition_preference
+    column :payment_preference
+    column :secondary_email
+  end
+
   filter :first_name
   filter :last_name
   filter :students, as: :select, collection: Student.all.order(last_name: :asc)
