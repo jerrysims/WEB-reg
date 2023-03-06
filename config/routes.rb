@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :parent_agreements
   resources :registration_periods
   resources :courses
   devise_for :parents
