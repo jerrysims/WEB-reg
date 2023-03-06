@@ -8,6 +8,7 @@ class Student < ActiveRecord::Base
   has_many :sections, through: :registrations
   has_many :courses, through: :sections
   has_many :wait_listed_students, dependent: :destroy
+  has_one :medical_form
 
   accepts_nested_attributes_for :student_shadows
 

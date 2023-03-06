@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_05_043746) do
+ActiveRecord::Schema.define(version: 2023_03_05_205634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -71,6 +71,31 @@ ActiveRecord::Schema.define(version: 2023_03_05_043746) do
     t.bigint "parent_id"
     t.boolean "closed", default: false
     t.index ["parent_id"], name: "index_invoices_on_parent_id"
+  end
+
+  create_table "medical_forms", force: :cascade do |t|
+    t.string "parent2_first_name"
+    t.string "parent2_last_name"
+    t.string "parent2_phone"
+    t.string "emergency_contact_first_name"
+    t.string "emergency_contact_last_name"
+    t.string "emergency_contact_relationship"
+    t.text "known_allergies"
+    t.text "medical_needs_or_concerns"
+    t.text "current_medications"
+    t.string "physician_first_name"
+    t.string "physician_last_name"
+    t.string "physician_phone"
+    t.string "medical_insurance_provider"
+    t.string "medical_insurance_policy_number"
+    t.string "preferred_hospital"
+    t.boolean "pain_reliever_permission"
+    t.boolean "medical_care_consent"
+    t.string "signature"
+    t.bigint "student_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["student_id"], name: "index_medical_forms_on_student_id"
   end
 
   create_table "parent_agreements", force: :cascade do |t|

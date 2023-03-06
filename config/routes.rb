@@ -19,11 +19,13 @@ Rails.application.routes.draw do
   resources :invoices, only: [:index]
 
   resources :parents do
+    resource :parent_agreements
     get "confirm_grade"
     get "confirm_web_email"
   end
 
   resources :students do
+    resource :medical_forms
     get 'schedule'
     get 'view_course_list'
     patch 'update_web_email'
