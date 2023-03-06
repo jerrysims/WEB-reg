@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.1.3'
+ruby '2.7.7'
 
 gem 'activeadmin', '~> 2.9'
 gem 'activemodel', '~> 6.0', '>= 6.0.6.1'
