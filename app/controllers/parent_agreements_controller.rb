@@ -30,7 +30,7 @@ class ParentAgreementsController < ApplicationController
       :plan_to_volunteer,
       :volunteer_buyout,
       :late_fee_for_late_pickup,
-      :signature,
+      :signature
     )
   end
 
