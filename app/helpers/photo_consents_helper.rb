@@ -1,0 +1,2 @@
+module PhotoConsentsHelper
+end

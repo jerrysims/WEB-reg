@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_05_205634) do
+ActiveRecord::Schema.define(version: 2023_03_06_220650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -152,6 +152,13 @@ ActiveRecord::Schema.define(version: 2023_03_05_205634) do
     t.index ["parent_id", "role_id"], name: "index_parents_roles_on_parent_id_and_role_id"
     t.index ["parent_id"], name: "index_parents_roles_on_parent_id"
     t.index ["role_id"], name: "index_parents_roles_on_role_id"
+  end
+
+  create_table "photo_consents", force: :cascade do |t|
+    t.boolean "permission_and_consent"
+    t.string "signature"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "products", force: :cascade do |t|

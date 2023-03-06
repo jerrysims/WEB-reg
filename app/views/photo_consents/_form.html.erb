@@ -1,0 +1,45 @@
+<h1>WEB 2023-24 Photo Consent Release</h1>
+<%= simple_form_for [@parent, @photo_consent] do |f| %>
+  <p>You may complete this form <strong>once</strong> per family.</p>
+  <div class="row">
+    <div class="col-md-10">
+    <p>Parent/Guardian Name</p>
+    <%= f.hidden_field :parent_id, as: :hidden, input_html: { value: @parent.id } %>
+    <%= f.input :first_name, input_html: { value: @parent.first_name } %>
+    <%= f.input :last_name, input_html: { value: @parent.last_name } %>
+  </div>
+  <div class="row">
+    <div class="col-md-10 box">
+      <p>
+        This consent form will apply to the following students:
+      <ul>
+      <% @parent.students.each_with_index do |student, i| %> 
+        <li><%= student.full_name %></li>
+      <% end %>
+      </ul>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 box">
+      <div class="row">
+        I _____ give permission and consent to WEB (Weekday Eastside Bridge) for the use of 
+        photograph(s) or electronic media images of my student at WEB for the use of the WEB 
+        website, WEB Facebook page and/or WEB Instagram account. *      
+      </div>
+      <div class="row"><%= f.input :permission_and_consent, label: false, as: :radio_buttons, collection: ["Do", "Do Not"] %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 box">
+      <h6>Parent/Guardian Signature *</h6>
+      <div class="row">
+        I understand & agree this is a legal representation of my signature.
+      </div>
+      <div class="row"><%= f.input :signature, label: "Please type your full name" %></div>
+    </div>
+  </div>
+  <div class="row">
+    <%= f.submit "SUBMIT", class: 'btn btn-primary col-md-10' %>
+  </div>
+<% end %>

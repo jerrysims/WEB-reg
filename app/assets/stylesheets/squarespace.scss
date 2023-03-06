@@ -14871,17 +14871,18 @@ blockquote, blockquote p, .quote-block blockquote {
 }
 
 ul, ol, dl {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  font-size: 14px;
-  font-weight: normal;
-  font-family: "Open Sans";
-  font-size: 13px;
-  line-height: 1.6em;
-  text-transform: none;
-  text-decoration: none;
-  font-weight: 300;
-  font-style: normal;
-  margin: 1em 0
+//   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+//   font-size: 14px;
+//   font-weight: normal;
+//   font-family: "Open Sans";
+//   font-size: 13px;
+//   line-height: 1.6em;
+//   text-transform: none;
+//   text-decoration: none;
+//   font-weight: 300;
+//   font-style: normal;
+//   margin: 1em 0
+  list-style-type: disc;
 }
 
 nav ul, nav ol {
