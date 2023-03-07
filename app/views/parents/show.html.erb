@@ -21,7 +21,9 @@
               </div>
               <div class="col-md-6">
                 <%= link_to "Photo Consent", new_parent_photo_consent_path(current_parent.id), class: "col-xs-6" %>
-
+              </div>
+              <div class="col-md-6">
+                <%= link_to "Release of Liability", new_parent_release_of_liability_path(current_parent.id), class: "col-xs-6" %>
               </div>
             </li>
           <% end %>

@@ -40,6 +40,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 5.0'
   gem 'factory_bot'
   gem 'faker'
+  gem 'pry-nav', '~> 1.0'
   gem 'pry-rails', '~> 0.3.4'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'

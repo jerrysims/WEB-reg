@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_06_220650) do
+ActiveRecord::Schema.define(version: 2023_03_07_005734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -159,6 +159,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_220650) do
     t.string "signature"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "parent_id", null: false
+    t.index ["parent_id"], name: "index_photo_consents_on_parent_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -201,6 +203,16 @@ ActiveRecord::Schema.define(version: 2023_03_06_220650) do
     t.index ["section_id"], name: "index_registrations_on_section_id"
     t.index ["student_id", "section_id"], name: "index_registrations_on_student_id_and_section_id", unique: true
     t.index ["user_id"], name: "index_registrations_on_user_id"
+  end
+
+  create_table "release_of_liabilities", force: :cascade do |t|
+    t.boolean "waiver_terms"
+    t.boolean "dalewood_terms"
+    t.string "signature"
+    t.bigint "parent_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parent_id"], name: "index_release_of_liabilities_on_parent_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -296,6 +308,7 @@ ActiveRecord::Schema.define(version: 2023_03_06_220650) do
   add_foreign_key "courses", "registration_periods"
   add_foreign_key "invoices", "parents"
   add_foreign_key "parent_agreements", "parents"
+  add_foreign_key "photo_consents", "parents"
   add_foreign_key "registration_logs", "parents", column: "user_id"
   add_foreign_key "registration_logs", "sections"
   add_foreign_key "registration_logs", "students"

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :parents do
     resource :parent_agreements
     resources :photo_consents
+    resources :release_of_liabilities
     get "confirm_grade"
     get "confirm_web_email"
   end

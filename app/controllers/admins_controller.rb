@@ -1,10 +1,6 @@
 class AdminsController < ApplicationController
   before_action :confirm_admin
 
-  def clear_search_filters
-    binding.pry
-  end
-
   def dashboard
   end
 

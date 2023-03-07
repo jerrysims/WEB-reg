@@ -1,0 +1,97 @@
+<h2>Release of Liability</h2>
+<h2>Read Carefully - This Affects Your Legal Rights</h2>
+<%= simple_form_for [@parent, @release_of_liability] do |f| %>
+  <p>You may complete this form <strong>once</strong> per family.</p>
+  <p>
+    LIABILITY RELEASE *
+  </p>
+  <p>
+    In exchange for participation in activities and classes and/or the use of property, facilities 
+    and services organized by Weekday Eastside Bridge, hereinafter “WEB”, located at Dalewood 
+    United Methodist Church, 2300 Ridgecrest Drive, Nashville, TN 37216, I agree for myself, my 
+    Student and, if applicable, my family, hereinafter “I” or “me” to the following:
+  </p>
+  <p>
+    1. WAIVE AND HOLD HARMLESS In consideration of my registration and participation at WEB, I: (A) Waive, Release and Discharge from any and all liability Senae Smith, WEB, their directors, officers, teachers, volunteers, representatives and agents for death, diseases acquired or transmitted (by insects, or other animals and plants, by other participants such as the flu, COVID-19 and other infections), allergic reactions, disability, personal injury, property damage, property theft or actions of any kind which may occur; (B) Indemnify and Hold Harmless, and Agree Not To Sue Senae Smith, WEB, their directors, officers, teachers, volunteers, representatives and agents from any and all liabilities or claims made as a result of participation at WEB, whether caused by their negligence or otherwise. I understand Senae Smith and any WEB staff are not responsible for any lost, stolen, or damaged valuables or property while on the premises.
+  </p>
+  <p>    
+    2. ASSUMPTION OF THE RISKS AND RELEASE. I recognize that there are certain inherent risks associated with the above described activity and I assume full responsibility for personal injury to me and further release and discharge WEB for injury, loss or damage arising out of my use of or presence upon the facilities of WEB, whether caused by the fault of myself, my family, WEB or other third parties.
+  </p>
+  <p>
+    3. INDEMNIFICATION. I agree to indemnify and defend WEB against all claims, causes of action, damages, judgments, costs or expenses, including attorney fees and other litigation costs, which may in any way arise from my or my family's use of or presence upon the facilities of WEB.
+  </p>
+  <p>    
+    4. FEES. I agree to pay for all damages to the facilities or equipment of WEB caused by any negligent, reckless, or willful actions by me, my Student or my family. I agree to pay all fees owed to WEB for my participation.
+  </p>
+  <p>    
+    5. COVID Furthermore with regards to the risk of contracting or disseminating COVID-19 viral infections, I promise to self-screen and screen my student for new symptoms. I promise to comply with the practices that WEB is implementing to protect everyone as best as possible using guidelines published by the CDC. I understand that procedures may need to be adjusted or changed over time and I will read information provided and comply with the requests that are in the best interests of the community. WEB reserves the right to require masks for a period of time in the event of a new COVID variant outbreak or a flu outbreak, especially if CDC recommendations change.
+  </p>
+  <p>    
+    6. APPLICABLE LAW. Any legal or equitable claim that may arise from participation in the above shall be resolved under Tennessee law.
+  </p>
+  <p>    
+    7. NO DURESS. I agree and acknowledge that I am under no pressure or duress to sign this Agreement.
+  </p>
+  <p>    
+    8. ARM'S LENGTH AGREEMENT. This Agreement and each of its terms are the product of an arm's length negotiation between the Parties. In the event any ambiguity is found to exist in the interpretation of this Agreement, or any of its provisions, the Parties, and each of them, explicitly reject the application of any legal or equitable rule of interpretation which would lead to a construction either "for" or "against" a particular party based upon their status as the drafter of a specific term, language, or provision giving rise to such ambiguity.
+  </p>
+  <p>  
+    9. ENFORCEABILITY. The invalidity or unenforceability of any provision of this Agreement, whether standing alone or as applied to a particular occurrence or circumstance, shall not affect the validity or enforceability of any other provision of this Agreement and such invalid or unenforceable provision shall be deemed not to be a part of this Agreement.
+  </p>
+  <p>  
+  <p>
+    <div class="row"><%= f.input :waiver_terms, label: "I have read this waiver and agree with these terms." %></div>
+  </p>
+  <div class="row">
+    <div class="col-md-10">
+    <p>Parent/Guardian Name</p>
+    <%= f.simple_fields_for @parent do |parent_form| %>
+      <%= parent_form.hidden_field :id, as: :hidden, input_html: { value: @parent.id } %>
+      <%= parent_form.input :first_name, input_html: { value: @parent.first_name } %>
+      <%= parent_form.input :last_name, input_html: { value: @parent.last_name } %>
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <p>
+        This consent form will apply to the following students:
+      <ul>
+      <% @parent.students.each_with_index do |student, i| %> 
+        <li><%= student.full_name %></li>
+      <% end %>
+      </ul>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <p>
+        <strong>DALEWOOD UNITED METHODIST CHURCH *</strong>
+      </p>
+      <p>
+        I commit to hold Dalewood United Methodist Church (“Dalewood”) harmless:
+      </p>
+      <p>
+        For and in consideration of access to Dalewood and any other property or facilities owned by or associated with Dalewood, the undersigned hereby assumes all risk of injury to himself or herself and damage to his or her property on or about such premises. The undersigned hereby waives all claims, causes of action, demands, rights, damages, liability, cost, attorney’s fees, and expenses of any and every kind whatsoever (the “Claims”) arising out of any act or omission by Dalewood and each of its employees, officers, agents, and/or their heirs, successors or assigns (the “Released Parties”), and releases the Released Parties from all such Claims, whether known or unknown, however and whenever arising, which the undersigned, his or her successors, heirs, or assigns, now or in the future, may have against any Released Party. If this Release is being signed by a parent or legal guardian on behalf of a minor, the parent or legal guardian acknowledges and agrees that he or the is freely and voluntarily entering into this Release with the intent and expectation that it be as binding upon such minor as if such minor had the full legal capacity to sign this Release.
+      </p>
+      <p>    
+        I commit to using only WEB designated areas of Dalewood UMC. I commit to be respectful of all spaces within the church while on the property.
+      </p>
+      <p>
+        <div class="row"><%= f.input :dalewood_terms, label: "I have read and agree with these terms." %></div>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <h6>Parent/Guardian Signature *</h6>
+      <div class="row">
+        I understand & agree this is a legal representation of my signature.
+      </div>
+      <div class="row"><%= f.input :signature, label: "Please type your full name" %></div>
+    </div>
+  </div>
+  <div class="row">
+    <%= f.submit "SUBMIT", class: 'btn btn-primary col-md-10' %>
+  </div>
+<% end %>
