@@ -69,7 +69,7 @@ class RegistrationsController < ApplicationController
   def finalize
     @administrative_fee = fee_paid?(Product::ADMINISTRATIVE_FEE) ? 0 : Invoice.administrative_fee
     @enrolled_students = current_parent.students.enrolled
-    @discount = current_parent.enrolled_students_count > 1 && discount_not_yet_applied ? Invoice.discount : nil
+    @discount = current_parent.enrolled_students_count > 1 && discount_not_yet_applied? ? Invoice.discount : nil
     
     @fees = []
     @fees << ["Administrative Fee", @administrative_fee]
@@ -80,7 +80,7 @@ class RegistrationsController < ApplicationController
       end
     end
 
-    @fees << ["Family Discount (multiple enrollees)", @discount]
+    @fees << ["Family Discount (multiple enrollees)", @discount] unless @discount.nil?
     @invoice_total = @fees.inject(0){ |sum, e| sum + e.last } 
     @api_key = ENV["RAILS_ENV"] == "production" ? "pk_live_51H2jFbGTkur4XSpD7Plmk3JYzi0WmIV4fvaCxgySaZvffKKx3kWJNNtdJE0QbES4kvPHcdf671NjoEIXzpS7NZ6C00H9dC0jiA" : "pk_test_51H2jFbGTkur4XSpD5pU3zfSSgPtwzYTcH6MaAEYEvsudqq2pT0agYCetpiZwtkMhZwx1STYuwyTpAgimF1TvoWhC00sor13DiZ"
   end
@@ -168,7 +168,7 @@ class RegistrationsController < ApplicationController
     end
   end
 
-  def discount_not_yet_applied
+  def discount_not_yet_applied?
     !InvoiceLineItem.find_by(parent: current_parent, product: Product::SIBLING_DISCOUNT)
   end
 
@@ -231,6 +231,9 @@ class RegistrationsController < ApplicationController
       current_parent.registered_students.each do |s|
         InvoiceLineItem.find_or_create_by(invoice: i, parent: current_parent, student_id: s.id, product: s.reg_fee, quantity: 1)
       end
+      unless current_parent.students.count <= 1 || InvoiceLineItem.find_by(parent: current_parent, product: Product::SIBLING_DISCOUNT)
+        InvoiceLineItem.create(invoice: i, parent: current_parent, product: Product::SIBLING_DISCOUNT, quantity: 1)
+      end
     end 
   end
 
@@ -250,6 +253,8 @@ class RegistrationsController < ApplicationController
 
 
   def sibling_discount
+    return if current_parent.students.count <= 1 || InvoiceLineItem.find_by(parent: current_parent, product: Product::SIBLING_DISCOUNT)
+    
     [{
       coupon: Stripe::Coupon.create(
         amount_off: 5000,
