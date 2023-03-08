@@ -254,7 +254,7 @@ class RegistrationsController < ApplicationController
 
   def sibling_discount
     return if current_parent.students.count <= 1 || InvoiceLineItem.find_by(parent: current_parent, product: Product::SIBLING_DISCOUNT)
-    
+
     [{
       coupon: Stripe::Coupon.create(
         amount_off: 5000,
