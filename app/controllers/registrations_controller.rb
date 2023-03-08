@@ -137,7 +137,7 @@ class RegistrationsController < ApplicationController
       redirect_back fallback_location: {
         action: "complete_parent_info", student_id: params[:student_id]
       }
-    end
+    end 
   end
 
   def update_tuition_preference

@@ -39,7 +39,7 @@ class Course < ActiveRecord::Base
       else
         Product::MIDDLE_SCHOOL_TUITION[:semester].unit_price
       end
-    when "HS"
+    when "HS", "MS/HS"
       case twice_weekly
       when true
         Product::HIGH_SCHOOL_TUITION_TWICE_WEEKLY[:semester].unit_price
