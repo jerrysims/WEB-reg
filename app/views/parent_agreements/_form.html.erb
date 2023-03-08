@@ -1,5 +1,5 @@
 <h1>WEB Parent Agreement</h1>
-<%= simple_form_for @parent_agreement do |f| %>
+<%= simple_form_for [@parent, @parent_agreement] do |f| %>
   <p>You may complete this form <strong>once</strong> per family.</p>
   <p>This agreement (“Agreement”) is made and entered into between Weekday Eastside Bridge (WEB) and</p>
   <%= f.simple_fields_for @parent do |parent_form| %>
