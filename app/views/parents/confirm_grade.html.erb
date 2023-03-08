@@ -8,7 +8,7 @@
 </span>
 <div class="row">
   <% @unconfirmed_students.each do |student| %>
-    <div class="col-md-3">
+    <div class="col-md-12">
       <%= simple_form_for(student, url: student_update_grade_confirmed_url(student_id: student.id), method: "patch") do |f| %>
         <div class="box row justify-content-center">
           <div class="col-12">
