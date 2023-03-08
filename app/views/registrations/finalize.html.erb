@@ -4,34 +4,16 @@
   <div class="box shadow col-md-12 col-xs-12 col-sm-12">
     <div class="col-md-12 col-sm-8">
       <h4>Registration & Admin Fees</h4>
-      <% @enrolled_students.each do |s| %>
+      <% @fees.each do |name, price| %>
         <div class="row">
           <div class="col-md-offset-4 col-md-6 col-xs-10 col-sm-10">
-            <%= s.full_name %> Registration Fee
+            <%= name %>
           </div>
           <div class="invoice-amounts col-md-2 col-xs-2 col-sm-2">
-            $<%= @registration_fee %>
+            <%= "$#{price}" %>
           </div>
         </div>
       <% end %>
-      <% if @discount %>
-        <div class="row">
-          <div class="col-md-offset-4 col-md-6 col-xs-10 col-sm-10">
-            Family Discount (multiple enrollees)
-          </div>
-          <div class="invoice-amounts col-md-2 col-xs-2 col-sm-2">
-            $<%= @discount %>
-          </div>
-        </div>
-      <% end %>
-      <div class="row">
-        <div class="col-md-offset-4 col-md-6 col-xs-10 col-sm-10">
-          Administrative Fee
-        </div>
-        <div class="invoice-amounts col-md-2 col-xs-2 col-sm-2">
-          $<%= @administrative_fee %>
-        </div>
-      </div>
       <div class="row invoice-total">
         <div class="col-md-offset-4 col-md-6 col-xs-10 col-sm-10">
           <h5>Total Due</h5>

@@ -1,6 +1,8 @@
 class Product < ActiveRecord::Base
   DONATION = Product.find_by(name: "Scholarship Donation")
   REGISTRATION_FEE = Product.find_by(name: "Registration Fee")
+  REGISTRATION_FEE_1_CLASS = Product.find_by(name: "Registration Fee - one class")
+  REGISTRATION_FEE_2_CLASSES = Product.find_by(name: "Registration Fee - two classes")
   ADMINISTRATIVE_FEE = Product.find_by(name: "Administrative Fee")
   MIDDLE_SCHOOL_TUITION = {
     semester: Product.find_by(name: "Middle School Tuition - Semester"),

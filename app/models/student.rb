@@ -62,6 +62,19 @@ class Student < ActiveRecord::Base
     "#{parent.first_name.capitalize} #{parent.last_name.capitalize}"
   end
 
+  def reg_fee
+    case courses.count
+    when 0
+      nil
+    when 1
+      Product::REGISTRATION_FEE_1_CLASS
+    when 2
+      Product::REGISTRATION_FEE_2_CLASSES
+    else
+      Product::REGISTRATION_FEE
+    end
+  end
+
   def should_be_offered_lunch?
     !shadow_spots.select { |ss| ss.time == "10:15 AM" }.empty?
   end

@@ -32,21 +32,26 @@ class RegistrationsController < ApplicationController
   end
 
   def create_checkout_session
-    session = Stripe::Checkout::Session.create({
-      payment_method_types: ['card'],
-      line_items: line_items_for_checkout,
-      mode: 'payment',
-      discounts: current_parent.students.count <= 1 ? nil : sibling_discount,
-      success_url:  stripe_return_url(parent_id: current_parent.id),
-      cancel_url: registrations_finalize_url(failed: true),
-      customer_email: current_parent.email,
-      client_reference_id: current_parent.id,
-      metadata: {
-        parent_id: current_parent.id
-      }
-    })
+    unless line_items_for_checkout.empty?
+      session = Stripe::Checkout::Session.create({
+        payment_method_types: ['card'],
+        line_items: line_items_for_checkout,
+        mode: 'payment',
+        discounts: current_parent.students.count <= 1 ? nil : sibling_discount,
+        success_url:  stripe_return_url(parent_id: current_parent.id),
+        cancel_url: registrations_finalize_url(failed: true),
+        customer_email: current_parent.email,
+        client_reference_id: current_parent.id,
+        metadata: {
+          parent_id: current_parent.id
+        }
+      })
 
-    render json: session
+      render json: session
+    else
+      flash[:notice] = "Registration & Admin Fees already paid"
+      redirect_to root_url
+    end
   end
 
   def drop_class
@@ -62,12 +67,21 @@ class RegistrationsController < ApplicationController
   end
 
   def finalize
-    @administrative_fee = Invoice.administrative_fee
-    @registration_fee = Invoice.registration_fee
-    @enrolled_students = current_parent.students.select { |s| s.sections.count > 0 }
-    student_count = current_parent.enrolled_students_count
-    @discount = student_count > 1 ? Invoice.discount : nil
-    @invoice_total = total_fees
+    @administrative_fee = fee_paid?(Product::ADMINISTRATIVE_FEE) ? 0 : Invoice.administrative_fee
+    @enrolled_students = current_parent.students.enrolled
+    @discount = current_parent.enrolled_students_count > 1 && discount_not_yet_applied ? Invoice.discount : nil
+    
+    @fees = []
+    @fees << ["Administrative Fee", @administrative_fee]
+
+    @enrolled_students.each do |s|
+      unless fee_paid?(s.reg_fee, s.id)
+        @fees << ["#{s.full_name} Registration Fee", s.reg_fee.unit_price]
+      end
+    end
+
+    @fees << ["Family Discount (multiple enrollees)", @discount]
+    @invoice_total = @fees.inject(0){ |sum, e| sum + e.last } 
     @api_key = ENV["RAILS_ENV"] == "production" ? "pk_live_51H2jFbGTkur4XSpD7Plmk3JYzi0WmIV4fvaCxgySaZvffKKx3kWJNNtdJE0QbES4kvPHcdf671NjoEIXzpS7NZ6C00H9dC0jiA" : "pk_test_51H2jFbGTkur4XSpD5pU3zfSSgPtwzYTcH6MaAEYEvsudqq2pT0agYCetpiZwtkMhZwx1STYuwyTpAgimF1TvoWhC00sor13DiZ"
   end
 
@@ -154,8 +168,16 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def discount_not_yet_applied
+    !InvoiceLineItem.find_by(parent: current_parent, product: Product::SIBLING_DISCOUNT)
+  end
+
   def donation_total
     params.require(:parent).require(:donation).permit(:quantity)
+  end
+
+  def fee_paid?(product, student_id=nil)
+    InvoiceLineItem.find_by(parent: current_parent, product: product, student_id: student_id)
   end
 
   def get_donation_radio_check(amount)
@@ -170,20 +192,24 @@ class RegistrationsController < ApplicationController
     items = []
 
     current_parent.registered_students.each do |s|
-      items << {
-        name: "Registration Fee - #{s.full_name}",
-        amount: Product::REGISTRATION_FEE.unit_price * 100,
-        quantity: 1,
-        currency: "usd",
-      }
+      unless InvoiceLineItem.find_by(parent: current_parent, student_id: s.id)
+        items << {
+          name: "Registration Fee - #{s.full_name}",
+          amount: s.reg_fee.unit_price * 100,
+          quantity: 1,
+          currency: "usd",
+        }
+      end
     end
 
-    items << {
-      name: "Administrative Fee - #{current_parent.full_name}",
-      amount: Product::ADMINISTRATIVE_FEE.unit_price * 100,
-      quantity: 1,
-      currency: "usd"
-    }
+    unless InvoiceLineItem.find_by(parent: current_parent, product: Product::ADMINISTRATIVE_FEE)
+      items << {
+        name: "Administrative Fee - #{current_parent.full_name}",
+        amount: Product::ADMINISTRATIVE_FEE.unit_price * 100,
+        quantity: 1,
+        currency: "usd"
+      }
+    end
 
     items
   end
@@ -196,7 +222,16 @@ class RegistrationsController < ApplicationController
   end
 
   def reg_fees_paid
-    current_parent.update_attributes(reg_fees_paid: true) if current_parent.id == params[:parent_id].to_i
+    admin_fee = Product::ADMINISTRATIVE_FEE
+    
+    ActiveRecord::Base.transaction do 
+      i = Invoice.find_or_create_by(parent: current_parent)
+      
+      InvoiceLineItem.find_or_create_by(invoice: i, parent: current_parent, product: admin_fee, quantity: 1)
+      current_parent.registered_students.each do |s|
+        InvoiceLineItem.find_or_create_by(invoice: i, parent: current_parent, student_id: s.id, product: s.reg_fee, quantity: 1)
+      end
+    end 
   end
 
   def set_course_and_tuition
