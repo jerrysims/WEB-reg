@@ -3,10 +3,12 @@
   <p>You may complete this form <strong>once</strong> per family.</p>
   <div class="row">
     <div class="col-md-10">
-    <p>Parent/Guardian Name</p>
-    <%= f.hidden_field :parent_id, as: :hidden, input_html: { value: @parent.id } %>
-    <%= f.input :first_name, input_html: { value: @parent.first_name } %>
-    <%= f.input :last_name, input_html: { value: @parent.last_name } %>
+    <%= f.simple_fields_for @parent do |parent_form| %>
+      <p>Parent/Guardian Name</p>
+      <%= parent_form.hidden_field :id, as: :hidden, input_html: { value: @parent.id } %>
+      <%= parent_form.input :first_name, input_html: { value: @parent.first_name } %>
+      <%= parent_form.input :last_name, input_html: { value: @parent.last_name } %>
+    <% end %>
   </div>
   <div class="row">
     <div class="col-md-10 box">

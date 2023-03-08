@@ -4,7 +4,7 @@ class PhotoConsentsController < ApplicationController
   def create
     @photo_consent = PhotoConsent.new(photo_consent_params)
 
-    if @photo_consent.save!
+    if @photo_consent.update(parent_id: parent_params[:id])
       flash[:notice] = "Photo Consent successfully saved"
       redirect_to root_path
     else
@@ -25,12 +25,11 @@ class PhotoConsentsController < ApplicationController
   def photo_consent_params
     params.require(:photo_consent).permit(
       :permission_and_consent,
-      :signature,
-      :parent_id
+      :signature
     )
   end
 
   def parent_params
-    params.require(:photo_consent).permit(:first_name, :last_name)
+    params.require(:photo_consent).require(:parent).permit(:id, :first_name, :last_name)
   end
 end
