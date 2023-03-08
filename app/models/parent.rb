@@ -24,6 +24,8 @@ class Parent < ActiveRecord::Base
   has_many :invoice_line_items
   has_one :invoice
   has_one :parent_agreement
+  has_one :photo_consent
+  has_one :release_of_liability
 
   scope :missing_invoice, -> { left_outer_joins(:invoice).where.not(id: Invoice.closed.pluck(:parent_id)) }
   scope :locked, -> { where(locked: true) }

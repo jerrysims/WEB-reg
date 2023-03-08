@@ -1,6 +1,7 @@
 class ParentsController < ApplicationController
   before_action :authenticate_parent!
   before_action :check_for_locked_parent
+  before_action :set_parent
 
   def acknowledge_covid_statement
     current_parent.update_attributes(covid_statement_acknowledged: true)
@@ -25,10 +26,6 @@ class ParentsController < ApplicationController
   def show
     if should_redirect_to_confirm_grade?
       redirect_to parent_confirm_grade_path(current_parent.id)
-    elsif should_confirm_web_email?
-      redirect_to parent_confirm_web_email_path(current_parent.id)
-    elsif should_see_covid_statement?
-      redirect_to covid_statement_path
     else
       @students = current_parent.students
     end
@@ -54,6 +51,10 @@ class ParentsController < ApplicationController
       students << student
     end
     students
+  end
+
+  def set_parent
+    @parent = current_parent
   end
 
   def should_confirm_web_email?

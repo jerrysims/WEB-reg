@@ -1,0 +1,24 @@
+<h3>Students</h3>
+<% if current_parent.students.empty? %>
+  <div class="row">
+    Click below to create your first student
+  </div>
+<% else %>
+  <div class="row">
+    Click on a student to begin registration
+  </div>
+  <div class="container row">
+    <ul>
+      <% @students.each do |s| %>
+        <li class="student-tile row">
+          <div class="col-md-6">
+            <%= link_to s.full_name, student_view_course_list_path(student_id: s.id), class: "col-xs-6" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="container new-student-btn row">
+  <%= link_to "Add a new student",  new_student_path, class: "btn btn-primary" %>
+</div>

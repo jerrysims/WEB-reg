@@ -82,7 +82,8 @@ a, a:visited, .collectionlink-title a, .collectionlink-title a:visited {
 
 .schedule-list-item {
   display: list-item;
-  list-style: circle;
+  list-style-image: circle;
+  list-style-position: inside;
 }
 
 .row {
