@@ -13,15 +13,15 @@ class Invoice < ActiveRecord::Base
   end
 
   def generate_administrative_fee
-    InvoiceLineItem.create(product: Product::ADMINISTRATIVE_FEE, parent: parent, quantity: 1, invoice: self)
+    InvoiceLineItem.find_or_create_by(product: Product::ADMINISTRATIVE_FEE, parent: parent, quantity: 1, invoice: self)
   end
 
   def generate_registration_fees
     parent.registered_students.each do |student|
-      InvoiceLineItem.create(product: Product::REGISTRATION_FEE, parent: parent, quantity: 1, student_id: student.id, invoice: self)
+      InvoiceLineItem.find_or_create_by(product: student.reg_fee, parent: parent, quantity: 1, student_id: student.id, invoice: self)
     end
     if parent.registered_students.count > 1
-      InvoiceLineItem.create(product: Product::SIBLING_DISCOUNT, parent: parent, quantity: parent.registered_students.count - 1, invoice: self)
+      InvoiceLineItem.find_or_create_by(product: Product::SIBLING_DISCOUNT, parent: parent, quantity: 1, invoice: self)
     end
   end
 
