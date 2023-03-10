@@ -22,25 +22,29 @@
         <h5 id="span-<%= day %>"><%= day %> </h5>
         <div class="row" id="day-<%= day %>">
           <% @start_times.each do |time| %>
-            <div class="col-md-3" id="time-<%= time %>">
+            <% unless time.strftime("%l:%M %p") == " 9:45 AM" %><div class="col-md-3" id="time-<%= time %>"><% end %>
               <div class="row">
                 <div class="col-md-12">
                   <%= time.strftime("%l:%M %p") %>
                 </div>
-                <% @available_sections.select { |c| c.day.include? day }.each do |s| %>
-                  <% if s.start_time == time %>
-                    <% registered = @student.registrations.where(section_id: s.id).empty? ? "" : "registered" %>
-                    <% twice_a_week = s.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
-                    <div class="btn register-grid-class-card bordered-section col-md-12 <%= registered %> <%= twice_a_week %> " id="section-<%= s.id %>" data-section="<%= s.id %>" data-student="<%= @student.id %>">
-                      <small><%= s.name.truncate(30) %> (<%= s.suggested_grade %>)</small>
-                      <% if s.at_max? %>
-                        <br><span><small class="alert">CLASS FULL - click to add to waitlist</small></span>
-                      <% end %>
-                    </div>
+                <% if @available_sections.select { |c| c.day.include?(day) && c.start_time == time }.empty? %>
+                  No classes offered at this time
+                <% else %>
+                  <% @available_sections.select { |c| c.day.include? day }.each do |s| %>
+                    <% if s.start_time == time %>
+                      <% registered = @student.registrations.where(section_id: s.id).empty? ? "" : "registered" %>
+                      <% twice_a_week = s.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
+                      <div class="btn register-grid-class-card bordered-section col-md-12 <%= registered %> <%= twice_a_week %> " id="section-<%= s.id %>" data-section="<%= s.id %>" data-student="<%= @student.id %>">
+                        <small><%= s.name.truncate(30) %> (<%= s.suggested_grade %>)</small>
+                        <% if s.at_max? %>
+                          <br><span><small class="alert">CLASS FULL - click to add to waitlist</small></span>
+                        <% end %>
+                      </div>
+                    <% end %>
                   <% end %>
                 <% end %>
               </div>
-            </div>
+            <% unless time.strftime("%l:%M %p") == " 9:30 AM" %></div><% end %>
           <% end %>
         </div>
       </div>
