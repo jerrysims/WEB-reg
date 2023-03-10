@@ -1,0 +1,34 @@
+<h1>Student Learning Differences Form</h1>
+<%= simple_form_for [@student, @learning_differences_form] do |f| %>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="row">
+        <%= f.simple_fields_for @parent do |parent_form| %>
+          <p>Parent/Guardian Name</p>
+          <%= parent_form.hidden_field :id, as: :hidden, input_html: { value: @parent.id } %>
+          <%= parent_form.input :first_name, input_html: { value: @parent.first_name } %>
+          <%= parent_form.input :last_name, input_html: { value: @parent.last_name } %>
+        <% end %>
+      </div>
+      <div class="row">
+        <%= f.hidden_field :student_id, as: :hidden, input_html: { value: @student.id } %>
+        <h5>Student Name: <%= @student.full_name %></h5>
+      </div>
+      <div class="row">
+        <%= f.input :learning_differences, label: "Please explain any learning differences, diagnosed or suspected."  %>
+      </div>
+      <div class="row">
+        <%= f.input :successful_accomodations, label: "What accomodations have been successful in the past to help your student succeed?"  %>
+      </div>
+      <div class="row">
+        <%= f.input :home_accomodations, label: "What accommodations will be utilized at home to help your child succeed?"  %>
+      </div>
+      <div class="row">
+        <%= f.input :anything_else, label: "Is there anything else we need to know about your child to help them learn at WEB?"  %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <%= f.submit "SUBMIT", class: 'btn btn-primary col-md-10' %>
+  </div>
+<% end %>

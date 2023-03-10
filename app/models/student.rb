@@ -9,6 +9,7 @@ class Student < ActiveRecord::Base
   has_many :courses, through: :sections
   has_many :wait_listed_students, dependent: :destroy
   has_one :medical_form
+  has_one :learning_differences_form
 
   accepts_nested_attributes_for :student_shadows
 
@@ -56,6 +57,10 @@ class Student < ActiveRecord::Base
 
   def math_course_count
     courses.where(subject_area: "Math").count
+  end
+
+  def needs_learning_differences_link
+    learning_differences || learning_differences_flag 
   end
 
   def parents_full_name

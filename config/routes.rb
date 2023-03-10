@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   end
 
   resources :students do
+    resources :learning_differences_forms
     resource :medical_forms
     get 'schedule'
     get 'view_course_list'

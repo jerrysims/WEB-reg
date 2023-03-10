@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_08_050053) do
+ActiveRecord::Schema.define(version: 2023_03_10_152925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -72,6 +72,17 @@ ActiveRecord::Schema.define(version: 2023_03_08_050053) do
     t.bigint "parent_id"
     t.boolean "closed", default: false
     t.index ["parent_id"], name: "index_invoices_on_parent_id"
+  end
+
+  create_table "learning_differences_forms", force: :cascade do |t|
+    t.text "learning_differences"
+    t.text "successful_accomodations"
+    t.text "home_accomodations"
+    t.text "anything_else"
+    t.bigint "student_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["student_id"], name: "index_learning_differences_forms_on_student_id"
   end
 
   create_table "medical_forms", force: :cascade do |t|
@@ -274,6 +285,7 @@ ActiveRecord::Schema.define(version: 2023_03_08_050053) do
     t.string "pronouns"
     t.string "web_email"
     t.string "nickname"
+    t.boolean "learning_differences_flag"
     t.index ["parent_id"], name: "index_students_on_parent_id"
   end
 
@@ -308,6 +320,7 @@ ActiveRecord::Schema.define(version: 2023_03_08_050053) do
   add_foreign_key "additional_contacts", "students"
   add_foreign_key "courses", "registration_periods"
   add_foreign_key "invoices", "parents"
+  add_foreign_key "learning_differences_forms", "students"
   add_foreign_key "parent_agreements", "parents"
   add_foreign_key "photo_consents", "parents"
   add_foreign_key "registration_logs", "parents", column: "user_id"
