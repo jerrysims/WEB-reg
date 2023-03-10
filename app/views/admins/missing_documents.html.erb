@@ -1,5 +1,29 @@
 <h2>Missing Documents</h2>
 
-COLUMNS: PARENT NAME, STUDENT NAME (BLANK SOMETIMES), DOCUMENT TITLE
-
-document_types: parent_agreement, photo_consent, release_of liability, medical_forms
+<div class="row">
+	<div class="col-md-9">
+		<div class="table-wrapper">
+			<table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Parent</th>
+            <th>Student</th>
+            <th>Document Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @parents_and_missing_docs.each do |p| %>
+            <% docs = p[1] %>
+            <% docs.each do |doc| %>
+              <tr>
+                <td><%= Parent.find(p[0]).full_name %></td>
+                <td><%= doc[:student] %></td>
+                <td><%= doc[:doc_title] %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+			</table>
+		</div>
+	</div>
+</div>
