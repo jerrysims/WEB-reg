@@ -10,7 +10,7 @@
   <div class="container row">
     <ul>
       <% @students.each do |s| %>
-        <li class="student-tile row">
+        <li class=" enrollment-forms-box-row row">
           <div class="col-md-6">
             <%= link_to s.full_name, student_view_course_list_path(student_id: s.id), class: "col-xs-6" %>
           </div>
