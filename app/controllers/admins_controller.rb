@@ -18,7 +18,7 @@ class AdminsController < ApplicationController
       missing_docs << { student: nil, doc_title: PhotoConsent.to_s.titleize } if p.photo_consent.nil?
 
       p.students.enrolled.each do |s|
-        missing_docs << { student: s.full_name, doc_title: LearningDifferencesForm.to_s.titleize } if s.learning_differences_form.nil?
+        missing_docs << { student: s.full_name, doc_title: LearningDifferencesForm.to_s.titleize } if s.needs_learning_differences_link && s.learning_differences_form.nil?
         missing_docs << { student: s.full_name, doc_title: MedicalForm.to_s.titleize } if s.medical_form.nil?
       end
 
