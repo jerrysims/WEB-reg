@@ -31,6 +31,7 @@ class Course < ActiveRecord::Base
   end
 
   def semester_tuition
+    return Product.find_by(name: "Study Hall Tuition - Semester") if name == "Study Hall"
     case division
     when "MS"
       case twice_weekly
