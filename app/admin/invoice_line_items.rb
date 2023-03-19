@@ -85,7 +85,7 @@ ActiveAdmin.register InvoiceLineItem do
     end
     column "Unit Price" do |i|
       product = Product.find_by(id: i.product_id)
-      product.nil? ? "" : product.unit_price
+      product.nil? ? "" : '%.2f' % product.unit_price
     end
   end
 end

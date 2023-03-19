@@ -76,7 +76,7 @@ class RegistrationsController < ApplicationController
 
     @enrolled_students.each do |s|
       unless fee_paid?(s.reg_fee, s.id)
-        @fees << ["#{s.full_name} Registration Fee", s.reg_fee.unit_price]
+        @fees << ["#{s.full_name} Registration Fee", '%.2f' % s.reg_fee.unit_price]
       end
     end
 
