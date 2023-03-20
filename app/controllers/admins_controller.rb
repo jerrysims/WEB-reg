@@ -1,5 +1,7 @@
 class AdminsController < ApplicationController
   before_action :confirm_admin
+  before_action :set_student, only: [:student_schedule]
+  before_action :set_total_fees_and_tuition, only: [:student_schedule]
 
   def dashboard
   end
@@ -35,15 +37,33 @@ class AdminsController < ApplicationController
   end
 
   def student_schedule
-    @student = Student.find(params[:student_id])
   end
 
-  def students_schedules
-  end
   
   private
   
   def confirm_admin     
     current_parent.has_role? :admin
+  end
+
+  def set_student
+    @student = Student.find(params[:student_id])
+    @parent = @student.parent
+  end
+
+  def set_student_tuition_totals
+    ary=[]
+    @parent.students.each do |s|
+      student_total = s.courses.inject(0) { |sum, e| sum + e.semester_tuition }
+      ary << [ s.full_name, student_total ]
+    end
+
+    ary
+  end
+
+  def set_total_fees_and_tuition
+    @parent_tuition_total = @parent.courses.inject(0){ |sum, e| sum + e.semester_tuition }
+    @parent_total_course_fees = @parent.courses.inject(0){ |sum, e| sum + e.fee }
+    @student_tuition_totals = set_student_tuition_totals
   end
 end

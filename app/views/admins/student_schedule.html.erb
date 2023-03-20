@@ -24,4 +24,6 @@
 		<%= link_to "Change #{@student.first_name}'s schedule", { controller: "registrations", action: "index", student_id: @student.id }, class: "custom-button" %>
 		</div>
 	</div>
+  <%= render partial: "registrations/total_course_fees" %>
+	<%= render partial: "tuition_detail" %>
 </div>

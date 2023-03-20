@@ -1,8 +1,10 @@
 <h2>View Student Schedule</h2>
 <div class="row">
-  <%= form_with(url: admin_student_schedule_path, local: true) do |f| %>
-    <%= f.label :Student, "Search for:" %>
-    <%= f.collection_select :student_id, Student.enrolled.order(:last_name), :id, :full_name %>
-    <%= f.submit "Search" %>
-  <% end %>
+  <div class="col-md-6">
+    <%= form_with(url: admin_student_schedule_path, local: true) do |f| %>
+      <%= f.label :Student, "Search for:" %>
+      <%= f.collection_select :student_id, Student.enrolled.order(:last_name), :id, :full_name %>
+      <%= f.submit "Search" %>
+    <% end %>
+  </div>
 </div>
