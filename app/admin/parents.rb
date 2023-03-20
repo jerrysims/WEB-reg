@@ -12,12 +12,14 @@ ActiveAdmin.register Parent do
     f.input :state, as: :string
     f.input :zip_code, as: :string
     f.input :tuition_preference, as: :select, collection: ["Monthly", "Semester"]
+    f.input :locked
     actions
   end
 
   permit_params :first_name,
                 :last_name,
                 :email,
+                :locked,
                 :phone_number,
                 :street_address_1,
                 :street_address_2,
