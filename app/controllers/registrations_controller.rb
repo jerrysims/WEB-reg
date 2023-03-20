@@ -195,7 +195,7 @@ class RegistrationsController < ApplicationController
       unless InvoiceLineItem.find_by(parent: current_parent, student_id: s.id)
         items << {
           name: "Registration Fee - #{s.full_name}",
-          amount: s.reg_fee.unit_price * 100,
+          amount: (s.reg_fee.unit_price * 100).to_i,
           quantity: 1,
           currency: "usd",
         }
@@ -205,7 +205,7 @@ class RegistrationsController < ApplicationController
     unless InvoiceLineItem.find_by(parent: current_parent, product: Product::ADMINISTRATIVE_FEE)
       items << {
         name: "Administrative Fee - #{current_parent.full_name}",
-        amount: Product::ADMINISTRATIVE_FEE.unit_price * 100,
+        amount: (Product::ADMINISTRATIVE_FEE.unit_price * 100).to_i,
         quantity: 1,
         currency: "usd"
       }
