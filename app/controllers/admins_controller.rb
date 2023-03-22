@@ -3,6 +3,8 @@ class AdminsController < ApplicationController
   before_action :set_student, only: [:student_schedule]
   before_action :set_total_fees_and_tuition, only: [:student_schedule]
 
+  add_breadcrumb "Home", :root_path
+
   def dashboard
   end
 

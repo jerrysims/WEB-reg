@@ -1,6 +1,26 @@
 <h2>Admin Dashboard</h2>
 <div class="row">
-  <%= link_to "Missing Documents", admin_missing_documents_path, class: "nav-link" %>
-  <%= link_to "Open Seats Report", admin_open_seats_path, class: "nav-link" %>
-  <%= link_to "Student Schedules", admin_students_schedules_path, class: "nav-link" %>
+  <div class="col-md-5">
+    <div class="row">
+      <div class="col-md-10"><%= link_to "Class Rosters", admin_class_rosters_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Courses", admin_courses_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Daily Sign-In Sheets", admin_daily_sign_in_sheets_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "General Sections Report", admin_general_sections_reports_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Invoice Line Items", admin_invoice_line_items_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Master Schedules", admin_master_schedules_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Missing Documents", admin_missing_documents_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Open Seats Report", admin_open_seats_path, class: "nav-link" %> </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="row">
+      <div class="col-md-10"><%= link_to "Parent Emails", admin_parent_emails_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Parents", admin_parents_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Products", admin_products_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Registration Logs", admin_registration_logs_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Registrations", admin_registrations_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Sections", admin_sections_path, class: "nav-link" %></div>
+      <div class="col-md-10"><%= link_to "Student Schedules", admin_students_schedules_path, class: "nav-link" %> </div>
+      <div class="col-md-10"><%= link_to "Students", admin_students_path, class: "nav-link" %></div>
+  </div>
 </div>  

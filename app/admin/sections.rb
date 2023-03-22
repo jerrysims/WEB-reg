@@ -96,7 +96,7 @@ ActiveAdmin.register Section do
               column "Enrolled Students" do |registration|
                 columns do
                   column do
-                    link_to registration.student.full_name
+                    link_to "#{registration.student.full_name} (#{registration.student.grade})"
                   end
                   column do
                     link_to "Drop", drop_admin_section_path(
@@ -113,14 +113,14 @@ ActiveAdmin.register Section do
             index_table_for resource.wait_listed_students do
               column "Wait List" do |wait_listed_student|
                 columns do
-                  column do
-                    wait_listed_student.student.full_name
+                  column span: 2 do
+                    link_to "#{wait_listed_student.student.full_name} (#{wait_listed_student.student.grade})"
                   end
-                  column do
+                  column span: 2 do
                     link_to 'Enroll in Class', enroll_admin_section_path(
                       student_id: wait_listed_student.student_id), method: :post
                   end
-                  column do
+                  column span: 2 do
                     link_to "Drop from Waitlist", drop_from_waitlist_admin_section_path(
                       student_id: wait_listed_student.student_id), method: :post
                   end
