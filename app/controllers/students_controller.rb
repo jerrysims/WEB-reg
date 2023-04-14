@@ -75,6 +75,7 @@ class StudentsController < ApplicationController
       :pronouns,
       :race,
       :student_email,
+      :learning_differences_flag,
       :web_email
     )
   end
