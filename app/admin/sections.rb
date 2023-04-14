@@ -114,10 +114,8 @@ ActiveAdmin.register Section do
               column "Wait List" do |wait_listed_student|
                 columns do
                   column span: 2 do
-                    link_to "#{wait_listed_student.student.full_name} (#{wait_listed_student.student.grade})", 
-                            admin_student_schedule_path(
-                              student_id:wait_listed_student , 
-                              admin_student_schedule_path(student_id: wait_listed.id) 
+                    link_to ("#{wait_listed_student.student.full_name} (#{wait_listed_student.student.grade})", 
+                            admin_student_schedule_path(student_id: wait_listed_student.id),
                               method: :post
                             )
                   end
