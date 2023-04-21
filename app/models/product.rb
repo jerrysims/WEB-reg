@@ -35,6 +35,7 @@ class Product < ActiveRecord::Base
   SIBLING_DISCOUNT = Product.find_by(name: "Sibling Discount")
   DROPPED_COURSE_FEE = Product.find_by(name: "Dropped Course Fee")
   DROPPED_TUITION_FEE = Product.find_by(name: "Dropped Tuition Fee")
+  EXTRACURRICULAR_TUITION = Product.find_by(name: "Extracurricular Tuition")
 
   has_and_belongs_to_many :courses
 
