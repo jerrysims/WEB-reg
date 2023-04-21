@@ -1,9 +1,9 @@
 # lib/tasks/invoices.rake
 namespace :extracurricular do
   task :seed => :environment do
-    fall = RegistrationPeriod.create(name: "2023-24 Fall Extracurricular", open_date: "2023-03-24", close_date: "2023-08-01")
-    spring = RegistrationPeriod.create(name: "2023-24 Spring Extracurricular", open_date: "2023-03-24", close_date: "2023-08-01")
-    product = Product.create(name: "Extracurricular Tuition", unit_price: 175, product_type: "extracurricular)
+    fall = RegistrationPeriod.create(name: "2023-24 Fall Extracurricular", open_date: "2023-03-24", close_date: "2023-08-01", rp_type: "extracurricular")
+    spring = RegistrationPeriod.create(name: "2023-24 Spring Extracurricular", open_date: "2023-03-24", close_date: "2023-08-01", rp_type: "extracurricular")
+    product = Product.create(name: "Extracurricular Tuition", unit_price: 175, product_type: "extracurricular")
 
     CSV.foreach("public/2023_extracurriculars.csv") do |row|
       [fall, spring].each do |rp|
