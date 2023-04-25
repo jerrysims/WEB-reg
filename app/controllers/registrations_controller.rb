@@ -1,6 +1,6 @@
 class RegistrationsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :check_for_locked_parent
+  before_action :check_for_locked_parent, except: [:new, :select_student, :create, :course_options]
   before_action :set_current_student, only: [:choose_class, :drop_class, :index]
   before_action :set_course_and_tuition, only: [:index]
   before_action :set_total_fees_and_tuition, only: [:finalize, :review, :stripe_return]
@@ -29,6 +29,26 @@ class RegistrationsController < ApplicationController
 
   def complete_parent_info
     @student_id = params[:student_id]
+  end
+
+
+  def create
+    tuesday = Registration.new(tuesday_params)
+    thursday = Registration.new(thursday_params)
+    
+    [tuesday, thursday].each do |reg|
+      unless reg.save
+        @errors = reg.errors.full_messages
+      end
+    end
+
+    if @errors.present?
+      flash[:warning] = @errors
+      redirect_back fallback_location: parent_registration_periods_path(current_parent)
+    else
+      flash[:notice] = "Registration was successful"
+      redirect_to registrations_review_path
+    end
   end
 
   def create_checkout_session
@@ -115,9 +135,37 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def new
+    @students = current_parent.students
+    @registration_period = RegistrationPeriod.find(params[:registration_period_id])
+    @registration = Registration.new
+
+    unless params[:student].nil?
+      @student = Student.find(params[:student])
+      @tuesday = @registration_period.sections.where(day: "Tuesday").select { |s| s.grades.split(',').include?(@student.grade.to_s) }
+      @thursday = @registration_period.sections.where(day: "Thursday").select { |s| s.grades.split(',').include?(@student.grade.to_s) }
+    end
+   
+    render "new"
+  end
+
+  def choose_student
+    @student = Student.find(params[:choose_student][:student_id])
+    @student_id = @student.id
+    @user_id = current_parent.id
+    redirect_to new_parent_registration_period_registration_path(current_parent.id, params[:registration_period_id], { student: @student })
+  end
+
   def review
     @enrolled_students = current_parent.students.enrolled
     @not_enrolled = current_parent.students - @enrolled_students
+  end
+
+  def select_student
+    @parent = Parent.find(params[:parent_id])
+    @registration_period = RegistrationPeriod.find(params[:registration_period_id])
+    @students = @parent.students
+    @registration = Registration.new
   end
 
   def stripe_return
@@ -247,7 +295,7 @@ class RegistrationsController < ApplicationController
   end
 
   def set_total_fees_and_tuition
-    @parent_tuition_total = current_parent.courses.inject(0){ |sum, e| sum + e.semester_tuition }
+    @parent_tuition_total = current_parent.courses.inject(0){ |sum, e| sum + e.semester_tuition } 
     @parent_total_course_fees = current_parent.courses.inject(0){ |sum, e| sum + e.fee }
   end
 
@@ -293,4 +341,19 @@ class RegistrationsController < ApplicationController
     params.permit(:section_id, :student_id)
   end
 
+  def registration_params
+    params.permit(
+
+    )
+  end
+
+  def tuesday_params
+    params.permit( :student_id, :user_id)
+          .merge(params.require(:tuesday_options).permit(:section_id))
+  end
+  
+  def thursday_params
+    params.permit( :student_id, :user_id)
+          .merge(params.require(:thursday_options).permit(:section_id))
+  end
 end

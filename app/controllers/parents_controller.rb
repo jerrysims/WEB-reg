@@ -1,6 +1,6 @@
 class ParentsController < ApplicationController
   before_action :authenticate_parent!
-  before_action :check_for_locked_parent
+  before_action :check_for_locked_parent, except: [:registration_home]
   before_action :set_parent
 
   def acknowledge_covid_statement

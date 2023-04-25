@@ -1,0 +1,5 @@
+<h2><%= @registration_period.name %> Registration</h2>
+<%= simple_form_for @registration, url: { action: "selected_student" }) do |f| %>
+  <%= f.input :student_id, "Select student to register" %>
+  <%= f.submit "Confirm" %>
+<% end %>

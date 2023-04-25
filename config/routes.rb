@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :registration_periods
   resources :courses
   devise_for :parents
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -18,9 +17,15 @@ Rails.application.routes.draw do
   resources :invoices, only: [:index]
 
   resources :parents do
+    resources :registration_periods do
+      resource :registration do
+        post 'choose_student', to: 'registrations#choose_student', as: :choose_student
+      end
+    end
     resource :parent_agreements
     resources :photo_consents
     resources :release_of_liabilities
+    get "registration_home", as: :registration_home
     get "confirm_grade"
     get "confirm_web_email"
   end

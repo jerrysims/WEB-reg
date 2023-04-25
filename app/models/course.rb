@@ -16,12 +16,16 @@ class Course < ActiveRecord::Base
   has_many :sections, dependent: :destroy
   has_many :registrations
   has_many :students, through: :registrations
+  belongs_to :registration_period
   has_and_belongs_to_many :products
 
   validates :name, presence: true, uniqueness: { scope: :registration_period_id }
   validates :grades, presence: true
 
+  scope :extracurricular, ->{ select{ |c| c.rp_type == "extracurricular" } }
+  scope :academic, ->{ select{ |c| c.rp_type == "academic" } }
 
+  delegate :rp_type, to: :registration_period
   def fee
     products.fees.empty? ? 0 : products.fees.first.unit_price
   end
@@ -31,7 +35,9 @@ class Course < ActiveRecord::Base
   end
 
   def semester_tuition
-    return Product.find_by(name: "Study Hall Tuition - Semester").unit_price if name == "Study Hall"
+    return Product::STUDY_HALL_TUITION[:semester].unit_price if name == "Study Hall"
+    return Product::EXTRACURRICULAR_TUITION.unit_price if rp_type == "extracurricular"
+
     case division
     when "MS", "MS/HS"
       case twice_weekly

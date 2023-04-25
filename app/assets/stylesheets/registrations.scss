@@ -97,3 +97,13 @@ input[type="submit"].update-donation-amount {
 col-xs-6 {
   width: unset;
 }
+
+.extracurricular {
+  float: left;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.extracurricular fieldset {
+  width: 100%;
+}

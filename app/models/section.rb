@@ -11,6 +11,8 @@ class Section < ApplicationRecord
   validates :class_maximum, numericality: true, presence: true
 
   scope :open_seats, -> { where("students_count < class_maximum") }
+  delegate :registration_period_id, to: :course
+
 
   def at_max?
     students.count >= class_maximum
