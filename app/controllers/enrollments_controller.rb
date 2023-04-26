@@ -53,7 +53,7 @@ class EnrollmentsController < ApplicationController
   def view_course_list
     @student = Student.find(params[:student_id])
     @available_courses = get_available_courses(@student).uniq { |c| c.name }
-    @subject_areas = @available_courses.map(&:subject_area).uniq
+    @subject_areas = @available_courses.map(&:subject_area).uniq - ["extracurricular"]
   end
 
   private
