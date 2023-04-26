@@ -201,7 +201,7 @@ class RegistrationsController < ApplicationController
   private
 
   def available_sections(student)
-    Section.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
+    Section.academic.select { |c| c.grades.split(',').include?(student.grade.to_s) }
   end
 
   def create_donation(donation_total)

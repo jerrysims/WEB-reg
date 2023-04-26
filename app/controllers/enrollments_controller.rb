@@ -59,7 +59,7 @@ class EnrollmentsController < ApplicationController
   private
 
   def get_available_courses(student)
-    Course.all.select { |c| c.grades.split(',').include?(student.grade.to_s) }
+    Course.academic.select { |c| c.grades.split(',').include?(student.grade.to_s) }
   end
 
   def get_date_of_birth
