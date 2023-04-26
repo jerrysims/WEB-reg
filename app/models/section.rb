@@ -19,7 +19,7 @@ class Section < ApplicationRecord
   end
 
   def conflicts_with another_section
-    days_overlap(another_section) &&
+    days_overlap(another_section) && 
     (another_section.in_session(start_time) || another_section.in_session(end_time) ||
     in_session(another_section.start_time) || in_session(another_section.end_time))
   end
@@ -29,7 +29,8 @@ class Section < ApplicationRecord
   end
 
   def days_overlap another_section
-    day == another_section.day || day == "Tuesday/Thursday" || another_section.day == "Tuesday/Thursday"
+    (day == another_section.day || day == "Tuesday/Thursday" || another_section.day == "Tuesday/Thursday") &&
+    course.registration_period == another_section.course.registration_period
   end
 
   def grades

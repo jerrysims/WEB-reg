@@ -50,7 +50,10 @@ class Registration < ActiveRecord::Base
     return false if student.nil? || section.nil?
 
     other_registrations = student.registrations - [self]
-    unless other_registrations.select { |r| r.section.start_time == section.start_time && (r.section.day == section.day || r.section.day == "Tuesday/Thursday" || section.day == "Tuesday/Thursday")}.empty?
+    unless other_registrations.select { |r| r.section.start_time == section.start_time && 
+                                            r.section.course.registration_period == section.course.registration_period &&
+                                           (r.section.day == section.day || r.section.day == "Tuesday/Thursday" || section.day == "Tuesday/Thursday")
+                                      }.empty?
       errors.add(:student, "already has a class at that time")
     end
   end
