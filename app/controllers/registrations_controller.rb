@@ -35,8 +35,10 @@ class RegistrationsController < ApplicationController
   def create
     tuesday = Registration.new(tuesday_params)
     thursday = Registration.new(thursday_params)
+    @registration_period = RegistrationPeriod.find(params[:registration_period_id])
     
     [tuesday, thursday].each do |reg|
+      next if reg.section.nil?
       unless reg.save
         @errors = reg.errors.full_messages
       end
@@ -44,10 +46,10 @@ class RegistrationsController < ApplicationController
 
     if @errors.present?
       flash[:warning] = @errors
-      redirect_back fallback_location: parent_registration_periods_path(current_parent)
+      redirect_back fallback_location: new_parent_registration_period_registration_path(current_parent, @registration_period)
     else
       flash[:notice] = "Registration was successful"
-      redirect_to registrations_review_path
+      redirect_to new_parent_registration_period_registration_path(current_parent, @registration_period)
     end
   end
 

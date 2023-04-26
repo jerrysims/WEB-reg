@@ -1,1 +1,13 @@
-<%= render "form" %>
+<h2><%= @registration_period.name %> Registration</h2>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-5 box extracurricular">
+        <%= render "form" %>
+      </div>
+      <div class="col-md-6 box extracurricular">
+        <%= render "previously_registered" %>
+      </div>
+    </div>
+  </div>
+</div>

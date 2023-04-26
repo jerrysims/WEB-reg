@@ -1,0 +1,15 @@
+<div class="row"><h6>Current Registrations for Period...</h6></div>
+<% current_parent.students.each do |s| %>
+  <ul>
+    <%= s.full_name %>
+    <% courses_this_period = s.courses.where(registration_period: @registration_period) %>
+    <% if courses_this_period.empty? %>
+      <span> - Not registered this period</span>
+    <% else %>
+      <% courses_this_period.each do |c| %>
+        <% section = s.sections.find_by(course_id: c.id) %>
+        <li><%= section.day %>: <%= c.name %></li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
