@@ -56,6 +56,9 @@ ActiveAdmin.register Registration do
     column "Day / Time" do |r|
       r.section.day + ", " + r.section.start_time.strftime("%l:%M %p")
     end
+    column "Registration Period" do |r|
+      r.section.course.registration_period
+    end
     column "Parent Name", sortable: :"parents.name" do |r|
       r.student.parent.full_name
     end
@@ -84,6 +87,9 @@ ActiveAdmin.register Registration do
     end
     column "Day / Time" do |r|
       r.section.day + ", " + r.section.start_time.strftime("%l:%M %p")
+    end
+    column "Registration Period" do |r|
+      r.section.course.registration_period.name
     end
     column "Parent Name" do |r|
       r.student.parent.full_name

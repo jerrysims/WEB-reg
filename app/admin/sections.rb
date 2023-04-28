@@ -61,6 +61,9 @@ ActiveAdmin.register Section do
     column :course, sortable: :"courses.name" do |section|
       link_to section.course.name, admin_section_path(section)
     end
+    column :registration_period do |section|
+      section.course.registration_period
+    end
     column "Day/Time" do |section|
       "#{section.day}, #{section.start_time.strftime("%l:%M")}"
     end
@@ -82,6 +85,9 @@ ActiveAdmin.register Section do
   show do
     attributes_table do
       row :name
+      row :registration_period do |s|
+        s.course.registration_period
+      end
       row :description
       row "Class Time" do |c|
         "#{c.day}, #{c.start_time.strftime("%l:%M %p")}"
