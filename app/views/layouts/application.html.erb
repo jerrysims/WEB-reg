@@ -38,11 +38,9 @@
                         <%= link_to "Home", root_path, class: "nav-link" %>
                       </li>
                       <% if current_parent %>
-                        <% if current_parent.try(:has_role?, :admin) %>
-                          <li class="nav-item col inline">
-                            <%= link_to "Registration", parent_registration_periods_path(current_parent), class: "nav-link" %>
-                          </li>
-                        <% end %>
+                        <li class="nav-item col inline">
+                          <%= link_to "Registration", parent_registration_periods_path(current_parent), class: "nav-link" %>
+                        </li>
                         <li class="nav-item col inline">
                           <%= link_to "Students", parent_path(current_parent), class: "nav-link" %>
                         </li>
