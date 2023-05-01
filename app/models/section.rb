@@ -12,6 +12,7 @@ class Section < ApplicationRecord
 
   scope :open_seats, -> { where("students_count < class_maximum") }
   delegate :registration_period_id, to: :course
+  delegate :semester, to: :course
 
 
   def at_max?
@@ -33,6 +34,10 @@ class Section < ApplicationRecord
     course.registration_period == another_section.course.registration_period
   end
 
+  def extracurricular?
+    course.rp_type == "extracurricular"
+  end
+
   def grades
     course.grades
   end
@@ -42,7 +47,9 @@ class Section < ApplicationRecord
   end
 
   def name
-    course.name
+    return course.name  unless extracurricular?
+
+    "#{course.name} (#{semester})"
   end
 
   def open_seats_count

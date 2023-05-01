@@ -26,6 +26,8 @@ class Course < ActiveRecord::Base
   scope :academic, ->{ select{ |c| c.rp_type == "academic" } }
 
   delegate :rp_type, to: :registration_period
+  delegate :semester, to: :registration_period
+
   def fee
     products.fees.empty? ? 0 : products.fees.first.unit_price
   end

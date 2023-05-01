@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_21_103039) do
+ActiveRecord::Schema.define(version: 2023_05_01_155221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 2023_04_21_103039) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "rp_type"
+    t.string "semester"
   end
 
   create_table "registrations", force: :cascade do |t|
