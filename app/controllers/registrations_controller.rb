@@ -11,7 +11,21 @@ class RegistrationsController < ApplicationController
 
     head :no_content
   end
+  
+  def add_to_wait_list_refresh
+    @student = Student.find(params[:student_id])
+    @section = Section.find(params[:section_id])
+    @rp = @section.course.registration_period
 
+    if WaitListedStudent.create(wait_list_student_params)
+      flash[:notice] = "#{@student.first_name} has been added to the waitlist for #{@section.name}"
+      redirect_to new_parent_registration_period_registration_path(current_parent.id, @rp.id, { student: @student })
+    else
+      flash[:warning] = "Student was not added to the waitlist"
+      redirect_back fallback_location: new_parent_registration_period_registration_path(current_parent.id, @rp.id, { student: @student }) 
+    end
+  end
+  
   def choose_class
     @student = Student.find(params[:student_id])
     @section = Section.find(params[:section_id])
@@ -144,8 +158,10 @@ class RegistrationsController < ApplicationController
 
     unless params[:student].nil?
       @student = Student.find(params[:student])
-      @tuesday = @registration_period.sections.where(day: "Tuesday").select { |s| s.grades.split(',').include?(@student.grade.to_s) }
-      @thursday = @registration_period.sections.where(day: "Thursday").select { |s| s.grades.split(',').include?(@student.grade.to_s) }
+      @tuesday = @registration_period.sections.where(day: "Tuesday").select { |s| s.grades.split(',').include?(@student.grade.to_s) && !s.at_max? }
+      @thursday = @registration_period.sections.where(day: "Thursday").select { |s| s.grades.split(',').include?(@student.grade.to_s) && !s.at_max? }
+      @tuesday_full = @registration_period.sections.where(day: "Tuesday").select { |s| s.grades.split(',').include?(@student.grade.to_s) && s.at_max? } 
+      @thursday_full = @registration_period.sections.where(day: "Thursday").select { |s| s.grades.split(',').include?(@student.grade.to_s) && s.at_max? }
     end
    
     render "new"

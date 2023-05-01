@@ -1,31 +1,41 @@
-        <% if @student.present? %>
-          <%= simple_form_for(
-                @registration, 
-                url: { 
-                  action: "create", 
-                  parent_id: current_parent.id, 
-                  registration_period_id: @registration_period.id,
-                  student_id: @student.id,
-                  user_id: current_parent.id
-                }
-              ) do |f| %>
-            <div class="row">Registering for: <%= @student.full_name %></div>
-          
-            <%= simple_fields_for :tuesday_options do |tues| %>
-              <div class="row"><%= tues.input :section_id, label: "Choose activity for Tuesday", as: :radio_buttons, collection: @tuesday, required: true %></div>
-            <% end %>
-            <%= simple_fields_for :thursday_options do |thurs| %>
-              <div class="row"><%= thurs.input :section_id, label: "Choose activity for Thursday", as: :radio_buttons, collection: @thursday, required: true %></div>
-            <% end %>
-            <%= f.submit "SUBMIT", class: 'btn btn-primary' %>
-          <% end %>
-        <% else %>
-          <%= simple_form_for(:choose_student, url: { controller: "registrations", action: "choose_student", parent_id: current_parent.id, registration_period_id: @registration_period.id}) do |f| %>
-            <div class="row"><%= f.input :student_id, label: "Select Student...", as: :select, collection: @students, required: true, input_html: { value: @student }%></div>
-            
-            <%= f.hidden_field :user_id, as: :hidden, input_html: { value: current_parent.id } %>
-            <%= f.hidden_field :status, as: :hidden, input_html: { value: "selected" } %>
-            <%= f.submit "SUBMIT", class: 'btn btn-primary' %>
-          <% end %>
-        <% end %>
+<% if @student.present? %>
+  <%= simple_form_for(
+        @registration, 
+        url: { 
+          action: "create", 
+          parent_id: current_parent.id, 
+          registration_period_id: @registration_period.id,
+          student_id: @student.id,
+          user_id: current_parent.id
+        }
+      ) do |f| %>
+    <div class="row">Registering for: <%= @student.full_name %></div>
+  
+    <%= simple_fields_for :tuesday_options do |tues| %>
+      <div class="row"><%= tues.input :section_id, label: "Choose activity for Tuesday", as: :radio_buttons, collection: @tuesday, required: true %></div>
+    <% end %>
+    <%= simple_fields_for :thursday_options do |thurs| %>
+      <div class="row"><%= thurs.input :section_id, label: "Choose activity for Thursday", as: :radio_buttons, collection: @thursday, required: true %></div>
+    <% end %>
+    <%= f.submit "SUBMIT", class: 'btn btn-primary' %>
+  <% end %>
+  <% unless @tuesday_full.empty? %>
+    <div class="row">
+      <p>The following sections are full. Click course name to join the waitlist...</p>
+      <% @tuesday_full.each do |s| %>
+        <div class="row"><%= link_to(s.name, registrations_add_to_wait_list_refresh_path(section_id: s.id, student_id: @student.id)) %></div>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless @thursday_full.empty? %>
+  <% end %>
 
+<% else %>
+  <%= simple_form_for(:choose_student, url: { controller: "registrations", action: "choose_student", parent_id: current_parent.id, registration_period_id: @registration_period.id}) do |f| %>
+    <div class="row"><%= f.input :student_id, label: "Select Student...", as: :select, collection: @students, required: true, input_html: { value: @student }%></div>
+    
+    <%= f.hidden_field :user_id, as: :hidden, input_html: { value: current_parent.id } %>
+    <%= f.hidden_field :status, as: :hidden, input_html: { value: "selected" } %>
+    <%= f.submit "SUBMIT", class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

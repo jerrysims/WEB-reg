@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   get "/registrations/stripe_return", to: "registrations#stripe_return", as: :stripe_return
   get '/registrations', to: 'registrations#index', as: :register
   get '/registrations/add_to_wait_list', to: 'registrations#add_to_wait_list'
+  get '/registrations/add_to_wait_list_refresh', to: 'registrations#add_to_wait_list_refresh'
   get '/registrations/choose_class', to: 'registrations#choose_class', as: :choose_class_path
   get '/registrations/complete_parent_info', to: 'registrations#complete_parent_info', as: :complete_parent_info
   get '/registrations/drop_class', to: 'registrations#drop_class'
