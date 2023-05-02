@@ -28,6 +28,13 @@
     </div>
   <% end %>
   <% unless @thursday_full.empty? %>
+    <div class="row">
+      <p>The following sections are full. Click course name to join the waitlist...</p>
+      <% @thursday_full.each do |s| %>
+        <div class="row"><%= link_to(s.name, registrations_add_to_wait_list_refresh_path(section_id: s.id, student_id: @student.id)) %></div>
+      <% end %>
+    </div>
+
   <% end %>
 
 <% else %>

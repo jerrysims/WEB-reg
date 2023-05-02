@@ -10,6 +10,7 @@ We found the following class schedules for you:
           <ul class="schedule-day-box">
             <span><%= day %></span>
             <% student.daily_schedule(day).each do |section| %>
+
               <li class="schedule-list-item row section">
                 <%= section.start_time.strftime("%l:%M %p") %>-<%= section.end_time.strftime("%l:%M %p") %> <%= section.name %>
               </li>
