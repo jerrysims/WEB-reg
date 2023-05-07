@@ -8,7 +8,5 @@ namespace :missing_forms_mailer do
 
   parents.each do |p|
     ParentMailer.missing_forms_email(p).deliver_now
-  parents.each do |p|
-
   end
 end
