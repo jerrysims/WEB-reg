@@ -2,7 +2,7 @@
 namespace :missing_forms_mailer do
 
   # # all parents who have enrolled students
-  parent_ids = Student.enrolled.pluck(:parent_id)
+  # parent_ids = Student.enrolled.pluck(:parent_id)
   # parents = Parent.find(parent_ids)
   parents = Parent.where(first_name: ["Senae", "Jerry"])
 
