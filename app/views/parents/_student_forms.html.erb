@@ -10,7 +10,7 @@
           </svg>      
         </div>
         <div class="col-md-9">
-          "Medical Form - #{s.full_name}"
+          <%= "Medical Form - #{s.full_name}" %>
         </div>
       </div>
     <% else %>
@@ -21,7 +21,7 @@
           </svg>
         </div>
         <div class="col-md-9">
-          <%= link_to "Medical Form - #{s.full_name} - Click to Begin", new_student_medical_forms_path(s.id) %>
+          <%= link_to "Medical Form - #{s.full_name} - Click to Begin", new_student_medical_form_path(s.id) %>
         </div>
       </div>
     <% end %>

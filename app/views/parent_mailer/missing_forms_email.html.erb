@@ -1,0 +1,73 @@
+Dear <%= @parent.first_name %>,
+ 
+<p>One final update: The forms below are required to enroll your student.</p>
+
+<p>We show the status for your family's forms as: </p>
+
+<ul>
+  <li>Parent Agreement Form: <b><%= @parent_agreement.try(:status) || "missing" %></b>
+    <% if @parent_agreement.nil? %>
+      <%= link_to "Start Now", new_parent_parent_agreement_url(parent_id: @parent.id) %>
+    <% else %>
+      <%= link_to "Edit", edit_parent_parent_agreement_url(parent_id: @parent.id, id: @parent_agreement.id) %>
+    <% end %>
+  </li>
+  <li>Photo Consent Form: <b><%= @photo_consent.try(:status) || "missing" %></b>
+    <% if @photo_consent.nil? %>
+      <%= link_to "Start Now", new_parent_photo_consent_url(parent_id: @parent.id) %>
+    <% else %>
+      <%= link_to "Edit", edit_parent_photo_consent_url(parent_id: @parent.id, id: @photo_consent.id) %>
+    <% end %>
+  </li>
+  <li>Liability Release: <b><%= @release_of_liability.try(:status) || "missing" %></b> 
+    <% if @release_of_liability.nil? %>
+      <%= link_to "Start Now", new_parent_release_of_liability_url(parent_id: @parent.id) %>
+    <% else %>
+      <%= link_to "Edit", edit_parent_release_of_liability_url(parent_id: @parent.id, id: @release_of_liability.id) %>
+    <% end %>
+  </li>
+</ul>
+
+
+<% @students.each do |s| %>
+  <p>We show the status of *|Student First|*’s forms as:</p>
+  <ul>
+    <li>Medical Form: <b><%= s.medical_form.try(:status) || "missing" %></b>
+      <% if s.medical_form.nil? %>
+        <%= link_to "Start Now", new_student_medical_form_url(student_id: s.id) %>
+      <% else %>
+        <%= link_to "Edit", edit_student_medical_form_url(student_id: s.id, id: s.medical_form.id) %>
+      <% end %>
+    </li>
+    <li>Learning Differences Form: <b><%= s.learning_differences_form.try(:status) || "missing" %></b>
+      <% if s.learning_differences_form.nil? %>
+        <%= link_to "Start Now", new_student_learning_differences_form_url(student_id: s.id) %>
+      <% else %>
+        <%= link_to "Edit", edit_student_learning_differences_form_url(student_id: s.id, id: s.learning_differences_form.id) %>
+      <% end %>
+    </li>
+  </ul>
+<% end %>
+ 
+ 
+<p>If you have completed all of these forms, thank you! If any of your forms are<br> 
+missing, please take a moment to click the links above and complete your <br>
+enrollment forms.</p> 
+ 
+<p>The Parent Agreement, Photo Consent and Liability Release may be completed <br>
+once for your entire family.</p> 
+ 
+<p>The Medical Form must be completed for each student enrolled at WEB. If your <br>
+medical information will change before August 2023 (i.e. new insurance), you may <br>
+omit this form until you have the required information.</p>
+ 
+<p>Some 2023-24 WEB classes are full and many have waiting lists. Beginning May 3, <br>
+students without completed forms (with the exception of medical forms) will be <br>
+removed from rosters to make room for students on waiting lists.</p>
+ 
+<p>If you have any questions, please do not hesitate to reach out.</p>
+ 
+<p>
+Thanks!
+Senae Smith
+</p>

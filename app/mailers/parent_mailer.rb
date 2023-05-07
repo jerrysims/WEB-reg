@@ -1,6 +1,20 @@
 class ParentMailer < ApplicationMailer
   default from: 'notifications@webtutorialnashville.com'
 
+  def missing_forms_email(parent)
+    @parent = parent
+    @parent_agreement = @parent.parent_agreement
+    @release_of_liability = @parent.release_of_liability
+    @photo_consent = @parent.photo_consent
+    @students = @parent.students
+
+    mail(
+      to: @parent.email, 
+      from: "notifications@webtutorialnashville.com",
+      subject: "Forms Checklist - 2023/24"
+    )
+  end
+
   def shadow_schedule_email(parent, student)
     @parent = parent
     @student_count = @parent.students.count

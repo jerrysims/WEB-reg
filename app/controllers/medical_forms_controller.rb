@@ -12,9 +12,22 @@ class MedicalFormsController < ApplicationController
       render :new
     end
   end
+
+  def edit
+    @form_action = :update
+    @medical_form = @student.medical_form
+  end
   
   def new
+    @form_action = :create
     @medical_form = MedicalForm.new
+  end
+
+  def update
+    @medical_form = MedicalForm.find(params[:id])
+    @medical_form.update(medical_form_params)
+
+    redirect_to root_path
   end
 
   private

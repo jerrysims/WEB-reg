@@ -14,8 +14,21 @@ class LearningDifferencesFormsController < ApplicationController
     end
   end
 
+  def edit
+    @form_action = :update
+    @learning_differences_form = @student.learning_differences_form
+  end
+
   def new
+    @form_action = :create
     @learning_differences_form = LearningDifferencesForm.new
+  end
+
+  def update
+    @learning_differences_form = LearningDifferencesForm.find(params[:id])
+    @learning_differences_form.update(learning_differences_form_params)
+
+    redirect_to root_path
   end
 
   private

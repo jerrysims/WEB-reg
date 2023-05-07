@@ -12,8 +12,21 @@ class ParentAgreementsController < ApplicationController
     end
   end
 
+  def edit 
+    @form_action = :update
+    @parent_agreement = current_parent.parent_agreement
+  end
+
   def new
+    @form_action = :create
     @parent_agreement = ParentAgreement.new
+  end
+
+  def update
+    @parent_agreement = ParentAgreement.find params[:id]
+    @parent_agreement.update parent_agreement_params
+
+    redirect_to root_path
   end
 
   private

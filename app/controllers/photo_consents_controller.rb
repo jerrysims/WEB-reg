@@ -13,8 +13,21 @@ class PhotoConsentsController < ApplicationController
     end
   end
 
+  def edit 
+    @form_action = :update
+    @photo_consent = current_parent.photo_consent
+  end
+
   def new
+    @form_action = :create
     @photo_consent = PhotoConsent.new
+  end
+  
+  def update
+    @photo_consent = PhotoConsent.find params[:id]
+    @photo_consent.update photo_consent_params
+
+    redirect_to root_path
   end
 
   private

@@ -1,5 +1,7 @@
+<% @http_method = @parent_agreement.persisted? ? :patch : :post %>
+
 <h1>WEB Parent Agreement</h1>
-<%= simple_form_for [@parent, @parent_agreement] do |f| %>
+<%= simple_form_for [@parent, @parent_agreement], url: { method: @http_method, action: @form_action } do |f| %>
   <p>You may complete this form <strong>once</strong> per family.</p>
   <p>This agreement (“Agreement”) is made and entered into between Weekday Eastside Bridge (WEB) and</p>
   <%= f.simple_fields_for @parent do |parent_form| %>
@@ -28,7 +30,7 @@
         (August 2023 through May 2024) for the classes enrolled in as of July 1, 2023. (If unsure of 
         class registration, please obtain confirmation before completing this form.) * 
       </div>
-      <div class="row"><%= f.input :agree_to_pay, label: "I Agree" %></div>
+      <div class="row"><%= f.input :agree_to_pay, required: true, label: "I Agree" %></div>
     </div>
   </div>
   <div class="row">
@@ -61,7 +63,7 @@
         will be no refund, credit or reduction for withdrawal, absences, vacations, snow days, 
         illnesses, holidays or moving. *      
       </div>
-      <div class="row"><%= f.input :no_refund_on_voluntary_withdraw, label: "I Agree" %></div>
+      <div class="row"><%= f.input :no_refund_on_voluntary_withdraw, required: true, label: "I Agree" %></div>
     </div>
   </div>
   <div class="row">
@@ -71,7 +73,7 @@
         If a Student is asked to withdraw from WEB, the undersigned is responsible for the 
         prorated annual Tuition through the end of the semester in which the Student withdraws. *      
       </div>
-      <div class="row"><%= f.input :prorate_on_requested_withdraw, label: "I Agree" %></div>
+      <div class="row"><%= f.input :prorate_on_requested_withdraw, required: true, label: "I Agree" %></div>
     </div>
   </div>
   <div class="row">
@@ -102,7 +104,7 @@
         conditions and agree to fulfill the total financial obligation for payment of tuition as set 
         forth herein.
       </div>
-      <div class="row"><%= f.input :late_fee_for_late_pickup, label: "I Agree" %></div>
+      <div class="row"><%= f.input :late_fee_for_late_pickup, required: true, label: "I Agree" %></div>
     </div>
   </div>
   <div class="row">
@@ -113,7 +115,7 @@
  
         I understand & agree this is a legal representation of my signature.
       </div>
-      <div class="row"><%= f.input :signature, label: "Please type full name" %></div>
+      <div class="row"><%= f.input :signature, label: "Please type full name", required: true %></div>
     </div>
   </div>
   <div class="row">

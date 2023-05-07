@@ -13,8 +13,21 @@ class ReleaseOfLiabilitiesController < ApplicationController
     end
   end
 
+  def edit
+    @form_action = :update
+    @release_of_liability = current_parent.release_of_liability
+  end
+
   def new
+    @form_action = :create
     @release_of_liability = ReleaseOfLiability.new
+  end
+
+  def update
+    @release_of_liability = ReleaseOfLiability.find(params[:id])
+    @release_of_liability.update release_of_liability_params
+
+    redirect_to root_path
   end
 
   private

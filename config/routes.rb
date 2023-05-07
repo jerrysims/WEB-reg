@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         post 'choose_student', to: 'registrations#choose_student', as: :choose_student
       end
     end
-    resource :parent_agreements
+    resources :parent_agreements
     resources :photo_consents
     resources :release_of_liabilities
     get "registration_home", as: :registration_home
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 
   resources :students do
     resources :learning_differences_forms
-    resource :medical_forms
+    resources :medical_forms
     get 'schedule'
     get 'view_course_list'
     patch 'update_web_email'

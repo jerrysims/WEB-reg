@@ -29,7 +29,17 @@
         photograph(s) or electronic media images of my student at WEB for the use of the WEB 
         website, WEB Facebook page and/or WEB Instagram account. *      
       </div>
-      <div class="row"><%= f.input :permission_and_consent, label: false, as: :radio_buttons, collection: ["Do", "Do Not"] %></div>
+      <div class="row">
+        <%= f.input(
+          :permission_and_consent, 
+          label: false, 
+          as: :radio_buttons, 
+          collection: ["Do", "Do Not"], 
+          required: true,
+          input_html: { value: "#{f.object.permission_and_consent}" }
+          ) 
+        %>
+      </div>
     </div>
   </div>
   <div class="row">
