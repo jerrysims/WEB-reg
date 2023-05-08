@@ -41,7 +41,7 @@ Dear <%= @parent.first_name %>,
     </li>
     <li>Learning Differences Form: <b><%= s.learning_differences_form.try(:status) || "missing" %></b>
       <% if s.learning_differences_form.nil? %>
-        <%= link_to "Start Now", new_student_learning_differences_form_url(student_id: s.id) %>
+        <%= link_to "Start Now", new_student_learning_differences_form_url(student_id: s.id) %> (if applicable)
       <% else %>
         <%= link_to "Edit", edit_student_learning_differences_form_url(student_id: s.id, id: s.learning_differences_form.id) %>
       <% end %>
