@@ -38,7 +38,7 @@ class ReleaseOfLiabilitiesController < ApplicationController
   def release_of_liability_params
     params.require(:release_of_liability).permit(
       :waiver_terms,
-      :dalewood_terms,
+      :donelson_heights_terms,
       :signature
     )
   end
