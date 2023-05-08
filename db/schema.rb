@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 2023_05_08_190607) do
     t.boolean "late_fee_acknowledgment"
     t.boolean "no_refund_on_voluntary_withdraw"
     t.boolean "prorate_on_requested_withdraw"
-    t.boolean "plan_to_volunteer"
+    t.string "plan_to_volunteer"
     t.boolean "volunteer_buyout"
     t.boolean "late_fee_for_late_pickup"
     t.string "signature"

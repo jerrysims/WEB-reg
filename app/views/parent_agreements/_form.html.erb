@@ -1,6 +1,8 @@
 <% @http_method = @parent_agreement.persisted? ? :patch : :post %>
 
-<h1>WEB Parent Agreement</h1>
+<p class="notice"><%= notice %></p>
+<p><h4 class="alert"><%= alert %></h4></p>
+
 <%= simple_form_for [@parent, @parent_agreement], url: { method: @http_method, action: @form_action } do |f| %>
   <p>You may complete this form <strong>once</strong> per family.</p>
   <p>This agreement (“Agreement”) is made and entered into between Weekday Eastside Bridge (WEB) and</p>
@@ -83,8 +85,7 @@
         The undersigned agrees to volunteer for three hours during the 2023-24 academic year or, in 
         lieu of volunteering pay a $75 volunteer buyout.      
       </div>
-      <div class="row"><%= f.input :plan_to_volunteer, label: "I plan to volunteer." %></div>
-      <div class="row"><%= f.input :volunteer_buyout, label: "Please invoice me for the $75 volunteer buyout." %></div>
+      <div class="row"><%= f.input :plan_to_volunteer, label: "Please select one... ", as: :select, collection: [["I plan to volunteer.", "volunteer"], ["Please invoice me for the $75 volunteer buyout.", "buyout"]] %></div>
     </div>
   </div>
   <div class="row">
