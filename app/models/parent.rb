@@ -26,9 +26,11 @@ class Parent < ActiveRecord::Base
   has_one :parent_agreement
   has_one :photo_consent
   has_one :release_of_liability
+  has_many :receipts
 
   scope :missing_invoice, -> { left_outer_joins(:invoice).where.not(id: Invoice.closed.pluck(:parent_id)) }
   scope :locked, -> { where(locked: true) }
+  scope :have_not_gotten_missing_forms_mail, -> { Parent.includes(:receipts).where(receipts: { form_name: nil }) }
 
   after_create :assign_default_role
 

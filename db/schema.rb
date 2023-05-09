@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_08_192233) do
+ActiveRecord::Schema.define(version: 2023_05_09_001035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -181,6 +181,11 @@ ActiveRecord::Schema.define(version: 2023_05_08_192233) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "product_type"
+  end
+
+  create_table "receipts", force: :cascade do |t|
+    t.string "form_name"
+    t.integer "parent_id"
   end
 
   create_table "registration_logs", force: :cascade do |t|
