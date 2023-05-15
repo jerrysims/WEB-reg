@@ -152,6 +152,9 @@ ActiveAdmin.register Section do
     column :end_time
     column :class_minimum
     column :class_maximum
+    column "Seats Filled" do |section|
+      section.students.count
+    end
     column :created_at
     column :updated_at
   end
