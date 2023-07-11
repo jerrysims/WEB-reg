@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_09_001035) do
+ActiveRecord::Schema.define(version: 2023_05_10_212849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 2023_05_09_001035) do
     t.string "secondary_email"
     t.boolean "covid_statement_acknowledged"
     t.boolean "reg_fees_paid"
+    t.string "type"
     t.index ["email"], name: "index_parents_on_email", unique: true
     t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true
   end
