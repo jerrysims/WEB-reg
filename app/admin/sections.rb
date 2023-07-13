@@ -4,7 +4,7 @@ ActiveAdmin.register Section do
   config.sort_order = "course"
 
   permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_time, :user_id,
-                :class_minimum, :class_maximum, :suggested_grade, :subject_area, :course_id
+                :class_minimum, :class_maximum, :suggested_grade, :subject_area, :course_id, :teacher_id
 
   action_item :new_wait_list_student do
     link_to "Add New Waitlist Student", new_admin_wait_listed_student_path
