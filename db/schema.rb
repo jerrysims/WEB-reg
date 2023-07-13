@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_10_212849) do
+ActiveRecord::Schema.define(version: 2023_07_11_170354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -255,24 +255,7 @@ ActiveRecord::Schema.define(version: 2023_05_10_212849) do
     t.datetime "updated_at", null: false
     t.integer "course_id"
     t.integer "students_count", default: 0, null: false
-  end
-
-  create_table "shadow_spots", force: :cascade do |t|
-    t.text "time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "date"
-    t.bigint "subject_id"
-    t.index ["subject_id"], name: "index_shadow_spots_on_subject_id"
-  end
-
-  create_table "student_shadows", force: :cascade do |t|
-    t.bigint "student_id"
-    t.bigint "shadow_spot_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["shadow_spot_id"], name: "index_student_shadows_on_shadow_spot_id"
-    t.index ["student_id"], name: "index_student_shadows_on_student_id"
+    t.integer "teacher_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -297,25 +280,6 @@ ActiveRecord::Schema.define(version: 2023_05_10_212849) do
     t.index ["parent_id"], name: "index_students_on_parent_id"
   end
 
-  create_table "subjects", force: :cascade do |t|
-    t.text "name"
-    t.integer "grade"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "teacher_id"
-    t.index ["teacher_id"], name: "index_subjects_on_teacher_id"
-  end
-
-  create_table "teachers", force: :cascade do |t|
-    t.text "first_name"
-    t.text "last_name"
-    t.text "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "subject_id"
-    t.index ["subject_id"], name: "index_teachers_on_subject_id"
-  end
-
   create_table "wait_listed_students", force: :cascade do |t|
     t.integer "student_id"
     t.datetime "created_at", null: false
@@ -336,9 +300,6 @@ ActiveRecord::Schema.define(version: 2023_05_10_212849) do
   add_foreign_key "registration_logs", "students"
   add_foreign_key "registrations", "parents", column: "user_id"
   add_foreign_key "registrations", "sections"
-  add_foreign_key "student_shadows", "shadow_spots"
-  add_foreign_key "student_shadows", "students"
   add_foreign_key "students", "parents"
-  add_foreign_key "subjects", "teachers"
   add_foreign_key "wait_listed_students", "sections"
 end

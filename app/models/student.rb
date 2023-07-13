@@ -2,16 +2,13 @@ class Student < ActiveRecord::Base
   include StudentHelper
 
   belongs_to :parent
-  has_many :student_shadows
-  has_many :shadow_spots, through: :student_shadows
   has_many :registrations, dependent: :destroy
   has_many :sections, through: :registrations
   has_many :courses, through: :sections
+  has_many :teachers, through: :sections
   has_many :wait_listed_students, dependent: :destroy
   has_one :medical_form
   has_one :learning_differences_form
-
-  accepts_nested_attributes_for :student_shadows
 
   validates :date_of_birth, presence: true
   validates :emergency_contact, presence: true

@@ -1,0 +1,19 @@
+<h2>Teacher Dashboard</h2>
+<div class="row registration-checklist">
+  <div class="col-md-5 box">
+    <%= render "sections_box" %>
+  </div>
+</div>
+<div class="row registration-checklist">
+  <div class="col-md-5 box">
+    <ul>
+      <% @teacher.sections.each do |s| %>
+        <li class=" enrollment-forms-box-row row">
+          <div class="col-md-12">
+            <%= link_to "Parent Contact List", teacher_parent_contact_list_path(@teacher.id) , class: "col-xs-6" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

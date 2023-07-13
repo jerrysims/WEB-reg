@@ -1,0 +1,18 @@
+<h3>My Courses</h3>
+<% if @teacher.sections.empty? %>
+  <div class="row">
+    You do not currently have any courses
+  </div>
+<% else %>
+  <div class="container row">
+    <ul>
+      <% @teacher.sections.each do |s| %>
+        <li class=" enrollment-forms-box-row row">
+          <div class="col-md-12">
+            <%= link_to s.name, teacher_section_path(teacher_id: @teacher.id, id: s.id), class: "col-xs-6" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

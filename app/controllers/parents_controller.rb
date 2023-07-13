@@ -1,5 +1,6 @@
 class ParentsController < ApplicationController
   before_action :authenticate_parent!
+  before_action :redirect_teachers, only: :show
   before_action :check_for_locked_parent, except: [:registration_home]
   before_action :set_parent
 
@@ -51,6 +52,10 @@ class ParentsController < ApplicationController
       students << student
     end
     students
+  end
+
+  def redirect_teachers
+    redirect_to teacher_path(current_parent.id) if current_parent.is_a? Teacher
   end
 
   def set_parent
