@@ -67,6 +67,7 @@ ActiveAdmin.register Section do
     column "Day/Time" do |section|
       "#{section.day}, #{section.start_time.strftime("%l:%M")}"
     end
+    column :teacher
     column "Seats Filled" do |section|
       section.students.count
     end
