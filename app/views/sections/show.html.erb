@@ -3,18 +3,31 @@
 	<div class="col-md-9">
 		<div class="table-wrapper">
 			<table class="table table-hover">
-  			<thead>
-	  			<tr>
-		  			<th>Students</th>
-			  	</tr>
-		  	</thead>
-			  <tbody>
-				  <% @students.each do |student| %>
-            <tr>
-              <td><%= student.full_name %></td>
-            </tr>
-          <% end %>
-			  </tbody>
+			<thead>
+				<tr>
+					<th>Student</th>
+          <th>Registered Parent</th>
+					<th>Parent Emails</th>
+				</tr>
+			</thead>
+			<tbody>
+        <% @teacher.students.order(last_name: :asc).each do |s| %>
+          <tr>
+            <td>
+              <%= s.full_name %>
+            </td>
+            <td>
+              <%= s.parent.full_name %>
+            </td>
+            <td>
+              <%= s.parent.email %>
+              <% unless s.parent.secondary_email.nil? %>
+                <br><%= s.parent.secondary_email %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+			</tbody>
 			</table>
 		</div>
 	</div>
