@@ -165,4 +165,7 @@ ActiveAdmin.register Section do
       Section.includes(:course)
     end
   end
+
+  filter :course
+  filter :teacher
 end
