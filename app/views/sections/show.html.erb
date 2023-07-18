@@ -11,7 +11,7 @@
 				</tr>
 			</thead>
 			<tbody>
-        <% @teacher.students.order(last_name: :asc).each do |s| %>
+        <% @section.students.order(last_name: :asc).each do |s| %>
           <tr>
             <td>
               <%= s.full_name %>
