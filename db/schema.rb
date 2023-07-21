@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_11_170354) do
+ActiveRecord::Schema.define(version: 2023_07_20_152501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -278,6 +278,13 @@ ActiveRecord::Schema.define(version: 2023_07_11_170354) do
     t.string "nickname"
     t.boolean "learning_differences_flag"
     t.index ["parent_id"], name: "index_students_on_parent_id"
+  end
+
+  create_table "teachers_sections", force: :cascade do |t|
+    t.bigint "teacher_id"
+    t.bigint "section_id"
+    t.index ["section_id"], name: "index_teachers_sections_on_section_id"
+    t.index ["teacher_id"], name: "index_teachers_sections_on_teacher_id"
   end
 
   create_table "wait_listed_students", force: :cascade do |t|
