@@ -1,6 +1,7 @@
 class Section < ApplicationRecord
   belongs_to :course
-  has_and_belongs_to_many :teachers
+  has_many :teachers_sections
+  has_many :teachers, through: teachers_sections
   has_many :registrations, dependent: :destroy
   has_many :students, through: :registrations
   has_many :wait_listed_students, dependent: :destroy
