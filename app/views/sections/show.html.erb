@@ -37,9 +37,8 @@
 		<div class="table-wrapper">
       <% @section.students.order(last_name: :asc).each do |s| %>
         <%= s.parent.email %>, 
-          <% unless s.parent.secondary_email.nil? %>
-            <br><%= s.parent.secondary_email %>, 
-          <% end %>
+        <% unless s.parent.secondary_email.nil? %>
+          <br><%= s.parent.secondary_email %>, 
         <% end %>
       <% end %>
 		</div>
