@@ -6,6 +6,7 @@
 			<thead>
 				<tr>
 					<th>Student</th>
+          <th>Pronouns</th>
           <th>Registered Parent</th>
 					<th>Parent Emails</th>
 				</tr>
@@ -15,6 +16,9 @@
           <tr>
             <td>
               <%= s.full_name %>
+            </td>
+            <td>
+              <%= s.pronouns %>
             </td>
             <td>
               <%= s.parent.full_name %>
