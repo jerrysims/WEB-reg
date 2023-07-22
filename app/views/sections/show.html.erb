@@ -32,3 +32,16 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-9">
+		<div class="table-wrapper">
+      <% @section.students.order(last_name: :asc).each do |s| %>
+        <%= s.parent.email>, 
+          <% unless s.parent.secondary_email.nil? %>
+            <br><%= s.parent.secondary_email %>, 
+          <% end %>
+        <% end %>
+      <% end %>
+		</div>
+	</div>
+</div>
