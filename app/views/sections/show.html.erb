@@ -7,6 +7,7 @@
 				<tr>
 					<th>Student</th>
           <th>Pronouns</th>
+          <th>Grade Level</th>
           <th>Registered Parent</th>
 					<th>Parent Emails</th>
 				</tr>
@@ -19,6 +20,9 @@
             </td>
             <td>
               <%= s.pronouns %>
+            </td>
+            <td>
+              <%= s.grade %>
             </td>
             <td>
               <%= s.parent.full_name %>
