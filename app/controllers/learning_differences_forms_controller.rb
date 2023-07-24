@@ -24,6 +24,10 @@ class LearningDifferencesFormsController < ApplicationController
     @learning_differences_form = LearningDifferencesForm.new
   end
 
+  def show
+    @learning_differences_form = LearningDifferencesForm.find(params[:id])
+  end
+
   def update
     @learning_differences_form = LearningDifferencesForm.find(params[:id])
     @learning_differences_form.update(learning_differences_form_params)

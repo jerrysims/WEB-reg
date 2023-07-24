@@ -1,6 +1,6 @@
 <h2><%= @section.name %></h2>
 <div class="row">
-	<div class="col-md-9">
+	<div class="col-md-12">
 		<div class="table-wrapper">
 			<table class="table table-hover">
 			<thead>
@@ -10,6 +10,7 @@
           <th>Grade Level</th>
           <th>Registered Parent</th>
 					<th>Parent Emails</th>
+          <th>Learning Differences</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,6 +34,11 @@
                 <br><%= s.parent.secondary_email %>
               <% end %>
             </td>
+            <td>
+              <% unless s.learning_differences_form.nil? %>
+                <%= link_to "View", student_learning_differences_form_path(student_id: s.id, id: s.learning_differences_form.id) %>
+              <% end %>
+            </td>  
           </tr>
         <% end %>
 			</tbody>

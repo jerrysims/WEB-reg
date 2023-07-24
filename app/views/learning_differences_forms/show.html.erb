@@ -1,0 +1,23 @@
+<h2><%= @student.full_name %>'s Learning Differences Form</h2>
+<div class="row">
+	<div class="col-md-12">
+    <dl>
+      <div class="row">
+        <dt class="col-12"><%= "Please explain any learning differences, diagnosed or suspected."  %> </dt>
+        <dd class="col-12"> <%= @learning_differences_form.learning_differences %>
+      </div>
+      <div class="row">
+        <dt class="col-12"> <%= "What accomodations have been successful in the past to help your student succeed?"  %> </dt>
+        <dd class="col-12"> <%= @learning_differences_form.successful_accomodations %>
+      </div>
+      <div class="row">
+        <dt class="col-12"> <%= "What accommodations will be utilized at home to help your child succeed?"  %> </dt>
+        <dd class="col-12"> <%= @learning_differences_form.home_accomodations %>
+      </div>
+      <div class="row">
+        <dt class="col-12"> <%= "Is there anything else we need to know about your child to help them learn at WEB?"  %> </dt>
+        <dd class="col-12"> <%= @learning_differences_form.anything_else %>
+      </div>
+    </dl>
+	</div>
+</div>
