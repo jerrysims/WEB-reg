@@ -3,6 +3,7 @@ ActiveAdmin.register Parent do
 
   form do |f|
     f.input :email
+    f.input :secondary_email
     f.input :first_name
     f.input :last_name
     f.input :phone_number
@@ -19,6 +20,7 @@ ActiveAdmin.register Parent do
   permit_params :first_name,
                 :last_name,
                 :email,
+                :secondary_email,
                 :locked,
                 :phone_number,
                 :street_address_1,
