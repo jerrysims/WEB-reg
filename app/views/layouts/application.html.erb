@@ -51,6 +51,17 @@
                           <%= link_to "Schedules", registrations_review_path, class: "nav-link" %>
                         </li>
                       <% end %>
+                    </ul>
+                  </div>
+                </div>
+                <div class="navbar row justify-content-center">
+                  <div class="navbar bg-light col-9">
+                    <ul class="navbar-nav mr-auto">
+                      <% if controller_name == "teachers" %>
+                        <%= link_to "Switch to Parent View", parent_path(id: current_parent.id, redirect: false) %>
+                      <% elsif controller_name == "parents" && current_parent.is_a?(Teacher) %>
+                        <%= link_to "Switch to Teacher View", teacher_path(id: current_parent.id) %>
+                      <% end %>
                       <li class="nav-item col inline">
                         <% if current_parent %>
                           <%= link_to "Sign Out", destroy_parent_session_path, method: :delete, class: "nav-link" %>

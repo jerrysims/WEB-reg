@@ -55,7 +55,7 @@ class ParentsController < ApplicationController
   end
 
   def redirect_teachers
-    redirect_to teacher_path(current_parent.id) if current_parent.is_a? Teacher
+    redirect_to teacher_path(current_parent.id) if current_parent.is_a?(Teacher) && params[:redirect] != "false"
   end
 
   def set_parent
