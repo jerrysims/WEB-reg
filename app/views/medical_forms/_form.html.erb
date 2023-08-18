@@ -79,7 +79,7 @@
     <div class="row">
       I _____ give permission for my child to receive 200 mg of ibuprofen or 325 mg of acetaminophen while at WEB
     </div>
-    <div class="row"><%= f.input :pain_reliever_permission, label: false, as: :radio_buttons, collection: ["Do", "Do Not"] %></div>
+    <div class="row"><%= f.input :pain_reliever_permission, label: false, as: :radio_buttons %></div>
   </div>
   <div class="row">
     <div class="row">
@@ -88,7 +88,7 @@
       child is under the care of Weekday Eastside Bridge (WEB) if I am not reasonably available 
       by telephone to give consent. *
     </div>
-    <div class="row"><%= f.input :medical_care_consent, label: false, as: :radio_buttons, collection: ["Consent", "Do Not Consent"] %></div>
+    <div class="row"><%= f.input :medical_care_consent, label: false, as: :radio_buttons%></div>
   </div>
   <div>
     <div class="row">
