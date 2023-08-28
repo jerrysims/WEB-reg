@@ -103,7 +103,6 @@ ActiveAdmin.register Section do
               column "Enrolled Students" do |registration|
                 columns do
                   column do
-                    link_to "#{registration.student.full_name} (#{registration.student.grade})"
                     link_to("#{registration.student.full_name} (#{registration.student.grade})", admin_student_schedule_path(student_id: registration.student_id), method: :post)
                   end
                   column do
