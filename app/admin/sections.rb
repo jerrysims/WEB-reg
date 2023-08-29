@@ -165,6 +165,6 @@ ActiveAdmin.register Section do
     end
   end
 
-  filter :course
+  filter :course_name_cont, as: :select, collection: Course.all.order(name: :asc).pluck(:name).uniq
   filter :teacher
 end
