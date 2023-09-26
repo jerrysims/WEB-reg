@@ -1,4 +1,5 @@
-<h2><%= @section.name %></h2>
+<div><h2><%= @section.name %></h2><div>
+<div class="btn btn-primary"><%= link_to "View Gradebook", teacher_section_gradebook_path(teacher_id: @teacher.id, section_id: @section.id) %></div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="table-wrapper">

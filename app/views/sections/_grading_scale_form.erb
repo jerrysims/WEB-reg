@@ -1,0 +1,4 @@
+<%= simple_form_for(@section, url: teacher_section_assign_grading_scale_url(teacher_id: @teacher.id, section_id: @section.id), method: "patch")  do |f| %>
+  <%= f.input :grading_scale, label: "Choose a grading scale for this class:", as: :select, collection: Section::GRADING_SCALES %>
+  <%= f.submit "Save Grading Scale" %>
+<% end %>

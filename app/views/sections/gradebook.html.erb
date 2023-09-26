@@ -1,0 +1,7 @@
+<div><h2><%= @section.name %> Gradebook</h2></div>
+<% if @section.grading_scale.nil? %>
+  <%= render partial: "grading_scale_form" %>
+<% else %>
+  <h5>Grading Scale: <%= @section.grading_scale %> <%= link_to "edit", teacher_section_reset_grading_scale_path%></h5>
+  <%= render partial: "gradebook_form" %>
+<% end %>

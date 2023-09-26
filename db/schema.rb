@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_20_152501) do
+ActiveRecord::Schema.define(version: 2023_09_21_141941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -220,6 +220,10 @@ ActiveRecord::Schema.define(version: 2023_07_20_152501) do
     t.string "status", default: "selected"
     t.bigint "section_id"
     t.bigint "user_id"
+    t.text "q1_grade"
+    t.text "q2_grade"
+    t.text "q3_grade"
+    t.text "q4_grade"
     t.index ["section_id"], name: "index_registrations_on_section_id"
     t.index ["student_id", "section_id"], name: "index_registrations_on_student_id_and_section_id", unique: true
     t.index ["user_id"], name: "index_registrations_on_user_id"
@@ -256,6 +260,7 @@ ActiveRecord::Schema.define(version: 2023_07_20_152501) do
     t.integer "course_id"
     t.integer "students_count", default: 0, null: false
     t.integer "teacher_id"
+    t.string "grading_scale"
   end
 
   create_table "students", force: :cascade do |t|

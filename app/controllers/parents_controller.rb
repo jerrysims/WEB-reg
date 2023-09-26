@@ -1,6 +1,5 @@
 class ParentsController < ApplicationController
   before_action :authenticate_parent!
-  before_action :redirect_teachers, only: :show
   before_action :check_for_locked_parent, except: [:registration_home]
   before_action :set_parent
 
@@ -32,6 +31,10 @@ class ParentsController < ApplicationController
     end
   end
 
+  def view_grades
+    @students = current_parent.students.enrolled
+  end
+
   private
   def build_email_suggestions(student)
     suggestions = []
@@ -52,10 +55,6 @@ class ParentsController < ApplicationController
       students << student
     end
     students
-  end
-
-  def redirect_teachers
-    redirect_to teacher_path(current_parent.id) if current_parent.is_a?(Teacher) && params[:redirect] != "false"
   end
 
   def set_parent

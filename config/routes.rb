@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     get "registration_home", as: :registration_home
     get "confirm_grade"
     get "confirm_web_email"
+    get "view_grades"
   end
 
   resources :students do
@@ -40,7 +41,12 @@ Rails.application.routes.draw do
   end
 
   resources :teachers do
-    resources :sections
+    resources :sections do
+      patch "assign_grading_scale", to: "sections#assign_grading_scale", as: :assign_grading_scale
+      get "gradebook"
+      post "gradebook", to: "sections#save_gradebook", as: :save_gradebook
+      get "reset_grading_scale"
+    end
     get "parent_contact_list"
   end
   
