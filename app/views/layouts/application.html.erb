@@ -53,9 +53,11 @@
                         <li class="nav-item col inline">
                           <%= link_to "Schedules", registrations_review_path, class: "nav-link" %>
                         </li>
+                        <% if current_parent.has_role(:admin) %>
                         <li class="nav-item col inline">
                           <%= link_to "Grades", parent_view_grades_path(current_parent), class: "nav-link" %>
                         </li>
+                        <% end %>
                       <% end %>
                     </ul>
                   </div>
