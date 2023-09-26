@@ -5,7 +5,7 @@ class SectionsController < ApplicationController
     @registrations = Registration.where(section: @section)
     @section.update(grading_scale_params)
 
-    redirect_to teacher_section_gradebook_path
+    redirect_to teacher_section_gradebook_path(teacher_id: @teacher.id, section_id: @section.id)
   end
   
   def gradebook
