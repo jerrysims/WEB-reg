@@ -37,10 +37,10 @@
                       <li class="nav-item col inline">
                         <span><h5>Parent</h5></span>
                       </li>
-                      <li class="nav-item col inline">
-                        <%= link_to "Home", parent_path(id: current_parent.id, redirect: false), class: "nav-link" %>
-                      </li>
                       <% if current_parent %>
+                        <li class="nav-item col inline">
+                          <%= link_to "Home", parent_path(id: current_parent.id, redirect: false), class: "nav-link" %>
+                        </li>
                         <li class="nav-item col inline">
                           <%= link_to "Registration", parent_registration_periods_path(current_parent), class: "nav-link" %>
                         </li>
