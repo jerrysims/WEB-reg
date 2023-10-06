@@ -18,6 +18,32 @@ class Registration < ActiveRecord::Base
   before_destroy :log_registration
   after_destroy :generate_dropped_course_line_items
 
+  def s1_average
+    temp_array = []
+    [:q1_grade, :q2_grade].each do |q|
+      unless send(q).nil?
+        temp_array << send(q).to_f
+      end
+    end
+
+    return "-" if temp_array.empty?
+
+    temp_array.inject(0.0) { |sum, el| sum + el }.to_f / temp_array.size
+  end
+  
+  def s2_average
+    temp_array = []
+    [:q3_grade, :q4_grade].each do |q|
+      unless send(q).nil?
+        temp_array << send(q).to_f
+      end
+    end
+
+    return "-" if temp_array.empty?
+
+    temp_array.inject(0.0) { |sum, el| sum + el }.to_f / temp_array.size
+  end
+
   private
 
   def generate_dropped_course_line_items
@@ -67,8 +93,6 @@ class Registration < ActiveRecord::Base
       errors.add(:student, "is not in the right grade for that section")
     end
   end
-
-  private
 
   def log_registration
     RegistrationLog.create(
