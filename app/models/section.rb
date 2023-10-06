@@ -16,6 +16,7 @@ class Section < ApplicationRecord
 
   scope :open_seats, -> { where("students_count < class_maximum") }
   delegate :registration_period_id, to: :course
+  delegate :registration_period, to: :course
   delegate :semester, to: :course
 
   NUMERICAL = (1..110).to_a.reverse

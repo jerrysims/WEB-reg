@@ -8,6 +8,10 @@ class AdminsController < ApplicationController
   def dashboard
   end
 
+  def grades
+    @sections = Section.all.select { |s| s.registrations.count > 0 }
+  end
+
   def missing_documents
     parent_ids = Student.enrolled.pluck(:parent_id)
 
@@ -39,6 +43,10 @@ class AdminsController < ApplicationController
   end
 
   def student_schedule
+  end
+
+  def view_grades
+    @section = Section.find(params[:section_id])
   end
 
   

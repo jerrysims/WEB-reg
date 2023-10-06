@@ -1,0 +1,27 @@
+<div class="row box">
+  <div class="col-6">
+    <table>
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Q1</th>
+          <th>Q2</th>
+          <th>Q3</th>
+          <th>Q4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @section.students.each do |s| %>
+          <% r = Registration.find_by(student_id: s.id, section_id: @section.id) %>
+          <tr>
+            <td><%= s.full_name %></td>
+            <td><%= r.q1_grade %></td>
+            <td><%= r.q2_grade %></td>
+            <td><%= r.q3_grade %></td>
+            <td><%= r.q4_grade %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

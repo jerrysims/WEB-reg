@@ -53,9 +53,11 @@ Rails.application.routes.draw do
   get "/acknowledge_covid_statement", to: "parents#acknowledge_covid_statement", as: :acknowledge_covid_statement
   get "/admin/clear_search_filters", to: "admins#clear_search_filters", as: :admin_clear_search_filters
   get "/admin/dashboard", to: "admins#dashboard", as: :admin_dashboard  
+  get "/admin/grades", to: "admins#grades", as: :admin_grades
   get "/admin/missing_documents", to: "admins#missing_documents", as: :admin_missing_documents
   get "/admin/open_seats", to: "admins#open_seats", as: :admin_open_seats
   get '/admin/students_schedules', to: 'admins#students_schedules', as: :admin_students_schedules
+  get '/admin/view_grades/:section_id', to: 'admins#view_grades', as: :admin_view_grades
   get "/covid_statement", to: "parents#covid_statement", as: :covid_statement
   get '/enrollment', to: 'enrollments#new', as: :new_enrollment_path
   get '/enrollment/select_student', to: 'enrollments#select_student', as: :select_student_path

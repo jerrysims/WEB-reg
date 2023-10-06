@@ -1,0 +1,28 @@
+<h2>Grades</h2>
+
+<div class="row">
+	<div class="col-md-9">
+		<div class="table-wrapper">
+			<table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Registration Period</th>
+            <th>Course</th>
+            <th>Section</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sections.each do |s| %>
+            <tr>
+              <td><%= s.registration_period.name %></td>
+              <td><%= s.course.name %></td>
+              <td><%= s.name %></td>
+              <td><%= link_to "View", admin_view_grades_path(s.id) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+			</table>
+		</div>
+	</div>
+</div>
