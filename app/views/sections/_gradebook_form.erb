@@ -13,7 +13,7 @@
 				  </tr>
 			  </thead>
         <tbody>
-          <% @section.registrations.each do |registration| %>
+          <% @registrations.each do |registration| %>
             <tr>
               <%= section_form.fields_for registration, index: nil do |registration_form| %>
                 <%= registration_form.hidden_field :id, as: :hidden, input_html: { value: registration.id } %>

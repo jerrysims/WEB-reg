@@ -12,6 +12,8 @@ class Registration < ActiveRecord::Base
   validate :one_class_at_a_time
   validate :student_is_correct_grade
 
+  nilify_blanks before: :update
+
   scope :missing_invoices, -> { where(student: Student.where(parent_id: Parent.left_outer_joins(:invoice).where.not(id: Invoice.closed.pluck(:parent_id)))) }
 
   before_save :log_registration

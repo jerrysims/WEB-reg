@@ -11,7 +11,7 @@ class SectionsController < ApplicationController
   def gradebook
     @teacher = Teacher.find(params[:teacher_id])
     @section = Section.find(params[:section_id])
-    @registrations = Registration.where(section: @section)
+    @registrations = Registration.where(section: @section).joins(:student).order(:last_name, :first_name)
   end
 
   def reset_grading_scale
@@ -30,7 +30,11 @@ class SectionsController < ApplicationController
 
     gradebook_params[:registration].each do |gb|
       r = Registration.find(gb[:id])
-      r.update(gb)
+
+      [:q1_grade, :q2_grade, :q3_grade, :q4_grade].each do |grade|
+        r.update_attribute(grade, gb[grade]) if gb[grade].present?
+      end
+
     end
 
     render :gradebook
@@ -46,6 +50,7 @@ class SectionsController < ApplicationController
   def gradebook_params
     params.require(:section).permit(registration: [:id, :student_id, :section_id, :q1_grade, :q2_grade, :q3_grade, :q4_grade])
   end
+
 
   def grading_scale_params
     params.require(:section).permit(:grading_scale)
