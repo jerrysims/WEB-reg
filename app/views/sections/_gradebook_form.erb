@@ -21,9 +21,9 @@
                 <%= registration_form.hidden_field :section_id, as: :hidden, input_html: { value: registration.student.id } %>
                 <td><%= registration.student %></td>
                 <td><%= registration_form.input :q1_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q1_grade }  %></td>
-                <td><%= registration_form.input :q2_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), html_input: { include_blank: true, value: registration.q2_grade }  %></td>
-                <td><%= registration_form.input :q3_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), html_input: { include_blank: true, value: registration.q3_grade }  %></td>
-                <td><%= registration_form.input :q4_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), html_input: { include_blank: true, value: registration.q4_grade }  %></td>
+                <td><%= registration_form.input :q2_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q2_grade }  %></td>
+                <td><%= registration_form.input :q3_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q3_grade }  %></td>
+                <td><%= registration_form.input :q4_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q4_grade }  %></td>
               <% end %>
             </tr>
           <% end %>
