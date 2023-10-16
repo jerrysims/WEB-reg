@@ -77,7 +77,7 @@ class Section < ApplicationRecord
   end
 
   def to_s
-    "#{s.course.truncate(20)}, #{s.day}, #{s.start_time.strftime("%l:%M")}"
+    "#{course.name.truncate(20)}, #{day}, #{start_time.strftime("%l:%M")}"
   end
 
   def waitlist

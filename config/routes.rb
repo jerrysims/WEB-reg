@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   get "/admin/open_seats", to: "admins#open_seats", as: :admin_open_seats
   get '/admin/students_schedules', to: 'admins#students_schedules', as: :admin_students_schedules
   get '/admin/view_grades/:section_id', to: 'admins#view_grades', as: :admin_view_grades
+  get '/admin/view_all_grades', to: 'admins#view_all_grades', as: :admin_view_all_grades
   get "/covid_statement", to: "parents#covid_statement", as: :covid_statement
   get '/enrollment', to: 'enrollments#new', as: :new_enrollment_path
   get '/enrollment/select_student', to: 'enrollments#select_student', as: :select_student_path

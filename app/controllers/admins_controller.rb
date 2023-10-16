@@ -45,6 +45,10 @@ class AdminsController < ApplicationController
   def student_schedule
   end
 
+  def view_all_grades
+    @sections = Section.all.includes(:course).order("courses.name asc")
+  end
+
   def view_grades
     @section = Section.find(params[:section_id])
   end
