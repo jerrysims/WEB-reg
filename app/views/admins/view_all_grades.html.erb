@@ -1,0 +1,4 @@
+<h2>All Grades</h2>
+<% @sections.each do |s| %>
+  <%= render(partial: "one_section_grades", locals: { section: s }) %>
+<% end %>
