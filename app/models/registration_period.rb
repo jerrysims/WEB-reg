@@ -3,7 +3,7 @@ class RegistrationPeriod < ApplicationRecord
 
   validates_inclusion_of :rp_type, in: RP_TYPES
 
-  scope :open, ->{ where("open_date < ?", Time.now).where("close_date > ?", Time.now) } 
+  scope :open, ->{ where("open_date <= ?", Date.today).where("close_date >= ?", Date.today) } 
   scope :academic, ->{ where(rp_type: "academic") }
   scope :extracurricular, ->{ where(rp_type: "extracurricular") }
 
