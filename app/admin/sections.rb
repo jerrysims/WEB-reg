@@ -6,6 +6,10 @@ ActiveAdmin.register Section do
   permit_params :name, :description, :textbooks, :grades, :day, :start_time, :end_time, :user_id,
                 :class_minimum, :class_maximum, :suggested_grade, :subject_area, :course_id, :teacher_id
 
+  action_item :assign_teacher do
+    link_to "Assign Teachers", new_admin_teacher_assignment_path 
+  end
+
   action_item :new_wait_list_student do
     link_to "Add New Waitlist Student", new_admin_wait_listed_student_path
   end
@@ -67,7 +71,11 @@ ActiveAdmin.register Section do
     column "Day/Time" do |section|
       "#{section.day}, #{section.start_time.strftime("%l:%M")}"
     end
-    column :teacher
+    column :teacher do |section|
+      section.teachers.each do |t|
+        link_to t, teacher_path(t.id)
+      end
+    end 
     column "Seats Filled" do |section|
       section.students.count
     end
@@ -133,6 +141,21 @@ ActiveAdmin.register Section do
                   end
                   column
                   column
+                end
+              end
+            end
+          end
+        end
+      end
+      panel "Teachers" do
+        columns do
+          column do
+            index_table_for resource.teachers do |t|
+              column "Teachers" do |teacher|
+                columns do
+                  column do
+                    span teacher.full_name
+                  end
                 end
               end
             end

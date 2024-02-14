@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_21_141941) do
+ActiveRecord::Schema.define(version: 2024_02_14_185408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -288,6 +288,7 @@ ActiveRecord::Schema.define(version: 2023_09_21_141941) do
   create_table "teachers_sections", force: :cascade do |t|
     t.bigint "teacher_id"
     t.bigint "section_id"
+    t.index ["section_id", "teacher_id"], name: "index_teachers_sections_on_section_id_and_teacher_id", unique: true
     t.index ["section_id"], name: "index_teachers_sections_on_section_id"
     t.index ["teacher_id"], name: "index_teachers_sections_on_teacher_id"
   end

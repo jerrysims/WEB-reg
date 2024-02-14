@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     end
     get "parent_contact_list"
   end
-  
+
   get "/acknowledge_covid_statement", to: "parents#acknowledge_covid_statement", as: :acknowledge_covid_statement
   get "/admin/clear_search_filters", to: "admins#clear_search_filters", as: :admin_clear_search_filters
   get "/admin/dashboard", to: "admins#dashboard", as: :admin_dashboard  
