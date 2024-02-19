@@ -206,6 +206,8 @@ GEM
       stringio
     puma (5.2.1)
       nio4r (~> 2.0)
+    pundit (2.3.1)
+      activesupport (>= 3.0.0)
     racc (1.6.2)
     rack (2.2.6.3)
     rack-test (2.0.2)
@@ -364,6 +366,7 @@ DEPENDENCIES
   pry-nav (~> 1.0)
   pry-rails (~> 0.3.4)
   puma (~> 5.2, >= 5.2.1)
+  pundit (~> 2.3, >= 2.3.1)
   rails (~> 6.0, >= 6.0.6.1)
   rails-controller-testing
   rails_12factor
