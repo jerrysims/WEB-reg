@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :grades
   resources :courses
   devise_for :parents
   devise_for :admin_users, ActiveAdmin::Devise.config

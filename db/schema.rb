@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_14_185408) do
+ActiveRecord::Schema.define(version: 2024_02_19_180918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -53,6 +53,19 @@ ActiveRecord::Schema.define(version: 2024_02_14_185408) do
     t.bigint "product_id"
     t.index ["course_id"], name: "index_courses_products_on_course_id"
     t.index ["product_id"], name: "index_courses_products_on_product_id"
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.string "q1"
+    t.string "q2"
+    t.string "q3"
+    t.string "q4"
+    t.bigint "section_id", null: false
+    t.bigint "student_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["section_id"], name: "index_grades_on_section_id"
+    t.index ["student_id"], name: "index_grades_on_student_id"
   end
 
   create_table "invoice_line_items", force: :cascade do |t|
@@ -304,6 +317,8 @@ ActiveRecord::Schema.define(version: 2024_02_14_185408) do
 
   add_foreign_key "additional_contacts", "students"
   add_foreign_key "courses", "registration_periods"
+  add_foreign_key "grades", "sections"
+  add_foreign_key "grades", "students"
   add_foreign_key "invoices", "parents"
   add_foreign_key "learning_differences_forms", "students"
   add_foreign_key "parent_agreements", "parents"
