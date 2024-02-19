@@ -1,17 +1,21 @@
 <h2>Open Registrations</h2>
-<% if @open_academic_rps.present? %>
-  <div class="col-md-5 box">
-    <h3>Academic</h3>
-    <% @open_academic_rps.each do |rp| %>
-      <%= link_to rp.name, root_path %>
-    <% end %>
-  </div>    
-<% end %>
-<% if @open_extracurricular_rps.present? %>
-  <div class="col-md-5 box">
-    <h3>Extracurricular</h3>
-    <% @open_extracurricular_rps.each do |rp| %>
-      <div><%= link_to rp.name, new_parent_registration_period_registration_path(current_parent, rp)%></div>
-    <% end %>
-  </div>    
+<% if @no_open_rps %>
+  <p>There are currently no open registrations </p>
+<% else %>
+  <% if @open_academic_rps.present? %>
+    <div class="col-md-5 box">
+      <h3>Academic</h3>
+      <% @open_academic_rps.each do |rp| %>
+        <%= link_to rp.name, root_path %>
+      <% end %>
+    </div>    
+  <% end %>
+  <% if @open_extracurricular_rps.present? %>
+    <div class="col-md-5 box">
+      <h3>Extracurricular</h3>
+      <% @open_extracurricular_rps.each do |rp| %>
+        <div><%= link_to rp.name, new_parent_registration_period_registration_path(current_parent, rp)%></div>
+      <% end %>
+    </div>    
+  <% end %>
 <% end %>

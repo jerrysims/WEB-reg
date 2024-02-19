@@ -2,6 +2,7 @@ class ParentsController < ApplicationController
   before_action :authenticate_parent!
   before_action :check_for_locked_parent, except: [:registration_home, :view_grades]
   before_action :set_parent
+  before_action :set_open_rps
 
   def acknowledge_covid_statement
     current_parent.update_attributes(covid_statement_acknowledged: true)
@@ -55,6 +56,10 @@ class ParentsController < ApplicationController
       students << student
     end
     students
+  end
+
+  def set_open_rps
+    @open_rps = RegistrationPeriod.open
   end
 
   def set_parent

@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   before_action :check_for_locked_parent
+  before_action :set_open_rps
 
   def create
     @student = Student.new(student_params)
@@ -57,6 +58,16 @@ class StudentsController < ApplicationController
   end
 
   private
+  def set_open_rps
+    @open_rps = RegistrationPeriod.open
+    
+    if @open_rps.empty? 
+      @student = Student.find(params[:student_id])
+      flash[:notice] = "No registrations are open at this time"
+      redirect_back(fallback_location: parent_path(id: @student.parent.id)) 
+    end
+  end
+
   def should_update? student
     ! student.valid?
   end
