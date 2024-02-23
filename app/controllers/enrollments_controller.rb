@@ -1,4 +1,6 @@
 class EnrollmentsController < ApplicationController
+  before_action :set_open_rps, only: [:view_course_list]
+
   def new
     redirect_to(action: "select_student") if should_redirect_to_select_student?
     @errors = params[:errors]
@@ -51,6 +53,8 @@ class EnrollmentsController < ApplicationController
   end
 
   def view_course_list
+    redirect_to root_path if @open_rps.empty?
+
     @student = Student.find(params[:student_id])
     @available_courses = get_available_courses(@student).uniq { |c| c.name }
     @subject_areas = @available_courses.map(&:subject_area).uniq - ["extracurricular"]
@@ -64,6 +68,16 @@ class EnrollmentsController < ApplicationController
 
   def get_date_of_birth
     params[:student][:date_of_birth] = "#{params[:year]}/#{params[:month]}/#{params[:day]}"
+  end
+  
+  def set_open_rps
+    @open_rps = RegistrationPeriod.open
+    
+    if @open_rps.empty? 
+      @student = Student.find(params[:student_id])
+      flash[:notice] = "No registrations are open at this time"
+      redirect_back(fallback_location: parent_path(id: @student.parent.id)) 
+    end
   end
 
   def student_info_params

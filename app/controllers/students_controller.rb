@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_action :check_for_locked_parent
-  before_action :set_open_rps
+  before_action :set_open_rps, only: [:view_course_list]
 
   def create
     @student = Student.new(student_params)
@@ -27,6 +27,8 @@ class StudentsController < ApplicationController
   end
 
   def view_course_list
+    redirect_to root_path if @open_rps.empty?
+
     @student = Student.find(params[:student_id])
 
     redirect_to edit_student_path(@student.id) if should_update? @student
