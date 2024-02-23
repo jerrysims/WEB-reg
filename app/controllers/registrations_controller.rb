@@ -5,6 +5,7 @@ class RegistrationsController < ApplicationController
   before_action :set_course_and_tuition, only: [:index]
   before_action :set_total_fees_and_tuition, only: [:finalize, :review, :stripe_return]
   before_action :reg_fees_paid, only: [:stripe_return]
+  before_action :set_open_rps, only: [:index, :finalize, :review]
 
   def add_to_wait_list
     WaitListedStudent.create(wait_list_student_params)
@@ -310,6 +311,16 @@ class RegistrationsController < ApplicationController
 
   def set_current_student
     @current_student = Student.find(params[:student_id])
+  end
+
+  def set_open_rps
+    @open_rps = RegistrationPeriod.open
+    
+    if @open_rps.empty? 
+      @student = Student.find(params[:student_id])
+      flash[:notice] = "No registrations are open at this time"
+      redirect_back(fallback_location: parent_path(id: @student.parent.id)) 
+    end
   end
 
   def set_total_fees_and_tuition
