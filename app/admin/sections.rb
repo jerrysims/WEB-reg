@@ -189,5 +189,5 @@ ActiveAdmin.register Section do
   end
 
   filter :course_name_cont, as: :select, collection: Course.all.order(name: :asc).pluck(:name).uniq
-  filter :teacher
+  filter :registration_period, as: :select, collection: RegistrationPeriod.all
 end
