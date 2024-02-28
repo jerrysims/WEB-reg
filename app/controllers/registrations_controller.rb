@@ -181,7 +181,7 @@ class RegistrationsController < ApplicationController
   end
 
   def select_student
-    @parent = Parent.find(params[:parent_id])
+    @parent = Parent.find(params[param_label])
     @registration_period = RegistrationPeriod.find(params[:registration_period_id])
     @students = @parent.students
     @registration = Registration.new
@@ -209,7 +209,7 @@ class RegistrationsController < ApplicationController
 
   def update_tuition_preference
     current_parent.update_attributes(parent_params)
-    @donation_total = params[:parent][:donation][:quantity]
+    @donation_total = params[param_label][:donation][:quantity]
     create_donation(@donation_total)
 
     redirect_to invoices_path
@@ -360,8 +360,12 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def param_label
+    param_label = current_parent.class.to_s.downcase.to_sym
+  end
+
   def parent_params
-    params.require(:parent).permit(:id, :first_name, :last_name, :email, :phone_number,
+    params.require(param_label).permit(:id, :first_name, :last_name, :email, :phone_number,
       :secondary_email, :street_address_1, :street_address_2, :city, :state, :zip_code,
       :tuition_preference, :payment_preference)
   end
