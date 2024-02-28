@@ -8,6 +8,12 @@ class AdminsController < ApplicationController
   def dashboard
   end
 
+  def edit_grades
+    @section = Section.find(params[:section_id])
+
+    redirect_to teacher_section_gradebook_path(teacher_id: current_parent.id, section_id: @section.id)
+  end
+
   def grades
     @sections = Section.all.select { |s| s.registrations.count > 0 }
   end

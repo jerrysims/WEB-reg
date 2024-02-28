@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_26_160641) do
+ActiveRecord::Schema.define(version: 2024_02_28_180056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2024_02_26_160641) do
     t.bigint "student_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "published"
     t.index ["section_id", "student_id"], name: "index_grades_on_section_id_and_student_id", unique: true
     t.index ["section_id"], name: "index_grades_on_section_id"
     t.index ["student_id"], name: "index_grades_on_student_id"

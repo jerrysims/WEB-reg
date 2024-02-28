@@ -20,7 +20,8 @@
               <td><%= s.registration_period.name %></td>
               <td><%= s.course.name %></td>
               <td><%= s.name %></td>
-              <td><%= link_to "View", admin_view_grades_path(s.id) %></td>
+              <td><%= link_to "View", admin_section_view_grades_path(s.id) %></td>
+              <td><%= link_to "Edit", admin_section_edit_grades_path(s.id) %></td>
             </tr>
           <% end %>
         </tbody>
