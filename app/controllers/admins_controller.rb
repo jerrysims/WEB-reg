@@ -11,7 +11,12 @@ class AdminsController < ApplicationController
   def edit_grades
     @section = Section.find(params[:section_id])
 
-    redirect_to teacher_section_gradebook_path(teacher_id: current_parent.id, section_id: @section.id)
+    if current_parent.is_a? Teacher
+      redirect_to teacher_section_gradebook_path(teacher_id: current_parent.id, section_id: @section.id)
+    else
+      flash[:notice] = "This account does not have Teacher privileges"
+      redirect_back
+    end
   end
 
   def grades
