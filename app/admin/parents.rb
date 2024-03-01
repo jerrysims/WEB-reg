@@ -14,6 +14,7 @@ ActiveAdmin.register Parent do
     f.input :zip_code, as: :string
     f.input :tuition_preference, as: :select, collection: ["Monthly", "Semester"]
     f.input :locked
+    f.input :type
     actions
   end
 
