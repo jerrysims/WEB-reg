@@ -189,4 +189,5 @@ ActiveAdmin.register Section do
   end
 
   filter :course_name_cont, as: :select, collection: Course.all.order(name: :asc).pluck(:name).uniq
+  filter :course_registration_period_id, as: :select, collection: -> { RegistrationPeriod.pluck(:name, :id) }, label: 'Registration Period' 
 end

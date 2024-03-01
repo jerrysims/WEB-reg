@@ -1,5 +1,6 @@
 class Section < ApplicationRecord
   belongs_to :course
+  has_one :registration_period, through: :course
   has_many :teachers_sections
   has_many :teachers, through: :teachers_sections
   has_many :registration_logs, dependent: :destroy
