@@ -1,5 +1,7 @@
 class Registration < ActiveRecord::Base
 
+  STATUSES = %w(selected pending confirmed)
+
   belongs_to :section
   belongs_to :student
   has_one :course, through: :section
@@ -11,6 +13,7 @@ class Registration < ActiveRecord::Base
   validate :no_other_sections_in_session
   validate :one_class_at_a_time
   validate :student_is_correct_grade
+  validates :status, inclusion: { in: STATUSES }
 
   nilify_blanks before: :update
 

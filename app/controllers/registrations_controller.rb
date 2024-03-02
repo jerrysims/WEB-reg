@@ -31,7 +31,7 @@ class RegistrationsController < ApplicationController
     @student = Student.find(params[:student_id])
     @section = Section.find(params[:section_id])
     @registration = Registration.new(student_id: @student.id, section_id: @section.id,
-      status: :pending, user: current_parent)
+      status: :selected, user: current_parent)
     if @registration.save
       @registered = true
       set_course_and_tuition
@@ -176,6 +176,8 @@ class RegistrationsController < ApplicationController
   end
 
   def review
+    update_selected_registrations 
+
     @enrolled_students = current_parent.students.enrolled
     @not_enrolled = current_parent.students - @enrolled_students
   end
@@ -205,6 +207,14 @@ class RegistrationsController < ApplicationController
         action: "complete_parent_info", student_id: params[:student_id]
       }
     end 
+  end
+
+  def update_selected_registrations
+    selected_registrations = Registration.where(student_id: current_parent.students, status: 'selected')
+
+    selected_registrations.each do |r|
+      r.update(status: :pending)
+    end
   end
 
   def update_tuition_preference
