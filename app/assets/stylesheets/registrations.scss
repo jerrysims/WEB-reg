@@ -1,16 +1,38 @@
+.alert {
+  font-size: x-small;
+}
+
+.col-10 {
+  padding: 0px;
+}
+
+.day-title {
+  text-align: center;
+}
+
 .register-grid-class-card {
-  margin-right: 5px;
-  margin-left: 5px;
+  border-width: 1px;
+  margin: 4px;
   border-radius: 4px;
+  padding: 1px;
 }
 
 .register-grid-class-card:hover{
-  border-width: 3px;
+  border-width: 2px;
+  margin: 3px;
+  padding: 1px;
 }
 
 .registered {
-  border-width: thick;
+  border-width: 3px;
+  margin: 2px;
   border-color: rgb(100,100,100);
+  padding: 1px;
+}
+
+.registration-day-box {
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .invoice-total h5 {
@@ -26,6 +48,31 @@
   margin-top: 20px;
   padding-bottom: 15px;
   margin-bottom: 15px;
+}
+
+.time-block-header {
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: 1px;
+  display: flex;
+  padding: 1px;
+  align-items: center;
+  justify-content: center;
+
+  .text {
+    text-align: center;
+  }
+}
+
+.time-block-row {
+  margin: 0px;
+  border-radius: 5px;
+}
+
+.time-block-section-row {
+  margin: 0px;
+  border-radius: 1px;
 }
 
 #tuition-preference-actual-form {

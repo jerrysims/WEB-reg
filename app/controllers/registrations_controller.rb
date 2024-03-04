@@ -133,23 +133,8 @@ class RegistrationsController < ApplicationController
     @closed = current_parent.invoice_closed?
 
     @available_sections = available_sections(@student)
-    day_order = %w(Tuesday Thursday Tuesday/Thursday)
-    @days = @available_sections.map { |c| c.day }.uniq.sort_by { |c| day_order.index(c) }
-    @start_times = @available_sections.map { |c| c.start_time }.uniq.sort
-    @tuesday_courses = []
-    @thursday_courses = []
-
-    @available_sections.map do |c|
-      case c.day
-      when "Tuesday"
-        @tuesday_courses << c
-      when "Thursday"
-        @thursday_courses << c
-      when "Tuesday/Thursday"
-        @tuesday_courses << c
-        @thursday_courses << c
-      end
-    end
+    @days = %w(tuesday thursday)
+    @time_blocks = time_blocks
   end
 
   def new
@@ -228,7 +213,10 @@ class RegistrationsController < ApplicationController
   private
 
   def available_sections(student)
-    Section.all.select { |c| c.grades.split(',').include?(student.grade.to_s) && c.course.registration_period.rp_type == "academic" }
+    Section.all.select do |c| 
+      c.grades.split(',').include?(student.grade.to_s) && 
+      c.course.registration_period.rp_type == "academic" 
+    end
   end
 
   def create_donation(donation_total)
@@ -388,6 +376,72 @@ class RegistrationsController < ApplicationController
     params.permit(
 
     )
+  end
+
+  def time_blocks
+    result = {
+      tuesday: {
+        "08:30": {
+          label_text: "Block 1<br>8:30-9:45",
+          sections: []
+        },
+        "09:45": {
+          label_text: "Block 1<br>9:45-11:00",
+          sections: []
+        },
+        "11:30": {
+          label_text: "Block 1<br>11:30-1:00",
+          sections: []
+        },
+        "13:00": {
+          label_text: "Block 1<br>1:00-2:30",
+          sections: []
+        },
+        "14:30": {
+          label_text: "Block 1<br>2:30-3:30",
+          sections: []
+        } 
+      },
+      thursday: {
+        "08:30": {
+          label_text: "Block 1<br>8:30-9:45",
+          sections: []
+        },
+        "09:45": {
+          label_text: "Block 1<br>9:45-11:00",
+          sections: []
+        },
+        "11:30": {
+          label_text: "Block 1<br>11:30-1:00",
+          sections: []
+        },
+        "13:00": {
+          label_text: "Block 1<br>1:00-2:30",
+          sections: []
+        },
+        "14:30": {
+          label_text: "Block 1<br>2:30-3:30",
+          sections: []
+        } 
+      }
+    }
+  
+    @available_sections.each do |s|
+      days = case s.day
+      when "Tuesday"
+        [:tuesday]
+      when "Thursday"
+        [:thursday]
+      when "Tuesday/Thursday"
+        [:tuesday, :thursday]
+      end
+
+      days.each do |d|
+        result[d][s.start_time.strftime("%H:%M").to_sym][:sections] << s
+      end
+    end
+    
+    result
   end
 
   def tuesday_params
