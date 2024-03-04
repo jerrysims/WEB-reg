@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_28_180056) do
+ActiveRecord::Schema.define(version: 2024_03_04_151719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -122,6 +122,8 @@ ActiveRecord::Schema.define(version: 2024_02_28_180056) do
     t.bigint "student_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "registration_period_id"
+    t.index ["registration_period_id"], name: "index_medical_forms_on_registration_period_id"
     t.index ["student_id"], name: "index_medical_forms_on_student_id"
   end
 
@@ -137,7 +139,10 @@ ActiveRecord::Schema.define(version: 2024_02_28_180056) do
     t.bigint "parent_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "registration_period_id"
+    t.boolean "homeschool_registration"
     t.index ["parent_id"], name: "index_parent_agreements_on_parent_id"
+    t.index ["registration_period_id"], name: "index_parent_agreements_on_registration_period_id"
   end
 
   create_table "parents", force: :cascade do |t|
@@ -188,7 +193,9 @@ ActiveRecord::Schema.define(version: 2024_02_28_180056) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "parent_id", null: false
+    t.bigint "registration_period_id"
     t.index ["parent_id"], name: "index_photo_consents_on_parent_id"
+    t.index ["registration_period_id"], name: "index_photo_consents_on_registration_period_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -251,7 +258,9 @@ ActiveRecord::Schema.define(version: 2024_02_28_180056) do
     t.bigint "parent_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "registration_period_id"
     t.index ["parent_id"], name: "index_release_of_liabilities_on_parent_id"
+    t.index ["registration_period_id"], name: "index_release_of_liabilities_on_registration_period_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -303,6 +312,8 @@ ActiveRecord::Schema.define(version: 2024_02_28_180056) do
   create_table "teachers_sections", force: :cascade do |t|
     t.bigint "teacher_id"
     t.bigint "section_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["section_id", "teacher_id"], name: "index_teachers_sections_on_section_id_and_teacher_id", unique: true
     t.index ["section_id"], name: "index_teachers_sections_on_section_id"
     t.index ["teacher_id"], name: "index_teachers_sections_on_teacher_id"
@@ -323,13 +334,17 @@ ActiveRecord::Schema.define(version: 2024_02_28_180056) do
   add_foreign_key "grades", "students"
   add_foreign_key "invoices", "parents"
   add_foreign_key "learning_differences_forms", "students"
+  add_foreign_key "medical_forms", "registration_periods"
   add_foreign_key "parent_agreements", "parents"
+  add_foreign_key "parent_agreements", "registration_periods"
   add_foreign_key "photo_consents", "parents"
+  add_foreign_key "photo_consents", "registration_periods"
   add_foreign_key "registration_logs", "parents", column: "user_id"
   add_foreign_key "registration_logs", "sections"
   add_foreign_key "registration_logs", "students"
   add_foreign_key "registrations", "parents", column: "user_id"
   add_foreign_key "registrations", "sections"
+  add_foreign_key "release_of_liabilities", "registration_periods"
   add_foreign_key "students", "parents"
   add_foreign_key "wait_listed_students", "sections"
 end

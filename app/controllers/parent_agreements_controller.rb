@@ -1,5 +1,6 @@
 class ParentAgreementsController < ApplicationController
   before_action :set_parent
+  before_action :set_read_only, only: [:show]
 
   def create
     @parent_agreement = ParentAgreement.new(parent_agreement_params)
@@ -21,6 +22,10 @@ class ParentAgreementsController < ApplicationController
     @form_action = :create
     @parent_agreement = ParentAgreement.new
   end
+  
+  def show
+    @parent_agreement = current_parent.parent_agreement
+  end
 
   def update
     @parent_agreement = ParentAgreement.find params[:id]
@@ -35,8 +40,16 @@ class ParentAgreementsController < ApplicationController
   end
 
   private
+  def param_label
+    param_label = current_parent.class.to_s.downcase.to_sym
+  end
+
   def set_parent
     @parent = current_parent
+  end
+
+  def set_read_only
+    @read_only = true
   end
 
   def parent_agreement_params
@@ -48,11 +61,12 @@ class ParentAgreementsController < ApplicationController
       :plan_to_volunteer,
       :volunteer_buyout,
       :late_fee_for_late_pickup,
+      :homeschool_registration,
       :signature
     )
   end
 
   def parent_params
-    params.require(:parent_agreement).require(:parent).permit(:id, :first_name, :last_name)
+    params.require(:parent_agreement).require(param_label).permit(:id, :first_name, :last_name)
   end
 end

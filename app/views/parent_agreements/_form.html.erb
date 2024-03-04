@@ -2,19 +2,22 @@
 
 <p class="notice"><%= notice %></p>
 <p><h4 class="alert"><%= alert %></h4></p>
-
-<%= simple_form_for [@parent, @parent_agreement], url: { method: @http_method, action: @form_action } do |f| %>
+<%= simple_form_for [@parent, @parent_agreement], url: { method: @http_method, action: @form_action }, html: { readonly: @read_only } do |f| %>
   <p>You may complete this form <strong>once</strong> per family.</p>
   <p>This agreement (“Agreement”) is made and entered into between Weekday Eastside Bridge (WEB) and</p>
   <%= f.simple_fields_for @parent do |parent_form| %>
-    <div class="parent-agreement-row">
+    <div class="parent-agreement-row row">
       <p>Parent/Guardian Name</p>
-      <%= parent_form.hidden_field :id, as: :hidden, input_html: { value: @parent.id } %>
-      <%= parent_form.input :first_name, input_html: { value: @parent.first_name } %>
-      <%= parent_form.input :last_name, input_html: { value: @parent.last_name } %>
     </div>
-    <div class="parent-agreement-row">
-      <p>on Behalf of</p>
+    <div class="parent-agreement-row row">
+      <%= parent_form.hidden_field :id, as: :hidden, input_html: { value: @parent.id } %>
+      <%= parent_form.input :first_name, input_html: { value: @parent.first_name, readonly: @read_only } %>
+      <%= parent_form.input :last_name, input_html: { value: @parent.last_name, readonly: @read_only } %>
+    </div>
+    <div class="parent-agreement-row row">
+      <p>on Behalf of...</p>
+    </div>
+    <div class="parent-agreement-row row">
       <p>
       <% @parent.students.each_with_index do |student, i| %> 
         <% if i > 0 %>
@@ -25,101 +28,122 @@
       </p>
     </div>
   <% end %>
-  <div class="parent-agreement-row">
+  <div class="parent-agreement-row row">
     <div class="col-md-10 box">
-      <div class="parent-agreement-row">
-        I agree to pay tuition according to the published tuition rates for the entire academic year 
-        (August 2023 through May 2024) for the classes enrolled in as of July 1, 2023. (If unsure of 
-        class registration, please obtain confirmation before completing this form.) * 
+      <h6>Section 1 - Tuition and Payment</h6>
+      <div class="parent-agreement-row row">
+        <p>
+        I/We agree to pay tuition according to the published tuition rates for the entire academic year 
+        (August 2024 through May 2025) for the classes enrolled in as of <strong>July 1, 2024</strong>.
+        </p>
       </div>
-      <div class="parent-agreement-row"><%= f.input :agree_to_pay, required: true, label: "I Agree" %></div>
+      <div class="parent-agreement-row row"><%= f.input :agree_to_pay, required: true, label: "I Agree", input_html: { readonly: @read_only } %></div>
+      <div class="parent-agreement-row row">
+        <p>
+        Parents/Guardians shall pay the full semester tuition on the first day of each semester’s 
+        classes or shall pay tuition monthly on the first day of each month's classes, unless 
+        previously arranged with WEB administration. <strong>If a tuition payment or supply fees are 
+        fourteen (14) calendar days overdue, a late fee of ten percent will be assessed.</strong> If a 
+        tuition payment is thirty (30) calendar days overdue, WEB may impose any or all of the 
+        following sanctions, at the tutorial's sole discretion. Sanctioned actions include: (a) 
+        withdrawing student from class participation (b) withdrawing student from tutorial (c) use 
+        of a collection agency. A family with an unpaid balance for the current academic year 
+        may not register for the following year until the tuition for the current year is paid in full. 
+        </p>
+      </div>
+      <div class="parent-agreement-row row"><%= f.input :late_fee_acknowledgment, label: "I Agree" %></div>
+      <div class="parent-agreement-row row">
+        <p>
+        If a student voluntarily withdraws from WEB, <strong>remaining tuition through the of the 
+        year must be paid in full</strong>. There will be no refund, credit or reduction for withdrawal
+        related to absences, vacations, snow days, illnesses, holidays or moving.
+        </p>
+      </div>
+      <div class="parent-agreement-row row"><%= f.input :no_refund_on_voluntary_withdraw, required: true, label: "I Agree" %></div>
+      <div class="parent-agreement-row row">
+        <p>
+        If a student is asked to withdraw from WEB, the undersigned is responsible for the 
+        prorated annual tuition through the end of the semester in which the student withdraws.
+        </p>
+      </div>
+      <div class="parent-agreement-row row"><%= f.input :prorate_on_requested_withdraw, required: true, label: "I Agree" %></div>
     </div>
   </div>
-  <div class="parent-agreement-row">
-    <div class="col-md-10 box">
-      <div class="parent-agreement-row">
-        Parents shall pay the full semester tuition on the first day of each semester’s classes or 
-        shall pay tuition monthly on the first day of each month's classes, unless previously arranged 
-        with WEB administration. If a Tuition payment is fourteen (14) calendar days overdue, a late 
-        fee of ten percent will be assessed. If a Tuition payment is thirty (30) calendar days overdue, 
-        WEB may impose any or all of the following sanctions, at the tutorial's sole discretion, unless 
-        special payment arrangements have been made in writing signed by the administration. Sanctioned 
-        actions include: 
-        (a) withdrawing Student from class participation 
-        (b) withdrawing Student from tutorial
-        (c) use of a collection agency. 
-        
-        A family with an unpaid balance for the current academic year may not register for the following 
-        year until the tuition for the current year is paid in full, unless special arrangements have 
-        been made in writing. *
-      </div>
-      <div class="parent-agreement-row"><%= f.input :late_fee_acknowledgment, label: "I Agree" %></div>
-    </div>
-  </div>
-  <div class="parent-agreement-row">
-    <div class="col-md-10 box">
-      <div class="parent-agreement-row">
-        If the Student is withdrawn during the academic year for any reason other than request by WEB, 
-        ***remaining tuition through the end of the year must be paid in full*** unless the 
-        administrator agrees in writing to refund a portion of the remaining tuition. Otherwise there 
-        will be no refund, credit or reduction for withdrawal, absences, vacations, snow days, 
-        illnesses, holidays or moving. *      
-      </div>
-      <div class="parent-agreement-row"><%= f.input :no_refund_on_voluntary_withdraw, required: true, label: "I Agree" %></div>
-    </div>
-  </div>
-  <div class="parent-agreement-row">
-    <div class="col-md-10 box">
-      <div class="parent-agreement-row">
-        
-        If a Student is asked to withdraw from WEB, the undersigned is responsible for the 
-        prorated annual Tuition through the end of the semester in which the Student withdraws. *      
-      </div>
-      <div class="parent-agreement-row"><%= f.input :prorate_on_requested_withdraw, required: true, label: "I Agree" %></div>
-    </div>
-  </div>
-  <div class="parent-agreement-row">
-    <div class="col-md-10 box">
-      <h6>Volunteer Hours*</h6>
-      <div class="parent-agreement-row">
-        The undersigned agrees to volunteer for three hours during the 2023-24 academic year or, in 
-        lieu of volunteering pay a $75 volunteer buyout.      
-      </div>
-      <div class="parent-agreement-row"><%= f.input :plan_to_volunteer, label: "Please select one... ", as: :select, collection: [["I plan to volunteer.", "volunteer"], ["Please invoice me for the $75 volunteer buyout.", "buyout"]] %></div>
-    </div>
-  </div>
-  <div class="parent-agreement-row">
-    <div class="col-md-10 box">
-      <h6>Drop Off & Pick Up *</h6>
-      <div class="parent-agreement-row">
-        I commit to dropping my child off within ten minutes of their class start time in order to 
-        minimize disruption to all WEB students and pick up promptly within ten minutes of their class 
-        end time in order to respect the time and attention of WEB tutors. I understand a late fee 
-        will be assessed if my child is not picked within ten minutes of my pick up time.
 
-        I understand that WEB reserves the right to deny enrollment and/or expel a student whom 
-        it determines is unsuitable for enrollment.
-
-        I, the undersigned, have read and understand the Terms and Conditions of this Agreement, for the 
-        enrollment of Student(s) for the 2023-2024 academic year. I agree to abide by said terms and 
-        conditions and agree to fulfill the total financial obligation for payment of tuition as set 
-        forth herein.
+  <div class="parent-agreement-row row">
+    <div class="col-md-10 box">
+      <h6>Section 2 - Volunteer Hours</h6>
+      <div class="parent-agreement-row row">
+        Parents/Guardians agree to volunteer for three hours during the 2024-25 academic year 
+        or, in lieu of volunteering pay a $75 volunteer buyout.      
       </div>
-      <div class="parent-agreement-row"><%= f.input :late_fee_for_late_pickup, required: true, label: "I Agree" %></div>
+      <div class="parent-agreement-row row"><%= f.input :plan_to_volunteer, label: "Please select one... ", as: :select, collection: [["I plan to volunteer.", "volunteer"], ["Please invoice me for the $75 volunteer buyout.", "buyout"]] %></div>
     </div>
   </div>
-  <div class="parent-agreement-row">
+
+  <div class="parent-agreement-row row">
+    <div class="col-md-10 box">
+      <h6>Section 3 - Drop Off & Pick Up</h6>
+      <div class="parent-agreement-row row">
+        Parents/Guardians commit to dropping students off up to ten minutes before their class 
+        start time in order to minimize disruption to all WEB students and pick up promptly 
+        within ten minutes of their class end time in order to respect the time and attention of 
+        WEB tutors and directors. <strong>The undersigned parent understands a late fee will
+        be assessed if the child is not picked within ten minutes of pick up time</strong>.
+        Before 2:30, the fee is $10 for being 10+ minutes late. After 2:30, the fee is $10 + $1 per
+        minute. Drop-in study hall is offered for $10 if needed for an appointment or if running
+        late.
+      </div>
+      <div class="parent-agreement-row row"><%= f.input :late_fee_for_late_pickup, required: true, label: "I Agree" %></div>
+    </div>
+  </div>
+
+  <div class="parent-agreement-row row">
+    <div class="col-md-10 box">
+      <h6>Section 4 - Homeschool Registration</h6>
+      <div class="parent-agreement-row row">
+        Parents/Guardians understand that it is our sole responsibility to register as 
+        homeschoolers with the school district or an umbrella school in order to be compliant 
+        with Tennessee State laws and to avoid truancy. I/We understand that WEB does not 
+        issue credits or provide a transcript, and that it is my/our responsibility to ensure the 
+        enrolled child is sufficiently educated and meeting the state requirements for 
+        homeschooling. More information may be found in the FAQs section of the WEB 
+        website or at 
+        https://www.tn.gov/education/families/school-options/home-schooling-in-tn.html. 
+      </div>
+      <div class="parent-agreement-row row"><%= f.input :homeschool_registration, required: true, label: "I Agree" %></div>
+    </div>
+  </div>
+
+  <div class="parent-agreement-row row">
+    <div class="col-md-10 box">
+      <h6>Section 4 - Homeschool Registration</h6>
+      <div class="parent-agreement-row row">
+        Parents/Guardians understand that WEB reserves the right to deny enrollment and/or 
+        expel a student whom it determines is unsuitable for enrollment as outlined in the WEB 
+        Handbook. I/We have read and agree to the terms in the WEB Handbook, which is 
+        located in the WEB portal. I/We have read and understand the Terms and Conditions of 
+        this agreement, for the enrollment of student(s) for the 2024-2025 academic year. I/We 
+        agree to abide by said terms and conditions and agree to fulfill the total financial 
+        obligation for payment of tuition as set forth herein. 
+
+        Handbook here - 
+        https://mcusercontent.com/dd92f38d2c945fdb034fd980c/files/cfd38b80-cd82-a828-69e9-a9fae62cb01a/WEB_Handbook.02.pdf
+      </div>
+    </div>
+  </div>
+  <div class="parent-agreement-row row">
     <div class="col-md-10 box">
       <h6>Parent/Guardian Signature *</h6>
-      <div class="parent-agreement-row">
+      <div class="parent-agreement-row row">
         I HAVE READ THIS DOCUMENT AND UNDERSTAND IT. 
  
         I understand & agree this is a legal representation of my signature.
       </div>
-      <div class="parent-agreement-row"><%= f.input :signature, label: "Please type full name", required: true %></div>
+      <div class="parent-agreement-row row"><%= f.input :signature, label: "Please type full name", required: true %></div>
     </div>
   </div>
-  <div class="parent-agreement-row">
-    <%= f.submit "SUBMIT", class: 'btn btn-primary' %>
+  <div class="parent-agreement-row row">
+    <%= f.submit "SUBMIT", class: 'btn btn-primary', disabled: @read_only %>
   </div>
 <% end %>
