@@ -1,5 +1,6 @@
 class RegistrationPeriod < ApplicationRecord
   RP_TYPES= %w(academic extracurricular)
+  RP_STATUSES = %W(future teachers returning_families all closed)
 
   validates_inclusion_of :rp_type, in: RP_TYPES
   validates :name, uniqueness: true
