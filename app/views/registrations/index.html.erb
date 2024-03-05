@@ -16,32 +16,34 @@
 </div>
 <% @days.each do |day| %>
   <div class="row box shadow registration-day-box">
+    <div class="col-12">
+      <h3 class="day-title"><%= day.titleize %></h3>
+    </div>
     <div class="row">
       <div class="col-12">
-        <h3 class="day-title"><%= day.titleize %></h3>
-      </div>
-    </div>
-      <% @time_blocks[day.to_sym].each do |key, value| %>
-        <div class="bordered-section row time-block-row">
-          <div class="bordered-section time-block-header col-2">
-            <span class="text"><%= value[:label_text].html_safe %></span>
-          </div>
-          <div class="col-10">
-            <div class="row time-block-section-row">
-              <% value[:sections].each do |s| %>
-                <% registered = @student.registrations.where(section_id: s.id).empty? ? "" : "registered" %>
-                <% twice_a_week = s.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
-                <div class="btn register-grid-class-card bordered-section col-md-3 <%= registered %> <%= twice_a_week %> " id="section-<%= s.id %>" data-section="<%= s.id %>" data-student="<%= @student.id %>">
-                  <small><%= s.name.truncate(30) %><br> (<%= s.suggested_grade %>)</small>
-                  <% if s.at_max? %>
-                    <br><div class="alert">CLASS FULL - click to add to waitlist</div>
-                  <% end %>
-                </div>
-              <% end %>
+        <% @time_blocks[day.to_sym].each do |key, value| %>
+          <div class="bordered-section row time-block-row">
+            <div class="bordered-section time-block-header col-2">
+              <span class="text"><%= value[:label_text].html_safe %></span>
+            </div>
+            <div class="col-10">
+              <div class="row time-block-section-row">
+                <% value[:sections].each do |s| %>
+                  <% registered = @student.registrations.where(section_id: s.id).empty? ? "" : "registered" %>
+                  <% twice_a_week = s.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
+                  <div class="btn register-grid-class-card bordered-section col-md-3 <%= registered %> <%= twice_a_week %> " id="section-<%= s.id %>" data-section="<%= s.id %>" data-student="<%= @student.id %>">
+                    <small><%= s.name.truncate(30) %><br> (<%= s.suggested_grade %>)</small>
+                    <% if s.at_max? %>
+                      <br><div class="alert">CLASS FULL - click to add to waitlist</div>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
 <% end %>
 </div>

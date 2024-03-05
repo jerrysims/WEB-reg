@@ -386,19 +386,19 @@ class RegistrationsController < ApplicationController
           sections: []
         },
         "09:45": {
-          label_text: "Block 1<br>9:45-11:00",
+          label_text: "Block 2<br>9:45-11:00",
           sections: []
         },
         "11:30": {
-          label_text: "Block 1<br>11:30-1:00",
+          label_text: "Block 3<br>11:30-1:00",
           sections: []
         },
         "13:00": {
-          label_text: "Block 1<br>1:00-2:30",
+          label_text: "Block 4<br>1:00-2:30",
           sections: []
         },
         "14:30": {
-          label_text: "Block 1<br>2:30-3:30",
+          label_text: "Block 5<br>2:30-3:30",
           sections: []
         } 
       },
@@ -408,19 +408,19 @@ class RegistrationsController < ApplicationController
           sections: []
         },
         "09:45": {
-          label_text: "Block 1<br>9:45-11:00",
+          label_text: "Block 2<br>9:45-11:00",
           sections: []
         },
         "11:30": {
-          label_text: "Block 1<br>11:30-1:00",
+          label_text: "Block 3<br>11:30-1:00",
           sections: []
         },
         "13:00": {
-          label_text: "Block 1<br>1:00-2:30",
+          label_text: "Block 4<br>1:00-2:30",
           sections: []
         },
         "14:30": {
-          label_text: "Block 1<br>2:30-3:30",
+          label_text: "Block 5<br>2:30-3:30",
           sections: []
         } 
       }
