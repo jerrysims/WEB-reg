@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_action :check_for_locked_parent
-  before_action :set_open_rps, only: [:view_course_list]
+  before_action :set_rp, only: [:view_course_list]
 
   def create
     @student = Student.new(student_params)
@@ -27,12 +27,10 @@ class StudentsController < ApplicationController
   end
 
   def view_course_list
-    redirect_to root_path if @open_rps.empty?
-
     @student = Student.find(params[:student_id])
 
     redirect_to edit_student_path(@student.id) if should_update? @student
-    @available_courses = @student.available_courses
+    @available_courses = @student.available_courses(@rp)
     @subject_areas = @available_courses.map(&:subject_area).uniq
   end
 
@@ -60,14 +58,8 @@ class StudentsController < ApplicationController
   end
 
   private
-  def set_open_rps
-    @open_rps = RegistrationPeriod.open
-    
-    if @open_rps.empty? 
-      @student = Student.find(params[:student_id])
-      flash[:notice] = "No registrations are open at this time"
-      redirect_back(fallback_location: parent_path(id: @student.parent.id)) 
-    end
+  def set_rp
+    @rp = RegistrationPeriod.find(params[:registration_period_id])
   end
 
   def should_update? student

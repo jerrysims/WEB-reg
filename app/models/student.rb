@@ -28,8 +28,8 @@ class Student < ActiveRecord::Base
 
   DAYS_ORDER = %w(Tuesday Thursday)
 
-  def available_courses
-    Course.academic.select { |c| c.grades.split(',').include?(grade.to_s) }
+  def available_courses(rp)
+    Course.where(registration_period_id: rp.id).order(:name).select { |c| c.grades.split(',').include?(grade.to_s) }
   end
 
   def standard_course_count

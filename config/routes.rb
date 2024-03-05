@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   devise_scope :parent do
     authenticated :parent do
-      root to: "parents#show", as: :authenticated_root
+      root to: "registration_periods#index", as: :authenticated_root
     end
 
     unauthenticated do
@@ -22,6 +22,10 @@ Rails.application.routes.draw do
       resource :registration do
         post 'choose_student', to: 'registrations#choose_student', as: :choose_student
       end
+      resources :students do
+        get :view_course_list
+      end
+      get :select_student
     end
     resources :parent_agreements
     resources :photo_consents

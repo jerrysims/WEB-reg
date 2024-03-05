@@ -6,7 +6,7 @@
     <div class="col-md-5 box">
       <h3>Academic</h3>
       <% @open_academic_rps.each do |rp| %>
-        <%= link_to rp.name, root_path %>
+        <%= link_to rp.name, parent_registration_period_select_student_path(current_parent.id, rp.id) %>
       <% end %>
     </div>    
   <% end %>

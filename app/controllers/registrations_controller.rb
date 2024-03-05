@@ -128,11 +128,12 @@ class RegistrationsController < ApplicationController
       student_id: params[:student_id]
       ) unless current_parent.valid?(:course_registration)
 
+    @registration_period = @open_rps.first
     @browser = browser.name
     @student = Student.find(params[:student_id])
     @closed = current_parent.invoice_closed?
 
-    @available_sections = available_sections(@student)
+    @available_sections = available_sections(@student, @registration_period)
     @days = %w(tuesday thursday)
     @time_blocks = time_blocks
   end
@@ -153,12 +154,12 @@ class RegistrationsController < ApplicationController
     render "new"
   end
 
-  def choose_student
-    @student = Student.find(params[:choose_student][:student_id])
-    @student_id = @student.id
-    @user_id = current_parent.id
-    redirect_to new_parent_registration_period_registration_path(current_parent.id, params[:registration_period_id], { student: @student })
-  end
+  # def choose_student
+  #   @student = Student.find(params[:choose_student][:student_id])
+  #   @student_id = @student.id
+  #   @user_id = current_parent.id
+  #   redirect_to new_parent_registration_period_registration_path(current_parent.id, params[:registration_period_id], { student: @student })
+  # end
 
   def review
     update_selected_registrations 
@@ -212,10 +213,10 @@ class RegistrationsController < ApplicationController
 
   private
 
-  def available_sections(student)
+  def available_sections(student, rp)
     Section.all.select do |c| 
       c.grades.split(',').include?(student.grade.to_s) && 
-      c.course.registration_period.rp_type == "academic" 
+      c.course.registration_period == rp 
     end
   end
 
