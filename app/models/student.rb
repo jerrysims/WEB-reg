@@ -37,8 +37,8 @@ class Student < ActiveRecord::Base
     courses.count - math_course_count - study_hall_count - fl_course_count
   end
 
-  def daily_schedule(weekday)
-    sections.where(day: [weekday, "Tuesday/Thursday"]).sort_by { |c| c.start_time }
+  def daily_schedule(day, registration_period)
+    sections.joins(course: :registration_period).where(day: [day, "Tuesday/Thursday"], courses: { registration_period: registration_period })
   end
 
   def fl_course_count

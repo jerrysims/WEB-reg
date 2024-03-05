@@ -1,4 +1,4 @@
-<%= render "stripe_return_header", page_title: "Schedule Review" %>
+<%= render "registration_header", page_title: "Schedules Review" %>
 We found the following class schedules for you:
 
 <div class="row">
@@ -9,14 +9,14 @@ We found the following class schedules for you:
         <div class="review-day-box">
           <ul class="schedule-day-box">
             <span><%= day %></span>
-            <% student.daily_schedule(day).each do |section| %>
+            <% student.daily_schedule(day, @rp).each do |section| %>
 
               <li class="schedule-list-item row section">
                 <%= section.start_time.strftime("%l:%M %p") %>-<%= section.end_time.strftime("%l:%M %p") %> <%= section.name %>
               </li>
             <% end %>
           </ul>
-          <% unless student.daily_schedule(day).empty? %>
+          <% unless student.daily_schedule(day, @rp).empty? %>
             </p>
           <% end %>
         </div>

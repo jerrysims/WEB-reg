@@ -3,6 +3,7 @@ class RegistrationsController < ApplicationController
   before_action :check_for_locked_parent, except: [:new, :select_student, :create, :course_options]
   before_action :set_current_student, only: [:choose_class, :drop_class, :index]
   before_action :set_course_and_tuition, only: [:index]
+  before_action :set_rp, only: [:index, :review]
   before_action :set_total_fees_and_tuition, only: [:finalize, :review, :stripe_return]
   before_action :reg_fees_paid, only: [:stripe_return]
   before_action :set_open_rps, only: [:index, :finalize, :review]
@@ -162,8 +163,6 @@ class RegistrationsController < ApplicationController
   # end
 
   def review
-    update_selected_registrations 
-
     @enrolled_students = current_parent.students.enrolled
     @not_enrolled = current_parent.students - @enrolled_students
   end
@@ -196,7 +195,7 @@ class RegistrationsController < ApplicationController
   end
 
   def update_selected_registrations
-    selected_registrations = Registration.where(student_id: current_parent.students, status: 'selected')
+    selected_registrations = Registration.where(student_id: current_parent.students, status: 'selected', registration_period: @rp)
 
     selected_registrations.each do |r|
       r.update(status: :pending)
@@ -306,6 +305,9 @@ class RegistrationsController < ApplicationController
   def set_course_and_tuition
     @course_fees = @current_student.courses.inject(0){ |sum,e| sum + e.fee }
     @student_tuition_total = @current_student.courses.inject(0){ |sum, e| sum + e.semester_tuition }
+
+    @formatted_course_fees = "$%.2f" % @course_fees
+    @formatted_student_tuition_total = "$%.2f" % @student_tuition_total
   end
 
   def set_current_student
@@ -369,14 +371,14 @@ class RegistrationsController < ApplicationController
       :tuition_preference, :payment_preference)
   end
 
-  def wait_list_student_params
-    params.permit(:section_id, :student_id)
-  end
-
   def registration_params
     params.permit(
 
     )
+  end
+
+  def set_rp
+    @rp = RegistrationPeriod.find(params[:registration_period_id])
   end
 
   def time_blocks
@@ -453,5 +455,9 @@ class RegistrationsController < ApplicationController
   def thursday_params
     params.permit( :student_id, :user_id)
           .merge(params.require(:thursday_options).permit(:section_id))
+  end
+  
+  def wait_list_student_params
+    params.permit(:section_id, :student_id)
   end
 end

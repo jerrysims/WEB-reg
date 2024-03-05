@@ -4,12 +4,12 @@ Thank you for enrolling for WEB classes for the 2023/24 school year!
 <% @parent.registered_students.each do |student| %>
   <%= student.full_name %> is enrolled in the following classes:
   <% %w(Tuesday Thursday).each do |day| %>
-    <% unless student.daily_schedule(day).empty? %>
+    <% unless student.daily_schedule(day, @rp).empty? %>
     <% end %>
-    <% student.daily_schedule(day).each do |section| %>
+    <% student.daily_schedule(day, @rp).each do |section| %>
         - <%= section.day %>, <%= section.start_time.strftime("%l:%M %p") %>-<%= section.end_time.strftime("%l:%M %p") %> <%= section.name %>
     <% end %>
-    <% unless student.daily_schedule(day).empty? %>
+    <% unless student.daily_schedule(day, @rp).empty? %>
     <% end %>
   <% end %>
   <% unless student.wait_listed_sections.empty? %>

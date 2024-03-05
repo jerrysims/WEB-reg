@@ -5,7 +5,9 @@
   </div>
 <% else %>
   <div class="row">
-    Click on a student to begin registration
+    <% if @rp.present? %>
+      Click on a student to begin registration
+    <% end %>  
   </div>
   <div class="container row">
     <ul class="col-12">

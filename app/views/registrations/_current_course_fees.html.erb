@@ -1,5 +1,19 @@
-<div class="box">
-  <h4>Total of Selected:</h4>
-  <p>Course Fees: $<span id="course-fees"><%= @course_fees %></span>
-  <p>Tuition: $<span id="tuition-total"><%= @student_tuition_total %></span>
+<div class="box current-total-box">
+  <h5 class="current-total-box-title">Total of Selected:</h5>
+  <div class="row current-total-box-row">
+    <div class="col-6 current-total-box-fee-label">
+      <span class="current-total-box-fee-label">Course Fees:</span> 
+    </div>
+    <div class="col-6">
+      <span id="course-fees"><%= @formatted_course_fees %></span>
+    </div>
+  </div>
+  <div class="row current-total-box-row">
+    <div class="col-6 current-total-box-fee-label">
+      <span class="current-total-box-fee-label">Tuition:</span> 
+    </div>
+    <div class="col-6">
+      <span id="course-fees"><%= @formatted_student_tuition_total %></span>
+    </div>
+  </div>
 </div>

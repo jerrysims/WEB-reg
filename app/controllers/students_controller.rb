@@ -1,6 +1,11 @@
 class StudentsController < ApplicationController
   before_action :check_for_locked_parent
-  before_action :set_rp, only: [:view_course_list]
+  before_action :set_rp, only: [:view_course_list, :choose_classes]
+  before_action :set_student, only: [:view_course_list, :choose_classes]
+
+  def choose_classes
+    
+  end
 
   def create
     @student = Student.new(student_params)
@@ -60,6 +65,10 @@ class StudentsController < ApplicationController
   private
   def set_rp
     @rp = RegistrationPeriod.find(params[:registration_period_id])
+  end
+
+  def set_student
+    @student = Student.find(params[:student_id])
   end
 
   def should_update? student

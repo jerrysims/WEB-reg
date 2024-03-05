@@ -1,4 +1,4 @@
-<%= render "header" %>
+<%= render "registration_header", page_title: "Choose Classes - #{@student.full_name}"%>
 <div class="row">
   <div>
     <p>
@@ -50,7 +50,12 @@
 
 <div class="row">
   <div class="col-md-12 registration-button-div">
-    <%= link_to "Review Registration", { controller: "registrations", action: "review", student_id: @student.id }, class: "custom-button" %>
+    <%= link_to(
+      "Review Registration", 
+      registrations_review_path(
+        registration_period_id: @rp.id
+      ), class: "custom-button" 
+    )%>
   </div>
 </div>
 

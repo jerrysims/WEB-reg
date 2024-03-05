@@ -1,19 +1,19 @@
 <div class="mailer" style="font-family: futura">
 Dear <%= @parent.full_name %>,
-Thank you for enrolling for WEB classes for the 2023/24 school year!
+Thank you for enrolling for WEB classes for the 2024/25 academic year!
 
 <p><% @parent.registered_students.each do |student| %>
   <%= student.full_name %> is enrolled in the following classes:
   <% %w(Tuesday Thursday).each do |day| %>
-    <% unless student.daily_schedule(day).empty? %>
+    <% unless student.daily_schedule(day, @rp).empty? %>
       <p>
     <% end %>
-    <% student.daily_schedule(day).each do |section| %>
+    <% student.daily_schedule(day, @rp).each do |section| %>
       <div class="row course">
         - <%= section.day %>, <%= section.start_time.strftime("%l:%M %p") %>-<%= section.end_time.strftime("%l:%M %p") %> <%= section.name %>
       </div>
     <% end %>
-    <% unless student.daily_schedule(day).empty? %>
+    <% unless student.daily_schedule(day, @rp).empty? %>
       </p>
     <% end %>
   <% end %>
