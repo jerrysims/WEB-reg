@@ -953,7 +953,6 @@ body.no-scroll {
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex
 }
 
 .sqsp-tooltip .buttons:empty {
@@ -966,7 +965,6 @@ body.no-scroll {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  display: flex;
   align-items: center;
   justify-content: center;
   border-left: 1px solid #e4e4e4 !important
@@ -1529,7 +1527,6 @@ body>.login-wrapper.hidden {
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex;
   margin: 22px -33px -22px
 }
 
@@ -1543,7 +1540,6 @@ body>.login-wrapper.hidden {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  display: flex;
   align-items: center;
   justify-content: center;
   border-left: 1px solid #e4e4e4 !important
@@ -9733,7 +9729,6 @@ body:not(.event-like-and-share-buttons) .event-meta-socialicon-container {
 }
 
 .sqs-block-image .design-layout-poster .image-card-wrapper {
-  display: flex;
   -ms-flex-align: center;
   align-items: center;
   -ms-justify-content: center;
@@ -9835,7 +9830,6 @@ body:not(.event-like-and-share-buttons) .event-meta-socialicon-container {
 }
 
 .sqs-block-image .design-layout-card:not(.sqs-narrow-width) {
-  display: flex;
   -ms-justify-content: space-between;
   justify-content: space-between
 }
@@ -9854,7 +9848,6 @@ body:not(.event-like-and-share-buttons) .event-meta-socialicon-container {
 }
 
 .sqs-block-image .design-layout-card:not(.sqs-narrow-width) .image-card-wrapper {
-  display: flex;
   -ms-flex-align: center;
   align-items: center;
   -ms-justify-content: center;
@@ -9929,16 +9922,11 @@ body:not(.event-like-and-share-buttons) .event-meta-socialicon-container {
   width: 133.33333333333331%
 }
 
-.sqs-block-image .design-layout-overlap:not(.sqs-narrow-width) {
-  display: flex
-}
-
 .sqs-block-image .design-layout-overlap:not(.sqs-narrow-width) .image-card-wrapper, .sqs-block-image .design-layout-overlap:not(.sqs-narrow-width)>div:first-child {
   width: 50%
 }
 
 .sqs-block-image .design-layout-overlap:not(.sqs-narrow-width) .image-card-wrapper {
-  display: flex;
   -ms-flex-align: center;
   align-items: center;
   -ms-justify-content: flex-end;
@@ -10053,10 +10041,6 @@ body:not(.event-like-and-share-buttons) .event-meta-socialicon-container {
   left: 10%
 }
 
-.sqs-block-image .design-layout-collage:not(.sqs-narrow-width) {
-  display: flex
-}
-
 .sqs-block-image .design-layout-collage:not(.sqs-narrow-width).image-position-right {
   flex-direction: row-reverse
 }
@@ -10078,7 +10062,6 @@ body:not(.event-like-and-share-buttons) .event-meta-socialicon-container {
 }
 
 .sqs-block-image .design-layout-collage:not(.sqs-narrow-width) .image-card-wrapper {
-  display: flex;
   -ms-flex-align: flex-start;
   align-items: flex-start;
   -ms-justify-content: flex-start;
@@ -12236,7 +12219,6 @@ body:not(.image-block-stack-dynamic-font-sizing) .sqs-block-image .design-layout
 }
 
 .sqs-block-opentable-v2 .squarespace-opentable-picker-wrapper {
-  display: flex;
   justify-content: center;
   flex-wrap: wrap;
   margin: 10px 0
@@ -12906,7 +12888,6 @@ html.sqs-modal-lightbox-open, html.sqs-modal-lightbox-open body {
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex;
   -webkit-flex-flow: column nowrap;
   -moz-flex-flow: column nowrap;
   -ms-flex-flow: column nowrap;
@@ -12993,7 +12974,6 @@ html.sqs-modal-lightbox-open, html.sqs-modal-lightbox-open body {
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex;
   -webkit-flex-flow: column nowrap;
   -moz-flex-flow: column nowrap;
   -ms-flex-flow: column nowrap;
@@ -13081,7 +13061,6 @@ html.sqs-modal-lightbox-open, html.sqs-modal-lightbox-open body {
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
-    display: flex;
     -webkit-flex-flow: column nowrap;
     -moz-flex-flow: column nowrap;
     -ms-flex-flow: column nowrap;
@@ -13579,7 +13558,6 @@ body:not(.button-style-default).button-corner-style-pill #productDetails .Produc
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex;
   position: absolute;
   top: 0;
   bottom: 0;
