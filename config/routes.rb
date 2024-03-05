@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   devise_scope :parent do
     authenticated :parent do
-      root to: "registration_periods#index", as: :authenticated_root
+      root to: "parents#show", as: :authenticated_root
     end
 
     unauthenticated do

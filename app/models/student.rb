@@ -23,6 +23,7 @@ class Student < ActiveRecord::Base
   attr_accessor :shadow_spot
 
   scope :missing_web_email, -> { where(web_email: nil) }
+  scope :web_email_different_domain, -> { where.not("web_email LIKE ?", "%@webtutorialnashville.com") }
   scope :unconfirmed, -> { where(confirmed_grade: false) }
   scope :enrolled, -> { joins(:registrations).distinct }
 

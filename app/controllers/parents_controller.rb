@@ -25,11 +25,10 @@ class ParentsController < ApplicationController
   end
 
   def show
-    if should_redirect_to_confirm_grade?
-      redirect_to parent_confirm_grade_path(current_parent.id)
-    else
-      @students = current_parent.students
-    end
+    redirect_to parent_confirm_grade_path(current_parent.id) if should_redirect_to_confirm_grade?
+    redirect_to parent_confirm_web_email_path(current_parent.id) if should_confirm_web_email?
+
+    @students = current_parent.students
   end
 
   def view_grades
@@ -49,7 +48,7 @@ class ParentsController < ApplicationController
 
   def populate_email_suggestions
     students = []
-    current_parent.students.missing_web_email.each do |s|
+    (current_parent.students.missing_web_email + current_parent.students.web_email_different_domain).each do |s|
       student = {}
       student[:student] = s
       student[:suggestions] = build_email_suggestions(s)
@@ -67,7 +66,8 @@ class ParentsController < ApplicationController
   end
 
   def should_confirm_web_email?
-    current_parent.students.missing_web_email.count > 0
+    current_parent.students.enrolled.missing_web_email.count > 0 ||
+    current_parent.students.enrolled.web_email_different_domain.count > 0
   end
 
   def should_redirect_to_confirm_grade?

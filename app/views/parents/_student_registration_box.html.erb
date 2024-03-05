@@ -12,14 +12,18 @@
       <% @students.each do |s| %>
         <li class=" enrollment-forms-box-row row">
           <div class="col-md-6">
-            <%= link_to(
-              s.full_name, 
-              parent_registration_period_student_view_course_list_path(
-                parent_id: current_parent.id,
-                registration_period_id: @rp.id,
-                student_id: s.id
-              ), class: "col-xs-6"
-            ) %>
+            <% if @rp.nil? %>
+              <span><%= s.full_name %></span>
+            <% else %>
+              <%= link_to(
+                s.full_name, 
+                parent_registration_period_student_view_course_list_path(
+                  parent_id: current_parent.id,
+                  registration_period_id: @rp.id,
+                  student_id: s.id
+                ), class: "col-xs-6"
+              ) %>
+            <% end %>
           </div>
         </li>
       <% end %>
