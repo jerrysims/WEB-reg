@@ -37,6 +37,7 @@ class Product < ActiveRecord::Base
   DROPPED_TUITION_FEE = Product.find_by(name: "Dropped Tuition Fee")
   EXTRACURRICULAR_TUITION = Product.find_by(name: "Extracurricular Tuition")
 
+  belongs_to :registration_period
   has_and_belongs_to_many :courses
 
   validates_presence_of :name
