@@ -6,6 +6,25 @@
   padding: 0px;
 }
 
+.current-total-box { 
+  padding: 10px;
+}
+
+.current-total-box-container {
+  padding: 0px;
+}
+
+.current-total-box-fee-label {
+  text-align: right;
+  padding-right: 0px;
+}
+
+.current-total-box-title {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .day-title {
   text-align: center;
 }
@@ -33,6 +52,24 @@
 .registration-day-box {
   margin-bottom: 10px;
   border-radius: 5px;
+}
+
+.registration-header-box {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.registration-progress-bar-row {
+
+}
+
+.registration-progress-bar-nav-item {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
 }
 
 .invoice-total h5 {
