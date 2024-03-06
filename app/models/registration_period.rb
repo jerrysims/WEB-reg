@@ -11,5 +11,6 @@ class RegistrationPeriod < ApplicationRecord
   scope :extracurricular, ->{ where(rp_type: "extracurricular") }
 
   has_many :courses
+  has_many :products
   has_many :sections, through: :courses
 end
