@@ -50,6 +50,11 @@ class Parent < ActiveRecord::Base
     invoice.present? && invoice.closed?
   end
 
+  def is_returning?
+    return false
+    students.enrolled.count > 0
+  end
+
   def registered_students
     students.joins(:registrations).uniq
   end

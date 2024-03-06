@@ -68,7 +68,7 @@ class AdminsController < ApplicationController
   private
   
   def confirm_admin     
-    current_parent.has_role? :admin
+    current_parent.is_admin?
   end
 
   def set_student

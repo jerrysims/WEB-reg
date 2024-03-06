@@ -1,10 +1,10 @@
 class RegistrationPeriod < ApplicationRecord
   RP_TYPES= %w(academic extracurricular)
-  RP_STATUSES = %W(future teachers returning_families all closed)
+  RP_STATUSES = %W(future teachers returning all closed)
 
   validates_inclusion_of :rp_type, in: RP_TYPES
+  validates_inclusion_of :status, in: RP_STATUSES
   validates :name, uniqueness: true
-
 
   scope :open, ->{ where("open_date <= ?", Date.today).where("close_date >= ?", Date.today) } 
   scope :academic, ->{ where(rp_type: "academic") }
