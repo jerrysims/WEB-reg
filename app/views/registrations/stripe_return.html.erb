@@ -2,11 +2,14 @@
 <div class="row">
   <div class="box shadow col-md-12 col-xs-12 col-sm-12">
     <div class="col-md-11 col-sm-8">
-      <%= simple_form_for(current_parent, url: registrations_update_tuition_preference_url) do |f| %>
+      <%= simple_form_for(@tuition_preference) do |f| %>
+        <%= f.hidden_field :parent_id, value: current_parent.id %>
+        <%= f.hidden_field :registration_period_id, value: @rp.id %>
+
         <h4>Payment Preferences</h4>
         <div class="col-6">
-          <div class="row"> <%= f.input :tuition_preference, label: "Payment Schedule", as: :select, collection: %w(Semester Monthly) %> </div>
-          <div class="row"> <%= f.input :payment_preference, label: "Payment Type", as: :select, collection: %w(Cash/Check ACH Debit/Credit)%> </div>
+          <div class="row"> <%= f.input :frequency, label: "Payment Schedule", as: :select, collection: %w(Semester Monthly) %> </div>
+          <div class="row"> <%= f.input :payment_method, label: "Payment Type", as: :select, collection: %w(Cash/Check ACH Debit/Credit)%> </div>
           <%= f.simple_fields_for :donation do |f| %>
             <div class="row">
               <%= f.input :quantity, label: "Would you like to donate to the WEB scholarship fund?", as: :select, collection: %w(10 25 50 100), html_input: { include_blank: true, selected: @checked } %>

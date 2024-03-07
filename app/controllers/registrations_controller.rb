@@ -177,6 +177,7 @@ class RegistrationsController < ApplicationController
   end
 
   def stripe_return
+    @tuition_preference = TuitionPreference.new
     # @semester, @monthly = Invoice.tuition_totals(current_parent)
     # @payment_preference_section = payment_preference_section
     # @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new

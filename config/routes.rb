@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     get "parent_contact_list"
   end
 
+  resources :tuition_preferences
+
   namespace :admin, controller: "/admins" do
     get :dashboard
     get :grades

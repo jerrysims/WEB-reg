@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_05_181956) do
+ActiveRecord::Schema.define(version: 2024_03_07_151817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -322,6 +322,17 @@ ActiveRecord::Schema.define(version: 2024_03_05_181956) do
     t.index ["section_id", "teacher_id"], name: "index_teachers_sections_on_section_id_and_teacher_id", unique: true
     t.index ["section_id"], name: "index_teachers_sections_on_section_id"
     t.index ["teacher_id"], name: "index_teachers_sections_on_teacher_id"
+  end
+
+  create_table "tuition_preferences", force: :cascade do |t|
+    t.bigint "parent_id", null: false
+    t.bigint "registration_period_id", null: false
+    t.string "frequency"
+    t.string "payment_method"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parent_id"], name: "index_tuition_preferences_on_parent_id"
+    t.index ["registration_period_id"], name: "index_tuition_preferences_on_registration_period_id"
   end
 
   create_table "wait_listed_students", force: :cascade do |t|
