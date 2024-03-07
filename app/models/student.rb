@@ -25,7 +25,7 @@ class Student < ActiveRecord::Base
   scope :missing_web_email, -> { where(web_email: nil) }
   scope :web_email_different_domain, -> { where.not("web_email LIKE ?", "%@webtutorialnashville.com") }
   scope :unconfirmed, -> { where(confirmed_grade: false) }
-  scope :enrolled, -> { joins(:registrations).distinct }
+  scope :enrolled, -> (rp) { joins(registrations: { section: { course: :registration_period } }).where(courses: { registration_period_id: rp.id }) }
 
   DAYS_ORDER = %w(Tuesday Thursday)
 

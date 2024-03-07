@@ -165,7 +165,7 @@ class RegistrationsController < ApplicationController
   # end
 
   def review
-    @enrolled_students = current_parent.students.enrolled
+    @enrolled_students = current_parent.students.enrolled(@rp)
     @not_enrolled = current_parent.students - @enrolled_students
   end
 
