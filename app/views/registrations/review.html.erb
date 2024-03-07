@@ -50,10 +50,8 @@ We found the following class schedules for you:
 <% unless current_parent.locked %>
   <div class="row">
     <%= link_to(
-      "Continue to Invoice / Tuition", 
-      registrations_finalize_path(
-        registration_period_id: @rp.id
-      ),
+      "Continue to Parent Agreement", 
+      new_parent_parent_agreement_path(current_parent.id),
       class: "custom-button view-invoice-button col-3"
     ) %>
   </div>
