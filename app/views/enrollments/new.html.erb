@@ -1,4 +1,6 @@
-<div class="row">
+<%
+=begin%>
+ <div class="row">
   <h2 class='student-form'>First, tell us about your student</h2>
   <h5 class="new-enrollment-form">Fields mark with * are required</h5>
     <%= form_for(@student,url: { action: "student_info", id: @student.id }, html: { class: "new-student-form" }) do |f| %>
@@ -202,4 +204,6 @@
        </div>
       </div>
   <% end %>
-</div>
+</div> 
+<%
+=end%>

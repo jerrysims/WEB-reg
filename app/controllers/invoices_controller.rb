@@ -1,44 +1,59 @@
 class InvoicesController < ApplicationController
+  before_action :set_rp
+
   def donate_now
     @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
     @checked = get_donation_radio_check(@donation.quantity)
-    @program_donation = Invoice.get_program_donation(current_parent) || InvoiceLineItem.new
+    @program_donation = Invoice.get_program_donation(current_parent, @rp) || InvoiceLineItem.new
     @program_donation_checked = get_program_donation_radio_check(@program_donation.quantity)
   end
 
   def generate_initial_invoice
-    @invoice = Invoice.find_by(parent_id: current_parent.id) || Invoice.create(parent: current_parent)
-    unless @invoice.closed?
-      @invoice.generate_initial_invoice
-      current_parent.send_confirmation(@invoice)
-      @invoice.update_attributes(closed: true)
-      @invoice.parent.update_attributes(locked: true)
+    @invoice = Invoice.find_by(parent_id: current_parent.id, registration_period_id: @rp.id) || Invoice.create(parent: current_parent, registration_period_id: @rp.id)
+    
+    ActiveRecord::Base.transaction do
+      unless @invoice.closed?
+        @invoice.generate_initial_invoice(@rp)
+        current_parent.send_confirmation(@invoice)
+        @invoice.update_attributes(closed: true)
+        @invoice.parent.update_attributes(locked: true)
+      end
     end
   end
 
   def index
   end
 
-  def update_donation_amount
-    p = params[:invoice_line_item]
-    p[:quantity] = p[:other_quantity] if p[:quantity] == "Other"
-    p.delete("other_quantity")
-    p[:product_id] = Product.where(name: "Scholarship Donation").first.id
-    p[:parent_id] = current_parent.id
+  # def update_donation_amount
+  #   p = params[:invoice_line_item]
+  #   p[:quantity] = p[:other_quantity] if p[:quantity] == "Other"
+  #   p.delete("other_quantity")
+  #   p[:product_id] = Product.where(name: "Scholarship Donation").first.id
+  #   p[:parent_id] = current_parent.id
 
-    if params[:invoice_line_item_id].nil?
-      invoice = Invoice.find_by(parent_id: current_parent.id) || Invoice.create(parent: current_parent)
-      @invoice_line_item = InvoiceLineItem.new(invoice: invoice)
-      @invoice_line_item.update_attributes( invoice_line_item_params )
-    else
-      @invoice_line_item = InvoiceLineItem.find(params[:invoice_line_item_id])
-      @invoice_line_item.update_attributes(invoice_line_item_params)
+  #   if params[:invoice_line_item_id].nil?
+  #     invoice = Invoice.find_by(parent_id: current_parent.id) || Invoice.create(parent: current_parent)
+  #     @invoice_line_item = InvoiceLineItem.new(invoice: invoice)
+  #     @invoice_line_item.update_attributes( invoice_line_item_params )
+  #   else
+  #     @invoice_line_item = InvoiceLineItem.find(params[:invoice_line_item_id])
+  #     @invoice_line_item.update_attributes(invoice_line_item_params)
+  #   end
+
+  #   positive_message = "Your donation amount of $#{@invoice_line_item.quantity} was successfully saved. Thank you!"
+  #   negative_message = @invoice_line_item.errors.full_messages
+
+  #   @response_message = @invoice_line_item.valid? ? positive_message : negative_message
+  # end
+
+  def generate_tuition_fees(rp)
+    parent.registered_students.each do |student|
+      student.rp_courses(rp).each do |course|
+        if course.tuition_product
+          InvoiceLineItem.create(product: course.tuition_product, parent: parent, quantity: 1, student_id: student.id, invoice: self)
+        end
+      end
     end
-
-    positive_message = "Your donation amount of $#{@invoice_line_item.quantity} was successfully saved. Thank you!"
-    negative_message = @invoice_line_item.errors.full_messages
-
-    @response_message = @invoice_line_item.valid? ? positive_message : negative_message
   end
 
   def update_program_donation
