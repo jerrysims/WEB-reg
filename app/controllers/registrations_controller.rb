@@ -214,8 +214,8 @@ class RegistrationsController < ApplicationController
     end
   end
 
-  def discount_not_yet_applied?(@rp)
-    !InvoiceLineItem.find_by(parent: current_parent, product: Product.sibling_discount(@rp))
+  def discount_not_yet_applied?(rp)
+    !InvoiceLineItem.find_by(parent: current_parent, product: Product.sibling_discount(rp))
   end
 
   def fee_paid?(product, student_id=nil)
