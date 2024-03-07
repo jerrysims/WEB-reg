@@ -10,6 +10,9 @@ $duplicateSection = $(".twice_a_week#section-<%= @section.id %>")
   $("#course-fees").text("<%=@formatted_course_fees%>")
 <% else %>
   $selectedSection.append("<br><span class='alert'><%= @error_content %></span>");
+  if ($duplicateSection.length > 0) {
+    $duplicateSection.append("<br><span class='alert'><%= @error_content %></span>");
+  }
 <% end %>
 
 <% if @class_is_full %>

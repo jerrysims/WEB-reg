@@ -5,17 +5,21 @@
   <% if @open_academic_rps.present? %>
     <div class="col-md-5 box">
       <h3>Academic</h3>
+      <ul>
       <% @open_academic_rps.each do |rp| %>
-        <%= link_to rp.name, parent_registration_period_select_student_path(current_parent.id, rp.id) %>
+        <li><%= link_to rp.name, parent_registration_period_select_student_path(current_parent.id, rp.id) %></li>
       <% end %>
+      </ul>
     </div>    
   <% end %>
   <% if @open_extracurricular_rps.present? %>
     <div class="col-md-5 box">
       <h3>Extracurricular</h3>
+      <ul>
       <% @open_extracurricular_rps.each do |rp| %>
-        <div><%= link_to rp.name, new_parent_registration_period_registration_path(current_parent, rp)%></div>
+        <li><div><%= link_to rp.name, new_parent_registration_period_registration_path(current_parent, rp)%></div></li>
       <% end %>
+      </ul>
     </div>    
   <% end %>
 <% end %>
