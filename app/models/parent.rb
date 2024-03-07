@@ -59,6 +59,10 @@ class Parent < ActiveRecord::Base
     students.joins(:registrations).uniq
   end
 
+  def rp_courses(rp)
+    courses.where(registration_period_id: rp.id)
+  end
+
   def send_confirmation(invoice)
     ConfirmationMailer.registration_confirmation_email(self, invoice).deliver_now
   end

@@ -11,8 +11,8 @@
           <div class="finalize col-md-offset-1 col-md-8">
             In order to finalize your registration, please pay the quickbooks invoice you will receive via email.
             <div class="row edit-parent">
-              <%= link_to "Finalize Registration and Generate Invoice",
-                { controller: "invoices", action: "generate_initial_invoice" },
+              <%= link_to "Finalize Registration and Generate Invoice", 
+              invoices_generate_initial_invoice_path(registration_period_id: @rp.id)
                 { class: "custom-button btn-standard", data: {
                   confirm: "IMPORTANT: This will finalize your registration(s) and you will not be able to add another student.
                   Subsequent changes will incur a $10 processing fee. Press OK to continue. Press Cancel to return and make changes." } } %>

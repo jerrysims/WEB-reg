@@ -37,23 +37,24 @@ class Course < ActiveRecord::Base
   end
 
   def semester_tuition
-    return Product::STUDY_HALL_TUITION[:semester].unit_price if name == "Study Hall"
-    return Product::EXTRACURRICULAR_TUITION.unit_price if rp_type == "extracurricular"
-
+    return Product.study_hall_tuition_semester(registration_period).unit_price if name == "Study Hall"
+    return Product.extracurricular_tuition_semester(registration_period).unit_price if subject_area == "Extracurricular"
+    return Product.band_choir_theater_yearbook_tuition_semester(registration_period).unit_price if ["Performance Art", "Elective - Yearbook"].include? subject_area
+    
     case division
     when "MS", "MS/HS"
       case twice_weekly
       when true
-        Product::MIDDLE_SCHOOL_TUITION_TWICE_WEEKLY[:semester].unit_price
+        Product.middle_school_tuition_twice_weekly_semester(registration_period).unit_price
       else
-        Product::MIDDLE_SCHOOL_TUITION[:semester].unit_price
+        Product.middle_school_tuition_semester(registration_period).unit_price
       end
     when "HS"
       case twice_weekly
       when true
-        Product::HIGH_SCHOOL_TUITION_TWICE_WEEKLY[:semester].unit_price
+        Product.high_school_tuition_twice_weekly_semester(registration_period).unit_price
       else
-        Product::HIGH_SCHOOL_TUITION[:semester].unit_price
+        Product.high_school_tuition_semester(registration_period).unit_price
       end
     end
   end

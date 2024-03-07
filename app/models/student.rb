@@ -61,21 +61,29 @@ class Student < ActiveRecord::Base
     "#{parent.first_name.capitalize} #{parent.last_name.capitalize}"
   end
 
-  def reg_fee
-    case courses.count
+  def reg_fee(rp)
+    case rp_courses(rp).count
     when 0
       nil
     when 1
-      Product::REGISTRATION_FEE_1_CLASS
+      Product.registration_fee_1_class(rp)
     when 2
-      Product::REGISTRATION_FEE_2_CLASSES
+      Product.registration_fee_2_classes(rp)
     else
-      Product::REGISTRATION_FEE
+      Product.registration_fee_3_classes(rp)
     end
+  end
+
+  def rp_courses(rp)
+    courses.where(registration_period_id: rp.id)
   end
 
   def should_be_offered_lunch?
     !shadow_spots.select { |ss| ss.time == "10:15 AM" }.empty?
+  end
+  
+  def standard_course_count
+    courses.count - math_course_count - study_hall_count - fl_course_count
   end
 
   def study_hall_count

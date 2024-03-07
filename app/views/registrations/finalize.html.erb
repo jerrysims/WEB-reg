@@ -44,6 +44,12 @@
     // created in step 3.
     fetch('create_checkout_session', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        registration_period_id: "<%= @rp.id %>"
+      })
     })
     .then(function(response) {
       return response.json();

@@ -31,7 +31,7 @@
                 <% value[:sections].each do |s| %>
                   <% registered = @student.registrations.where(section_id: s.id).empty? ? "" : "registered" %>
                   <% twice_a_week = s.day == "Tuesday/Thursday"? "twice_a_week" : "" %>
-                  <div class="btn register-grid-class-card bordered-section col-md-3 <%= registered %> <%= twice_a_week %> " id="section-<%= s.id %>" data-section="<%= s.id %>" data-student="<%= @student.id %>">
+                  <div class="btn register-grid-class-card bordered-section col-md-3 <%= registered %> <%= twice_a_week %> " id="section-<%= s.id %>" data-section="<%= s.id %>" data-student="<%= @student.id %>" data-registration_period="<%= @rp.id %>">
                     <small><%= s.name.truncate(30) %><br> (<%= s.suggested_grade %>)</small>
                     <% if s.at_max? %>
                       <br><div class="alert">CLASS FULL - click to add to waitlist</div>

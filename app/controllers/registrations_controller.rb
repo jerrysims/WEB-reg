@@ -2,9 +2,10 @@ class RegistrationsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :check_for_locked_parent, except: [:new, :select_student, :create, :course_options]
   before_action :set_current_student, only: [:choose_class, :drop_class, :index]
-  before_action :set_course_and_tuition, only: [:index]
-  before_action :set_rp, only: [:index, :review]
-  before_action :set_total_fees_and_tuition, only: [:finalize, :review, :stripe_return]
+  before_action :set_rp
+  before_action -> { set_course_and_tuition(@rp) }, only: [:index]
+
+  before_action -> { set_total_fees_and_tuition(@rp) }, only: [:finalize, :review, :stripe_return]
   before_action :reg_fees_paid, only: [:stripe_return]
   before_action :set_open_rps, only: [:index, :finalize, :review]
 
@@ -35,7 +36,7 @@ class RegistrationsController < ApplicationController
       status: :selected, user: current_parent)
     if @registration.save
       @registered = true
-      set_course_and_tuition
+      set_course_and_tuition(@rp)
     else
       @registered = false
       @class_is_full = @registration.section.at_max?
@@ -76,12 +77,13 @@ class RegistrationsController < ApplicationController
         line_items: line_items_for_checkout,
         mode: 'payment',
         discounts: current_parent.students.count <= 1 ? nil : sibling_discount,
-        success_url:  stripe_return_url(parent_id: current_parent.id),
+        success_url:  stripe_return_url(parent_id: current_parent.id, registration_period_id: @rp.id),
         cancel_url: registrations_finalize_url(failed: true),
         customer_email: current_parent.email,
         client_reference_id: current_parent.id,
         metadata: {
-          parent_id: current_parent.id
+          parent_id: current_parent.id,
+          registration_period_id: @rp.id
         }
       })
 
@@ -98,14 +100,14 @@ class RegistrationsController < ApplicationController
     if r
       r.destroy
       @dropped = true
-      set_course_and_tuition
+      set_course_and_tuition(@rp)
     else
       @dropped = false
     end
   end
 
   def finalize
-    @administrative_fee = fee_paid?(Product::ADMINISTRATIVE_FEE) ? 0 : Invoice.administrative_fee
+    @administrative_fee = fee_paid?(Product.administrative_fee(@rp)) ? 0 : Invoice.administrative_fee(@rp)
     @enrolled_students = current_parent.students.enrolled
     @discount = current_parent.enrolled_students_count > 1 && discount_not_yet_applied? ? Invoice.discount : nil
     
@@ -113,8 +115,8 @@ class RegistrationsController < ApplicationController
     @fees << ["Administrative Fee", @administrative_fee]
 
     @enrolled_students.each do |s|
-      unless fee_paid?(s.reg_fee, s.id)
-        @fees << ["#{s.full_name} Registration Fee", s.reg_fee.unit_price]
+      unless s.reg_fee(@rp).nil? || fee_paid?(s.reg_fee(@rp), s.id)  
+        @fees << ["#{s.full_name} Registration Fee", s.reg_fee(@rp).try(:unit_price)]
       end
     end
 
@@ -234,17 +236,17 @@ class RegistrationsController < ApplicationController
       unless InvoiceLineItem.find_by(parent: current_parent, student_id: s.id)
         items << {
           name: "Registration Fee - #{s.full_name}",
-          amount: (s.reg_fee.unit_price * 100).to_i,
+          amount: (s.reg_fee(@rp).unit_price * 100).to_i,
           quantity: 1,
           currency: "usd",
         }
       end
     end
 
-    unless InvoiceLineItem.find_by(parent: current_parent, product: Product::ADMINISTRATIVE_FEE)
+    unless InvoiceLineItem.find_by(parent: current_parent, product: Product.administrative_fee(@rp))
       items << {
         name: "Administrative Fee - #{current_parent.full_name}",
-        amount: (Product::ADMINISTRATIVE_FEE.unit_price * 100).to_i,
+        amount: (Product.administrative_fee(@rp).unit_price * 100).to_i,
         quantity: 1,
         currency: "usd"
       }
@@ -261,25 +263,25 @@ class RegistrationsController < ApplicationController
   end
 
   def reg_fees_paid
-    admin_fee = Product::ADMINISTRATIVE_FEE
+    admin_fee = Product.administrative_fee(@rp)
     
     ActiveRecord::Base.transaction do 
       i = Invoice.find_or_create_by(parent: current_parent)
       
       InvoiceLineItem.find_or_create_by(invoice: i, parent: current_parent, product: admin_fee, quantity: 1)
       current_parent.registered_students.each do |s|
-        InvoiceLineItem.find_or_create_by(invoice: i, parent: current_parent, student_id: s.id, product: s.reg_fee, quantity: 1)
+        InvoiceLineItem.find_or_create_by(invoice: i, parent: current_parent, student_id: s.id, product: s.reg_fee(@rp), quantity: 1)
       end
-      unless current_parent.students.count <= 1 || InvoiceLineItem.find_by(parent: current_parent, product: Product::SIBLING_DISCOUNT)
-        InvoiceLineItem.create(invoice: i, parent: current_parent, product: Product::SIBLING_DISCOUNT, quantity: 1)
+      unless current_parent.students.count <= 1 || InvoiceLineItem.find_by(parent: current_parent, product: Product.sibling_discount(@rp))
+        InvoiceLineItem.create(invoice: i, parent: current_parent, product: Product.sibling_discount(@rp), quantity: 1)
       end
     end 
   end
 
-  def set_course_and_tuition
-    @course_fees = @current_student.courses.inject(0){ |sum,e| sum + e.fee }
-    @student_tuition_total = @current_student.courses.inject(0){ |sum, e| sum + e.semester_tuition }
+  def set_course_and_tuition(rp)
 
+    @course_fees = @current_student.rp_courses(rp).inject(0) { |sum, c| sum + c.fee }
+    @student_tuition_total = @current_student.rp_courses(rp).inject(0){ |sum, c| sum + c.semester_tuition }
     @formatted_course_fees = "$%.2f" % @course_fees
     @formatted_student_tuition_total = "$%.2f" % @student_tuition_total
   end
@@ -298,14 +300,14 @@ class RegistrationsController < ApplicationController
     end
   end
 
-  def set_total_fees_and_tuition
-    @parent_tuition_total = current_parent.courses.inject(0){ |sum, e| sum + e.semester_tuition } 
-    @parent_total_course_fees = current_parent.courses.inject(0){ |sum, e| sum + e.fee }
+  def set_total_fees_and_tuition(rp)
+    @parent_tuition_total = current_parent.rp_courses(rp).inject(0){ |sum, e| sum + e.semester_tuition } 
+    @parent_total_course_fees = current_parent.rp_courses(rp).inject(0){ |sum, e| sum + e.fee }
   end
 
 
   def sibling_discount
-    return if current_parent.students.count <= 1 || InvoiceLineItem.find_by(parent: current_parent, product: Product::SIBLING_DISCOUNT)
+    return if current_parent.students.count <= 1 || InvoiceLineItem.find_by(parent: current_parent, product: Product.sibling_discount(@rp))
 
     [{
       coupon: Stripe::Coupon.create(

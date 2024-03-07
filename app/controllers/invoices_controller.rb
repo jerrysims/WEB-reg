@@ -73,4 +73,8 @@ class InvoicesController < ApplicationController
   def get_program_donation_radio_check(amount)
     [0,75,100,150].include?(amount) || amount.nil? ? amount.to_s : "Other"
   end
+
+  def set_rp
+    @rp = RegistrationPeriod.find(params[:registration_period_id])
+  end
 end

@@ -35,6 +35,7 @@ ready = function() {
         action = $(this).hasClass("registered") ? "drop_class" : "choose_class"
         section_id = $(this).data("section");
         student_id = $(this).data("student");
+        registration_period_id = $(this).data("registration_period");
         newLocation = get_href(section_id, student_id, dialog, action)
         if (window.confirm(dialog)) {
           $.ajax({
@@ -48,7 +49,7 @@ ready = function() {
     bindCourses();
 
   var get_href = function(section_id, student_id, dialog, action) {
-    href = "registrations/" + action + "?section_id=" + section_id + "&student_id=" + student_id
+    href = "registrations/" + action + "?section_id=" + section_id + "&student_id=" + student_id +"&registration_period_id=" + registration_period_id
     return href
   }
 };

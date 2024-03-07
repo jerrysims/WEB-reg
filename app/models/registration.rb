@@ -57,7 +57,7 @@ class Registration < ActiveRecord::Base
     @invoice = Invoice.find_or_create_by(parent: student.parent)
 
     InvoiceLineItem.create(
-      product: Product::DROPPED_COURSE_FEE,
+      product: Product.dropped_course_fee(@rp),
       invoice: @invoice,
       parent: student.parent,
       quantity: section.course.fee

@@ -86,7 +86,9 @@ ActiveRecord::Schema.define(version: 2024_03_05_181956) do
     t.datetime "updated_at", null: false
     t.bigint "parent_id"
     t.boolean "closed", default: false
+    t.bigint "registration_period_id"
     t.index ["parent_id"], name: "index_invoices_on_parent_id"
+    t.index ["registration_period_id"], name: "index_invoices_on_registration_period_id"
   end
 
   create_table "learning_differences_forms", force: :cascade do |t|
@@ -336,6 +338,7 @@ ActiveRecord::Schema.define(version: 2024_03_05_181956) do
   add_foreign_key "grades", "sections"
   add_foreign_key "grades", "students"
   add_foreign_key "invoices", "parents"
+  add_foreign_key "invoices", "registration_periods"
   add_foreign_key "learning_differences_forms", "students"
   add_foreign_key "medical_forms", "registration_periods"
   add_foreign_key "parent_agreements", "parents"
@@ -350,5 +353,7 @@ ActiveRecord::Schema.define(version: 2024_03_05_181956) do
   add_foreign_key "registrations", "sections"
   add_foreign_key "release_of_liabilities", "registration_periods"
   add_foreign_key "students", "parents"
+  add_foreign_key "tuition_preferences", "parents"
+  add_foreign_key "tuition_preferences", "registration_periods"
   add_foreign_key "wait_listed_students", "sections"
 end
