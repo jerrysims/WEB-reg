@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
   before_action :confirm_admin
   before_action :set_student, only: [:student_schedule]
-  before_action :set_rp, only: [:student_schedule]
+  before_action :set_rp, only: [:student_schedule, :missing_documents]
   before_action -> { set_total_fees_and_tuition(@rp) }, only: [:student_schedule]
 
 
@@ -26,7 +26,7 @@ class AdminsController < ApplicationController
   end
 
   def missing_documents
-    parent_ids = Student.enrolled.pluck(:parent_id)
+    parent_ids = Student.enrolled(@rp).pluck(:parent_id)
 
     @parents_and_missing_docs = []
     parent_ids.each do |pid|

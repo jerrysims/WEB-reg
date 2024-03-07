@@ -24,7 +24,7 @@
       </div>
       <div class="row">
         <div class="col-8">
-          In order to reserve your <%= @current_parent.enrolled_students_count > 1 ? "students'" : "student's" %> spot, please pay the registration fees. The following link will take you to Stripe
+          In order to reserve your <%= @current_parent.enrolled_students_count(@rp) > 1 ? "students'" : "student's" %> spot, please pay the registration fees. The following link will take you to Stripe
           <div class="row justify-content-center"><button id="checkout-button" class="custom-button col-5 justify-content-center">Pay Registration & Admin Fee</button></div>
           <p><br>After completing Stripe payment, you will be returned to our site to complete registration.</p>
         </div>

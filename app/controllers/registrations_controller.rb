@@ -108,8 +108,8 @@ class RegistrationsController < ApplicationController
 
   def finalize
     @administrative_fee = fee_paid?(Product.administrative_fee(@rp)) ? 0 : Invoice.administrative_fee(@rp)
-    @enrolled_students = current_parent.students.enrolled
-    @discount = current_parent.enrolled_students_count > 1 && discount_not_yet_applied?(@rp) ? Invoice.discount(@rp) : nil
+    @enrolled_students = current_parent.students.enrolled(@rp)
+    @discount = current_parent.enrolled_students_count(@rp) > 1 && discount_not_yet_applied?(@rp) ? Invoice.discount(@rp) : nil
     
     @fees = []
     @fees << ["Administrative Fee", @administrative_fee]

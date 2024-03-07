@@ -2,6 +2,7 @@ class ParentsController < ApplicationController
   before_action :authenticate_parent!
   before_action :check_for_locked_parent, except: [:registration_home, :view_grades]
   before_action :set_parent
+  before_action :set_rp, only: [:view_grades, :show]
   before_action :set_open_rps
 
   def acknowledge_covid_statement
@@ -32,7 +33,7 @@ class ParentsController < ApplicationController
   end
 
   def view_grades
-    @students = current_parent.students.enrolled
+    @students = current_parent.students.enrolled(@rp)
   end
 
   private
@@ -61,13 +62,17 @@ class ParentsController < ApplicationController
     @open_rps = RegistrationPeriod.open
   end
 
+  def set_rp
+    @rp = RegistrationPeriod.find(params[:registration_period_id])
+  end
+
   def set_parent
     @parent = current_parent
   end
 
   def should_confirm_web_email?
-    current_parent.students.enrolled.missing_web_email.count > 0 ||
-    current_parent.students.enrolled.web_email_different_domain.count > 0
+    current_parent.students.enrolled(@rp).missing_web_email.count > 0 ||
+    current_parent.students.enrolled(@rp).web_email_different_domain.count > 0
   end
 
   def should_redirect_to_confirm_grade?
