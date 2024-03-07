@@ -38,8 +38,8 @@ class Parent < ActiveRecord::Base
     self.add_role("active") if self.roles.blank?
   end
 
-  def enrolled_students_count
-    students.select { |s| s.sections.count > 0 }.count
+  def enrolled_students_count(rp)
+    students.enrolled(rp).count
   end
 
   def full_name
