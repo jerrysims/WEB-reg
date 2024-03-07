@@ -279,7 +279,6 @@ class RegistrationsController < ApplicationController
   end
 
   def set_course_and_tuition(rp)
-
     @course_fees = @current_student.rp_courses(rp).inject(0) { |sum, c| sum + c.fee }
     @student_tuition_total = @current_student.rp_courses(rp).inject(0){ |sum, c| sum + c.semester_tuition }
     @formatted_course_fees = "$%.2f" % @course_fees
