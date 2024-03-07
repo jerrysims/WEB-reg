@@ -1,4 +1,4 @@
-<% @parent.students.enrolled.each do |s| %>
+<% @parent.students.enrolled(@rp).each do |s| %>
   <div class="row box student-forms-box">
     <h6><%= s.full_name %></h6>
     <% if s.medical_form.present? %>

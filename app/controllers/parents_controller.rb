@@ -2,7 +2,7 @@ class ParentsController < ApplicationController
   before_action :authenticate_parent!
   before_action :check_for_locked_parent, except: [:registration_home, :view_grades]
   before_action :set_parent
-  before_action :set_rp, only: [:view_grades, :show]
+  before_action :set_rp, only: [:view_grades]
   before_action :set_open_rps
 
   def acknowledge_covid_statement
