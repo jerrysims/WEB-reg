@@ -52,9 +52,7 @@
   <div class="col-md-12 registration-button-div">
     <%= link_to(
       "Review Registration", 
-      registrations_review_path(
-        registration_period_id: @rp.id
-      ), class: "custom-button" 
+      registrations_review_path( registration_period_id: @rp.id, student_id: @student.id), class: "custom-button" 
     )%>
   </div>
 </div>

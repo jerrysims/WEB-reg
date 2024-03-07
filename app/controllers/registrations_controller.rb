@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :check_for_locked_parent, except: [:new, :select_student, :create, :course_options]
-  before_action :set_current_student, only: [:choose_class, :drop_class, :index]
+  before_action :set_current_student, only: [:choose_class, :drop_class, :index, :review]
   before_action :set_rp
   before_action -> { set_course_and_tuition(@rp) }, only: [:index]
 
