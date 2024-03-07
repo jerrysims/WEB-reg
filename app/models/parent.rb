@@ -55,8 +55,9 @@ class Parent < ActiveRecord::Base
     students.enrolled.count > 0
   end
 
-  def registered_students
-    students.joins(:registrations).uniq
+  def registered_students(rp)
+    students.includes(registrations: { section: { course: :registration_period } })
+            .where(registrations: { sections: { courses: { registration_period_id: rp.id } } })
   end
 
   def rp_courses(rp)

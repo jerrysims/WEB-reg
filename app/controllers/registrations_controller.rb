@@ -232,9 +232,8 @@ class RegistrationsController < ApplicationController
 
   def line_items_for_checkout
     items = []
-
-    current_parent.registered_students.each do |s|
-      unless InvoiceLineItem.find_by(parent: current_parent, student_id: s.id)
+    current_parent.registered_students(@rp).each do |s|
+      unless InvoiceLineItem.find_by(parent: current_parent, registration_period_id: @rp.id, student_id: s.id)
         items << {
           name: "Registration Fee - #{s.full_name}",
           amount: (s.reg_fee(@rp).unit_price * 100).to_i,

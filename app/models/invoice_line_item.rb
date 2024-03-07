@@ -2,6 +2,7 @@ class InvoiceLineItem < ActiveRecord::Base
   belongs_to :invoice
   belongs_to :product
   belongs_to :parent
+  belongs_to :registration_period
 
   validates :quantity, numericality: true
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }

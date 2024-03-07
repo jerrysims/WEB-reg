@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_07_151817) do
+ActiveRecord::Schema.define(version: 2024_03_07_172728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -79,6 +79,8 @@ ActiveRecord::Schema.define(version: 2024_03_07_151817) do
     t.datetime "updated_at", null: false
     t.integer "parent_id"
     t.boolean "paid"
+    t.bigint "registration_period_id"
+    t.index ["registration_period_id"], name: "index_invoice_line_items_on_registration_period_id"
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -348,6 +350,7 @@ ActiveRecord::Schema.define(version: 2024_03_07_151817) do
   add_foreign_key "courses", "registration_periods"
   add_foreign_key "grades", "sections"
   add_foreign_key "grades", "students"
+  add_foreign_key "invoice_line_items", "registration_periods"
   add_foreign_key "invoices", "parents"
   add_foreign_key "invoices", "registration_periods"
   add_foreign_key "learning_differences_forms", "students"
