@@ -62,7 +62,6 @@ class InvoicesController < ApplicationController
   end
 
   private
-
   def invoice_line_item_params
     params.require(:invoice_line_item).permit(:quantity, :product_id, :parent_id)
   end

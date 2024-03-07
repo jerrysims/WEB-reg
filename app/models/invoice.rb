@@ -35,16 +35,6 @@ class Invoice < ActiveRecord::Base
     end
   end
 
-  def generate_tuition_fees
-    parent.registered_students.each do |student|
-      student.courses.each do |course|
-        if course.tuition_product
-          InvoiceLineItem.create(product: course.tuition_product, parent: parent, quantity: 1, student_id: student.id, invoice: self)
-        end
-      end
-    end
-  end
-
   def total_due
     total = 0
     invoice_line_items.each do |item|
@@ -69,32 +59,8 @@ class Invoice < ActiveRecord::Base
     csv_data
   end
 
-  def self.administrative_fee
-    Product.where(name: "Administrative Fee").first.unit_price
-  end
-
-  def self.tuition_totals(parent)
-    # standard_course_count = 0
-    # parent.registered_students.each{ |s| standard_course_count += s.standard_course_count }
-    # study_hall_count = 0
-    # parent.students.each{ |s| study_hall_count += s.study_hall_count}
-    # math_course_count = 0
-    # parent.students.each{ |s| math_course_count += s.math_course_count }
-    # fl_course_count = 0
-    # parent.students.each{ |s| fl_course_count += s.fl_course_count }
-    # monthly_unit = Product::CLASS_TUITION[:monthly].unit_price
-    # semester_unit = Product::CLASS_TUITION[:semester].unit_price
-    # study_hall_monthly = Product::STUDY_HALL_TUITION[:monthly].unit_price
-    # study_hall_semester = Product::STUDY_HALL_TUITION[:semester].unit_price
-    # math_semester = Product::MATH_CLASS_TUITION[:semester].unit_price
-    # math_monthly = Product::MATH_CLASS_TUITION[:monthly].unit_price
-    # fl_semester = Product::HIGH_SCHOOL_LANGUAGE_TUITION[:semester].unit_price
-    # fl_monthly = Product::HIGH_SCHOOL_LANGUAGE_TUITION[:monthly].unit_price
-    #
-    # semester_tuition = (standard_course_count * semester_unit) + (study_hall_count * study_hall_semester) + (math_course_count * math_semester) + (fl_course_count * fl_semester)
-    # monthly_tuition = (standard_course_count * monthly_unit) + (study_hall_count * study_hall_monthly) + (math_course_count * math_monthly) + (fl_course_count * fl_monthly)
-    #
-    # [ semester_tuition, monthly_tuition ]
+  def self.administrative_fee(rp)
+    Product.where(name: "Administrative Fee", registration_period_id: rp.id).first.unit_price
   end
 
   def self.get_donation(parent)

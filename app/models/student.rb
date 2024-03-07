@@ -33,10 +33,6 @@ class Student < ActiveRecord::Base
     Course.where(registration_period_id: rp.id).order(:name).select { |c| c.grades.split(',').include?(grade.to_s) }
   end
 
-  def standard_course_count
-    courses.count - math_course_count - study_hall_count - fl_course_count
-  end
-
   def daily_schedule(day, registration_period)
     sections.joins(course: :registration_period).where(day: [day, "Tuesday/Thursday"], courses: { registration_period: registration_period })
   end

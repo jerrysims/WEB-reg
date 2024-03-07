@@ -1,122 +1,123 @@
-var ready;
+// var ready;
 
-// defines the function that will run when the DOM loads
-ready = function() {
+// // defines the function that will run when the DOM loads
+// ready = function() {
 
-  // ...your javascript goes here...
-  // define variables
-  var nativePicker = document.querySelector('.nativeDatePicker');
-  var fallbackPicker = document.querySelector('.fallbackDatePicker');
-  var fallbackLabel = document.querySelector('.fallbackLabel');
+//   // ...your javascript goes here...
+//   // define variables
+//   var nativePicker = document.querySelector('.nativeDatePicker');
+//   var fallbackPicker = document.querySelector('.fallbackDatePicker');
 
-  var yearSelect = document.querySelector('#year');
-  var monthSelect = document.querySelector('#month');
-  var daySelect = document.querySelector('#day');
+//   var fallbackLabel = document.querySelector('.fallbackLabel');
 
-  // hide fallback initially
-  fallbackPicker.style.display = 'none';
+//   var yearSelect = document.querySelector('#year');
+//   var monthSelect = document.querySelector('#month');
+//   var daySelect = document.querySelector('#day');
 
-  // test whether a new date input falls back to a text input or not
-  var test = document.createElement('input');
-  test.type = 'date';
+//   // hide fallback initially
+//   fallbackPicker.style.display = 'none';
 
-  // if it does, run the code inside the if() {} block
-  if(test.type === 'text') {
-    // hide the native picker and show the fallback
-    nativePicker.style.display = 'none';
-    fallbackPicker.style.display = 'block';
+//   // test whether a new date input falls back to a text input or not
+//   var test = document.createElement('input');
+//   test.type = 'date';
 
-    // populate the days and years dynamically
-    // (the months are always the same, therefore hardcoded)
-    populateDays(monthSelect.value);
-    populateYears();
-  }
+//   // if it does, run the code inside the if() {} block
+//   if(test.type === 'text') {
+//     // hide the native picker and show the fallback
+//     nativePicker.style.display = 'none';
+//     fallbackPicker.style.display = 'block';
 
-  function populateDays(month) {
-    // delete the current set of <option> elements out of the
-    // day <select>, ready for the next set to be injected
-    while(daySelect.firstChild){
-      daySelect.removeChild(daySelect.firstChild);
-    }
+//     // populate the days and years dynamically
+//     // (the months are always the same, therefore hardcoded)
+//     populateDays(monthSelect.value);
+//     populateYears();
+//   }
 
-    // Create variable to hold new number of days to inject
-    var dayNum;
+//   function populateDays(month) {
+//     // delete the current set of <option> elements out of the
+//     // day <select>, ready for the next set to be injected
+//     while(daySelect.firstChild){
+//       daySelect.removeChild(daySelect.firstChild);
+//     }
 
-    // 31 or 30 days?
-    if(month === 'January' || month === 'March' || month === 'May' || month === 'July' || month === 'August' || month === 'October' || month === 'December') {
-      dayNum = 31;
-    } else if(month === 'April' || month === 'June' || month === 'September' || month === 'November') {
-      dayNum = 30;
-    } else {
-    // If month is February, calculate whether it is a leap year or not
-      var year = yearSelect.value;
-      (year - 2016) % 4 === 0 ? dayNum = 29 : dayNum = 28;
-    }
+//     // Create variable to hold new number of days to inject
+//     var dayNum;
 
-    // inject the right number of new <option> elements into the day <select>
-    for(i = 1; i <= dayNum; i++) {
-      var option = document.createElement('option');
-      option.textContent = i;
-      daySelect.appendChild(option);
-    }
+//     // 31 or 30 days?
+//     if(month === 'January' || month === 'March' || month === 'May' || month === 'July' || month === 'August' || month === 'October' || month === 'December') {
+//       dayNum = 31;
+//     } else if(month === 'April' || month === 'June' || month === 'September' || month === 'November') {
+//       dayNum = 30;
+//     } else {
+//     // If month is February, calculate whether it is a leap year or not
+//       var year = yearSelect.value;
+//       (year - 2016) % 4 === 0 ? dayNum = 29 : dayNum = 28;
+//     }
 
-    // if previous day has already been set, set daySelect's value
-    // to that day, to avoid the day jumping back to 1 when you
-    // change the year
-    if(previousDay) {
-      daySelect.value = previousDay;
+//     // inject the right number of new <option> elements into the day <select>
+//     for(i = 1; i <= dayNum; i++) {
+//       var option = document.createElement('option');
+//       option.textContent = i;
+//       daySelect.appendChild(option);
+//     }
 
-      // If the previous day was set to a high number, say 31, and then
-      // you chose a month with less total days in it (e.g. February),
-      // this part of the code ensures that the highest day available
-      // is selected, rather than showing a blank daySelect
-      if(daySelect.value === "") {
-        daySelect.value = previousDay - 1;
-      }
+//     // if previous day has already been set, set daySelect's value
+//     // to that day, to avoid the day jumping back to 1 when you
+//     // change the year
+//     if(previousDay) {
+//       daySelect.value = previousDay;
 
-      if(daySelect.value === "") {
-        daySelect.value = previousDay - 2;
-      }
+//       // If the previous day was set to a high number, say 31, and then
+//       // you chose a month with less total days in it (e.g. February),
+//       // this part of the code ensures that the highest day available
+//       // is selected, rather than showing a blank daySelect
+//       if(daySelect.value === "") {
+//         daySelect.value = previousDay - 1;
+//       }
 
-      if(daySelect.value === "") {
-        daySelect.value = previousDay - 3;
-      }
-    }
-  }
+//       if(daySelect.value === "") {
+//         daySelect.value = previousDay - 2;
+//       }
 
-  function populateYears() {
-    // get this year as a number
-    var date = new Date();
-    var year = date.getFullYear();
+//       if(daySelect.value === "") {
+//         daySelect.value = previousDay - 3;
+//       }
+//     }
+//   }
 
-    // Make this year, and the 100 years before it available in the year <select>
-    for(var i = 0; i <= 100; i++) {
-      var option = document.createElement('option');
-      option.textContent = year-i;
-      yearSelect.appendChild(option);
-    }
-  }
+//   function populateYears() {
+//     // get this year as a number
+//     var date = new Date();
+//     var year = date.getFullYear();
 
-  // when the month or year <select> values are changed, rerun populateDays()
-  // in case the change affected the number of available days
-  yearSelect.onchange = function() {
-    populateDays(monthSelect.value);
-  }
+//     // Make this year, and the 100 years before it available in the year <select>
+//     for(var i = 0; i <= 100; i++) {
+//       var option = document.createElement('option');
+//       option.textContent = year-i;
+//       yearSelect.appendChild(option);
+//     }
+//   }
 
-  monthSelect.onchange = function() {
-    populateDays(monthSelect.value);
-  }
+//   // when the month or year <select> values are changed, rerun populateDays()
+//   // in case the change affected the number of available days
+//   yearSelect.onchange = function() {
+//     populateDays(monthSelect.value);
+//   }
 
-  //preserve day selection
-  var previousDay;
+//   monthSelect.onchange = function() {
+//     populateDays(monthSelect.value);
+//   }
 
-  // update what day has been set to previously
-  // see end of populateDays() for usage
-  daySelect.onchange = function() {
-    previousDay = daySelect.value;
-  }
+//   //preserve day selection
+//   var previousDay;
 
-};
+//   // update what day has been set to previously
+//   // see end of populateDays() for usage
+//   daySelect.onchange = function() {
+//     previousDay = daySelect.value;
+//   }
 
-$(document).ready(ready);
-$(document).on('page:load', ready);
+// };
+
+// $(document).ready(ready);
+// $(document).on('page:load', ready);

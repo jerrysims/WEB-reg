@@ -202,14 +202,6 @@ class RegistrationsController < ApplicationController
     end
   end
 
-  def update_tuition_preference
-    current_parent.update_attributes(parent_params)
-    @donation_total = params[param_label][:donation][:quantity]
-    create_donation(@donation_total)
-
-    redirect_to invoices_path
-  end
-
   private
 
   def available_sections(student, rp)
@@ -219,26 +211,8 @@ class RegistrationsController < ApplicationController
     end
   end
 
-  def create_donation(donation_total)
-    @invoice = Invoice.find_or_create_by(parent: current_parent)
-    if @donation = Invoice.get_donation(current_parent)
-      @donation.update_attributes(quantity: donation_total)
-    else
-      @donation = InvoiceLineItem.create(
-        invoice: @invoice,
-        product: Product::DONATION,
-        quantity: donation_total,
-        parent: current_parent
-      )
-    end
-  end
-
   def discount_not_yet_applied?
-    !InvoiceLineItem.find_by(parent: current_parent, product: Product::SIBLING_DISCOUNT)
-  end
-
-  def donation_total
-    params.require(:parent).require(:donation).permit(:quantity)
+    !InvoiceLineItem.find_by(parent: current_parent, product: Product.sibling_discount(@rp))
   end
 
   def fee_paid?(product, student_id=nil)
