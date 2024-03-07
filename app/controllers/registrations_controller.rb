@@ -3,7 +3,7 @@ class RegistrationsController < ApplicationController
   before_action :check_for_locked_parent, except: [:new, :select_student, :create, :course_options]
   before_action :set_current_student, only: [:choose_class, :drop_class, :index]
   before_action :set_rp
-  before_action -> { set_course_and_tuition(@rp) }, only: [:index, :review]
+  before_action -> { set_course_and_tuition(@rp) }, only: [:index]
 
   before_action -> { set_total_fees_and_tuition(@rp) }, only: [:finalize, :review, :stripe_return]
   before_action :reg_fees_paid, only: [:stripe_return]
