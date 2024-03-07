@@ -1,7 +1,9 @@
 class AdminsController < ApplicationController
   before_action :confirm_admin
   before_action :set_student, only: [:student_schedule]
-  before_action :set_total_fees_and_tuition, only: [:student_schedule]
+  before_action :set_rp, only: [:student_schedule]
+  before_action -> { set_total_fees_and_tuition(@rp) }, only: [:student_schedule]
+
 
   add_breadcrumb "Home", :root_path
 
@@ -70,7 +72,11 @@ class AdminsController < ApplicationController
   def confirm_admin     
     current_parent.is_admin?
   end
-
+  
+  def set_rp
+    @rp = RegistrationPeriod.find(params[:registration_period_id])
+  end
+  
   def set_student
     @student = Student.find(params[:student_id])
     @parent = @student.parent
@@ -79,15 +85,15 @@ class AdminsController < ApplicationController
   def set_student_tuition_totals
     ary=[]
     @parent.students.each do |s|
-      student_total = s.courses.inject(0) { |sum, e| sum + e.semester_tuition }
+      student_total = s.rp_courses(@rp).inject(0) { |sum, e| sum + e.semester_tuition }
       ary << [ s.full_name, student_total ]
     end
 
     ary
   end
 
-  def set_total_fees_and_tuition
-    @parent_tuition_total = @parent.courses.inject(0){ |sum, e| sum + e.semester_tuition }
+  def set_total_fees_and_tuition(rp)
+    @parent_tuition_total = @parent.rp_courses(rp).inject(0){ |sum, e| sum + e.semester_tuition }
     @parent_total_course_fees = @parent.courses.inject(0){ |sum, e| sum + e.fee }
     @student_tuition_totals = set_student_tuition_totals
   end

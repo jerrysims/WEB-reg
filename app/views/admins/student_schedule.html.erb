@@ -1,7 +1,7 @@
 <h2>View Student Schedule</h2>
 <div class="row">
 	<div class="box @student-box shadow col-md-6 d-md-inline-block d-sm-block" >
-		<p><strong><%= @student.to_s %></strong></p>
+		<p><strong><%= @student.to_s %> - <%= @rp.name %></strong></p>
 		<% %w(Tuesday Thursday).each do |day| %>
 		<div class="review-day-box">
 			<ul class="schedule-day-box">
