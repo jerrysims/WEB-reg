@@ -74,12 +74,12 @@ class Invoice < ActiveRecord::Base
     parent.invoice_line_items.find_by(product: program_donation_product)
   end
 
-  def self.initial_invoice_total(parent)
+  def self.initial_invoice_total(parent, rp)
     @invoice_total = 0
     parent.students.each do |s|
       @invoice_total +=  registration_fee if s.sections.count > 0
     end
-    @invoice_total += Invoice.discount if parent.enrolled_students_count > 0
+    @invoice_total += Invoice.discount(rp) if parent.enrolled_students_count > 0
     @invoice_total += administrative_fee if @invoice_total > 0
 
     @invoice_total
