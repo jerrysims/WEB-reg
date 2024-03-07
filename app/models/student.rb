@@ -34,7 +34,7 @@ class Student < ActiveRecord::Base
   end
 
   def daily_schedule(day, registration_period)
-    sections.joins(course: :registration_period).where(day: [day, "Tuesday/Thursday"], courses: { registration_period: registration_period }).uniq.order(:start_time)
+    sections.joins(course: :registration_period).where(day: [day, "Tuesday/Thursday"], courses: { registration_period: registration_period }).distinct.order(:start_time)
   end
 
   def fl_course_count
