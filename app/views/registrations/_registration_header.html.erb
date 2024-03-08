@@ -2,10 +2,50 @@
   <div class="col-8 registration-header-box">
     <h2><%= page_title %></h2><br>
   </div>
+
   <div class="col-4 current-total-box-container">
-    <%= render "current_course_fees" %>
+    <%= render partial: "registrations/current_course_fees" %>
   </div>
 </div>
 <div class="row registration-progress-bar-row">
-  <%= render "progress_bar", student: @student, rp: @rp %>
+  <div class="registration-progress-bar-nav-item box col">
+    <%= link_to "Choose Classes", register_path( student_id: @student.id, registration_period_id: @rp.id) %>
+  </div>
+  <div class="registration-progress-bar-nav-item box col">
+    <%= link_to(
+      "Parent Agreement", 
+      new_parent_registration_period_parent_agreement_path(
+        parent_id: current_parent.id,
+        registration_period_id: @rp.id,
+        student_id: @student.id
+      )
+    ) %>
+  </div>
+  <div class="registration-progress-bar-nav-item box col">
+    <%= link_to(
+      "Liability Waiver", 
+      new_parent_registration_period_release_of_liability_path(
+        parent_id: current_parent.id,
+        registration_period_id: @rp.id,
+      )
+    ) %>
+  </div>
+  <div class="registration-progress-bar-nav-item box col">
+    <%= link_to(
+      "Photo Consent", 
+      new_parent_registration_period_photo_consent_path(
+        parent_id: current_parent.id,
+        registration_period_id: @rp.id,
+      )
+    ) %>
+  </div>
+  <div class="registration-progress-bar-nav-item box col">
+    <%= link_to(
+      "Pay Fees", 
+      registrations_finalize_path(
+        parent_id: current_parent.id,
+        registration_period_id: @rp.id
+      )
+    ) %>
+  </div>
 </div>

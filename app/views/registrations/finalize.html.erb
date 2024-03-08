@@ -1,4 +1,4 @@
-<%= render "registration_header", page_title: "Finalize Registration" %>
+<%= render(partial: "registrations/registration_header", locals: { page_title: @page_title }) %>
 <script src="https://js.stripe.com/v3/"></script>
 <div class="row">
   <div class="box shadow col-md-12 col-xs-12 col-sm-12">
