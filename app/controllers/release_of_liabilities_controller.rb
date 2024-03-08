@@ -1,12 +1,14 @@
 class ReleaseOfLiabilitiesController < ApplicationController
   before_action :set_parent
+  before_action :set_student
+  before_action :set_rp
 
   def create
     @release_of_liability = ReleaseOfLiability.new(release_of_liability_params)
 
-    if @release_of_liability.update(parent_id: parent_params[:id])
+    if @release_of_liability.save!
       flash[:notice] = "Release of Liability successfully saved"
-      redirect_to root_path
+      render :show
     else
       flash[:warning] = "There was an error saving the release"
       render :new
@@ -23,6 +25,9 @@ class ReleaseOfLiabilitiesController < ApplicationController
     @release_of_liability = ReleaseOfLiability.new
   end
 
+  def show
+  end
+
   def update
     @release_of_liability = ReleaseOfLiability.find(params[:id])
     @release_of_liability.update release_of_liability_params
@@ -35,15 +40,24 @@ class ReleaseOfLiabilitiesController < ApplicationController
     @parent = current_parent
   end
 
+  def set_student
+    unless action_name == "create"
+      @student = Student.find(params[:student_id])
+    else
+      @student = Student.find(params[:release_of_liability][:student_id])
+    end
+  end
+
+  def set_rp
+    @rp = RegistrationPeriod.find(params[:registration_period_id])
+  end
+
   def release_of_liability_params
     params.require(:release_of_liability).permit(
       :waiver_terms,
-      :donelson_heights_terms,
-      :signature
+      :signature,
+      :parent_id,
+      :registration_period_id
     )
-  end
-
-  def parent_params
-    params.require(:release_of_liability).require(:parent).permit(:id, :first_name, :last_name)
   end
 end

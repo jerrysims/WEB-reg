@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_07_172728) do
+ActiveRecord::Schema.define(version: 2024_03_08_043947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -260,7 +260,6 @@ ActiveRecord::Schema.define(version: 2024_03_07_172728) do
 
   create_table "release_of_liabilities", force: :cascade do |t|
     t.boolean "waiver_terms"
-    t.boolean "donelson_heights_terms"
     t.string "signature"
     t.bigint "parent_id"
     t.datetime "created_at", precision: 6, null: false

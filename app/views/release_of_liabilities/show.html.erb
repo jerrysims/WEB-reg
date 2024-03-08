@@ -1,3 +1,10 @@
+<h2>View Liability Waiver</h2>
+<div>You are currently viewing this agreement and cannot submit changes</div>
+<% @read_only = true %>
+
+<p class="notice"><%= notice %></p>
+<p><h4 class="alert"><%= alert %></h4></p>
+
 <h2>Release of Liability</h2>
 <h2>Read Carefully - This Affects Your Legal Rights</h2>
 <%= simple_form_for [@parent, @release_of_liability], url: { method: @http_method, action: @form_action }, html: { readonly: @read_only } do |f| %>
@@ -53,7 +60,9 @@
   </p>
   <p>  
   <p>
-    <div class="row"><%= f.input :waiver_terms, label: "I have read this waiver and agree with these terms.", required: true %></div>
+    <div class="row">
+    <span> Response: <%=@release_of_liability.waiver_terms%></span>
+    </div>
   </p>
   <div class="row">
     <div class="col-md-10">
@@ -87,10 +96,7 @@
       <div class="row">
         I understand & agree this is a legal representation of my signature.
       </div>
-      <div class="row"><%= f.input :signature, label: "Please type your full name", required: true %></div>
+      <div class="row"><span>Response: <%= @release_of_liability.signature %></span></div>
     </div>
-  </div>
-  <div class="row">
-    <%= f.submit "SUBMIT", class: 'btn btn-primary col-md-10' %>
   </div>
 <% end %>
