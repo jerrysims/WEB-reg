@@ -61,7 +61,7 @@ class Parent < ActiveRecord::Base
   end
 
   def rp_courses(rp)
-    courses.where(registration_period_id: rp.id)
+    Course.joins(sections: { registrations: { student: :parent } }).where(students: { parent_id: id }).where(courses: { registration_period_id: rp.id })
   end
 
   def send_confirmation(invoice)
