@@ -7,7 +7,9 @@
     <%= render partial: "registrations/current_course_fees" %>
   </div>
 </div>
-<div class="row registration-progress-bar-row">
+<%
+=begin%>
+ <div class="row registration-progress-bar-row">
   <div class="registration-progress-bar-nav-item box col">
     <%= link_to "Choose Classes", register_path( student_id: @student.id, registration_period_id: @rp.id) %>
   </div>
@@ -48,4 +50,6 @@
       )
     ) %>
   </div>
-</div>
+</div> 
+<%
+=end%>
