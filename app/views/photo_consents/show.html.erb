@@ -1,0 +1,21 @@
+<h2>Photo Consent Response</h2>
+<div class="row">
+  <div class="col-12">
+    <span>Permission and Consent: <%= @photo_consent.permission_and_consent %></span>
+  </div>
+  <div class="col-12">
+    <span>Signature: <%= @photo_consent.signature %></span>
+  </div>
+</div>
+
+<div class="row">
+  <%= link_to(
+    "Continue to Invoice / Tuition", 
+    registrations_finalize_path(
+      parent_id: current_parent.id,
+      registration_period_id: @rp.id,
+      student_id: @student.id
+    ),
+    class: "custom-button view-invoice-button col-3"
+  ) %>
+</div>

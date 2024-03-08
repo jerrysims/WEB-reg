@@ -1,12 +1,14 @@
 class PhotoConsentsController < ApplicationController
   before_action :set_parent
+  before_action :set_rp
+  before_action :set_student
 
   def create
     @photo_consent = PhotoConsent.new(photo_consent_params)
 
-    if @photo_consent.update(parent_id: parent_params[:id])
+    if @photo_consent.save!
       flash[:notice] = "Photo Consent successfully saved"
-      redirect_to root_path
+      render :show
     else
       flash[:warning] = "There was an error saving the consent form"
       render :new
@@ -31,18 +33,32 @@ class PhotoConsentsController < ApplicationController
   end
 
   private
+  def param_label
+    param_label = current_parent.class.to_s.downcase.to_sym
+  end
+
   def set_parent
     @parent = current_parent
   end
 
-  def photo_consent_params
-    params.require(:photo_consent).permit(
-      :permission_and_consent,
-      :signature
-    )
+  def set_student
+    unless action_name == "create"
+      @student = Student.find(params[:student_id])
+    else
+      @student = Student.find(params[:photo_consent][:student_id])
+    end
   end
 
-  def parent_params
-    params.require(:photo_consent).require(:parent).permit(:id, :first_name, :last_name)
+  def set_rp
+    @rp = RegistrationPeriod.find(params[:registration_period_id])
+  end
+
+  def photo_consent_params
+    params.require(:photo_consent).permit(
+      :parent_id,
+      :permission_and_consent,
+      :registration_period_id,
+      :signature
+    )
   end
 end
