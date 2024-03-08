@@ -100,3 +100,16 @@
     </div>
   </div>
 <% end %>
+
+
+<div class="row">
+  <%= link_to(
+    "Continue to Photo Consent", 
+    new_parent_registration_period_photo_consent_path(
+      parent_id: current_parent.id,
+      registration_period_id: @rp.id,
+      student_id: @student.id
+    ),
+    class: "custom-button view-invoice-button col-3"
+  ) %>
+</div>
