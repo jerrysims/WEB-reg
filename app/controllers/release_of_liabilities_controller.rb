@@ -6,7 +6,7 @@ class ReleaseOfLiabilitiesController < ApplicationController
   def create
     @release_of_liability = ReleaseOfLiability.new(release_of_liability_params)
 
-    if @release_of_liability.save!
+    if @release_of_liability.save
       flash[:notice] = "Release of Liability successfully saved"
       render :show
     else
