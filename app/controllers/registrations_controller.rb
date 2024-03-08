@@ -190,11 +190,14 @@ class RegistrationsController < ApplicationController
     current_parent.update_attributes(parent_params)
 
     if current_parent.valid?(:course_registration)
-      # TODO: I must figure out how to get the student's information to this point
-      redirect_to(action: "index", student_id: params[:student_id])
+      redirect_to(
+        action: "index", 
+        student_id: params[:student_id], 
+        registration_period_id: @rp.id
+      )
     else
       redirect_back fallback_location: {
-        action: "complete_parent_info", student_id: params[:student_id]
+        action: "complete_parent_info", student_id: ams[:student_id]
       }
     end 
   end
@@ -355,7 +358,11 @@ class RegistrationsController < ApplicationController
   end
 
   def set_rp
-    @rp = RegistrationPeriod.find(params[:registration_period_id])
+    if action_name == "update_parent"  
+      @rp = RegistrationPeriod.find(params[param_label][:registration_period_id])
+    else
+      @rp = RegistrationPeriod.find(params[:registration_period_id])
+    end
   end
 
   def time_blocks

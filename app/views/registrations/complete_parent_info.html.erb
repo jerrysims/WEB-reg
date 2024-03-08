@@ -4,6 +4,7 @@
 </div>
 <div class="row">
   <%= simple_form_for(current_parent, url: { action: "update_parent", id: current_parent.id, student_id: @student_id }) do |f| %>
+    <%= f.hidden_field :registration_period_id, value: @rp.id%>
     <% if @errors %>
       <% @errors.each do |e| %>
         <div class="alert error-section"><%= e %></div>
@@ -11,7 +12,6 @@
     <% end %>
     <!--  parent information section -->
     <div class="row box">
-      <%= f.hidden_field :registration_period_id, value: @rp.id%>
       <%= f.input :first_name %>
       <%= f.input :last_name %>
       <%= f.input :email %>
