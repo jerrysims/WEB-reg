@@ -1,5 +1,5 @@
-<h2>Release of Liability</h2>
-<h2>Read Carefully - This Affects Your Legal Rights</h2>
+<h5>Release of Liability</h5>
+<h6>Read Carefully - This Affects Your Legal Rights</h6>
 <%= simple_form_for [@parent, @release_of_liability], url: { method: @http_method, action: @form_action }, html: { readonly: @read_only } do |f| %>
   
   <%= f.hidden_field :student_id, value: @student.id %>
