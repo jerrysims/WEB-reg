@@ -11,6 +11,7 @@
     <% end %>
     <!--  parent information section -->
     <div class="row box">
+      <%= f.hidden_field :registration_period_id, value: @rp.id%>
       <%= f.input :first_name %>
       <%= f.input :last_name %>
       <%= f.input :email %>
