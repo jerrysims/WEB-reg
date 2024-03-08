@@ -1,11 +1,11 @@
 class RegistrationsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :check_for_locked_parent, except: [:new, :select_student, :create, :course_options]
-  before_action :set_current_student, only: [:choose_class, :drop_class, :index, :review]
+  before_action :set_current_student, only: [:choose_class, :drop_class, :finalize, :index, :review]
   before_action :set_rp
   before_action -> { set_course_and_tuition(@rp) }, only: [:index]
 
-  before_action -> { set_total_fees_and_tuition(@rp) }, only: [:finalize, :review, :stripe_return]
+  before_action :set_total_fees_and_tuition, only: [:finalize, :review, :stripe_return]
   before_action :reg_fees_paid, only: [:stripe_return]
   before_action :set_open_rps, only: [:index, :finalize, :review]
 
@@ -110,6 +110,7 @@ class RegistrationsController < ApplicationController
     @administrative_fee = fee_paid?(Product.administrative_fee(@rp)) ? 0 : Invoice.administrative_fee(@rp)
     @enrolled_students = current_parent.students.enrolled(@rp)
     @discount = current_parent.enrolled_students_count(@rp) > 1 && discount_not_yet_applied?(@rp) ? Invoice.discount(@rp) : nil
+    @page_title = "Finalize Registration"
     
     @fees = []
     @fees << ["Administrative Fee", @administrative_fee]
@@ -269,7 +270,7 @@ class RegistrationsController < ApplicationController
       i = Invoice.find_or_create_by(parent: current_parent)
       
       InvoiceLineItem.find_or_create_by(invoice: i, parent: current_parent, product: admin_fee, quantity: 1)
-      current_parent.registered_students.each do |s|
+      current_parent.registered_students(@rp).each do |s|
         InvoiceLineItem.find_or_create_by(invoice: i, parent: current_parent, student_id: s.id, product: s.reg_fee(@rp), quantity: 1)
       end
       unless current_parent.students.count <= 1 || InvoiceLineItem.find_by(parent: current_parent, product: Product.sibling_discount(@rp))
@@ -279,14 +280,14 @@ class RegistrationsController < ApplicationController
   end
 
   def set_course_and_tuition(rp)
-    @course_fees = @current_student.rp_courses(rp).inject(0) { |sum, c| sum + c.fee }
-    @student_tuition_total = @current_student.rp_courses(rp).inject(0){ |sum, c| sum + c.semester_tuition }
+    @course_fees = @student.rp_courses(rp).inject(0) { |sum, c| sum + c.fee }
+    @student_tuition_total = @student.rp_courses(rp).inject(0){ |sum, c| sum + c.semester_tuition }
     @formatted_course_fees = "$%.2f" % @course_fees
     @formatted_student_tuition_total = "$%.2f" % @student_tuition_total
   end
 
   def set_current_student
-    @current_student = Student.find(params[:student_id])
+    @student = Student.find(params[:student_id])
   end
 
   def set_open_rps
@@ -299,9 +300,9 @@ class RegistrationsController < ApplicationController
     end
   end
 
-  def set_total_fees_and_tuition(rp)
-    @parent_tuition_total = current_parent.rp_courses(rp).inject(0){ |sum, e| sum + e.semester_tuition } 
-    @parent_total_course_fees = current_parent.rp_courses(rp).inject(0){ |sum, e| sum + e.fee }
+  def set_total_fees_and_tuition
+    @parent_tuition_total = current_parent.rp_courses(@rp).inject(0){ |sum, e| sum + e.semester_tuition } 
+    @parent_total_course_fees = current_parent.rp_courses(@rp).inject(0){ |sum, e| sum + e.fee }
   end
 
 
