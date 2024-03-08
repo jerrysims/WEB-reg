@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 2024_03_08_043947) do
     t.boolean "no_refund_on_voluntary_withdraw"
     t.boolean "prorate_on_requested_withdraw"
     t.string "plan_to_volunteer"
-    t.boolean "volunteer_buyout"
     t.boolean "late_fee_for_late_pickup"
     t.string "signature"
     t.bigint "parent_id", null: false

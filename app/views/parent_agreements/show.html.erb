@@ -1,3 +1,175 @@
 <h2>View Parent Agreement</h2>
 <div>You are currently viewing this agreement and cannot submit changes</div>
-<%= render "form" %>
+<% @read_only = true %>
+
+<p class="notice"><%= notice %></p>
+<p><h4 class="alert"><%= alert %></h4></p>
+<%= simple_form_for [@parent, @parent_agreement], url: { method: @http_method, action: @form_action }, html: { readonly: @read_only } do |f| %>
+  <%= f.hidden_field :student_id, value: @student.id %>
+  <%= f.hidden_field :parent_id, value: @parent.id %>
+  <%= f.hidden_field :registration_period_id, value: @rp.id %>
+  <p>You may complete this form <strong>once</strong> per family.</p>
+  <p>This agreement (“Agreement”) is made and entered into between Weekday Eastside Bridge (WEB) and</p>
+  <%= f.simple_fields_for @parent do |parent_form| %>
+    <div class="parent-agreement-row row">
+      <p>Parent/Guardian Name</p>
+    </div>
+    <div class="parent-agreement-row row">
+      <%= parent_form.input :first_name, input_html: { value: @parent.first_name, readonly: @read_only } %>
+      <%= parent_form.input :last_name, input_html: { value: @parent.last_name, readonly: @read_only } %>
+    </div>
+    <div class="parent-agreement-row row">
+      <p>on Behalf of...</p>
+    </div>
+    <div class="parent-agreement-row row">
+      <p>
+      <% @parent.students.each_with_index do |student, i| %> 
+        <% if i > 0 %>
+          , 
+        <% end %>
+        <%= student.full_name %>
+      <% end %>
+      </p>
+    </div>
+  <% end %>
+  <div class="parent-agreement-row row">
+    <div class="col-md-10 box">
+      <h6>Section 1 - Tuition and Payment</h6>
+      <div class="parent-agreement-row row">
+        <p>
+        I/We agree to pay tuition according to the published tuition rates for the entire academic year 
+        (August 2024 through May 2025) for the classes enrolled in as of <strong>July 1, 2024</strong>.
+        </p>
+      </div>
+      <div class="parent-agreement-row row">
+        <span>Response: <%= @parent_agreement.agree_to_pay %></span>
+      </div>
+      <div class="parent-agreement-row row">
+        <p>
+        Parents/Guardians shall pay the full semester tuition on the first day of each semester’s 
+        classes or shall pay tuition monthly on the first day of each month's classes, unless 
+        previously arranged with WEB administration. <strong>If a tuition payment or supply fees are 
+        fourteen (14) calendar days overdue, a late fee of ten percent will be assessed.</strong> If a 
+        tuition payment is thirty (30) calendar days overdue, WEB may impose any or all of the 
+        following sanctions, at the tutorial's sole discretion. Sanctioned actions include: (a) 
+        withdrawing student from class participation (b) withdrawing student from tutorial (c) use 
+        of a collection agency. A family with an unpaid balance for the current academic year 
+        may not register for the following year until the tuition for the current year is paid in full. 
+        </p>
+      </div>
+      <div class="parent-agreement-response-row row">
+        <span>Response: <%= @parent_agreement.late_fee_acknowledgment %></span>
+      </div>
+      <div class="parent-agreement-row row">
+        <p>
+        If a student voluntarily withdraws from WEB, <strong>remaining tuition through the of the 
+        year must be paid in full</strong>. There will be no refund, credit or reduction for withdrawal
+        related to absences, vacations, snow days, illnesses, holidays or moving.
+        </p>
+      </div>
+      <div class="parent-agreement-response-row row">
+        <span>Response: <%= @parent_agreement.no_refund_on_voluntary_withdraw %></span>
+      </div>
+      <div class="parent-agreement-row row">
+        <p>
+        If a student is asked to withdraw from WEB, the undersigned is responsible for the 
+        prorated annual tuition through the end of the semester in which the student withdraws.
+        </p>
+      </div>
+      <div class="parent-agreement-response-row row">
+        <span>Response: <%= @parent_agreement.prorate_on_requested_withdraw %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="parent-agreement-row row">
+    <div class="col-md-10 box">
+      <h6>Section 2 - Volunteer Hours</h6>
+      <div class="parent-agreement-row row">
+        Parents/Guardians agree to volunteer for three hours during the 2024-25 academic year 
+        or, in lieu of volunteering pay a $75 volunteer buyout.      
+      </div>
+      <div class="parent-agreement-response-row row">
+        <span>Response: <%= @parent_agreement.plan_to_volunteer %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="parent-agreement-row row">
+    <div class="col-md-10 box">
+      <h6>Section 3 - Drop Off & Pick Up</h6>
+      <div class="parent-agreement-row row">
+        Parents/Guardians commit to dropping students off up to ten minutes before their class 
+        start time in order to minimize disruption to all WEB students and pick up promptly 
+        within ten minutes of their class end time in order to respect the time and attention of 
+        WEB tutors and directors. <strong>The undersigned parent understands a late fee will
+        be assessed if the child is not picked within ten minutes of pick up time</strong>.
+        Before 2:30, the fee is $10 for being 10+ minutes late. After 2:30, the fee is $10 + $1 per
+        minute. Drop-in study hall is offered for $10 if needed for an appointment or if running
+        late.
+      </div>
+      <div class="parent-agreement-response-row row">
+        <span>Response: <%= @parent_agreement.late_fee_for_late_pickup %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="parent-agreement-row row">
+    <div class="col-md-10 box">
+      <h6>Section 4 - Homeschool Registration</h6>
+      <div class="parent-agreement-row row">
+        Parents/Guardians understand that it is our sole responsibility to register as 
+        homeschoolers with the school district or an umbrella school in order to be compliant 
+        with Tennessee State laws and to avoid truancy. I/We understand that WEB does not 
+        issue credits or provide a transcript, and that it is my/our responsibility to ensure the 
+        enrolled child is sufficiently educated and meeting the state requirements for 
+        homeschooling. More information may be found in the FAQs section of the WEB 
+        website or at 
+        https://www.tn.gov/education/families/school-options/home-schooling-in-tn.html. 
+      </div>
+      <div class="parent-agreement-response-row row">
+        <span>Response: <%= @parent_agreement.homeschool_registration %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="parent-agreement-row row">
+    <div class="col-md-10 box">
+      <h6>Section 4 - Homeschool Registration</h6>
+      <div class="parent-agreement-row row">
+        Parents/Guardians understand that WEB reserves the right to deny enrollment and/or 
+        expel a student whom it determines is unsuitable for enrollment as outlined in the WEB 
+        Handbook. I/We have read and agree to the terms in the WEB Handbook, which is 
+        located in the WEB portal. I/We have read and understand the Terms and Conditions of 
+        this agreement, for the enrollment of student(s) for the 2024-2025 academic year. I/We 
+        agree to abide by said terms and conditions and agree to fulfill the total financial 
+        obligation for payment of tuition as set forth herein. 
+      </div>
+    </div>
+  </div>
+  <div class="parent-agreement-row row">
+    <div class="col-md-10 box">
+      <h6>Parent/Guardian Signature *</h6>
+      <div class="parent-agreement-row row">
+        I HAVE READ THIS DOCUMENT AND UNDERSTAND IT. 
+ 
+        I understand & agree this is a legal representation of my signature.
+      </div>
+      <div class="parent-agreement-response-row row">
+        <span>Signature: <%= @parent_agreement.signature %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= link_to(
+      "Continue to Liability Waiver", 
+      new_parent_registration_period_release_of_liability_path(
+        parent_id: current_parent.id,
+        registration_period_id: @rp.id,
+        student_id: @student.id
+      ),
+      class: "custom-button view-invoice-button col-3"
+    ) %>
+  </div>
+<% end %>

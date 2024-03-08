@@ -22,14 +22,14 @@ Rails.application.routes.draw do
       resource :registration do
         post 'choose_student', to: 'registrations#choose_student', as: :choose_student
       end
+      resources :parent_agreements
+      resources :photo_consents
+      resources :release_of_liabilities
       resources :students do
         get :view_course_list
       end
       get :select_student
     end
-    resources :parent_agreements
-    resources :photo_consents
-    resources :release_of_liabilities
     get "registration_home", as: :registration_home
     get "confirm_grade"
     get "confirm_web_email"

@@ -2,6 +2,7 @@ class ParentAgreement < ApplicationRecord
   OPTIONS = %w(volunteer buyout)
 
   belongs_to :parent
+  belongs_to :registration_period
 
   validates_presence_of :agree_to_pay,
                         :late_fee_acknowledgment,

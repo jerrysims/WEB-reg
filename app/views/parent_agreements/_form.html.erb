@@ -3,6 +3,9 @@
 <p class="notice"><%= notice %></p>
 <p><h4 class="alert"><%= alert %></h4></p>
 <%= simple_form_for [@parent, @parent_agreement], url: { method: @http_method, action: @form_action }, html: { readonly: @read_only } do |f| %>
+  <%= f.hidden_field :student_id, value: @student.id %>
+  <%= f.hidden_field :parent_id, value: @parent.id %>
+  <%= f.hidden_field :registration_period_id, value: @rp.id %>
   <p>You may complete this form <strong>once</strong> per family.</p>
   <p>This agreement (“Agreement”) is made and entered into between Weekday Eastside Bridge (WEB) and</p>
   <%= f.simple_fields_for @parent do |parent_form| %>
@@ -10,7 +13,6 @@
       <p>Parent/Guardian Name</p>
     </div>
     <div class="parent-agreement-row row">
-      <%= parent_form.hidden_field :id, as: :hidden, input_html: { value: @parent.id } %>
       <%= parent_form.input :first_name, input_html: { value: @parent.first_name, readonly: @read_only } %>
       <%= parent_form.input :last_name, input_html: { value: @parent.last_name, readonly: @read_only } %>
     </div>

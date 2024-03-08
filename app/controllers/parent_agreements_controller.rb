@@ -1,12 +1,14 @@
 class ParentAgreementsController < ApplicationController
   before_action :set_parent
+  before_action :set_student
+  before_action :set_rp
   before_action :set_read_only, only: [:show]
 
   def create
     @parent_agreement = ParentAgreement.new(parent_agreement_params)
-    if @parent_agreement.update(parent_id: parent_params[:id])
+    if @parent_agreement.save!
       flash[:notice] = "Parent Agreement successfully saved"
-      redirect_to root_path
+      render :show
     else
       flash[:warning] = "There was an error saving the agreement"
       render :new
@@ -52,6 +54,18 @@ class ParentAgreementsController < ApplicationController
     @read_only = true
   end
 
+  def set_rp
+    @rp = RegistrationPeriod.find(params[:registration_period_id])
+  end
+
+  def set_student
+    unless action_name == "create"
+      @student = Student.find(params[:student_id])
+    else
+      @student = Student.find(params[:parent_agreement][:student_id])
+    end
+  end
+
   def parent_agreement_params
     params.require(:parent_agreement).permit(
       :agree_to_pay, 
@@ -59,10 +73,11 @@ class ParentAgreementsController < ApplicationController
       :no_refund_on_voluntary_withdraw,
       :prorate_on_requested_withdraw,
       :plan_to_volunteer,
-      :volunteer_buyout,
       :late_fee_for_late_pickup,
       :homeschool_registration,
-      :signature
+      :signature,
+      :registration_period_id,
+      :parent_id
     )
   end
 
