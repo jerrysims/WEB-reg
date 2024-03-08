@@ -6,29 +6,29 @@ class Invoice < ActiveRecord::Base
 
   scope :closed, -> { where(closed: true) }
 
-  def generate_initial_invoice
-    generate_registration_fees
-    generate_course_fees
-    generate_administrative_fee(registration_period)
-    update_donation_amount(registration_period)
+  def generate_initial_invoice(rp)
+    generate_registration_fees(rp)
+    generate_course_fees(rp)
+    generate_administrative_fee(rp)
+    update_donation_amount(rp)
   end
 
-  def generate_administrative_fee
-    InvoiceLineItem.find_or_create_by(product: Product.administrative_fee(registration_period), parent: parent, quantity: 1, invoice: self)
+  def generate_administrative_fee(rp)
+    InvoiceLineItem.find_or_create_by(product: Product.administrative_fee(rp), parent: parent, quantity: 1, invoice: self)
   end
 
-  def generate_registration_fees
-    parent.registered_students.each do |student|
-      InvoiceLineItem.find_or_create_by(product: student.reg_fee(@rp), parent: parent, quantity: 1, student_id: student.id, invoice: self)
+  def generate_registration_fees(rp)
+    parent.registered_students(rp).each do |student|
+      InvoiceLineItem.find_or_create_by(product: student.reg_fee(rp), parent: parent, quantity: 1, student_id: student.id, invoice: self)
     end
-    if parent.registered_students.count > 1
-      InvoiceLineItem.find_or_create_by(product: Product.sibling_discount(@rp), parent: parent, quantity: 1, invoice: self)
+    if parent.registered_students(rp).count > 1
+      InvoiceLineItem.find_or_create_by(product: Product.sibling_discount(rp), parent: parent, quantity: 1, invoice: self)
     end
   end
 
-  def generate_course_fees
-    parent.registered_students.each do |student|
-      student.rp_courses(@rp).each do |course|
+  def generate_course_fees(rp)
+    parent.registered_students(rp).each do |student|
+      student.rp_courses(rp).each do |course|
         if course.fee_product
           InvoiceLineItem.create(product: course.fee_product, parent: parent, quantity: 1, student_id: student.id, invoice: self)
         end
@@ -46,8 +46,8 @@ class Invoice < ActiveRecord::Base
     total
   end
 
-  def update_donation_amount
-    if donation_item = InvoiceLineItem.find_by(parent: parent, registration_period_id: registration_period.id, invoice: nil)
+  def update_donation_amount(rp)
+    if donation_item = InvoiceLineItem.find_by(parent: parent, registration_period_id: rp.id, invoice: nil)
       donation_item.update_attributes(invoice: self)
     end
   end

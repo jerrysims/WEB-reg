@@ -2,7 +2,7 @@
 Dear <%= @parent.full_name %>,
 Thank you for enrolling for WEB classes for the 2024/25 academic year!
 
-<p><% @parent.registered_students.each do |student| %>
+<p><% @parent.registered_students(@rp).each do |student| %>
   <%= student.full_name %> is enrolled in the following classes:
   <% %w(Tuesday Thursday).each do |day| %>
     <% unless student.daily_schedule(day, @rp).empty? %>
@@ -23,8 +23,8 @@ Thank you for enrolling for WEB classes for the 2024/25 academic year!
 <% end %>
 
 <p>
-  You have elected to pay <%= @parent.tuition_preference %> and to make class fees and tuition 
-  payments via <%= @parent.payment_preference %>.
+  You have elected to pay <%= @parent.tuition_preferences.find_by(registration_period: @rp).frequency %> and to make class fees and tuition 
+  payments via <%= @parent.tuition_preferences.find_by(registration_period: @rp).payment_method %>.
 </p>
 
 <p>
@@ -41,7 +41,7 @@ Thank you for enrolling for WEB classes for the 2024/25 academic year!
 </p>
 
 <p>
-  Please not that, as stated in the Parent Agreement, any drops or withdrawals must be made 
+  Please note that, as stated in the Parent Agreement, any drops or withdrawals must be made 
   by July 1st in order to be excused from paying tuition. After this date, tuition will be
   due in full for all classes in which your student is enrolled.
 </p>

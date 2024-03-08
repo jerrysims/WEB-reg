@@ -27,6 +27,7 @@ class Parent < ActiveRecord::Base
   has_one :photo_consent
   has_one :release_of_liability
   has_many :receipts
+  has_many :tuition_preferences
 
   scope :missing_invoice, -> { left_outer_joins(:invoice).where.not(id: Invoice.closed.pluck(:parent_id)) }
   scope :locked, -> { where(locked: true) }
@@ -64,7 +65,7 @@ class Parent < ActiveRecord::Base
     Course.joins(sections: { registrations: { student: :parent } }).where(students: { parent_id: id }).where(courses: { registration_period_id: rp.id })
   end
 
-  def send_confirmation(invoice)
-    ConfirmationMailer.registration_confirmation_email(self, invoice).deliver_now
+  def send_confirmation(invoice, rp)
+    ConfirmationMailer.registration_confirmation_email(self, invoice, rp).deliver_now
   end
 end

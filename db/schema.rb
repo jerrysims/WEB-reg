@@ -169,7 +169,6 @@ ActiveRecord::Schema.define(version: 2024_03_08_043947) do
     t.text "city"
     t.text "state"
     t.text "zip_code"
-    t.text "tuition_preference"
     t.boolean "admin", default: false
     t.boolean "locked", default: false
     t.text "payment_preference"
@@ -178,6 +177,7 @@ ActiveRecord::Schema.define(version: 2024_03_08_043947) do
     t.boolean "covid_statement_acknowledged"
     t.boolean "reg_fees_paid"
     t.string "type"
+    t.string "tuition_preference"
     t.index ["email"], name: "index_parents_on_email", unique: true
     t.index ["reset_password_token"], name: "index_parents_on_reset_password_token", unique: true
   end

@@ -180,10 +180,6 @@ class RegistrationsController < ApplicationController
 
   def stripe_return
     @tuition_preference = TuitionPreference.new
-    # @semester, @monthly = Invoice.tuition_totals(current_parent)
-    # @payment_preference_section = payment_preference_section
-    # @donation = Invoice.get_donation(current_parent) || InvoiceLineItem.new
-    # @checked = get_donation_radio_check(@donation.quantity)
   end
 
   def update_parent
@@ -263,10 +259,6 @@ class RegistrationsController < ApplicationController
   def parent_tuition_total
   end
 
-  def payment_preference_section
-    current_parent.tuition_preference && current_parent.payment_preference ? "preference" : "no_preference"
-  end
-
   def reg_fees_paid
     admin_fee = Product.administrative_fee(@rp)
     
@@ -328,17 +320,6 @@ class RegistrationsController < ApplicationController
                  Invoice.administrative_fee + (student_count > 1 ? Invoice.discount : 0))
 
     total_fees
-  end
-
-  def tuition_total
-    case current_parent.tuition_preference
-      when "Semester"
-        @semester
-      when "Monthly"
-        @monthly
-      else
-        @semester
-    end
   end
 
   def param_label

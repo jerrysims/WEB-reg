@@ -1,7 +1,8 @@
 class ConfirmationMailer < ApplicationMailer
   default from: 'notifications@webtutorialnashville.com'
 
-  def registration_confirmation_email(parent, invoice)
+  def registration_confirmation_email(parent, invoice, rp)
+    @rp = rp
     @parent = parent
     @invoice = invoice
 

@@ -62,9 +62,6 @@ ActiveAdmin.register Registration do
     column "Parent Name", sortable: :"parents.name" do |r|
       r.student.parent.full_name
     end
-    column "Payment Plan", sortable: :"parent s.tuition_preference" do |r|
-      r.student.parent.tuition_preference
-    end
     column "Student ID", :student_id
     column "Section ID", :section_id
     column :"Parent ID" do |r|
@@ -93,9 +90,6 @@ ActiveAdmin.register Registration do
     end
     column "Parent Name" do |r|
       r.student.parent.full_name
-    end
-    column "Payment Plan" do |r|
-      r.student.parent.tuition_preference
     end
     column "Student ID" do |r|
       r.student_id

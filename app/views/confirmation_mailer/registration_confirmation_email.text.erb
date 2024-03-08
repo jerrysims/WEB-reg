@@ -1,7 +1,7 @@
 Dear <%= @parent.full_name %>,
 Thank you for enrolling for WEB classes for the 2023/24 school year!
 
-<% @parent.registered_students.each do |student| %>
+<% @parent.registered_students(@rp).each do |student| %>
   <%= student.full_name %> is enrolled in the following classes:
   <% %w(Tuesday Thursday).each do |day| %>
     <% unless student.daily_schedule(day, @rp).empty? %>
@@ -17,7 +17,7 @@ Thank you for enrolling for WEB classes for the 2023/24 school year!
   <% end %>
 <% end %>
 
-You have elected to pay <%= @parent.tuition_preference %> and to make registration and tuition payments via <%= @parent.payment_preference %>.
+You have elected to pay <%= @parent.tuition_preferences.find_by(registration_period: @rp) %> and to make registration and tuition payments via <%= @parent.tuition_preferences.find_by(registration_period: @rp) %>.
 
 You will receive an invoice for class fees.</p>
 

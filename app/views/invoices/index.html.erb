@@ -3,7 +3,7 @@
   <div class="box shadow col-md-12 col-xs-12 col-sm-12">
     <div class="col-md-11 col-sm-8">
       <% unless current_parent.invoice_closed? %>
-        <% if !current_parent.tuition_preference || !current_parent.payment_preference %>
+        <% unless @tuition_preference %>
           <div class="finalize col-md-offset-1 col-md-8">
             In order to finalize your registration, you must first choose tuition payment preferences above.
           </div>
@@ -11,11 +11,17 @@
           <div class="finalize col-md-offset-1 col-md-8">
             In order to finalize your registration, please pay the quickbooks invoice you will receive via email.
             <div class="row edit-parent">
-              <%= link_to "Finalize Registration and Generate Invoice", 
-              invoices_generate_initial_invoice_path(registration_period_id: @rp.id)
-                { class: "custom-button btn-standard", data: {
-                  confirm: "IMPORTANT: This will finalize your registration(s) and you will not be able to add another student.
-                  Subsequent changes will incur a $10 processing fee. Press OK to continue. Press Cancel to return and make changes." } } %>
+              <%= link_to("Finalize Registration and Generate Invoice", 
+                invoices_generate_initial_invoice_path(
+                  registration_period_id: @rp.id),
+                { 
+                  class: "custom-button btn-standard", 
+                  data: {
+                    confirm: "IMPORTANT: This will finalize your registration(s) and you will not be able to add another student.
+                              Subsequent changes will incur a $10 processing fee. Press OK to continue. Press Cancel to return and make changes." 
+                  } 
+                }) 
+              %>
 
               <br><%= link_to "Click here to add another student", root_path %>
             </div

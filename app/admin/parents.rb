@@ -12,7 +12,6 @@ ActiveAdmin.register Parent do
     f.input :city, as: :string
     f.input :state, as: :string
     f.input :zip_code, as: :string
-    f.input :tuition_preference, as: :select, collection: ["Monthly", "Semester"]
     f.input :locked
     f.input :type
     actions
@@ -29,7 +28,6 @@ ActiveAdmin.register Parent do
                 :city,
                 :state,
                 :zip_code,
-                :tuition_preference
 
   index do
     column :id
@@ -37,7 +35,6 @@ ActiveAdmin.register Parent do
     column :first_name
     column :last_name
     column :phone_number
-    column :tuition_preference
     column :sign_in_count
     column "# of Students" do |p|
       p.students.count
@@ -59,7 +56,6 @@ ActiveAdmin.register Parent do
     column :city
     column :state
     column :zip_code
-    column :tuition_preference
     column :payment_preference
     column :secondary_email
   end

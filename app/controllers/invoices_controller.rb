@@ -14,14 +14,15 @@ class InvoicesController < ApplicationController
     ActiveRecord::Base.transaction do
       unless @invoice.closed?
         @invoice.generate_initial_invoice(@rp)
-        current_parent.send_confirmation(@invoice)
-        @invoice.update_attributes(closed: true)
-        @invoice.parent.update_attributes(locked: true)
+        current_parent.send_confirmation(@invoice, @rp)
+        @invoice.update(closed: true)
+        @invoice.parent.update(locked: true)
       end
     end
   end
 
   def index
+    @tuition_preference = current_parent.tuition_preferences.find_by(registration_period: @rp)
   end
 
   # def update_donation_amount
