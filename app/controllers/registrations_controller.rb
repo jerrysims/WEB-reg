@@ -128,9 +128,10 @@ class RegistrationsController < ApplicationController
 
   def index
     redirect_to(
-      action: "complete_parent_info",
-      student_id: params[:student_id]
-      ) unless current_parent.valid?(:course_registration)
+      action: "complete_parent_info", { 
+      student_id: params[:student_id],
+      registration_period_id: @rp.id 
+      }) unless current_parent.valid?(:course_registration)
 
     @registration_period = @open_rps.first
     @browser = browser.name
