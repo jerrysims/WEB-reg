@@ -11,11 +11,13 @@
     </div>
   <% else %>
     <h5 class="current-total-box-title">Total for <%= @student.full_name %>:</h5>
-    <div class="col-6 current-total-box-fee-label">
-      <span class="current-total-box-fee-label">Course Fees:</span> 
-    </div>
-    <div class="col-6">
-      <span id="course-fees"><%= @formatted_course_fees %></span>
+    <div class="row current-total-box-row">
+      <div class="col-6 current-total-box-fee-label">
+        <span class="current-total-box-fee-label">Course Fees:</span> 
+      </div>
+      <div class="col-6">
+        <span id="course-fees"><%= @formatted_course_fees %></span>
+      </div>
     </div>
     <div class="row current-total-box-row">
       <div class="col-6 current-total-box-fee-label">
