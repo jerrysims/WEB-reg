@@ -27,6 +27,7 @@ ActiveAdmin.register Parent do
                 :street_address_2,
                 :city,
                 :state,
+                :type,
                 :zip_code,
 
   index do
