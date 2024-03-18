@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       resources :students do
         get :view_course_list
       end
+      get :view_schedules
       get :select_student
     end
     get "registration_home", as: :registration_home

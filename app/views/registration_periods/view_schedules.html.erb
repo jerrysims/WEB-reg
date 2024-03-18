@@ -1,0 +1,48 @@
+<h2>Schedules for <%= @rp.name %></h2>
+We found the following class schedules for you:
+
+<div class="row">
+  <% @enrolled_students.each do |student| %>
+    <div class="box student-box shadow col-md-6 d-md-inline-block d-sm-block" >
+      <p><strong><%= student.to_s %></strong></p>
+      <% %w(Tuesday Thursday).each do |day| %>
+        <div class="review-day-box">
+          <ul class="schedule-day-box">
+            <span><%= day %></span>
+            <% student.daily_schedule(day, @rp).each do |section| %>
+
+              <li class="schedule-list-item row section">
+                <%= section.start_time.strftime("%l:%M %p") %>-<%= section.end_time.strftime("%l:%M %p") %> <%= section.name %>
+              </li>
+            <% end %>
+          </ul>
+          <% unless student.daily_schedule(day, @rp).empty? %>
+            </p>
+          <% end %>
+        </div>
+      <% end %>
+      <% unless student.wait_listed_sections.empty? %>
+        <p>Wait List: <%= student.wait_listed_sections.map { |section| section.name }.join(", ") %>
+      <% end %>
+      <div class="col">
+        <%= link_to(
+          "Change #{student.first_name}'s schedule", 
+          { controller: "registrations", action: "index", student_id: student.id, registration_period_id: @rp.id }, 
+          class: "custom-button"
+        )%> 
+      </div>
+    </div>
+  <% end %>
+</div>
+<% unless @not_enrolled.empty? %>
+  <div class="row">
+    <div class="box student-box shadow col-md-6 d-md-inline-block d-sm-block" >
+      <span>There is no schedule for the following students. Click student's name to add schedule:</span>
+      <ul>
+        <% @not_enrolled.each do |student| %>
+          <li><%=link_to "#{student.full_name}", { controller: "registrations", action: "index", student_id: student.id }, class: "col-6" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

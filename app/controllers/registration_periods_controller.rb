@@ -1,10 +1,16 @@
 class RegistrationPeriodsController < ApplicationController
-  before_action :set_registration_period, only: [:select_student]
+  before_action :set_registration_period, only: [:select_student, :view_schedules]
+
   def index
     @open_academic_rps= open_rps(:academic)
     @open_extracurricular_rps = open_rps(:extracurricular)
 
     @no_open_rps = @open_academic_rps.empty? && @open_extracurricular_rps.empty?
+  end
+
+  def view_schedules
+    @enrolled_students = current_parent.students.enrolled(@rp)
+    @not_enrolled = current_parent.students - @enrolled_students
   end
 
   def select_student
