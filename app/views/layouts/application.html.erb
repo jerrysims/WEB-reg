@@ -50,7 +50,7 @@
                           <%= link_to "New Student", new_student_path, class: "nav-link" %>
                         </li>
                         <li class="nav-item col inline">
-                          <%= link_to "Schedules", parent_registration_period_view_schedules_path(registration_period_id: RegistrationPeriod::CURRENT_RP), class: "nav-link" %>
+                          <%= link_to "Schedules", parent_registration_period_view_schedules_path(parent_id: current_parent.id, registration_period_id: RegistrationPeriod::CURRENT_RP), class: "nav-link" %>
                         </li>
                         <li class="nav-item col inline">
                           <%= link_to "Grades", parent_view_grades_path(current_parent), class: "nav-link" %>
