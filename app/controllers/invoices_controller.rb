@@ -9,9 +9,9 @@ class InvoicesController < ApplicationController
   end
 
   def generate_initial_invoice
-    @invoice = Invoice.find_by(parent_id: current_parent.id, registration_period_id: @rp.id) || Invoice.create(parent: current_parent, registration_period_id: @rp.id)
-    
     ActiveRecord::Base.transaction do
+      @invoice = Invoice.find_by(parent_id: current_parent.id, registration_period_id: @rp.id) || Invoice.create(parent: current_parent, registration_period_id: @rp.id)
+      
       unless @invoice.closed?
         @invoice.generate_initial_invoice(@rp)
         current_parent.send_confirmation(@invoice, @rp)

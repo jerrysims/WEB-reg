@@ -14,15 +14,31 @@ class Invoice < ActiveRecord::Base
   end
 
   def generate_administrative_fee(rp)
-    InvoiceLineItem.find_or_create_by(product: Product.administrative_fee(rp), parent: parent, quantity: 1, invoice: self)
+    InvoiceLineItem.find_or_create_by(
+      product: Product.administrative_fee(rp), 
+      parent: parent, 
+      quantity: 1, 
+      registration_period_id: rp.id,
+      invoice: self)
   end
 
   def generate_registration_fees(rp)
     parent.registered_students(rp).each do |student|
-      InvoiceLineItem.find_or_create_by(product: student.reg_fee(rp), parent: parent, quantity: 1, student_id: student.id, invoice: self)
+      InvoiceLineItem.find_or_create_by(
+        product: student.reg_fee(rp), 
+        parent: parent, 
+        quantity: 1, 
+        student_id: student.id, 
+        registration_period_id: rp.id,
+        invoice: self)
     end
     if parent.registered_students(rp).count > 1
-      InvoiceLineItem.find_or_create_by(product: Product.sibling_discount(rp), parent: parent, quantity: 1, invoice: self)
+      InvoiceLineItem.find_or_create_by(
+        product: Product.sibling_discount(rp), 
+        parent: parent, 
+        quantity: 1, 
+        registration_period_id: rp.id,
+        invoice: self)
     end
   end
 
@@ -30,7 +46,13 @@ class Invoice < ActiveRecord::Base
     parent.registered_students(rp).each do |student|
       student.rp_courses(rp).each do |course|
         if course.fee_product
-          InvoiceLineItem.create(product: course.fee_product, parent: parent, quantity: 1, student_id: student.id, invoice: self)
+          InvoiceLineItem.create(
+            product: course.fee_product, 
+            parent: parent, 
+            quantity: 1, 
+            student_id: student.id, 
+            registration_period_id: rp.id,
+            invoice: self)
         end
       end
     end
