@@ -5,7 +5,7 @@ ActiveAdmin.register Product do
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
 # permit_params :list, :of, :attributes, :on, :model
-permit_params :name, :unit_price, :product_type
+permit_params :name, :unit_price, :product_type, :registration_period_id
 #
 # or
 #
