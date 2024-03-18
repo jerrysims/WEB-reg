@@ -1,5 +1,5 @@
 <div class="box current-total-box">
-  <% if action_name == "finalize" %>
+  <% if action_name == "finalize" || @student.nil? %>
     <h5 class="current-total-box-title">Total for Family:</h5>
     <div class="row current-total-box-row">
       <div class="col-6 current-total-box-fee-label">

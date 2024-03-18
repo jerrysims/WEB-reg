@@ -7,8 +7,6 @@
     <%= render partial: "registrations/current_course_fees" %>
   </div>
 </div>
-<%
-=begin%>
  <div class="row registration-progress-bar-row">
   <div class="registration-progress-bar-nav-item box col">
     <%= link_to "Choose Classes", register_path( student_id: @student.id, registration_period_id: @rp.id) %>
@@ -29,6 +27,7 @@
       new_parent_registration_period_release_of_liability_path(
         parent_id: current_parent.id,
         registration_period_id: @rp.id,
+        student_id: @student.id
       )
     ) %>
   </div>
@@ -38,6 +37,7 @@
       new_parent_registration_period_photo_consent_path(
         parent_id: current_parent.id,
         registration_period_id: @rp.id,
+        student_id: @student.id
       )
     ) %>
   </div>
@@ -46,10 +46,9 @@
       "Pay Fees", 
       registrations_finalize_path(
         parent_id: current_parent.id,
-        registration_period_id: @rp.id
+        registration_period_id: @rp.id,
+        student_id: @student.id
       )
     ) %>
   </div>
 </div> 
-<%
-=end%>

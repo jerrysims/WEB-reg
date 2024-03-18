@@ -1,4 +1,4 @@
-<%= render "registration_header", page_title: "Schedules Review" %> 
+<%= render "registration_header", page_title: "Schedules Review" unless @student.nil? %> 
 We found the following class schedules for you:
 
 <div class="row">
@@ -47,7 +47,7 @@ We found the following class schedules for you:
   </div>
 <% end %>
 
-<% unless current_parent.locked %>
+<% unless current_parent.locked || @student.nil? %>
   <div class="row">
     <%= link_to(
       "Continue to Parent Agreement", 
