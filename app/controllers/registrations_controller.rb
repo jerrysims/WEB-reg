@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :check_for_locked_parent, except: [:new, :select_student, :create, :course_options]
-  before_action :set_current_student, only: [:choose_class, :drop_class, :finalize, :index, :review]
+  before_action :set_student, only: [:choose_class, :drop_class, :finalize, :index, :review]
   before_action :set_rp
   before_action -> { set_course_and_tuition(@rp) }, only: [:index]
 
@@ -282,7 +282,9 @@ class RegistrationsController < ApplicationController
     @formatted_student_tuition_total = "$%.2f" % @student_tuition_total
   end
 
-  def set_current_student
+  def set_student
+    return nil if params[:student_id].nil?
+
     @student = Student.find(params[:student_id])
   end
 
@@ -339,6 +341,8 @@ class RegistrationsController < ApplicationController
   end
 
   def set_rp
+    return RegistrationPeriod::CURRENT_RP if params[:registration_period_id].nil?
+
     if action_name == "update_parent"  
       @rp = RegistrationPeriod.find(params[param_label][:registration_period_id])
     else
