@@ -2,8 +2,9 @@ class ParentAgreement < ApplicationRecord
   OPTIONS = %w(volunteer buyout)
 
   belongs_to :parent
-  belongs_to :registration_period
+  belongs_to :registration_period 
 
+  validates :parent_id, uniqueness: { scope: :registration_period_id, message: "You have already filled out an agreement for this registration period" }
   validates_presence_of :agree_to_pay,
                         :late_fee_acknowledgment,
                         :no_refund_on_voluntary_withdraw,
