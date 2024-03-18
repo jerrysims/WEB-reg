@@ -341,7 +341,7 @@ class RegistrationsController < ApplicationController
   end
 
   def set_rp
-    return RegistrationPeriod::CURRENT_RP if params[:registration_period_id].nil?
+    return @rp = RegistrationPeriod::CURRENT_RP if params[:registration_period_id].nil?
 
     if action_name == "update_parent"  
       @rp = RegistrationPeriod.find(params[param_label][:registration_period_id])
