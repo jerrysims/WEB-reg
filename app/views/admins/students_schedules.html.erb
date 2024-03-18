@@ -3,7 +3,7 @@
   <div class="col-md-6">
     <%= form_with(url: admin_student_schedule_path, local: true) do |f| %>
       <%= f.label :Student, "Search for:" %>
-      <%= f.collection_select :student_id, Student.enrolled.order(:last_name), :id, :full_name %>
+      <%= f.collection_select :student_id, Student.enrolled(@rp).order(:last_name), :id, :full_name %>
       
       <%= f.label :registration_period, "Search for:" %>
       <%= f.collection_select :registration_period_id, RegistrationPeriod.all, :id, :name %>

@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
   before_action :confirm_admin
   before_action :set_student, only: [:student_schedule]
-  before_action :set_rp, only: [:student_schedule, :missing_documents]
+  before_action :set_rp, only: [:student_schedule, :missing_documents, :students_schedules]
   before_action -> { set_total_fees_and_tuition(@rp) }, only: [:student_schedule]
 
 
@@ -58,6 +58,9 @@ class AdminsController < ApplicationController
   def student_schedule
   end
 
+  def students_schedules
+  end
+
   def view_all_grades
     @sections = Section.all.includes(:course).order("courses.name asc")
   end
@@ -74,6 +77,8 @@ class AdminsController < ApplicationController
   end
   
   def set_rp
+    return @rp = RegistrationPeriod::CURRENT_RP if params[:registration_period_id].nil?
+
     @rp = RegistrationPeriod.find(params[:registration_period_id])
   end
   
