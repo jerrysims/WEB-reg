@@ -28,7 +28,7 @@ ActiveAdmin.register Parent do
                 :city,
                 :state,
                 :type,
-                :zip_code,
+                :zip_code
 
   index do
     column :id
@@ -63,5 +63,6 @@ ActiveAdmin.register Parent do
 
   filter :first_name
   filter :last_name
+  filter :email
   filter :students, as: :select, collection: Student.all.order(last_name: :asc)
 end
