@@ -72,6 +72,9 @@ ActiveAdmin.register InvoiceLineItem do
     column "Email" do |i|
       i.parent.email
     end
+    column "Registration Period" do |i|
+      i.registration_period.try(:id)
+    end
     column "Product ID" do |i|
       product = Product.find_by(id: i.product_id)
       product.id
@@ -88,4 +91,6 @@ ActiveAdmin.register InvoiceLineItem do
       product.nil? ? "" : '%.2f' % product.unit_price
     end
   end
+
+  filter :registration_period
 end
