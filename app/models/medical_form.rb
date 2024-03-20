@@ -5,7 +5,6 @@ class MedicalForm < ApplicationRecord
                         :emergency_contact_relationship,
                         :preferred_hospital,
                         :pain_reliever_permission,
-                        :medical_care_consent,
                         :signature,
                         :student_id
 
