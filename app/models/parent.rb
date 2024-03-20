@@ -52,8 +52,7 @@ class Parent < ActiveRecord::Base
   end
 
   def is_returning?
-    return false
-    students.enrolled.count > 0
+    students.count > 0
   end
 
   def registered_students(rp)
