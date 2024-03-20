@@ -1,11 +1,13 @@
-<%= render("registrations/registration_header", { page_title: "View Parent Agreement", student: @student, rp: @rp })%> 
+<% unless @dont_show_header %>
+  <%= render("registrations/registration_header", { page_title: "View Parent Agreement", student: @student, rp: @rp })  %> 
+<% end %>
 <div>You are currently viewing this agreement and cannot submit changes</div>
 <% @read_only = true %>
 
 <p class="notice"><%= notice %></p>
 <p><h4 class="alert"><%= alert %></h4></p>
 <%= simple_form_for [@parent, @parent_agreement], url: { method: @http_method, action: @form_action }, html: { readonly: @read_only } do |f| %>
-  <%= f.hidden_field :student_id, value: @student.id %>
+  <%= f.hidden_field :student_id, value: @student.try(:id) %>
   <%= f.hidden_field :parent_id, value: @parent.id %>
   <%= f.hidden_field :registration_period_id, value: @rp.id %>
   <p>You may complete this form <strong>once</strong> per family.</p>
@@ -154,16 +156,17 @@
       </div>
     </div>
   </div>
-
-  <div class="row">
-    <%= link_to(
-      "Continue to Liability Waiver", 
-      new_parent_registration_period_release_of_liability_path(
-        parent_id: current_parent.id,
-        registration_period_id: @rp.id,
-        student_id: @student.id
-      ),
-      class: "custom-button view-invoice-button col-3"
-    ) %>
-  </div>
+  <% unless @dont_show_header %>
+    <div class="row">
+      <%= link_to(
+        "Continue to Liability Waiver", 
+        new_parent_registration_period_release_of_liability_path(
+          parent_id: current_parent.id,
+          registration_period_id: @rp.id,
+          student_id: @student.id
+        ),
+        class: "custom-button view-invoice-button col-3"
+      ) %>
+    </div>
+  <% end %>
 <% end %>

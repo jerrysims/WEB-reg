@@ -16,6 +16,6 @@
     </div>
   </div>
   <div class="col-md-6 box shadow enrollment-form">
-    <%= render "enrollment_forms_box" %>
+    <%= render partial: "enrollment_forms_box", locals: { dont_show_header: @dont_show_header } %>
   </div> 
 </div>

@@ -1,8 +1,9 @@
 class ParentAgreementsController < ApplicationController
   before_action :set_parent
-  before_action :set_student
+  before_action :set_student, except: [:show, :edit, :update]
   before_action :set_rp
   before_action :set_read_only, only: [:show]
+  before_action :dont_show_header
 
   def create
     @parent_agreement = ParentAgreement.new(parent_agreement_params)
@@ -42,6 +43,10 @@ class ParentAgreementsController < ApplicationController
   end
 
   private
+  def dont_show_header
+    @dont_show_header = params[:dont_show_header]
+  end
+
   def param_label
     param_label = current_parent.class.to_s.downcase.to_sym
   end

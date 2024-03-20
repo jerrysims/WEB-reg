@@ -25,9 +25,11 @@ class ParentsController < ApplicationController
   end
 
   def locked_landing
+    @dont_show_header = true
   end
 
   def show
+    @dont_show_header = true
     redirect_to parent_confirm_grade_path(current_parent.id) if should_redirect_to_confirm_grade?
     redirect_to parent_confirm_web_email_path(current_parent.id) if should_confirm_web_email?
 
