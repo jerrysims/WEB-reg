@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_08_043947) do
+ActiveRecord::Schema.define(version: 2024_03_20_035614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -127,6 +127,8 @@ ActiveRecord::Schema.define(version: 2024_03_08_043947) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "registration_period_id"
+    t.bigint "parent_id"
+    t.index ["parent_id"], name: "index_medical_forms_on_parent_id"
     t.index ["registration_period_id"], name: "index_medical_forms_on_registration_period_id"
     t.index ["student_id"], name: "index_medical_forms_on_student_id"
   end
@@ -352,6 +354,7 @@ ActiveRecord::Schema.define(version: 2024_03_08_043947) do
   add_foreign_key "invoices", "parents"
   add_foreign_key "invoices", "registration_periods"
   add_foreign_key "learning_differences_forms", "students"
+  add_foreign_key "medical_forms", "parents"
   add_foreign_key "medical_forms", "registration_periods"
   add_foreign_key "parent_agreements", "parents"
   add_foreign_key "parent_agreements", "registration_periods"

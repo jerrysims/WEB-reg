@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       resources :release_of_liabilities
       resources :students do
         get :view_course_list
+        resources :medical_forms
       end
       get :view_schedules
       get :select_student
@@ -39,7 +40,6 @@ Rails.application.routes.draw do
 
   resources :students do
     resources :learning_differences_forms
-    resources :medical_forms
     get 'schedule'
     get 'view_course_list'
     patch 'update_web_email'

@@ -1,85 +1,121 @@
-<h1>2023-24 Medical Form</h1>
-<%= simple_form_for [@student, @medical_form] do |f| %>
+<h1>2024-25 Medical Form</h1>
+<%= simple_form_for [current_parent, @rp, @student, @medical_form], url: {controller: :medical_forms, action: @form_action} do |f| %>
   <p>Please complete this form for <strong>each student</strong> attending WEB.</p>
   <%= f.simple_fields_for @student do |student_form| %>
     <div class="row">
       <p>Student Name</p>
-      <%= student_form.hidden_field :id, as: :hidden, input_html: { value: @student.id } %>
-      <%= student_form.input :first_name, input_html: { value: @student.first_name } %>
-      <%= student_form.input :last_name, input_html: { value: @student.last_name } %>
+    </div>
+    <div class="row">
+      <%= student_form.hidden_field :id, value: @student.id %>
+      <div><%= student_form.input :first_name, input_html: { value: @student.first_name } %></div>
+      <div><%= student_form.input :last_name, input_html: { value: @student.last_name } %></div>
     </div>
     <div class="row">
       <p>Parent/Guardian Name</p>
+    </div>
+    <div class="row">
       <%= student_form.hidden_field :parent_id, as: :hidden, input_html: { value: @parent.id } %>
       <%= student_form.input :parent_first_name, input_html: { value: @parent.first_name } %>
       <%= student_form.input :parent_last_name, input_html: { value: @parent.last_name } %>
     </div>
     <div class="row">
       <p>Parent/Guardian Phone</p>
+    </div>
+    <div class="row">
       <%= student_form.input :parent_phone, input_html: { value: @parent.phone_number } %>
     </div>
   <% end %>
+  <%= f.hidden_field :registration_period_id, value: @rp.id %>
+  <%= f.hidden_field :parent_id, value: current_parent.id %>
   <div class="row">
     <p>Parent/Guardian 2 Name</p>
+  </div>
+  <div class="row">
     <%= f.input :parent2_first_name %>
     <%= f.input :parent2_last_name %>
   </div>
   <div class="row">
     <p>Parent/Guardian 2 Phone</p>
+  </div>
+  <div class="row">
     <%= f.input :parent2_phone %>
   </div>
   <div class="row">
     <p>Emergency Contact Name</p>
+  </div>
+  <div class="row">
     <%= f.input :emergency_contact_first_name %>
     <%= f.input :emergency_contact_last_name %>
   </div>
   <div class="row">
     <p>Emergency Contact Phone</p>
+  </div>
+  <div class="row">
     <%= f.input :parent2_phone %>
   </div>
   <div class="row">
     <p>Emergency Contact Relationship to Student</p>
+  </div>
+  <div class="row">
     <%= f.input :emergency_contact_relationship %>
   </div>
   <div class="row">
     <p>Known Allergies</p>
+  </div>
+  <div class="row">
     <%= f.input :known_allergies %>
   </div>
   <div class="row">
     <p>Medical Needs or Concerns</p>
+  </div>
+  <div class="row">
     <%= f.input :medical_needs_or_concerns %>
   </div>
   <div class="row">
     <p>Current Medications</p>
+  </div>
+  <div class="row">
     <%= f.input :current_medications %>
   </div>
   <div class="row">
     <p>Students's Physician</p>
+  </div>
+  <div class="row">
     <%= f.input :physician_first_name %>
     <%= f.input :physician_last_name %>
   </div>
   <div class="row">
     <p>Physician Phone Number</p>
+  </div>
+  <div class="row">
     <%= f.input :physician_phone %>
   </div>
   <div class="row">
-    <p>Medical Insurance Provider</p>>
+    <p>Medical Insurance Provider</p>
+  </div>
+  <div class="row">
     <%= f.input :medical_insurance_provider %>
   </div>
 
   <div class="row">
-    <p>Medical Insurance Policy Number</p>>
+    <p>Medical Insurance Policy Number</p>
+  </div>
+  <div class="row">
     <%= f.input :medical_insurance_policy_number %>
   </div>
   <div class="row">
-    <p>Preferred Hospital</p>>
+    <p>Preferred Hospital</p>
+  </div>
+  <div class="row">
     <%= f.input :preferred_hospital %>
   </div>
   <div class="row">
     <div class="row">
       I _____ give permission for my child to receive 200 mg of ibuprofen or 325 mg of acetaminophen while at WEB
     </div>
-    <div class="row"><%= f.input :pain_reliever_permission, label: false, as: :radio_buttons %></div>
+  </div>
+  <div class="row">
+    <%= f.input :pain_reliever_permission, label: false, as: :radio_buttons %>
   </div>
   <div class="row">
     <div class="row">
@@ -88,7 +124,9 @@
       child is under the care of Weekday Eastside Bridge (WEB) if I am not reasonably available 
       by telephone to give consent. *
     </div>
-    <div class="row"><%= f.input :medical_care_consent, label: false, as: :radio_buttons%></div>
+  </div>
+  <div class="row">
+    <%= f.input :medical_care_consent, label: false, as: :radio_buttons%>
   </div>
   <div>
     <div class="row">

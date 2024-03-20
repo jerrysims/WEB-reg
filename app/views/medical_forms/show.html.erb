@@ -1,0 +1,44 @@
+<% mf = @medical_form %>
+<h2>View Medical Form</h2>
+<h1>2024-25 Medical Form</h1>
+  <p>You are viewing the medical form for <%= @medical_form.student.full_name %></p>
+  
+  <dl>
+    <dt>Student Name</dt> 
+    <dd><%= mf.student.full_name %></dd>
+    <dt>Registration Parent Name</dt> 
+    <dd><%= Parent.find(mf.parent_id).full_name %></dd>
+    <dt>Additional Parent Name</dt> 
+    <dd><%= "#{mf.parent2_first_name} #{mf.parent2_last_name}" %></dd>
+    <dt>Parent/Guardian Phone</dt> 
+    <dd><%= mf.parent2_phone %></dd>
+    <dt>Registration Period</dt> 
+    <dd><%= RegistrationPeriod.find(mf.registration_period_id).name %></dd>
+    <dt>Emergency Contact Name</dt> 
+    <dd><%= "#{mf.emergency_contact_first_name} #{ mf.emergency_contact_last_name}" %></dd>
+    <dt>Emergency Contact Relationship</dt>
+    <dd><%= mf.emergency_contact_relationship %></dd>
+    <dt>Known Allergies</dt>
+    <dd><%= mf.known_allergies %></dd>
+    <dt>Medical Needs/Concerns</dt>
+    <dd><%= mf.medical_needs_or_concerns %></dd>
+    <dt>Current Medications</dt>
+    <dd><%= mf.current_medications %></dd>
+    <dt>Physician</dt>
+    <dd><%= "{ mf.physician_first_name } #{ mf.physician_last_name }"%></dd>
+    <dt>Physician Phone</dt>
+    <dd><%= mf.physician_phone%> </dd>
+    <dt>Medical Insurance Provider</dt>
+    <dd><%= mf.medical_insurance_provider%> </dd>
+    <dt>Medical Insurance Policy Number</dt>
+    <dd><%= mf.medical_insurance_policy_number%> </dd>
+    <dt>Preferred Hospital</dt>
+    <dd><%= mf.preferred_hospital%> </dd>
+    <dt>Pain Reliever Permission</dt>
+    <dd><%= mf.pain_reliever_permission%> </dd>
+    <dt>Medical Care Consent</dt>
+    <dd><%= mf.medical_care_consent%> </dd>
+    <dt>Signature</dt>
+    <dd><%= mf.signature%> </dd>
+  </dl>
+

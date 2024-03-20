@@ -1,6 +1,7 @@
 class MedicalFormsController < ApplicationController
   before_action :set_parent
   before_action :set_student
+  before_action :set_rp
 
   def create
     @medical_form = MedicalForm.new(medical_form_params)
@@ -15,12 +16,16 @@ class MedicalFormsController < ApplicationController
 
   def edit
     @form_action = :update
-    @medical_form = @student.medical_form
+    @medical_form = MedicalForm.find(params[:id])
   end
   
   def new
     @form_action = :create
     @medical_form = MedicalForm.new
+  end
+
+  def show
+    @medical_form = MedicalForm.find(params[:id])
   end
 
   def update
@@ -37,6 +42,10 @@ class MedicalFormsController < ApplicationController
 
   def set_parent
     @parent = current_parent
+  end
+  
+  def set_rp
+    @rp = RegistrationPeriod.find(params[:registration_period_id])
   end
 
   def medical_form_params
@@ -59,7 +68,9 @@ class MedicalFormsController < ApplicationController
       :pain_reliever_permission,
       :medical_care_consent,
       :signature,
-      :student_id
+      :student_id,
+      :parent_id, 
+      :registration_period_id
     )
   end
 

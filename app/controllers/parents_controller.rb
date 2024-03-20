@@ -2,8 +2,10 @@ class ParentsController < ApplicationController
   before_action :authenticate_parent!
   before_action :check_for_locked_parent, except: [:registration_home, :view_grades]
   before_action :set_parent
-  before_action :set_rp, only: [:view_grades, :show]
+  before_action :set_rp, only: [:view_grades, :show, :locked_landing]
   before_action :set_open_rps
+  before_action :set_enrollment_forms, only: [:locked_landing, :show]
+  before_action :set_student_forms, only: [:locked_landing, :show]
 
   def acknowledge_covid_statement
     current_parent.update_attributes(covid_statement_acknowledged: true)
@@ -58,17 +60,34 @@ class ParentsController < ApplicationController
     students
   end
 
+  def set_enrollment_forms
+    @parent_agreement = ParentAgreement.find_by(parent_id: current_parent.id, registration_period_id: @rp.id)
+    @photo_consent = PhotoConsent.find_by(parent_id: current_parent.id, registration_period_id: @rp.id)
+    @release_of_liability = ReleaseOfLiability.find_by(parent_id: current_parent.id, registration_period_id: @rp.id)
+  end
+
   def set_open_rps
     @open_rps = RegistrationPeriod.open
   end
 
   def set_rp
-    rp_id = params[:registration_period_id] || 1
-    @rp = RegistrationPeriod.find(rp_id)
+    return @rp = RegistrationPeriod::CURRENT_RP if params[:registration_period_id].nil?
+
+    @rp = RegistrationPeriod.find(params[:registration_period_id])
   end
 
   def set_parent
     @parent = current_parent
+  end
+
+  def set_student_forms
+    @student_forms = []
+    current_parent.students.enrolled(@rp).each do |s|
+      medical_form = MedicalForm.find_by(student_id: s.id, registration_period_id: @rp.id) 
+      @student_forms << [s, medical_form]
+    end
+
+    @student_forms
   end
 
   def should_confirm_web_email?
