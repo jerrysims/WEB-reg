@@ -12,7 +12,8 @@
       parent_registration_period_release_of_liability_path(
         parent_id: current_parent.id, 
         registration_period_id: @rp.id,
-        id: @release_of_liability.id
+        id: @release_of_liability.id,
+        dont_show_header: @dont_show_header
       ) 
     )%>
   </div>
@@ -22,7 +23,8 @@
       edit_parent_registration_period_release_of_liability_path(
         parent_id: current_parent.id, 
         registration_period_id: @rp.id,
-        id: @release_of_liability.id
+        id: @release_of_liability.id,
+        dont_show_header: @dont_show_header
       ) 
     ) %>
   </div>

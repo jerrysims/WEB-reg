@@ -27,7 +27,7 @@ class ParentAgreementsController < ApplicationController
   end
   
   def show
-    @parent_agreement = current_parent.parent_agreement
+    @parent_agreement = ParentAgreement.find(params[:id])
   end
 
   def update
@@ -38,7 +38,11 @@ class ParentAgreementsController < ApplicationController
       redirect_to root_path
     else 
       flash[:alert] = "Form could not be updated. Please ensure all required fields are completed"
-      redirect_back fallback_location: edit_parent_parent_agreement_path(parent_id: @parent.id, id: @parent_agreement.id)
+      redirect_back fallback_location: edit_parent_registration_period_parent_agreement_path(
+        parent_id: @parent.id, 
+        registration_period_id: @rp.id,
+        id: @parent_agreement.id
+      )
     end
   end
 

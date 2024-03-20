@@ -1,7 +1,8 @@
 class ReleaseOfLiabilitiesController < ApplicationController
   before_action :set_parent
-  before_action :set_student
+  before_action :set_student, except: [:show, :edit, :update]
   before_action :set_rp
+  before_action :dont_show_header
 
   def create
     @release_of_liability = ReleaseOfLiability.new(release_of_liability_params)
@@ -26,16 +27,30 @@ class ReleaseOfLiabilitiesController < ApplicationController
   end
 
   def show
+    @release_of_liability = ReleaseOfLiability.find(params[:id])
   end
 
   def update
     @release_of_liability = ReleaseOfLiability.find(params[:id])
-    @release_of_liability.update release_of_liability_params
 
-    redirect_to root_path
+    if @release_of_liability.update release_of_liability_params
+      flash[:notice] = "Liability Waiver successfully updated"
+      redirect_to root_path
+    else
+      flash[:alert] = "Form could not be updated. Please ensure all required fields are completed"
+      redirect_back fallback_location: edit_parent_registration_period_release_of_liability_path(
+        parent_id: @parent.id, 
+        registration_period_id: @rp.id,
+        id: @release_of_liability.id
+      )
+    end
   end
 
   private
+  def dont_show_header
+    @dont_show_header = params[:dont_show_header]
+  end
+
   def set_parent
     @parent = current_parent
   end

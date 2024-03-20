@@ -1,7 +1,8 @@
 class PhotoConsentsController < ApplicationController
   before_action :set_parent
   before_action :set_rp
-  before_action :set_student
+  before_action :set_student, except: [:show, :edit, :update]
+  before_action :dont_show_header
 
   def create
     @photo_consent = PhotoConsent.new(photo_consent_params)
@@ -24,15 +25,31 @@ class PhotoConsentsController < ApplicationController
     @form_action = :create
     @photo_consent = PhotoConsent.new
   end
+
+  def show
+    @photo_consent = PhotoConsent.find(params[:id])
+  end
   
   def update
     @photo_consent = PhotoConsent.find params[:id]
-    @photo_consent.update photo_consent_params
-
-    redirect_to root_path
+    if @photo_consent.update photo_consent_params
+      flash[:notice] = "Photo Consent successfully updated"
+      redirect_to root_path
+    else
+      flash[:alert] = "Form could not be updated. Please ensure all required fields are completed"
+      redirect_back fallback_location: edit_parent_registration_period_photo_consent_path(
+        parent_id: @parent.id, 
+        registration_period_id: @rp.id,
+        id: @parent_agreement.id
+      )
+    end
   end
 
   private
+  def dont_show_header
+    @dont_show_header = params[:dont_show_header]
+  end
+
   def param_label
     param_label = current_parent.class.to_s.downcase.to_sym
   end

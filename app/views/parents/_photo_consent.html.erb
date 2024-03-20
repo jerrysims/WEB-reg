@@ -11,7 +11,8 @@
       parent_registration_period_photo_consent_path(
         parent_id: current_parent.id, 
         registration_period_id: @rp.id,
-        id: current_parent.photo_consent.id
+        id: current_parent.photo_consent.id,
+        dont_show_header: @dont_show_header
       ) 
     )%>
   </div>
@@ -21,7 +22,8 @@
       edit_parent_registration_period_photo_consent_path(
         parent_id: current_parent.id, 
         registration_period_id: @rp.id,
-        id: current_parent.photo_consent.id
+        id: current_parent.photo_consent.id,
+        dont_show_header: @dont_show_header
       ) 
     ) %>
   </div>

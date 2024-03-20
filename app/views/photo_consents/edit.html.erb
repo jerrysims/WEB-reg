@@ -1,2 +1,6 @@
-<%= render("registrations/registration_header", { page_title: "Edit Photo Consent", student: @student, rp: @rp })%> 
+<% if @dont_show_header %>
+  <h2>Edit Photo Consent</h2>
+<% else %>
+  <%= render("registrations/registration_header", { page_title: "Photo Consent Response", student: @student, rp: @rp })%> 
+<% end %>
 <%= render "form" %>

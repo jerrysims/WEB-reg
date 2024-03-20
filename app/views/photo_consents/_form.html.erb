@@ -47,7 +47,7 @@
             I understand & agree this is a legal representation of my signature.
           </div>
           <div class="row"><%= f.input :signature, label: "Please type your full name" %></div>
-          <%= f.hidden_field :student_id, value: @student.id %>
+          <%= f.hidden_field :student_id, value: @student.try(:id) %>
           <%= f.hidden_field :parent_id, value: @parent.id %>
           <%= f.hidden_field :registration_period_id, value: @rp.id %>
         </div>

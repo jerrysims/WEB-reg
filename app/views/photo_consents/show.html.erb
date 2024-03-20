@@ -1,4 +1,8 @@
-<%= render("registrations/registration_header", { page_title: "Photo Consent Response", student: @student, rp: @rp })%> 
+<% if @dont_show_header %>
+  <h2>Photo Consent</h2>
+<% else %>
+  <%= render("registrations/registration_header", { page_title: "Photo Consent Response", student: @student, rp: @rp })%> 
+<% end %>
 <div class="row">
   <div class="col-12">
     <span>Permission and Consent: <%= @photo_consent.permission_and_consent %></span>
@@ -8,14 +12,16 @@
   </div>
 </div>
 
-<div class="row">
-  <%= link_to(
-    "Continue to Invoice / Tuition", 
-    registrations_finalize_path(
-      parent_id: current_parent.id,
-      registration_period_id: @rp.id,
-      student_id: @student.id
-    ),
-    class: "custom-button view-invoice-button col-3"
-  ) %>
-</div>
+<% unless @dont_show_header %>
+  <div class="row">
+    <%= link_to(
+      "Continue to Invoice / Tuition", 
+      registrations_finalize_path(
+        parent_id: current_parent.id,
+        registration_period_id: @rp.id,
+        student_id: @student.id
+      ),
+      class: "custom-button view-invoice-button col-3"
+    ) %>
+  </div>
+<% end %>

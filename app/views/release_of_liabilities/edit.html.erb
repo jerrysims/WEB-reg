@@ -1,2 +1,4 @@
-<%= render("registrations/registration_header", { page_title: "Edit Liability Waiver", student: @student, rp: @rp })%> 
+<% unless @dont_show_header %>
+  <%= render("registrations/registration_header", { page_title: "Edit Liability Waiver", student: @student, rp: @rp })%> 
+<% end %>
 <%= render "form" %>

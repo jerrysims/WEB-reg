@@ -2,7 +2,7 @@
 <h6>Read Carefully - This Affects Your Legal Rights</h6>
 <%= simple_form_for [@parent, @release_of_liability], url: { method: @http_method, action: @form_action }, html: { readonly: @read_only } do |f| %>
   
-  <%= f.hidden_field :student_id, value: @student.id %>
+  <%= f.hidden_field :student_id, value: @student.try(:id) %>
   <%= f.hidden_field :parent_id, value: @parent.id %>
   <%= f.hidden_field :registration_period_id, value: @rp.id %>
   <p>You may complete this form <strong>once</strong> per family.</p>
