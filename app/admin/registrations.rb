@@ -16,6 +16,8 @@ ActiveAdmin.register Registration do
          as: :select,
          collection: Student.all.order(last_name: :asc, first_name: :asc)
 
+  filter :registration_periodG
+
   scope :all, default: true
   scope :missing_invoices
 
