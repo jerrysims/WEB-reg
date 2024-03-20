@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_20_035614) do
+ActiveRecord::Schema.define(version: 2024_03_20_135727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 2024_03_20_035614) do
   end
 
   create_table "photo_consents", force: :cascade do |t|
-    t.boolean "permission_and_consent"
+    t.string "permission_and_consent"
     t.string "signature"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

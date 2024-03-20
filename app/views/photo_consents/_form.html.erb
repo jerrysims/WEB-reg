@@ -24,15 +24,16 @@
       <div class="row">
         <div class="col-md-10 box">
           <div class="row">
-            I _____ give permission and consent to WEB (Weekday Eastside Bridge) for the use of 
+            I, the undersigned, give permission and consent to WEB (Weekday Eastside Bridge) for the use of 
             photograph(s) or electronic media images of my student at WEB for the use of the WEB 
-            website, WEB Facebook page and/or WEB Instagram account. *      
+            newsletter, WEB website, WEB Facebook page and/or WEB Instagram account. *      
           </div>
           <div class="row">
             <%= f.input(
               :permission_and_consent, 
               label: false, 
-              as: :radio_buttons, 
+              as: :select,
+              collection: ["Yes", "No", "WEB Newsletter Only"],
               required: true,
               input_html: { value: "#{f.object.permission_and_consent}" }
               ) 
