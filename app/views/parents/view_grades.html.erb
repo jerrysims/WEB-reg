@@ -1,4 +1,4 @@
 <h2>Grades</h2>
 <% @students.each do |s| %>
-  <%= render(partial: "student_grades", locals: { student: s }) %>
+  <%= render(partial: "student_grades", locals: { student: s, rp: @rp }) %>
 <% end %>

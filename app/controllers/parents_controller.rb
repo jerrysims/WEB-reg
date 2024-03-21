@@ -2,7 +2,7 @@ class ParentsController < ApplicationController
   before_action :authenticate_parent!
   before_action :check_for_locked_parent, except: [:registration_home, :view_grades]
   before_action :set_parent
-  before_action :set_rp, only: [:view_grades, :show, :locked_landing]
+  before_action :set_rp, only: [:show, :locked_landing]
   before_action :set_open_rps
   before_action :set_enrollment_forms, only: [:locked_landing, :show]
   before_action :set_student_forms, only: [:locked_landing, :show]
@@ -37,7 +37,9 @@ class ParentsController < ApplicationController
   end
 
   def view_grades
+    @rp = RegistrationPeriod::CURRENT_ACADEMIC_YEAR
     @students = current_parent.students.enrolled(@rp)
+    @registrations = Registration.joins(section: { course: :registration_period }).where(student: @students).where("registration_periods.id": @rp.id)
   end
 
   private
