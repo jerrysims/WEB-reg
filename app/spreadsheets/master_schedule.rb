@@ -1,10 +1,11 @@
 class MasterSchedule
   attr_accessor :courses
 
-  def initialize
+  def initialize(rp)
     @start_times = {}
     @start_times[:Tuesday] = (Section.where(day: "Tuesday") + Section.where(day: "Tuesday/Thursday")).pluck(:start_time).uniq.sort
     @start_times[:Thursday] = (Section.where(day: "Thursday") + Section.where(day: "Tuesday/Thursday")).pluck(:start_time).uniq.sort
+    @students = Student.enrolled(rp).order(:last_name)
   end
 
   def generate_xls
@@ -24,7 +25,7 @@ class MasterSchedule
     sheet.row(0).default_format = Spreadsheet::Format.new weight: :bold
 
     row_index = 1
-    Student.enrolled.order(:last_name).each do |s|
+    @students.each do |s|
       sheet.row(row_index).concat get_student_row(s)
       row_index += 1
     end

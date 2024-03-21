@@ -26,9 +26,15 @@ ActiveAdmin.register Section, as: "Master Schedule" do
 
   controller do
     def index
+      unless params[:q].nil?
+        @rp = RegistrationPeriod.find(params[:q][:course_registration_period_id_eq])
+      else 
+        @rp = RegistrationPeriod::CURRENT_RP
+      end
+
       index! do |format|
         format.xls {
-          spreadsheet = MasterSchedule.new
+          spreadsheet = MasterSchedule.new(@rp)
           send_data(
             spreadsheet.generate_xls,
             filename: "master_schedule_#{Time.now.strftime("%Y%m%d_%H%M")}.xls"
