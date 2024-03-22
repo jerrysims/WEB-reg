@@ -330,8 +330,7 @@ class RegistrationsController < ApplicationController
 
   def parent_params
     params.require(param_label).permit(:id, :first_name, :last_name, :email, :phone_number,
-      :secondary_email, :street_address_1, :street_address_2, :city, :state, :zip_code,
-      :tuition_preference, :payment_preference)
+      :secondary_email, :street_address_1, :street_address_2, :city, :state, :zip_code)
   end
 
   def registration_params
