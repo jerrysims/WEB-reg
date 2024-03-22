@@ -1,6 +1,12 @@
 ActiveAdmin.register Parent do
   menu parent: "Admin"
 
+  controller do
+    def scoped_collection
+      end_of_association_chain.includes(students: { registrations: { section: { course: :registration_period } } }).distinct
+    end
+  end
+
   form do |f|
     f.input :email
     f.input :secondary_email
@@ -44,6 +50,8 @@ ActiveAdmin.register Parent do
   end
 
   csv do
+    rp_id = RegistrationPeriod.find_by(name: params[:q]["students_registrations_section_course_registration_period_name_eq"])
+    
     column "quickbooks_id" do |p|
       "p#{p.id}"
     end
@@ -58,10 +66,10 @@ ActiveAdmin.register Parent do
     column :state
     column :zip_code
     column "2024 Tuition Frequency" do |p|
-      p.tuition_preferences.where(registration_period_id: 4).try(:frequency)
+      p.tuition_preferences.find_by(registration_period: rp_id).try(:frequency)
     end
     column "2024 Payment Method" do |p|
-      p.tuition_preferences.where(registration_period_id: 4).try(:payment_method)
+      p.tuition_preferences.find_by(registration_period: rp_id).try(:payment_method)
     end
     column :secondary_email
   end
@@ -70,4 +78,6 @@ ActiveAdmin.register Parent do
   filter :last_name
   filter :email
   filter :students, as: :select, collection: Student.all.order(last_name: :asc)
+  filter :students_registrations_section_course_registration_period_name, as: :select, label: "Child Registered in Period", collection: -> { RegistrationPeriod.pluck(:name) }
+
 end

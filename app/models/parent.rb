@@ -23,7 +23,7 @@ class Parent < ActiveRecord::Base
   has_many :courses, through: :students
   has_many :invoice_line_items
   has_one :invoice
-  has_one :parent_agreement
+  has_many :parent_agreements
   has_one :photo_consent
   has_one :release_of_liability
   has_many :receipts

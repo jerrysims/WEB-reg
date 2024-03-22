@@ -1,4 +1,4 @@
-<%= render "registration_header", page_title: "Choose Classes - #{@student.full_name}"%>
+<%= render("registrations/registration_header", { page_title: "Choose Classes - #{@student.full_name}", student: @student, rp: @rp })%> 
 <div class="row">
   <div>
     <p>

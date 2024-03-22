@@ -12,14 +12,26 @@
     <%= link_to "Choose Classes", register_path( student_id: @student.id, registration_period_id: @rp.id) %>
   </div>
   <div class="registration-progress-bar-nav-item box col">
-    <%= link_to(
-      "Parent Agreement", 
-      new_parent_registration_period_parent_agreement_path(
-        parent_id: current_parent.id,
-        registration_period_id: @rp.id,
-        student_id: @student.id
-      )
-    ) %>
+    <% if pa = ParentAgreement.find_by(registration_period_id: RegistrationPeriod::CURRENT_RP, parent: current_parent) %>
+      <%= link_to(
+        "Parent Agreement", 
+        parent_registration_period_parent_agreement_path(
+          parent_id: current_parent.id,
+          registration_period_id: @rp.id,
+          student_id: @student.id,
+          id: pa.id
+        )
+      ) %>
+    <% else %>
+      <%= link_to(
+        "Parent Agreement", 
+        new_parent_registration_period_parent_agreement_path(
+          parent_id: current_parent.id,
+          registration_period_id: @rp.id,
+          student_id: @student.id
+        )
+      ) %>
+    <% end %>
   </div>
   <div class="registration-progress-bar-nav-item box col">
     <%= link_to(

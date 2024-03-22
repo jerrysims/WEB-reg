@@ -1,6 +1,6 @@
 class ParentAgreementsController < ApplicationController
   before_action :set_parent
-  before_action :set_student, except: [:show, :edit, :update]
+  before_action :set_student, except: [:update]
   before_action :set_rp
   before_action :set_read_only, only: [:show]
   before_action :dont_show_header
@@ -18,7 +18,7 @@ class ParentAgreementsController < ApplicationController
 
   def edit 
     @form_action = :update
-    @parent_agreement = current_parent.parent_agreement
+    @parent_agreement = ParentAgreement.find(params[:id])
   end
 
   def new
@@ -69,7 +69,7 @@ class ParentAgreementsController < ApplicationController
 
   def set_student
     unless action_name == "create"
-      @student = Student.find(params[:student_id])
+      @student = Student.find(params[:student_id]) || current_parent.students.first
     else
       @student = Student.find(params[:parent_agreement][:student_id])
     end
