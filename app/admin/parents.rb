@@ -57,7 +57,12 @@ ActiveAdmin.register Parent do
     column :city
     column :state
     column :zip_code
-    column :payment_preference
+    column "2024 Tuition Frequency" do |p|
+      p.tuition_preferences.where(registration_period_id: 4).try(:frequency)
+    end
+    column "2024 Payment Method" do |p|
+      p.tuition_preferences.where(registration_period_id: 4).try(:payment_method)
+    end
     column :secondary_email
   end
 
