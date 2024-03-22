@@ -69,7 +69,11 @@ class ParentAgreementsController < ApplicationController
 
   def set_student
     unless action_name == "create"
-      @student = Student.find(params[:student_id]) || current_parent.students.first
+      unless params[:student_id].nil?
+        @student = Student.find(params[:student_id])
+      else 
+        @student = current_parent.students.first
+      end
     else
       @student = Student.find(params[:parent_agreement][:student_id])
     end
