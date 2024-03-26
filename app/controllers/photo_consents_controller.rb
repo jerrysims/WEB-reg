@@ -1,7 +1,7 @@
 class PhotoConsentsController < ApplicationController
   before_action :set_parent
   before_action :set_rp
-  before_action :set_student, except: [:show, :edit, :update]
+  before_action :set_student, except: [:update]
   before_action :dont_show_header
 
   def create
@@ -60,7 +60,11 @@ class PhotoConsentsController < ApplicationController
 
   def set_student
     unless action_name == "create"
-      @student = Student.find(params[:student_id])
+      unless params[:student_id].nil?
+        @student = Student.find(params[:student_id])
+      else
+        @student = current_parent.students.first
+      end
     else
       @student = Student.find(params[:photo_consent][:student_id])
     end

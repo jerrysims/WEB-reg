@@ -3,7 +3,7 @@
 <% else %>
   <%= render("registrations/registration_header", { page_title: "View Liability Waiver", student: @student, rp: @rp })%> 
 <% end %>
-<div>You are currently viewing this agreement and cannot submit changes</div>
+<h6>We already have a Liability Waiver on file for you. You are currently viewing this agreement and cannot submit changes</h6>
 <% @read_only = true %>
 
 <p class="notice"><%= notice %></p>

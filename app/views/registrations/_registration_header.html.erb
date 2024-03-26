@@ -34,24 +34,48 @@
     <% end %>
   </div>
   <div class="registration-progress-bar-nav-item box col">
-    <%= link_to(
-      "Liability Waiver", 
-      new_parent_registration_period_release_of_liability_path(
-        parent_id: current_parent.id,
-        registration_period_id: @rp.id,
-        student_id: @student.id
-      )
-    ) %>
+    <% if release = ReleaseOfLiability.find_by(registration_period_id: RegistrationPeriod::CURRENT_RP, parent: current_parent) %>
+      <%= link_to(
+        "Liability Waiver", 
+        parent_registration_period_release_of_liability_path(
+          parent_id: current_parent.id,
+          registration_period_id: @rp.id,
+          student_id: @student.id,
+          id: release.id
+        )
+      ) %>
+    <% else %>
+      <%= link_to(
+        "Liability Waiver", 
+        new_parent_registration_period_release_of_liability_path(
+          parent_id: current_parent.id,
+          registration_period_id: @rp.id,
+          student_id: @student.id
+        )
+      ) %>
+    <% end %>
   </div>
   <div class="registration-progress-bar-nav-item box col">
-    <%= link_to(
-      "Photo Consent", 
-      new_parent_registration_period_photo_consent_path(
-        parent_id: current_parent.id,
-        registration_period_id: @rp.id,
-        student_id: @student.id
-      )
-    ) %>
+    <% if pc = PhotoConsent.find_by(registration_period_id: RegistrationPeriod::CURRENT_RP, parent: current_parent) %>
+      <%= link_to(
+        "Photo Consent", 
+        parent_registration_period_photo_consent_path(
+          parent_id: current_parent.id,
+          registration_period_id: @rp.id,
+          student_id: @student.id,
+          id: pc.id
+        )
+      ) %>
+    <% else %>
+      <%= link_to(
+        "Photo Consent", 
+        new_parent_registration_period_photo_consent_path(
+          parent_id: current_parent.id,
+          registration_period_id: @rp.id,
+          student_id: @student.id
+        )
+      ) %>
+    <% end %>
   </div>
   <div class="registration-progress-bar-nav-item box col">
     <%= link_to(

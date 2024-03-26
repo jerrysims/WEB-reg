@@ -1,6 +1,6 @@
 class ReleaseOfLiabilitiesController < ApplicationController
   before_action :set_parent
-  before_action :set_student, except: [:show, :edit, :update]
+  before_action :set_student, except: [:update]
   before_action :set_rp
   before_action :dont_show_header
 
@@ -57,7 +57,11 @@ class ReleaseOfLiabilitiesController < ApplicationController
 
   def set_student
     unless action_name == "create"
-      @student = Student.find(params[:student_id])
+      unless params[:student_id].nil?
+        @student = Student.find(params[:student_id])
+      else
+        @student = current_parent.students.first
+      end
     else
       @student = Student.find(params[:release_of_liability][:student_id])
     end

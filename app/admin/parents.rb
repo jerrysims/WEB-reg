@@ -78,6 +78,6 @@ ActiveAdmin.register Parent do
   filter :last_name
   filter :email
   filter :students, as: :select, collection: Student.all.order(last_name: :asc)
-  filter :students_registrations_section_course_registration_period_name, as: :select, label: "Child Registered in Period", collection: -> { RegistrationPeriod.pluck(:name) }
+  filter :students_registrations_section_course_registration_period_name, as: :select, label: "Registration Period", collection: -> { RegistrationPeriod.pluck(:name) }
 
 end
