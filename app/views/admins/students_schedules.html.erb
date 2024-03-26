@@ -1,13 +1,22 @@
 <h2>View Student Schedule</h2>
-<div class="row">
-  <div class="col-md-6">
-    <%= form_with(url: admin_student_schedule_path, local: true) do |f| %>
-      <%= f.label :Student, "Search for:" %>
-      <%= f.collection_select :student_id, Student.enrolled(RegistrationPeriod.first).order(:last_name), :id, :full_name %>
-      
-      <%= f.label :registration_period, "Search for:" %>
-      <%= f.collection_select :registration_period_id, RegistrationPeriod.all, :id, :name %>
-      <%= f.submit "Search" %>
-    <% end %>
+
+<% RegistrationPeriod.all.each do |rp| %>
+  <div class="row ">
+    <div class="col-md-6 box">
+      <h6><%= rp.name %>
+        <%= form_with(url: admin_student_schedule_path, local: true) do |f| %>
+          <%= f.hidden_field :registration_period_id, value: @rp.id %>
+          <%= f.label :Student, "Search for:" %>
+          <%= f.collection_select(
+            :student_id, 
+            Student.enrolled(RegistrationPeriod.find(rp.id)).order(:last_name), 
+            :id, 
+            :full_name, 
+            input_html: { id: "students-select" } 
+          )%>
+          <br> 
+          <%= f.submit "Search" %>
+        <% end %>
+    </div>
   </div>
-</div>
+<% end %>
