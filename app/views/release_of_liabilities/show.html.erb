@@ -107,14 +107,27 @@
 
 <% unless @dont_show_header %>
   <div class="row">
-    <%= link_to(
-      "Continue to Photo Consent", 
-      new_parent_registration_period_photo_consent_path(
-        parent_id: current_parent.id,
-        registration_period_id: @rp.id,
-        student_id: @student.id
-      ),
-      class: "custom-button view-invoice-button col-3"
-    ) %>
+    <% if pc = PhotoConsent.find_by(registration_period_id: RegistrationPeriod::CURRENT_RP, parent: current_parent) %>
+      <%= link_to(
+        "Continue to Photo Consent", 
+        parent_registration_period_photo_consent_path(
+          parent_id: current_parent.id,
+          registration_period_id: @rp.id,
+          student_id: @student.id,
+          id: pc.id
+        ),
+        class: "custom-button view-invoice-button col-3"
+      ) %>
+    <% else %>
+      <%= link_to(
+        "Continue to Photo Consent", 
+        new_parent_registration_period_photo_consent_path(
+          parent_id: current_parent.id,
+          registration_period_id: @rp.id,
+          student_id: @student.id
+        ),
+        class: "custom-button view-invoice-button col-3"
+      ) %>
+    <% end %>
   </div>
 <% end %>

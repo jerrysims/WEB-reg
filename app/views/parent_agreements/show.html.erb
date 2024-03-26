@@ -158,15 +158,28 @@
   </div>
   <% unless @dont_show_header %>
     <div class="row">
-      <%= link_to(
-        "Continue to Liability Waiver", 
-        new_parent_registration_period_release_of_liability_path(
-          parent_id: current_parent.id,
-          registration_period_id: @rp.id,
-          student_id: @student.id
-        ),
-        class: "custom-button view-invoice-button col-3"
-      ) %>
+      <% if release = ReleaseOfLiability.find_by(registration_period_id: RegistrationPeriod::CURRENT_RP, parent: current_parent) %>
+        <%= link_to(
+          "Continue to Liability Waiver", 
+          parent_registration_period_release_of_liability_path(
+            parent_id: current_parent.id,
+            registration_period_id: @rp.id,
+            student_id: @student.id,
+            id: release.id
+          ),
+          class: "custom-button view-invoice-button col-3"
+        ) %>
+      <% else %>
+        <%= link_to(
+          "Continue to Liability Waiver", 
+          new_parent_registration_period_release_of_liability_path(
+            parent_id: current_parent.id,
+            registration_period_id: @rp.id,
+            student_id: @student.id
+          ),
+          class: "custom-button view-invoice-button col-3"
+        ) %>
+      <% end %>
     </div>
   <% end %>
 <% end %>
