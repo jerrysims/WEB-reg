@@ -4,8 +4,10 @@
     <%= render "student_list" %>
   </div>
 </div>
-<div class="row registration-checklist">
-  <div class="col-md-5 box">
-    <%= render "enrollment_forms_box" %>
+<% unless @should_not_show_enrollment_forms %>
+  <div class="row registration-checklist">
+    <div class="col-md-5 box">
+      <%= render "enrollment_forms_box" %>
+    </div>
   </div>
-</div>
+<% end %>

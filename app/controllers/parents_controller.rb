@@ -6,6 +6,7 @@ class ParentsController < ApplicationController
   before_action :set_open_rps
   before_action :set_enrollment_forms, only: [:locked_landing, :show]
   before_action :set_student_forms, only: [:locked_landing, :show]
+  before_action :should_not_show_enrollment_forms, only: [:show]
 
   def acknowledge_covid_statement
     current_parent.update_attributes(covid_statement_acknowledged: true)
@@ -97,6 +98,10 @@ class ParentsController < ApplicationController
   def should_confirm_web_email?
     current_parent.students.enrolled(@rp).missing_web_email.count > 0 ||
     current_parent.students.enrolled(@rp).web_email_different_domain.count > 0
+  end
+
+  def should_not_show_enrollment_forms
+    @should_not_show_enrollment_forms = !current_parent.students.enrolled(@rp).count
   end
 
   def should_redirect_to_confirm_grade?
