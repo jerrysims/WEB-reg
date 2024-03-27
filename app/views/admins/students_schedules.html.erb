@@ -5,7 +5,7 @@
     <div class="col-md-6 box">
       <h6><%= rp.name %>
         <%= form_with(url: admin_student_schedule_path, local: true) do |f| %>
-          <%= f.hidden_field :registration_period_id, value: @rp.id %>
+          <%= f.hidden_field :registration_period_id, value: rp.id %>
           <%= f.label :Student, "Search for:" %>
           <%= f.collection_select(
             :student_id, 
