@@ -193,7 +193,7 @@ class RegistrationsController < ApplicationController
       )
     else
       redirect_back fallback_location: {
-        action: "complete_parent_info", student_id: ams[:student_id]
+        action: "complete_parent_info", student_id: params[:student_id]
       }
     end 
   end
