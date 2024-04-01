@@ -17,11 +17,11 @@
       <%= f.input :email %>
       <%= f.input :secondary_email, label: "Secondary Email (for partner or different email for WEB communications)" %>
       <%= f.input :phone_number %>
-      <%= f.input :street_address_1 %>
-      <%= f.input :city %>
+      <%= f.input :street_address_1, required: true %>
+      <%= f.input :city, required: true %>
       <%= f.input :street_address_2 %>
-      <%= f.input :state %>
-      <%= f.input :zip_code %>
+      <%= f.input :state, required: true %>
+      <%= f.input :zip_code, required: true %>
     </div>
     <!-- end parent information section -->
     <div class="col-md-offset-5 col-md-2">
