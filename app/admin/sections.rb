@@ -173,6 +173,7 @@ ActiveAdmin.register Section do
     column :day
     column :start_time
     column :end_time
+    column :grades
     column :class_minimum
     column :class_maximum
     column "Seats Filled" do |section|
