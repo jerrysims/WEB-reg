@@ -16,6 +16,7 @@ class Section < ApplicationRecord
   validates :class_maximum, numericality: true, presence: true
 
   scope :open_seats, -> { where("students_count < class_maximum") }
+  scope :in_period, -> (rp) { joins(course: :registration_period) .where('courses.registration_period_id = ?', rp.id) }
   delegate :registration_period_id, to: :course
   delegate :registration_period, to: :course
   delegate :semester, to: :course

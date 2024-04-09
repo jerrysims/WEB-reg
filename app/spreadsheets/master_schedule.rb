@@ -2,9 +2,10 @@ class MasterSchedule
   attr_accessor :courses
 
   def initialize(rp)
+    @rp = rp
     @start_times = {}
-    @start_times[:Tuesday] = (Section.where(day: "Tuesday") + Section.where(day: "Tuesday/Thursday")).pluck(:start_time).uniq.sort
-    @start_times[:Thursday] = (Section.where(day: "Thursday") + Section.where(day: "Tuesday/Thursday")).pluck(:start_time).uniq.sort
+    @start_times[:Tuesday] = (Section.in_period(rp).where(day: "Tuesday") + Section.where(day: "Tuesday/Thursday")).pluck(:start_time).uniq.sort
+    @start_times[:Thursday] = (Section.in_period(rp).where(day: "Thursday") + Section.where(day: "Tuesday/Thursday")).pluck(:start_time).uniq.sort
     @students = Student.enrolled(rp).order(:last_name)
   end
 
@@ -59,7 +60,7 @@ class MasterSchedule
     ]
     @start_times.each do | day, t |
       t.each do |start_time|
-        cell_value = student.sections.find_by(day: [day.to_s, "Tuesday/Thursday"], start_time: start_time).try(:name) ||
+        cell_value = student.sections.in_period(@rp).find_by(day: [day.to_s, "Tuesday/Thursday"], start_time: start_time).try(:name) ||
                      "-------"
         row << cell_value
       end
