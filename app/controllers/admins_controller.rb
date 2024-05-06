@@ -51,7 +51,7 @@ class AdminsController < ApplicationController
   end
 
   def open_seats
-    @q = Section.joins(:course).search(params[:q])
+    @q = Section.in_period(RegistrationPeriod::CURRENT_RP).joins(:course).search(params[:q])
     @sections = @q.result
   end
 
