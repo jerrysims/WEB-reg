@@ -46,6 +46,7 @@ ActiveAdmin.register Parent do
     column "# of Students" do |p|
       p.students.count
     end
+    column :locked
     actions
   end
 
@@ -72,6 +73,7 @@ ActiveAdmin.register Parent do
       p.tuition_preferences.find_by(registration_period: rp_id).try(:payment_method)
     end
     column :secondary_email
+    column :locked
   end
 
   filter :first_name
