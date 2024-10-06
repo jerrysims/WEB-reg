@@ -23,7 +23,7 @@ class Section < ApplicationRecord
 
   NUMERICAL = (1..110).to_a.reverse
   LETTER = %w(A+ A A- B+ B B- C+ C C- D+ D D- F)
-  DESCRIPTIVE = %w(Excellent Satisfactory Needs_Assistance Unsatisfactory)
+  DESCRIPTIVE = %w(Excellent Good Satisfactory Needs_Assistance Unsatisfactory)
 
   GRADING_SCALES = %w(NUMERICAL LETTER DESCRIPTIVE)
 
