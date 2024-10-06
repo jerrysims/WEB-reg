@@ -21,7 +21,7 @@ class Section < ApplicationRecord
   delegate :registration_period, to: :course
   delegate :semester, to: :course
 
-  NUMERICAL = (1..110).to_a.reverse
+  NUMERICAL = (0..110).to_a.reverse
   LETTER = %w(A+ A A- B+ B B- C+ C C- D+ D D- F)
   DESCRIPTIVE = %w(Excellent Good Satisfactory Needs_Assistance Unsatisfactory)
 
