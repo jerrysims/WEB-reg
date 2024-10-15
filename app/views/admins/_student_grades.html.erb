@@ -1,51 +1,55 @@
 <div class="row box">
-  <div class="col-6">
+  <div class="col-12">
     <div class="row">
-      <div class="col-6">
+      <div class="col-3">
         <strong>Student</strong>
       </div>
-      <div class="col-1">
-        <strong>Q1</strong>
-      </div>
-      <div class="col-1">
-        <strong>Q2</strong>
-      </div>
-      <div class="col-1 average">
-        <strong>S1</strong>
-      </div>
-      <div class="col-1">
-        <strong>Q3</strong>
-      </div>
-      <div class="col-1">
-        <strong>Q4</strong>
-      </div>
-      <div class="col-1 average">
-        <strong>S2</strong>
+      <div class="col-9">
+        <div class="col-1">
+          <strong>Q1</strong>
+        </div>
+        <div class="col-1">
+          <strong>Q2</strong>
+        </div>
+        <div class="col-1 average">
+          <strong>S1</strong>
+        </div>
+        <div class="col-1">
+          <strong>Q3</strong>
+        </div>
+        <div class="col-1">
+          <strong>Q4</strong>
+        </div>
+        <div class="col-1 average">
+          <strong>S2</strong>
+        </div>
       </div>
     </div>
     <% section.students.order(:last_name, :first_name).each do |s| %>
       <% r = Registration.find_by(student_id: s.id, section_id: section.id) %>
-      <div class="row">
-        <div class="col-6">
+      <div class="row alternating-row">
+        <div class="col-3">
           <%= s.full_name %>
         </div>
-        <div class="col-1">
-          <td><%= r.q1_grade %></td>
-        </div>
-        <div class="col-1">
-          <td><%= r.q2_grade %></td>
-        </div>
-        <div class="col-1">
-          <td class="average"><%= r.s1_average %></td>
-        </div>
-        <div class="col-1">
-          <td><%= r.q3_grade %></td>
-        </div>
-        <div class="col-1">
-          <td><%= r.q4_grade %></td>
-        </div>
-        <div class="col-1">
-          <td class="average"><%= r.s2_average %></td>
+        <div class="col-9">
+          <div class="col-1">
+            <td><%= r.q1_grade %></td>
+          </div>
+          <div class="col-1">
+            <td><%= r.q2_grade %></td>
+          </div>
+          <div class="col-1">
+            <td class="average"><%= r.s1_average %></td>
+          </div>
+          <div class="col-1">
+            <td><%= r.q3_grade %></td>
+          </div>
+          <div class="col-1">
+            <td><%= r.q4_grade %></td>
+          </div>
+          <div class="col-1">
+            <td class="average"><%= r.s2_average %></td>
+          </div>
         </div>
       </div>
     <% end %>
