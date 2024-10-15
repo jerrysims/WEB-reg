@@ -1,40 +1,48 @@
 <% registrations = @registrations.where(student: student) %>
 <div class="row box">
-  <div class="col-6">
+  <div class="col-12">
     <h5>Student: <%= student.full_name %></h5>
     <div class="row">
-      <div class="col-8">
+      <div class="col-3">
         Course</th>
       </div>
-      <div class="col-1">
-        <strong>Q1</strong>
-      </div>
-      <div class="col-1">
-        <strong>Q2</strong>
-      </div>
-      <div class="col-1">
-        <strong>Q3</strong>
-      </div>
-      <div class="col-1">
-        <strong>Q4</strong>
+      <div class="col-9">
+        <div class="row">
+          <div class="col-2">
+            <strong>Q1</strong>
+          </div>
+          <div class="col-2">
+            <strong>Q2</strong>
+          </div>
+          <div class="col-2">
+            <strong>Q3</strong>
+          </div>
+          <div class="col-2">
+            <strong>Q4</strong>
+          </div>
+        </div>
       </div>
     </div>
     <% registrations.each do |r| %>
       <div class="row alternating-row">
-        <div class="col-8">
+        <div class="col-3">
           <td><%= r.section.name %></td>
         </div>
-        <div class="col-1">
-          <td><%= r.q1_grade %></td>
-        </div>
-        <div class="col-1">
-          <td><%= r.q2_grade %></td>
-        </div>
-        <div class="col-1">
-          <td><%= r.q3_grade %></td>
-        </div>
-        <div class="col-1">
-          <td><%= r.q4_grade %></td>
+        <div class="col-9">
+          <div class="row">
+            <div class="col-2">
+              <td><%= r.q1_grade %></td>
+            </div>
+            <div class="col-2">
+              <td><%= r.q2_grade %></td>
+            </div>
+            <div class="col-2">
+              <td><%= r.q3_grade %></td>
+            </div>
+            <div class="col-2">
+              <td><%= r.q4_grade %></td>
+            </div>
+          </div>
         </div>
       </div>
     <% end %>
