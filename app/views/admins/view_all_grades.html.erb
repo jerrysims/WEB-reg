@@ -1,4 +1,11 @@
-<h2>All Grades</h2>
+<h2>All Grades - <%= @rp.name %></h2>
+
+<ul>
+  <% @other_rps.each do |other_rp| %>
+    <li><%= link_to "Click to view #{other_rp.name} grades", admin_view_all_grades_path(registration_period_id: other_rp.id) %></li>
+  <% end %>
+</ul>
+
 <% @sections.each do |s| %>
   <%= render(partial: "one_section_grades", locals: { section: s }) %>
 <% end %>

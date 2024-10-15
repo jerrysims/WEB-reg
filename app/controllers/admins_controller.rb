@@ -1,7 +1,8 @@
 class AdminsController < ApplicationController
   before_action :confirm_admin
   before_action :set_student, only: [:student_schedule]
-  before_action :set_rp, only: [:student_schedule, :missing_documents, :students_schedules]
+  before_action :set_rp, only: [:grades, :missing_documents, :student_schedule, :students_schedules, :view_all_grades]
+  before_action :set_other_rps, only: [:grades, :view_all_grades]
   before_action -> { set_total_fees_and_tuition(@rp) }, only: [:student_schedule]
 
 
@@ -22,7 +23,7 @@ class AdminsController < ApplicationController
   end
 
   def grades
-    @sections = Section.all.select { |s| s.registrations.count > 0 }
+    @sections = Section.in_period(@rp).select { |s| s.registrations.count > 0 }
   end
 
   def missing_documents
@@ -74,6 +75,12 @@ class AdminsController < ApplicationController
   
   def confirm_admin     
     current_parent.is_admin?
+  end
+
+  def set_other_rps
+    return if @rp.nil? 
+
+    @other_rps = RegistrationPeriod.where.not(id: @rp.id).where(rp_type: "academic")
   end
   
   def set_rp

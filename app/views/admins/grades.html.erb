@@ -1,6 +1,10 @@
-<h2>Grades</h2>
+<h2>Grades - <%= @rp.name %></h2>
 
-<%= link_to "Click to view all grades", admin_view_all_grades_path %>
+<ul>
+  <% @other_rps.each do |other_rp| %>
+    <li><%= link_to "Click to view #{other_rp.name} grades", admin_view_all_grades_path(registration_period_id: other_rp.id) %></li>
+  <% end %>
+</ul>
 
 <div class="row">
 	<div class="col-md-9">
