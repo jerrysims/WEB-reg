@@ -9,7 +9,7 @@ class SectionsController < ApplicationController
   end
   
   def gradebook
-    @teacher = Teacher.find(params[:teacher_id])
+    @teacher = Teacher.where(id: params[:teacher_id]).first || Parent.find(params[:teacher_id])
     @section = Section.find(params[:section_id])
     @registrations = Registration.where(section: @section).joins(:student).order(:last_name, :first_name)
   end
