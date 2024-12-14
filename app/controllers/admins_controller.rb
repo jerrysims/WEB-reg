@@ -18,7 +18,7 @@ class AdminsController < ApplicationController
       redirect_to teacher_section_gradebook_path(teacher_id: current_parent.id, section_id: @section.id)
     else
       flash[:notice] = "This account does not have Teacher privileges"
-      redirect_back, fallback_location: admin_grades_path
+      redirect_back fallback_location: admin_grades_path
     end
   end
 
