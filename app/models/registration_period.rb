@@ -8,7 +8,7 @@ class RegistrationPeriod < ApplicationRecord
   validates_inclusion_of :status, in: RP_STATUSES
   validates :name, uniqueness: true
 
-  scope :open, ->{ where("open_date <= ?", Date.today).where("close_date >= ?", Date.today) } 
+  scope :open, -> { where(open_date: ..Date.today, close_date: Date.today..) }
   scope :academic, ->{ where(rp_type: "academic") }
   scope :extracurricular, ->{ where(rp_type: "extracurricular") }
 
