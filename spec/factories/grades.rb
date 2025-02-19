@@ -4,7 +4,7 @@ FactoryBot.define do
     q2 { "MyString" }
     q3 { "MyString" }
     q4 { "MyString" }
-    section { nil }
-    student { nil }
+    section 
+    student 
   end
 end

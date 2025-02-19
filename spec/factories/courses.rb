@@ -6,6 +6,7 @@ FactoryBot.define do
     grades { "MyText" }
     suggested_grade { 6 }
     subject_area { Faker::Educator.subject }
+    registration_period_id {1}
   end
 
 end
