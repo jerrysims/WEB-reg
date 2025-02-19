@@ -29,3 +29,4 @@
 
 # Ignore byebug history
 .byebug_history
+vendor/bundle
