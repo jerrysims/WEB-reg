@@ -11,16 +11,19 @@ class Course < ActiveRecord::Base
     "Study Hall"
   ]
 
+  DIVISIONS = ["MS", "HS", "MS/HS"]
+
   has_many :course_corequisites
   has_many :corequisites, through: :course_corequisites
   has_many :sections, dependent: :destroy
-  has_many :registrations
+  has_many :registrations, through: :sections
   has_many :students, through: :registrations
   belongs_to :registration_period
   has_and_belongs_to_many :products
 
   validates :name, presence: true, uniqueness: { scope: :registration_period_id }
   validates :grades, presence: true
+  validates :division, inclusion: { in: DIVISIONS }
 
   scope :extracurricular, ->{ select{ |c| c.rp_type == "extracurricular" } }
   scope :academic, ->{ select{ |c| c.rp_type == "academic" } }
