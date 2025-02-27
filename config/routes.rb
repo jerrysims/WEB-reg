@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   end
 
   resources :students do
-    resources :learning_differences_forms
+    resources :learning_differences_forms, only: [:new, :create, :edit, :update, :show]
     get 'schedule'
     get 'view_course_list'
     patch 'update_web_email'

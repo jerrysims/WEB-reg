@@ -7,7 +7,7 @@ class LearningDifferencesFormsController < ApplicationController
      
     if @learning_differences_form.update(student: @student)
       flash[:notice] = "Learning Differences Form successfully saved"
-      redirect_to root_path
+      redirect_to student_learning_differences_form_path(@student, @learning_differences_form)
     else
       flash[:warning] = "There was an error saving the form"
       render :new
@@ -30,9 +30,13 @@ class LearningDifferencesFormsController < ApplicationController
 
   def update
     @learning_differences_form = LearningDifferencesForm.find(params[:id])
-    @learning_differences_form.update(learning_differences_form_params)
-
-    redirect_to root_path
+    if @learning_differences_form.update(learning_differences_form_params)
+      flash[:notice] = "Learning Differences Form successfully updated"
+      redirect_to student_learning_differences_form_path(@student, @learning_differences_form)
+    else
+      flash[:warning] = "There was an error updating the form"
+      render :edit
+    end
   end
 
   private
