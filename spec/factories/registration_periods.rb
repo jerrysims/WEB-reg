@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :registration_period do
-    name { "2024-25 Academic Year" }
+    name { "Academic Year #{Faker::Number.unique.between(from: 2023, to: 2030)}" }
     open_date { Date.today }
     close_date { Date.today + 3.months }
     rp_type { "academic" }

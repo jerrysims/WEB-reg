@@ -6,11 +6,7 @@ FactoryBot.define do
     grades { "MyText" }
     suggested_grade { 6 }
     subject_area { Faker::Educator.subject }
-    division { suggested_grade <= 8 ? "MS" : "HS" }
-    registration_period_id {1}
-
-    trait :ms_hs do
-      division { "MS/HS" }
-    end
+    division { Course::DIVISIONS.sample }
+    registration_period_id { 1 }
   end
 end

@@ -60,27 +60,16 @@ We found the following class schedules for you:
 
 <% unless current_parent.locked || @student.nil? %>
   <div class="row">
-    <% if pa = ParentAgreement.find_by(registration_period_id: RegistrationPeriod::CURRENT_RP, parent: current_parent) %>
+    <div class="col-md-12 registration-button-div">
       <%= link_to(
-        "Continue to Parent Agreement", 
-        parent_registration_period_parent_agreement_path(
-          parent_id: current_parent.id,
-          registration_period_id: @rp.id,
-          student_id: @student.id,
-          id: pa.id
-        ),
-        class: "custom-button view-invoice-button col-3"
-      ) %>
-    <% else %>
-      <%= link_to(
-        "Continue to Parent Agreement", 
-        new_parent_registration_period_parent_agreement_path(
+        "Continue to Invoice / Tuition", 
+        registrations_finalize_path(
           parent_id: current_parent.id,
           registration_period_id: @rp.id,
           student_id: @student.id
         ),
-        class: "custom-button view-invoice-button col-3"
+        class: "custom-button"
       ) %>
-    <% end %>
+    </div>
   </div>
 <% end %>
