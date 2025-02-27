@@ -3,7 +3,7 @@ ActiveAdmin.register RegistrationLog do
   actions :index
   config.sort_order = "created_at"
 
-  permit_params :student_id, :section_id, :user_id, :previous_status, :new_status, :created_at
+  permit_params :student_id, :section_id, :user_id, :previous_status, :new_status, :created_at, :action
 
   index do
     column "Student", sortable: :"students.last_name" do |r|
@@ -14,6 +14,7 @@ ActiveAdmin.register RegistrationLog do
     end
     column :previous_status
     column :new_status
+    column :action
     column :created_at
     column "Performed by", sortable: :"users.full_name" do |r|
       r.user.full_name

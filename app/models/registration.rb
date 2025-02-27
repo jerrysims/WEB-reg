@@ -19,8 +19,8 @@ class Registration < ActiveRecord::Base
 
   scope :missing_invoices, -> { where(student: Student.where(parent_id: Parent.left_outer_joins(:invoice).where.not(id: Invoice.closed.pluck(:parent_id)))) }
 
-  before_save :log_registration
-  before_destroy :log_registration
+  before_save :log_registration_add
+  before_destroy :log_registration_drop
   after_destroy :generate_dropped_course_line_items
 
   def s1_average
@@ -99,13 +99,25 @@ class Registration < ActiveRecord::Base
     end
   end
 
-  def log_registration
+  def log_registration_add
     RegistrationLog.create(
       student: student,
       section: section,
       previous_status: self.changes[:status].nil? ? self.status : self.changes[:status].first,
       new_status: self.changes[:status].nil? ? self.status : self.changes[:status].last,
-      user: self.user
+      user: self.user,
+      action: "add"
+    )
+  end
+
+  def log_registration_drop
+    RegistrationLog.create(
+      student: student,
+      section: section,
+      previous_status: self.changes[:status].nil? ? self.status : self.changes[:status].first,
+      new_status: self.changes[:status].nil? ? self.status : self.changes[:status].last,
+      user: self.user,
+      action: "drop"
     )
   end
 end
