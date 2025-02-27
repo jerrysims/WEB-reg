@@ -9,8 +9,6 @@
     <%= f.input :first_name, class: "required" %>
     <%= f.input :last_name, class: "required" %>
     <%= f.input :nickname %>
-    <%= f.input :student_email %>
-    <%= f.input :web_email %>
     <%= f.input :grade, label: "Student's Grade (2024/25)", collection: 5..12, class: "required" %>
     <%= f.input :date_of_birth,
                 as: :string,
