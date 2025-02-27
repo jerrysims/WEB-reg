@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     get "view_grades"
   end
 
-  resources :students do
+  resources :students, only: [:new, :create, :edit, :update, :destroy, :show] do
     resources :learning_differences_forms, only: [:new, :create, :edit, :update, :show]
     get 'schedule'
     get 'view_course_list'

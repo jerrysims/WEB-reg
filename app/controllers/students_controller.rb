@@ -1,10 +1,9 @@
 class StudentsController < ApplicationController
   before_action :check_for_locked_parent
   before_action :set_rp, only: [:view_course_list, :choose_classes]
-  before_action :set_student, only: [:view_course_list, :choose_classes]
+  before_action :set_student, only: [:view_course_list, :choose_classes, :show, :edit, :update, :destroy]
 
   def choose_classes
-    
   end
 
   def create
@@ -62,13 +61,16 @@ class StudentsController < ApplicationController
     redirect_to root_path
   end
 
+  def show
+  end
+
   private
   def set_rp
     @rp = RegistrationPeriod.find(params[:registration_period_id])
   end
 
   def set_student
-    @student = Student.find(params[:student_id])
+    @student = Student.find(params[:id] || params[:student_id])
   end
 
   def should_update? student
@@ -81,7 +83,6 @@ class StudentsController < ApplicationController
       :emergency_contact,
       :emergency_phone,
       :first_name,
-      :grade,
       :grade,
       :last_name,
       :learning_differences,

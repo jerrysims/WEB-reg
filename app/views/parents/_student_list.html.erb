@@ -7,13 +7,13 @@
   <div class="container row">
     <ul>
       <% @students.each do |s| %>
-        <li class=" enrollment-forms-box-row row">
-            <%= s.full_name %>
+        <li class="enrollment-forms-box-row row">
+          <%= link_to s.full_name, student_path(s), class: "student-link" %>
         </li>
       <% end %>
     </ul>
   </div>
 <% end %>
 <div class="container new-student-btn row">
-  <%= link_to "Add a new student",  new_student_path, class: "btn btn-primary" %>
+  <%= link_to "Add a new student", new_student_path, class: "btn btn-primary" %>
 </div>

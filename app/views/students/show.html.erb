@@ -1,0 +1,37 @@
+<h2><%= @student.full_name %>'s Profile</h2>
+<div class="row">
+  <div class="col-md-12">
+    <dl>
+      <dt>First Name:</dt>
+      <dd><%= @student.first_name %></dd>
+      <dt>Last Name:</dt>
+      <dd><%= @student.last_name %></dd>
+      <dt>Nickname:</dt>
+      <dd><%= @student.nickname %></dd>
+      <dt>Grade:</dt>
+      <dd><%= @student.grade %></dd>
+      <dt>Date of Birth:</dt>
+      <dd><%= @student.date_of_birth %></dd>
+      <dt>Pronouns:</dt>
+      <dd><%= @student.pronouns %></dd>
+      <dt>Race:</dt>
+      <dd><%= @student.race %></dd>
+      <dt>Emergency Contact:</dt>
+      <dd><%= @student.emergency_contact %></dd>
+      <dt>Emergency Phone:</dt>
+      <dd><%= @student.emergency_phone %></dd>
+    </dl>
+    <h3>Forms</h3>
+    <ul>
+      <% if @student.learning_differences_form.present? %>
+        <li>
+          <%= link_to "View Learning Differences Form", student_learning_differences_form_path(@student, @student.learning_differences_form) %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "Create Learning Differences Form", new_student_learning_differences_form_path(@student) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
