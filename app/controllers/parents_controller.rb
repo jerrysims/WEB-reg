@@ -74,8 +74,8 @@ class ParentsController < ApplicationController
   def set_open_rps
     @open_rps = []
     return @open_rps unless current_parent.admin?
+    
     @open_rps = RegistrationPeriod.open
-    end
   end
 
   def set_rp
