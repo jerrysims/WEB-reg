@@ -72,7 +72,11 @@ class ParentsController < ApplicationController
   end
 
   def set_open_rps
-    @open_rps = RegistrationPeriod.open
+    if current_parent.admin?
+      @open_rps = RegistrationPeriod.open
+    else
+      nil
+    end
   end
 
   def set_rp
