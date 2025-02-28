@@ -1,0 +1,10 @@
+document.addEventListener("DOMContentLoaded", function() {
+  var flashMessage = document.createElement("div");
+  flashMessage.className = "alert alert-success";
+  flashMessage.innerText = "Grades updated successfully.";
+  document.body.prepend(flashMessage);
+
+  setTimeout(function() {
+    flashMessage.remove();
+  }, 3000);
+});

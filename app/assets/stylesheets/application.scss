@@ -9,6 +9,8 @@ canvas {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box
 }
+
+
   
 @import "parent";
 @import "parents";
@@ -27,3 +29,15 @@ canvas {
 @import "learning_differences_forms";
 @import "photo_consents";
 @import "medical_forms";
+
+select.form-control {
+	background-image: none;
+	width: 120px;
+	font-size: small;
+}
+
+select.form-control.is-valid {
+	background-image: none;
+  width: 105px;
+	font-size: small;
+}

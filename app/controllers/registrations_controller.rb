@@ -206,6 +206,19 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def update_grades
+    @registration = Registration.find(params[:id])
+    if @registration.update(registration_params)
+      respond_to do |format|
+        format.js { render 'sections/update_grades' }
+      end
+    else
+      respond_to do |format|
+        format.js { render js: "alert('There was an error updating the grades.');" }
+      end
+    end
+  end
+
   private
 
   def available_sections(student, rp)
@@ -334,9 +347,7 @@ class RegistrationsController < ApplicationController
   end
 
   def registration_params
-    params.permit(
-
-    )
+    params.require(:registration).permit(:id, :student_id, :section_id, :q1_grade, :q2_grade, :q3_grade, :q4_grade)
   end
 
   def set_rp

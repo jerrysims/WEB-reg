@@ -52,6 +52,7 @@ Rails.application.routes.draw do
       get "gradebook"
       post "gradebook", to: "sections#save_gradebook", as: :save_gradebook
       get "reset_grading_scale"
+      patch "update_grades"
     end
     get "parent_contact_list"
   end

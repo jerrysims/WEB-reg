@@ -1,32 +1,31 @@
 <div>
-<%= simple_form_for :section do |section_form| %>
-	<div class="col-md-12">
-		<div class="table-wrapper">
-			<table class="table table-hover">
-  			<thead>
-	  			<tr>
-		  			<th>Student</th>
+  <div class="col-md-12">
+    <div class="table-wrapper">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Student</th>
             <th>Q1</th>
             <th>Q2</th>
             <th>S1</th>
             <th>Q3</th>
-					  <th>Q4</th>
+            <th>Q4</th>
             <th>S2</th>
-				  </tr>
-			  </thead>
+          </tr>
+        </thead>
         <tbody>
           <% @registrations.each do |registration| %>
             <tr>
-              <%= section_form.fields_for registration, index: nil do |registration_form| %>
+              <%= simple_form_for registration, url: teacher_section_update_grades_path(@section, registration), method: :patch, remote: true, html: { class: "registration-form" } do |registration_form| %>
                 <%= registration_form.hidden_field :id, as: :hidden, input_html: { value: registration.id } %>
                 <%= registration_form.hidden_field :student_id, as: :hidden, input_html: { value: registration.student.id } %>
-                <%= registration_form.hidden_field :section_id, as: :hidden, input_html: { value: registration.student.id } %>
+                <%= registration_form.hidden_field :section_id, as: :hidden, input_html: { value: registration.section.id } %>
                 <td><%= registration.student %></td>
-                <td><%= registration_form.input :q1_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q1_grade }  %></td>
-                <td><%= registration_form.input :q2_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q2_grade }  %></td>
+                <td><%= registration_form.input :q1_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q1_grade, onchange: "console.log('Q1 grade changed'); Rails.fire(this.form, 'submit');" } %></td>
+                <td><%= registration_form.input :q2_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q2_grade, onchange: "console.log('Q2 grade changed'); Rails.fire(this.form, 'submit');" } %></td>
                 <td><%= registration.s1_average %></td>
-                <td><%= registration_form.input :q3_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q3_grade }  %></td>
-                <td><%= registration_form.input :q4_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q4_grade }  %></td>
+                <td><%= registration_form.input :q3_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q3_grade, onchange: "console.log('Q3 grade changed'); Rails.fire(this.form, 'submit');" } %></td>
+                <td><%= registration_form.input :q4_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q4_grade, onchange: "console.log('Q4 grade changed'); Rails.fire(this.form, 'submit');" } %></td>
                 <td><%= registration.s2_average %></td>
               <% end %>
             </tr>
@@ -35,6 +34,4 @@
       </table>
     </div>
   </div>
-  <%= section_form.submit "Save Grades", class: "btn btn-primary" %>
-<% end %>
 </div>

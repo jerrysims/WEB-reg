@@ -12,14 +12,13 @@
 //
 //= require jquery
 //= require jquery3
-//= require jquery_ujs
 //= require popper
 //= require bootstrap
+//= require rails-ujs
 //= require_tree .
 //= require bootstrap-datepicker
 
 ready = function() {
-
   $('.submit-button').on('ajax:success', addStudent);
 
   function addStudent(event, data) {

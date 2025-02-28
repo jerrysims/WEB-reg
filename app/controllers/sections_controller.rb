@@ -45,14 +45,32 @@ class SectionsController < ApplicationController
     @section = Section.find(params[:id])
     @students = @section.students
   end
+  
+  def update_grades
+    @registration = Registration.find(params[:registration][:id])
+    if @registration.update(registration_params)
+      flash[:success] = "Grades updated successfully."
+      respond_to do |format|
+        format.js { render 'sections/update_grades' }
+      end
+    else
+      flash[:error] = "There was an error updating the grades."
+      respond_to do |format|
+        format.js { render js: "alert('There was an error updating the grades.');" }
+      end
+    end
+  end
 
   private
   def gradebook_params
     params.require(:section).permit(registration: [:id, :student_id, :section_id, :q1_grade, :q2_grade, :q3_grade, :q4_grade])
   end
 
-
   def grading_scale_params
     params.require(:section).permit(:grading_scale)
+  end
+
+  def registration_params
+    params.require(:registration).permit(:id, :student_id, :section_id, :q1_grade, :q2_grade, :q3_grade, :q4_grade)
   end
 end
