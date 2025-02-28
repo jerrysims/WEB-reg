@@ -419,6 +419,9 @@ class RegistrationsController < ApplicationController
       end
 
       days.each do |d|
+        Rails.logger.debug "Processing day: #{d}, section: #{s.inspect}"
+        Rails.logger.debug "Result[d]: #{result[d].inspect}"
+        next unless result[d] && result[d][s.start_time.strftime("%H:%M").to_sym]
         result[d][s.start_time.strftime("%H:%M").to_sym][:sections] << s
       end
     end
