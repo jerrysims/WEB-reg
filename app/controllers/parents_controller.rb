@@ -75,7 +75,7 @@ class ParentsController < ApplicationController
     if current_parent.admin?
       @open_rps = RegistrationPeriod.open
     else
-      nil
+      []
     end
   end
 
