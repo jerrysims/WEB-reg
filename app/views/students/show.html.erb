@@ -33,5 +33,13 @@
         </li>
       <% end %>
     </ul>
+    <h3>Additional Contacts</h3>
+    <ul>
+      <% @student.additional_contacts.each do |contact| %>
+        <li> <strong>Name:</strong> <%= contact.first_name %> <%= contact.last_name %> </li>
+        <li> <strong>Email:</strong> <%= contact.email %> </li>
+        <li> <strong>Phone:</strong> <%= contact.phone %> </li>
+      <% end %>
+    </ul>
   </div>
 </div>

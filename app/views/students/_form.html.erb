@@ -9,7 +9,7 @@
     <%= f.input :first_name, class: "required" %>
     <%= f.input :last_name, class: "required" %>
     <%= f.input :nickname %>
-    <%= f.input :grade, label: "Student's Grade (2024/25)", collection: 5..12, class: "required" %>
+    <%= f.input :grade, label: "Student's Grade (2025/26)", collection: 5..12, class: "required" %>
     <%= f.input :date_of_birth,
                 as: :string,
                 input_html: { class: "required datepicker",
@@ -32,8 +32,8 @@
 
   <!-- additional information section -->
   <div class="row box">
-    <%= f.label "Does your child have any learning differences or requirements?  " %>
-    <p class="learning-differences-description">   If so, please click the button below and we will ask for more detail later</p>
+    <%= f.label "Does your child have any learning differences or requirements?" %>
+    <p class="learning-differences-description"> If so, please click the button below and we will ask for more detail later</p>
     <%= f.input :learning_differences_flag, label: "Learning Differences" %><br />
   </div>
 
@@ -41,6 +41,18 @@
     <%= f.input :emergency_contact, class: "required" %>
     <%= f.input :emergency_phone, class: "required" %>
   </div>
+
+  <!-- Additional Contact section -->
+  <div class="row box">
+    <h3>Additional Contact Information (Optional)</h3>
+    <%= f.simple_fields_for :additional_contacts, @student.additional_contacts.build do |ac| %>
+        <%= ac.input :first_name, label: "Additional Contact First Name" %>
+        <%= ac.input :last_name, label: "Additional Contact Last Name" %>
+        <%= ac.input :email, label: "Additional Contact Email" %>
+        <%= ac.input :phone, label: "Additional Contact Phone" %>
+    <% end %>
+  </div>
+
   <div class="row">
      <%= f.submit "Save", class: "custom-button" %>
   </div>

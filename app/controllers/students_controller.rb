@@ -89,9 +89,15 @@ class StudentsController < ApplicationController
       :nickname,
       :pronouns,
       :race,
-      :student_email,
       :learning_differences_flag,
-      :web_email
+      additional_contacts_attributes: [
+        :id,
+        :first_name,
+        :last_name,
+        :email,
+        :phone,
+        :_destroy
+      ]
     )
   end
 end

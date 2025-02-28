@@ -9,6 +9,8 @@ class Student < ActiveRecord::Base
   has_many :wait_listed_students, dependent: :destroy
   has_one :medical_form
   has_one :learning_differences_form
+  has_many :additional_contacts, dependent: :destroy
+  accepts_nested_attributes_for :additional_contacts, allow_destroy: true
 
   validates :date_of_birth, presence: true
   validates :emergency_contact, presence: true
