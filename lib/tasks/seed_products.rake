@@ -4,8 +4,6 @@ namespace :products do
 
     rp = RegistrationPeriod.find_or_create_by(
       name: "2025-26 Academic Year",
-      open_date: Date.new(2025, 2, 18),
-      close_date: Date.new(2025, 8, 1),
       rp_type: "academic"
     )
     puts "Registration period created or found: #{rp.inspect}"
