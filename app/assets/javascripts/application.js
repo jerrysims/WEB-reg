@@ -11,26 +11,27 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery3
 //= require popper
 //= require bootstrap
 //= require rails-ujs
 //= require_tree .
 //= require bootstrap-datepicker
 
-ready = function() {
-  $('.submit-button').on('ajax:success', addStudent);
+if (typeof jQuery !== 'undefined' && typeof jQuery.UJS === 'undefined') {
+  ready = function() {
+    $('.submit-button').on('ajax:success', addStudent);
 
-  function addStudent(event, data) {
-    console.log("in addStudent")
-  }
+    function addStudent(event, data) {
+      console.log("in addStudent")
+    }
 
-  canvas = document.getElementById('canvas');
+    canvas = document.getElementById('canvas');
 
-  // Set canvas dimensions
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-};
+    // Set canvas dimensions
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  };
 
-$(document).ready(ready);
-$(document).on('page:load', ready);
+  $(document).ready(ready);
+  $(document).on('page:load', ready);
+}
