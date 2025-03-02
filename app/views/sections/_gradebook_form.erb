@@ -21,11 +21,31 @@
                 <%= registration_form.hidden_field :student_id, as: :hidden, input_html: { value: registration.student.id } %>
                 <%= registration_form.hidden_field :section_id, as: :hidden, input_html: { value: registration.section.id } %>
                 <td><%= registration.student %></td>
-                <td><%= registration_form.input :q1_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q1_grade, onchange: "console.log('Q1 grade changed'); Rails.fire(this.form, 'submit');" } %></td>
-                <td><%= registration_form.input :q2_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q2_grade, onchange: "console.log('Q2 grade changed'); Rails.fire(this.form, 'submit');" } %></td>
+                <td>
+                  <%= registration_form.simple_fields_for :quarterly_scores, registration.quarterly_scores.find_or_initialize_by(quarter: :q1) do |qs_form| %>
+                    <%= qs_form.input :grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, onchange: "console.log('Q1 grade changed'); Rails.fire(this.form, 'submit');" } %>
+                    <%= qs_form.hidden_field :quarter, value: :q1 %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= registration_form.simple_fields_for :quarterly_scores, registration.quarterly_scores.find_or_initialize_by(quarter: :q2) do |qs_form| %>
+                    <%= qs_form.input :grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, onchange: "console.log('Q2 grade changed'); Rails.fire(this.form, 'submit');" } %>
+                    <%= qs_form.hidden_field :quarter, value: :q2 %>
+                  <% end %>
+                </td>
                 <td><%= registration.s1_average %></td>
-                <td><%= registration_form.input :q3_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q3_grade, onchange: "console.log('Q3 grade changed'); Rails.fire(this.form, 'submit');" } %></td>
-                <td><%= registration_form.input :q4_grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, value: registration.q4_grade, onchange: "console.log('Q4 grade changed'); Rails.fire(this.form, 'submit');" } %></td>
+                <td>
+                  <%= registration_form.simple_fields_for :quarterly_scores, registration.quarterly_scores.find_or_initialize_by(quarter: :q3) do |qs_form| %>
+                    <%= qs_form.input :grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, onchange: "console.log('Q3 grade changed'); Rails.fire(this.form, 'submit');" } %>
+                    <%= qs_form.hidden_field :quarter, value: :q3 %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= registration_form.simple_fields_for :quarterly_scores, registration.quarterly_scores.find_or_initialize_by(quarter: :q4) do |qs_form| %>
+                    <%= qs_form.input :grade, label: false, as: :select, collection: Section.const_get(@section.grading_scale), input_html: { include_blank: true, onchange: "console.log('Q4 grade changed'); Rails.fire(this.form, 'submit');" } %>
+                    <%= qs_form.hidden_field :quarter, value: :q4 %>
+                  <% end %>
+                </td>
                 <td><%= registration.s2_average %></td>
               <% end %>
             </tr>

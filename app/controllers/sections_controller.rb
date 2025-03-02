@@ -71,6 +71,9 @@ class SectionsController < ApplicationController
   end
 
   def registration_params
-    params.require(:registration).permit(:id, :student_id, :section_id, :q1_grade, :q2_grade, :q3_grade, :q4_grade)
+    params.require(:registration).permit(
+      :id, :student_id, :section_id, 
+      quarterly_scores_attributes: [:id, :quarter, :grade, :_destroy]
+    )
   end
 end

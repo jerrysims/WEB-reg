@@ -347,10 +347,11 @@ class RegistrationsController < ApplicationController
   end
 
   def registration_params
-    params.require(:registration).permit(:id, :student_id, :section_id, :q1_grade, :q2_grade, :q3_grade, :q4_grade)
+    params.require(:registration).permit(:id, :student_id, :section_id)
   end
 
   def set_rp
+
     return @rp = RegistrationPeriod::CURRENT_RP if params[:registration_period_id].nil?
 
     if action_name == "update_parent"  

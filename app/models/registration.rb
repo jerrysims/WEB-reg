@@ -1,11 +1,12 @@
 class Registration < ActiveRecord::Base
-
   STATUSES = %w(selected pending confirmed)
 
   belongs_to :section
   belongs_to :student
   has_one :course, through: :section
   belongs_to :user, class_name: "Parent"
+  has_many :quarterly_scores, dependent: :destroy
+  accepts_nested_attributes_for :quarterly_scores, allow_destroy: true
 
   validates :student, presence: true
   validates :section, presence: true
@@ -24,29 +25,17 @@ class Registration < ActiveRecord::Base
   after_destroy :generate_dropped_course_line_items
 
   def s1_average
-    temp_array = []
-    [:q1_grade, :q2_grade].each do |q|
-      unless send(q).nil?
-        temp_array << send(q).to_f
-      end
-    end
-
+    temp_array = quarterly_scores.where(quarter: [:q1, :q2]).pluck(:grade).compact.map(&:to_f)
     return "-" if temp_array.empty?
 
-    temp_array.inject(0.0) { |sum, el| sum + el }.to_f / temp_array.size
+    temp_array.sum / temp_array.size
   end
   
   def s2_average
-    temp_array = []
-    [:q3_grade, :q4_grade].each do |q|
-      unless send(q).nil?
-        temp_array << send(q).to_f
-      end
-    end
-
+    temp_array = quarterly_scores.where(quarter: [:q3, :q4]).pluck(:grade).compact.map(&:to_f)
     return "-" if temp_array.empty?
 
-    temp_array.inject(0.0) { |sum, el| sum + el }.to_f / temp_array.size
+    temp_array.sum / temp_array.size
   end
 
   private
