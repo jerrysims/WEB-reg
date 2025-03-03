@@ -366,7 +366,9 @@ class RegistrationsController < ApplicationController
     @available_sections.each do |section|
       days = section_days(section.day)
       days.each do |day|
-        result[day][section.start_time.strftime("%H:%M").to_sym][:sections] << section
+        time_key = section.start_time.strftime("%H:%M").to_sym
+        result[day][time_key] ||= { label_text: "", sections: [] }
+        result[day][time_key][:sections] << section
       end
     end
 
