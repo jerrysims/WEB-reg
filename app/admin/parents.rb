@@ -50,6 +50,38 @@ ActiveAdmin.register Parent do
     actions
   end
 
+  show do |parent|
+    attributes_table do
+      row :id
+      row :email
+      row :secondary_email
+      row :first_name
+      row :last_name
+      row :phone_number
+      row :street_address_1
+      row :street_address_2
+      row :city
+      row :state
+      row :zip_code
+      row :locked
+      row :type
+      row :created_at
+      row :updated_at
+    end
+
+    panel "Students" do
+      table_for parent.students do
+        column :id
+        column :first_name
+        column :last_name
+        column :grade
+        column :date_of_birth
+        column :created_at
+        column :updated_at
+      end
+    end
+  end
+
   csv do
     rp_id = RegistrationPeriod.find_by(name: params[:q]["students_registrations_section_course_registration_period_name_eq"])
     
@@ -81,5 +113,4 @@ ActiveAdmin.register Parent do
   filter :email
   filter :students, as: :select, collection: Student.all.order(last_name: :asc)
   filter :students_registrations_section_course_registration_period_name, as: :select, label: "Registration Period", collection: -> { RegistrationPeriod.pluck(:name) }
-
 end

@@ -19,7 +19,7 @@ class RegistrationPeriodsController < ApplicationController
 
   private
   def open_rps(rp_type)
-    if current_parent.is_admin?
+    if current_parent.admin?
       return RegistrationPeriod.where(rp_type: rp_type).where.not(status: :closed)
     elsif current_parent.is_a? Teacher
       return RegistrationPeriod.where(status: [:teachers, :returning, :all], rp_type: rp_type)

@@ -74,7 +74,7 @@ class AdminsController < ApplicationController
   private
   
   def confirm_admin     
-    current_parent.is_admin?
+    current_parent.admin?
   end
 
   def set_other_rps

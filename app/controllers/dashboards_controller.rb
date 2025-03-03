@@ -7,6 +7,6 @@ class DashboardsController < ApplicationController
   private
 
   def confirm_admin
-    current_parent.is_admin?
+    current_parent.admin?
   end
 end

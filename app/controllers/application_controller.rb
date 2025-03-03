@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def authenticate_admin_user!
-    return if current_user.is_admin?
+    return if current_user.admin?
 
     raise SecurityError
   end
