@@ -1,7 +1,22 @@
 <div class="mailer" style="font-family: futura">
 Dear <%= @parent.full_name %>,
-Thank you for enrolling for WEB classes for the 2024/25 academic year!
+Thank you for enrolling for WEB classes for the 2025/26 academic year!
 
+<p>Please complete the following enrollment forms in order to complete your registration:</p>
+<ul>
+  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdueEmHJoVsjpHd5uqqPB2M8EGrPiQEZykvIol8EZhay75_7A/viewform?usp=preview" target="_blank">WEB Tutorial 2025-26 Parent Agreement</a></li>
+  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfklDfRG093gh9Xq5QVIKXOB5EMNCS_hC1oLmSrYf7z-v6ccw/viewform?usp=dialog" target="_blank">Medical and Photo Consent</a></li>
+  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSctckCQZMTFwzwDPpPSK1qmugUNxuEmm2OlB_q7QhOqO5FeMA/viewform?usp=dialog" target="_blank">Liability Waiver</a></li>
+</ul>
+
+
+
+I AM RIGHT HERE IN UPDATING THE CONFIRMATION EMAIL
+
+
+
+
+<p>Your student, <%= @student.full_name %>, is enrolled in the following classes:</p>
 <p><% @parent.registered_students(@rp).each do |student| %>
   <%= student.full_name %> is enrolled in the following classes:
   <% %w(Tuesday Thursday).each do |day| %>
