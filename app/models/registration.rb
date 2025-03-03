@@ -20,7 +20,7 @@ class Registration < ActiveRecord::Base
 
   scope :missing_invoices, -> { where(student: Student.where(parent_id: Parent.left_outer_joins(:invoice).where.not(id: Invoice.closed.pluck(:parent_id)))) }
 
-  before_save :log_registration_add
+  before_create :log_registration_add
   before_destroy :log_registration_drop
   after_destroy :generate_dropped_course_line_items
 
