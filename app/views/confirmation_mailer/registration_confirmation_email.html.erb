@@ -9,14 +9,6 @@ Thank you for enrolling for WEB classes for the 2025/26 academic year!
   <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSctckCQZMTFwzwDPpPSK1qmugUNxuEmm2OlB_q7QhOqO5FeMA/viewform?usp=dialog" target="_blank">Liability Waiver</a></li>
 </ul>
 
-
-
-I AM RIGHT HERE IN UPDATING THE CONFIRMATION EMAIL
-
-
-
-
-<p>Your student, <%= @student.full_name %>, is enrolled in the following classes:</p>
 <p><% @parent.registered_students(@rp).each do |student| %>
   <%= student.full_name %> is enrolled in the following classes:
   <% %w(Tuesday Thursday).each do |day| %>
@@ -39,42 +31,36 @@ I AM RIGHT HERE IN UPDATING THE CONFIRMATION EMAIL
 
 <p>
   You have elected to pay <%= @parent.tuition_preferences.find_by(registration_period: @rp).frequency %> and to make class fees and tuition 
-  payments via <%= @parent.tuition_preferences.find_by(registration_period: @rp).payment_method %>.
+  payments via <%= @parent.tuition_preferences.find_by(registration_period: @rp).payment_method %>. You may check your balance and make 
+  payments at any time by going to <a href="https://signin.methodportal.com/webtutorialnashville" target="_blank">, which is also accessible via the WEB portal.
+
 </p>
 
 <p>
-  You will receive an invoice for class fees, which are due in May.
+  You will receive an invoice for class fees, which are due by June 1st. 
 </p>
 
 <p>
-  Tuition will be due on August 15 and is billed separately from your non-refundable registration 
+  Tuition will be due on August 12 and is billed separately from your non-refundable registration 
   fees.
 </p>
 
 <p>
-  Class changes can be requested via the WEB portal at portal.webtutorialnashville.com.
+  You may request changes to your student's schedule here: <a href="https://docs.google.com/forms/d/e/1FAIpQLSe2czCUlFRHsEHdHK1pqwRzuv5r-8wPxUVn24qTRvuzvk4Prw/viewform?usp=sharing" target="_blank" class="custom-button">Class Change Request Form</a>
 </p>
 
 <p>
-  Please note that, as stated in the Parent Agreement, any drops or withdrawals must be made 
-  by July 1st in order to be excused from paying tuition. After this date, tuition will be
-  due in full for all classes in which your student is enrolled.
+  The deadline to withdraw from classes and not pay tuition is July 1st. Please make any necessary changes before then. If your child is on a waitlist for a school or another tutorial and you may need to withdraw after this date, please let me know in advance.
 </p>
 
 <p>
-  Save the date: We will have a popsicle picnic at Two Rivers Park on July 20, 4:30-6:30 PM.
-  Details will be sent via email in July.
+  Registration fees, admin fees, and class fees are non-refeundable.
 </p>
 
 <p>
-  Please remember that you will need to register either with the school district or an umbrella 
-  school before the beginning of the academic year. For more information, see the FAQs section 
-  of our website - https://www.webtutorialnashville.com/faqs
+  We look forward to having you at WEB in 2025/26!
 </p>
 
-<p>
-  We look forward to having you at WEB in 2024/25!
-</p>
 
 <p>Senae Smith<br>
 Executive Director, WEB<br>
