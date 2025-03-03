@@ -1,7 +1,5 @@
 <h2>Home</h2>
-<%
-=begin%>
- <% if @open_rps.any? %>
+<% if current_parent.open_registration_periods.include? RegistrationPeriod::CURRENT_RP %>
   <div class="row">
     <div class="col-md-12 box">
       <h5>Registration is now open for <%= RegistrationPeriod::CURRENT_RP.name %> </h5>
@@ -15,9 +13,7 @@
       ) %>
     </div>
   </div>
-<% end %> 
-<%
-=end%>
+<% end %>
 <div class="row registration-checklist">
   <div class="col-md-5 box">
     <%= render "student_list" %>

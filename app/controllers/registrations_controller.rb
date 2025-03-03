@@ -347,11 +347,10 @@ class RegistrationsController < ApplicationController
   end
 
   def registration_params
-    params.require(:registration).permit(:id, :student_id, :section_id)
+    params.require(:registration).permit(:id, :student_id, :section_id, :q1_grade, :q2_grade, :q3_grade, :q4_grade)
   end
 
   def set_rp
-
     return @rp = RegistrationPeriod::CURRENT_RP if params[:registration_period_id].nil?
 
     if action_name == "update_parent"  
@@ -420,9 +419,6 @@ class RegistrationsController < ApplicationController
       end
 
       days.each do |d|
-        Rails.logger.debug "Processing day: #{d}, section: #{s.inspect}"
-        Rails.logger.debug "Result[d]: #{result[d].inspect}"
-        next unless result[d] && result[d][s.start_time.strftime("%H:%M").to_sym]
         result[d][s.start_time.strftime("%H:%M").to_sym][:sections] << s
       end
     end

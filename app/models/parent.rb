@@ -43,6 +43,10 @@ class Parent < ActiveRecord::Base
     has_role?(:admin)
   end
 
+  def teacher?
+    type == "Teacher"
+  end
+
   def enrolled_students_count(rp)
     students.enrolled(rp).count
   end
@@ -70,5 +74,22 @@ class Parent < ActiveRecord::Base
 
   def send_confirmation(invoice, rp)
     ConfirmationMailer.registration_confirmation_email(self, invoice, rp).deliver_now
+  end
+
+  def open_registration_periods
+    RegistrationPeriod.where(status: eligible_statuses)
+  end
+
+  private
+
+  def eligible_statuses
+    statuses = []
+    statuses += ["future"] if admin?
+    statuses += ["teachers"] if teacher?
+    statuses += ["seniors"] if students.where(grade: 12).exists?
+    statuses += ["juniors"] if students.where(grade: 11).exists?
+    statuses += ["returning"] if students.exists?
+    statuses += ["all"] if statuses.empty? || !statuses.include?("all")
+    statuses.uniq
   end
 end
