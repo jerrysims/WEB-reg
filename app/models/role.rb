@@ -4,16 +4,15 @@ class Role < ApplicationRecord
     "admin",
   ]
 
-  has_and_belongs_to_many :parents, :join_table => :parents_roles
+  has_and_belongs_to_many :parents, join_table: :parents_roles
 
   belongs_to :resource,
-             :polymorphic => true,
-             :optional => true
-
+             polymorphic: true,
+             optional: true
 
   validates :resource_type,
-            :inclusion => { :in => Rolify.resource_types },
-            :allow_nil => true
+            inclusion: { in: Rolify.resource_types },
+            allow_nil: true
 
   scopify
 end

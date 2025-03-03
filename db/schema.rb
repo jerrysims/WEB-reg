@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_02_202907) do
+ActiveRecord::Schema.define(version: 2025_03_03_021825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -171,9 +171,7 @@ ActiveRecord::Schema.define(version: 2025_03_02_202907) do
     t.text "city"
     t.text "state"
     t.text "zip_code"
-    t.boolean "admin", default: false
     t.boolean "locked", default: false
-    t.boolean "is_admin"
     t.string "secondary_email"
     t.boolean "covid_statement_acknowledged"
     t.boolean "reg_fees_paid"

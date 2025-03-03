@@ -39,6 +39,10 @@ class Parent < ActiveRecord::Base
     self.add_role("active") if self.roles.blank?
   end
 
+  def admin?
+    has_role?(:admin)
+  end
+
   def enrolled_students_count(rp)
     students.enrolled(rp).count
   end
