@@ -62,9 +62,11 @@ class SectionsController < ApplicationController
   end
 
   def publish_grades
+    @teacher = Teacher.find(params[:teacher_id])
     @section = Section.find(params[:section_id])
     @section.update(published: true)
-    redirect_to teacher_section_gradebook_path(@section), notice: 'Grades have been published.'
+    @section.quarterly_scores.update_all(published: true)
+    redirect_to teacher_section_gradebook_path(@teacher, @section), notice: 'Grades have been published.'
   end
 
   private
