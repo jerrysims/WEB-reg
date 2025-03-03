@@ -361,69 +361,48 @@ class RegistrationsController < ApplicationController
   end
 
   def time_blocks
-    result = {
-      tuesday: {
-        "08:30": {
-          label_text: "Block 1<br>8:30-9:45",
-          sections: []
-        },
-        "09:45": {
-          label_text: "Block 2<br>9:45-11:00",
-          sections: []
-        },
-        "11:30": {
-          label_text: "Block 3<br>11:30-1:00",
-          sections: []
-        },
-        "13:00": {
-          label_text: "Block 4<br>1:00-2:30",
-          sections: []
-        },
-        "14:30": {
-          label_text: "Block 5<br>2:30-3:30",
-          sections: []
-        } 
-      },
-      thursday: {
-        "08:30": {
-          label_text: "Block 1<br>8:30-9:45",
-          sections: []
-        },
-        "09:45": {
-          label_text: "Block 2<br>9:45-11:00",
-          sections: []
-        },
-        "11:30": {
-          label_text: "Block 3<br>11:30-1:00",
-          sections: []
-        },
-        "13:00": {
-          label_text: "Block 4<br>1:00-2:30",
-          sections: []
-        },
-        "14:30": {
-          label_text: "Block 5<br>2:30-3:30",
-          sections: []
-        } 
-      }
-    }
-  
-    @available_sections.each do |s|
-      days = case s.day
-      when "Tuesday"
-        [:tuesday]
-      when "Thursday"
-        [:thursday]
-      when "Tuesday/Thursday"
-        [:tuesday, :thursday]
-      end
+    result = initialize_time_blocks
 
-      days.each do |d|
-        result[d][s.start_time.strftime("%H:%M").to_sym][:sections] << s
+    @available_sections.each do |section|
+      days = section_days(section.day)
+      days.each do |day|
+        result[day][section.start_time.strftime("%H:%M").to_sym][:sections] << section
       end
     end
-    
+
     result
+  end
+
+  private
+
+  def initialize_time_blocks
+    {
+      tuesday: create_time_block,
+      thursday: create_time_block
+    }
+  end
+
+  def create_time_block
+    {
+      "08:30": { label_text: "Block 1<br>8:30-9:45", sections: [] },
+      "09:45": { label_text: "Block 2<br>9:45-11:00", sections: [] },
+      "11:30": { label_text: "Block 3<br>11:30-1:00", sections: [] },
+      "13:00": { label_text: "Block 4<br>1:00-2:30", sections: [] },
+      "14:30": { label_text: "Block 5<br>2:30-3:30", sections: [] }
+    }
+  end
+
+  def section_days(day)
+    case day
+    when "Tuesday"
+      [:tuesday]
+    when "Thursday"
+      [:thursday]
+    when "Tuesday/Thursday"
+      [:tuesday, :thursday]
+    else
+      []
+    end
   end
 
   def tuesday_params
