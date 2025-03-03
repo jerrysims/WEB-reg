@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     resources :learning_differences_forms, only: [:new, :create, :edit, :update, :show]
     get 'schedule'
     get 'view_course_list'
+    get 'all_grades', on: :member
     patch 'update_web_email'
     patch 'update_grade_confirmed'
   end
@@ -53,6 +54,7 @@ Rails.application.routes.draw do
       post "gradebook", to: "sections#save_gradebook", as: :save_gradebook
       get "reset_grading_scale"
       patch "update_grades"
+      patch "publish_grades", to: "sections#publish_grades", as: :publish_grades
     end
     get "parent_contact_list"
   end
@@ -69,6 +71,12 @@ Rails.application.routes.draw do
     resources :sections do
       get :view_grades, controller: "/admins"
       get :edit_grades, controller: "/admins"
+    end
+  end
+
+  resources :sections do
+    member do
+      patch :publish_grades
     end
   end
 

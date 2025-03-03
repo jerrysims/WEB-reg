@@ -40,7 +40,10 @@ class ParentsController < ApplicationController
   def view_grades
     @rp = RegistrationPeriod::CURRENT_ACADEMIC_YEAR
     @students = current_parent.students.enrolled(@rp)
-    @registrations = Registration.joins(section: { course: :registration_period }).where(student: @students).where("registration_periods.id": @rp.id)
+    @registrations = Registration.joins(section: { course: :registration_period })
+                                 .where(student: @students)
+                                 .where("registration_periods.id": @rp.id)
+                                 .where(sections: { published: true })
   end
 
   private
@@ -72,9 +75,6 @@ class ParentsController < ApplicationController
   end
 
   def set_open_rps
-    @open_rps = []
-    return @open_rps unless current_parent.admin?
-    
     @open_rps = RegistrationPeriod.open
   end
 

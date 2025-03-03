@@ -1,4 +1,6 @@
 <h2>Grades</h2>
-<% @students.each do |s| %>
-  <%= render(partial: "student_grades", locals: { student: s, rp: @rp }) %>
+<% @students.each do |student| %>
+  <% student.registrations.joins(:section).where(sections: { published: true }).each do |registration| %>
+    <%= render(partial: "student_grades", locals: { student: student, registration: registration }) %>
+  <% end %>
 <% end %>

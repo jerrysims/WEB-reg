@@ -54,4 +54,5 @@
       </table>
     </div>
   </div>
+  <%= button_to 'Publish Grades', teacher_section_publish_grades_path(@section.teachers.first, @section), method: :patch, class: 'btn btn-primary' %>
 </div>

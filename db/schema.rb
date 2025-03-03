@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_03_021825) do
+ActiveRecord::Schema.define(version: 2025_03_03_053716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -298,6 +298,7 @@ ActiveRecord::Schema.define(version: 2025_03_03_021825) do
     t.integer "students_count", default: 0, null: false
     t.integer "teacher_id"
     t.string "grading_scale"
+    t.boolean "published"
   end
 
   create_table "students", force: :cascade do |t|

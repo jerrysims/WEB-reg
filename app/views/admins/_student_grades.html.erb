@@ -27,35 +27,37 @@
         </div>
       </div>
     </div>
-    <% section.students.order(:last_name, :first_name).each do |s| %>
-      <% r = Registration.find_by(student_id: s.id, section_id: section.id) %>
-      <div class="row alternating-row">
-        <div class="col-3 ">
-          <%= s.full_name %>
-        </div>
-        <div class="col-9 ">
-          <div class="row">
-            <div class="col-2">
-              <td><%= r.q1_grade %></td>
-            </div>
-            <div class="col-2">
-              <td><%= r.q2_grade %></td>
-            </div>
-            <div class="col-2">
-              <td class="average"><%= r.s1_average %></td>
-            </div>
-            <div class="col-2">
-              <td><%= r.q3_grade %></td>
-            </div>
-            <div class="col-2">
-              <td><%= r.q4_grade %></td>
-            </div>
-            <div class="col-2">
-              <td class="average"><%= r.s2_average %></td>
+    <% section.students.order(:last_name, :first_name).each do |student| %>
+      <% registration = Registration.find_by(student_id: student.id, section_id: section.id) %>
+      <% if section.published %>
+        <div class="row alternating-row">
+          <div class="col-3 ">
+            <%= link_to student.full_name, all_grades_student_path(student) %>
+          </div>
+          <div class="col-9 ">
+            <div class="row">
+              <div class="col-2">
+                <td><%= registration.quarterly_scores.find_by(quarter: :q1)&.grade %></td>
+              </div>
+              <div class="col-2">
+                <td><%= registration.quarterly_scores.find_by(quarter: :q2)&.grade %></td>
+              </div>
+              <div class="col-2">
+                <td class="average"><%= registration.s1_average %></td>
+              </div>
+              <div class="col-2">
+                <td><%= registration.quarterly_scores.find_by(quarter: :q3)&.grade %></td>
+              </div>
+              <div class="col-2">
+                <td><%= registration.quarterly_scores.find_by(quarter: :q4)&.grade %></td>
+              </div>
+              <div class="col-2">
+                <td class="average"><%= registration.s2_average %></td>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>

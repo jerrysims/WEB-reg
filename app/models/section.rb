@@ -7,27 +7,28 @@ class Section < ApplicationRecord
   has_many :registrations, dependent: :destroy
   has_many :students, through: :registrations
   has_many :wait_listed_students, dependent: :destroy
-  
+  has_many :quarterly_scores, through: :registrations
 
   validates :day, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :class_minimum, numericality: true, presence: true
   validates :class_maximum, numericality: true, presence: true
+  validates :name, presence: true
 
   scope :open_seats, -> { where("students_count < class_maximum") }
   scope :in_period, -> (rp) { joins(course: :registration_period) .where('courses.registration_period_id = ?', rp.id) }
+  scope :published, -> { where(published: true) }
   delegate :registration_period_id, to: :course
   delegate :registration_period, to: :course
   delegate :semester, to: :course
+  delegate :teacher, to: :course
 
   NUMERICAL = (0..110).to_a.reverse
   LETTER = %w(A+ A A- B+ B B- C+ C C- D+ D D- F)
   DESCRIPTIVE = %w(Excellent Satisfactory Needs_Assistance Unsatisfactory)
 
   GRADING_SCALES = %w(NUMERICAL LETTER DESCRIPTIVE)
-
-
 
   def at_max?
     students.count >= class_maximum

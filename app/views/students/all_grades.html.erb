@@ -1,0 +1,66 @@
+<h2>All Grades for <%= @student.full_name %></h2>
+<% @registrations_by_period.each do |period, registrations| %>
+  <div class="rp-box">
+    <h6>Registration Period: <%= period.name %></h6>
+    <div class="row box">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-3">
+            Course
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-2">
+                <strong>Q1</strong>
+              </div>
+              <div class="col-2">
+                <strong>Q2</strong>
+              </div>
+              <div class="col-2">
+                <strong>S1</strong>
+              </div>
+              <div class="col-2">
+                <strong>Q3</strong>
+              </div>
+              <div class="col-2">
+                <strong>Q4</strong>
+              </div>
+              <div class="col-2">
+                <strong>S2</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% registrations.each do |registration| %>
+          <div class="row alternating-row">
+            <div class="col-3">
+              <td><%= registration.section.name %></td>
+            </div>
+            <div class="col-9">
+              <div class="row">
+                <div class="col-2">
+                  <td><%= registration.quarterly_scores.find_by(quarter: :q1)&.grade %></td>
+                </div>
+                <div class="col-2">
+                  <td><%= registration.quarterly_scores.find_by(quarter: :q2)&.grade %></td>
+                </div>
+                <div class="col-2">
+                  <td class="average"><%= registration.s1_average %></td>
+                </div>
+                <div class="col-2">
+                  <td><%= registration.quarterly_scores.find_by(quarter: :q3)&.grade %></td>
+                </div>
+                <div class="col-2">
+                  <td><%= registration.quarterly_scores.find_by(quarter: :q4)&.grade %></td>
+                </div>
+                <div class="col-2">
+                  <td class="average"><%= registration.s2_average %></td>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

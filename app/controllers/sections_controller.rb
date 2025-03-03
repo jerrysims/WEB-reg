@@ -61,6 +61,12 @@ class SectionsController < ApplicationController
     end
   end
 
+  def publish_grades
+    @section = Section.find(params[:section_id])
+    @section.update(published: true)
+    redirect_to teacher_section_gradebook_path(@section), notice: 'Grades have been published.'
+  end
+
   private
   def gradebook_params
     params.require(:section).permit(registration: [:id, :student_id, :section_id, :q1_grade, :q2_grade, :q3_grade, :q4_grade])

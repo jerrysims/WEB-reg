@@ -4,7 +4,7 @@
     <h5>Student: <%= student.full_name %></h5>
     <div class="row">
       <div class="col-3">
-        Course</th>
+        Course
       </div>
       <div class="col-9">
         <div class="row">
@@ -37,22 +37,22 @@
         <div class="col-9">
           <div class="row">
             <div class="col-2">
-              <td><%= r.q1_grade %></td>
+              <td><%= r.quarterly_scores.find_by(quarter: :q1)&.grade %></td>
             </div>
             <div class="col-2">
-              <td><%= r.q2_grade %></td>
+              <td><%= r.quarterly_scores.find_by(quarter: :q2)&.grade %></td>
             </div>
             <div class="col-2">
-              <td><%= r.s1_average %></td>
+              <td class="average"><%= r.s1_average %></td>
             </div>
             <div class="col-2">
-              <td><%= r.q3_grade %></td>
+              <td><%= r.quarterly_scores.find_by(quarter: :q3)&.grade %></td>
             </div>
             <div class="col-2">
-              <td><%= r.q4_grade %></td>
+              <td><%= r.quarterly_scores.find_by(quarter: :q4)&.grade %></td>
             </div>
             <div class="col-2">
-              <td><%= r.s2_average %></td>
+              <td class="average"><%= r.s2_average %></td>
             </div>
           </div>
         </div>

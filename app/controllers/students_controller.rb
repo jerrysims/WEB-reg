@@ -64,6 +64,11 @@ class StudentsController < ApplicationController
   def show
   end
 
+  def all_grades
+    @student = Student.find(params[:id])
+    @registrations_by_period = @student.registrations.includes(:quarterly_scores, section: :course).order(created_at: :desc).group_by { |r| r.section.course.registration_period }
+  end
+
   private
   def set_rp
     @rp = RegistrationPeriod.find(params[:registration_period_id])
