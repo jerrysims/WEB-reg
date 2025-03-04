@@ -366,11 +366,11 @@ class RegistrationsController < ApplicationController
     @available_sections.each do |section|
       days = section_days(section.day)
       days.each do |day|
-        time_key = section.start_time.in_time_zone("UTC").strftime("%H:%M").to_sym
+        time_key = section.start_time.strftime("%H:%M").to_sym
         puts "time_key: #{time_key}"
-        puts "result[day]: #{result[day]}"
         result[day][time_key] ||= { label_text: "", sections: [] }
         result[day][time_key][:sections] << section
+        puts "result[day][time_key]: #{result[day][time_key]}"
       end
     end
 
