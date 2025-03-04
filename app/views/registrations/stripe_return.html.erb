@@ -16,7 +16,16 @@
             </div>
           <% end %>
         </div>
-        <div class="row justify-content-center"><%= f.submit "Update Preferences", class: "custom-button col-6" %></div>
+        <div class="row justify-content-center">
+          <%= f.submit "Update Preferences", class: "custom-button col-6" %>
+        </div>
+        <br>
+        <div class="text-center">
+          <%= link_to(
+            "Click here to choose classes for another student", 
+            parent_registration_period_select_student_path(current_parent, @rp)
+          ) %>
+        </div>
       </div>
     <% end %>
   </div>

@@ -53,8 +53,13 @@
       "Review Registration", 
       registrations_review_path( registration_period_id: @rp.id, student_id: @student.id), class: "custom-button" 
     )%>
+    <br>
+    <%= link_to(
+      "Click here to choose classes for another student", 
+      parent_registration_period_select_student_path(current_parent, @rp)
+    ) %>
   </div>
 </div>
 
 <!-- Add content tag to contain the flag for a closed invoice -->
-<%= content_tag :div, class: "invoice-closed", data: { closed: @closed } do %><% end %> 
+<%= content_tag :div, class: "invoice-closed", data: { closed: @closed } do %><% end %>

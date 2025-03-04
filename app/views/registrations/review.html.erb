@@ -70,6 +70,11 @@ We found the following class schedules for you:
         ),
         class: "custom-button"
       ) %>
+      <br>
+      <%= link_to(
+        "Click here to choose classes for another student", 
+        parent_registration_period_select_student_path(current_parent, @rp)
+      ) %>
     </div>
   </div>
 <% end %>
