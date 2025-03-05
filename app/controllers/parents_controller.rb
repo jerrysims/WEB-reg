@@ -51,7 +51,7 @@ class ParentsController < ApplicationController
     suggestions = []
     f = student.first_name.downcase.strip
     l = student.last_name.downcase.strip
-    n = student.nickname.nil? ? nil : student.nickname.downcase.strip
+    n = student.nickname.nil? || student.nickname.strip.empty? ? nil : student.nickname.downcase.strip
     suggestions << "#{f}.#{l}@webtutorialnashville.com"
     suggestions << "#{n}.#{l}@webtutorialnashville.com" unless n.nil?
     suggestions
