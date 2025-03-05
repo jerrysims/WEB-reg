@@ -10,7 +10,7 @@
             <%= name %>
           </div>
           <div class="invoice-amounts col-md-2 col-xs-2 col-sm-2">
-            <%= "$#{price}" %>
+            <%= number_to_currency(price) %>
           </div>
         </div>
       <% end %>
@@ -19,7 +19,7 @@
           <h5>Total Due</h5>
         </div>
         <div class="col-md-2 col-xs-2 col-sm-2">
-          <h5>$<%= @invoice_total %></h5>
+          <h5><%= number_to_currency(@invoice_total) %></h5>
         </div>
       </div>
       <div class="row">
