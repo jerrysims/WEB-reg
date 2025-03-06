@@ -33,9 +33,6 @@
                 <div class="navbar row justify-content-center">
                   <div class="navbar bg-light col-9">
                     <ul class="navbar-nav mr-auto">
-                      <li class="nav-item col inline">
-                        <span><h5>Parent</h5></span>
-                      </li>
                       <% if current_parent %>
                         <li class="nav-item col inline">
                           <%= link_to "Home", parent_path(id: current_parent.id, redirect: false), class: "nav-link" %>
@@ -60,6 +57,9 @@
                         </li>
                         <li class="nav-item col inline">
                           <%= link_to("WEB Handbook", "/documents/WEB Handbook 24-25.pdf", { target: :_blank, class: "nav-link" } ) %>
+                        </li>
+                        <li class="nav-item col inline">
+                          <%= link_to("Invoice Portal", "https://signin.methodportal.com/webtutorialnashville", { target: :_blank, class: "nav-link" } ) %>
                         </li>
                       <% end %>
                     </ul>
