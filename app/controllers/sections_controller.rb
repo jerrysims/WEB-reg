@@ -59,16 +59,14 @@ class SectionsController < ApplicationController
       end
     end
 
-    if @registration.save
-      flash[:success] = "Grades updated successfully."
-      respond_to do |format|
-        format.js { render 'sections/update_grades' }
-      end
-    else
-      flash[:error] = "There was an error updating the grades: #{@registration.errors.full_messages.join(', ')}"
-      respond_to do |format|
-        format.js { render js: "alert('There was an error updating the grades: #{@registration.errors.full_messages.join(', ')}');" }
-      end
+    flash[:success] = "Grades updated successfully."
+    respond_to do |format|
+      format.js { render 'sections/update_grades' }
+    end
+  rescue => e
+    flash[:error] = "There was an error updating the grades: #{e.message}"
+    respond_to do |format|
+      format.js { render js: "alert('There was an error updating the grades: #{e.message}');" }
     end
   end
 
