@@ -48,6 +48,7 @@ class SectionsController < ApplicationController
   
   def update_grades
     @registration = Registration.find(params[:registration][:id])
+    Rails.logger.debug("Registration Params: #{registration_params.inspect}")
     if @registration.update(registration_params)
       flash[:success] = "Grades updated successfully."
       respond_to do |format|
