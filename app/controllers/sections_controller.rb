@@ -49,15 +49,25 @@ class SectionsController < ApplicationController
   def update_grades
     @registration = Registration.find(params[:registration][:id])
     Rails.logger.debug("Registration Params: #{registration_params.inspect}")
-    if @registration.update(registration_params)
+    
+    registration_params[:quarterly_scores_attributes].each do |_, score_params|
+      if score_params[:id].present?
+        quarterly_score = QuarterlyScore.find(score_params[:id])
+        quarterly_score.update(score_params)
+      else
+        @registration.quarterly_scores.create(score_params)
+      end
+    end
+
+    if @registration.save
       flash[:success] = "Grades updated successfully."
       respond_to do |format|
         format.js { render 'sections/update_grades' }
       end
     else
-      flash[:error] = "1 - There was an error updating the grades."
+      flash[:error] = "There was an error updating the grades: #{@registration.errors.full_messages.join(', ')}"
       respond_to do |format|
-        format.js { render js: "alert('2 - There was an error updating the grades.');" }
+        format.js { render js: "alert('There was an error updating the grades: #{@registration.errors.full_messages.join(', ')}');" }
       end
     end
   end
