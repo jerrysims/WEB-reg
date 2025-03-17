@@ -55,9 +55,9 @@ class SectionsController < ApplicationController
         format.js { render 'sections/update_grades' }
       end
     else
-      flash[:error] = "There was an error updating the grades."
+      flash[:error] = "1 - There was an error updating the grades."
       respond_to do |format|
-        format.js { render js: "alert('There was an error updating the grades.');" }
+        format.js { render js: "alert('2 - There was an error updating the grades.');" }
       end
     end
   end

@@ -214,7 +214,7 @@ class RegistrationsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.js { render js: "alert('There was an error updating the grades.');" }
+        format.js { render js: "alert('3 - There was an error updating the grades.');" }
       end
     end
   end
