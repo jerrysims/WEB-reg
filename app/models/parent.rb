@@ -87,7 +87,7 @@ class Parent < ActiveRecord::Base
     statuses += ["future"] if admin?
     statuses += ["teachers"] if teacher?
     statuses += ["seniors"] if students.where(grade: 12).exists?
-    statuses += ["juniors"] if students.where(grade: 11).exists?
+    statuses += ["juniors"] if students.where(grade: 11..).exists?
     statuses += ["returning"] if students.exists?
     statuses += ["all"] if statuses.empty? || !statuses.include?("all")
     statuses.uniq
