@@ -9,7 +9,7 @@ ActiveAdmin.register WaitListedStudent do
     )
     f.input :student, as: :select, collection: options_from_collection_for_select(
       Student.enrolled([RegistrationPeriod::CURRENT_RP, RegistrationPeriod::CURRENT_ACADEMIC_YEAR])
-             .sort_by { |s| s.last_name.downcase },
+             .order(:last_name, :first_name),
       :id,
       lambda { |s| "#{s.full_name}" }
     )
