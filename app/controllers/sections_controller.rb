@@ -44,6 +44,9 @@ class SectionsController < ApplicationController
     @teacher = Teacher.find(params[:teacher_id])
     @section = Section.find(params[:id])
     @students = @section.students
+    @registrations = Registration.where(section: @section)
+                                  .joins(:registration_period)
+                                  .where(registration_periods: { id: [RegistrationPeriod::CURRENT_RP.id, RegistrationPeriod::CURRENT_ACADEMIC_YEAR.id] })
   end
   
   def update_grades
