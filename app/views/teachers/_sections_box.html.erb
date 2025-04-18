@@ -5,14 +5,21 @@
   </div>
 <% else %>
   <div class="container row">
-    <ul>
-      <% @teacher.sections.each do |s| %>
-        <li class=" enrollment-forms-box-row row">
-          <div class="col-md-12">
-            <%= link_to "#{s.name}, #{s.day}, #{s.start_time}, #{s.registration_period.name}", teacher_section_path(teacher_id: @teacher.id, id: s.id), class: "col-xs-6" %>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+    <% @teacher.sections.group_by(&:registration_period).each do |registration_period, sections| %>
+      <div class="mt-3 col-md-12">
+        <h5><%= registration_period.name %></h5>
+      </div>
+      <div class="col-md-12">
+        <ul class="mb-3">
+          <% sections.each do |s| %>
+            <li class="enrollment-forms-box-row row">
+              <div class="col-md-12">
+                <%= link_to "#{s.name}, #{s.day}, #{s.start_time}, #{registration_period.name}", teacher_section_path(teacher_id: @teacher.id, id: s.id), class: "col-xs-6" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
 <% end %>
