@@ -52,9 +52,10 @@ class ParentsController < ApplicationController
     @rp = RegistrationPeriod::CURRENT_ACADEMIC_YEAR
     @students = current_parent.students.enrolled(@rp)
     @registrations = Registration.joins(section: { course: :registration_period })
-                                 .where(student: @students)
-                                 .where("registration_periods.id": @rp.id)
-                                 .where(sections: { published: true })
+                                .where(student: @students)
+                                .where("registration_periods.id": @rp.id)
+                                .where(sections: { published: true })
+                                .group_by(&:student)
   end
 
   private

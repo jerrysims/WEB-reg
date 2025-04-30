@@ -48,7 +48,7 @@ ActiveAdmin.register Parent do
     end
     column :locked
     actions defaults: true do |parent|
-      link_to "Impersonate", impersonate_parent_path(parent), method: :post, class: "button"
+      item "Impersonate", impersonate_parent_path(parent), method: :post, class: "member_link"
     end
   end
 
