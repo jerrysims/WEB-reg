@@ -25,6 +25,12 @@ class ParentsController < ApplicationController
   def covid_statement
   end
 
+  def impersonate
+    parent = Parent.find(params[:id])
+    impersonate_parent(parent)
+    redirect_to root_path
+  end
+
   def locked_landing
     @dont_show_header = true
   end
@@ -35,6 +41,11 @@ class ParentsController < ApplicationController
     redirect_to parent_confirm_web_email_path(current_parent.id) if should_confirm_web_email?
 
     @students = current_parent.students
+  end
+
+  def stop_impersonating
+    stop_impersonating_parent
+    redirect_to root_path
   end
 
   def view_grades

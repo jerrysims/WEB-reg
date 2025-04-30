@@ -47,7 +47,9 @@ ActiveAdmin.register Parent do
       p.students.count
     end
     column :locked
-    actions
+    actions defaults: true do |parent|
+      link_to "Impersonate", impersonate_parent_path(parent), method: :post, class: "button"
+    end
   end
 
   show do |parent|

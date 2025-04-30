@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_parent!
 
+  impersonates :parent
+
   rescue_from SecurityError do |exception|
     flash[:notice] = "You are not authorized to view that page"
     redirect_to root_url

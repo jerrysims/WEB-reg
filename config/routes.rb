@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     get "confirm_grade"
     get "confirm_web_email"
     get "view_grades"
+    post :impersonate, on: :member
+    post :stop_impersonating, on: :collection
   end
 
   resources :students, only: [:new, :create, :edit, :update, :destroy, :show] do
