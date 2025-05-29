@@ -11,11 +11,11 @@ ActiveAdmin.register Parent, as: "Parent Emails" do
 
   controller do
     def index
-      index! do |format|
-        format.xls {
-          spreadsheet = ParentEmailsReport.new
-          send_data spreadsheet.generate_xls, filename: "parent_emails_#{Time.now.strftime("%Y%m%d_%H%M")}.xls"
-        }
+      if request.format == Mime[:xls]
+        spreadsheet = ParentEmailsReport.new
+        send_data spreadsheet.generate_xls, filename: "parent_emails_#{Time.now.strftime("%Y%m%d_%H%M")}.xls"
+      else
+        super
       end
     end
   end
