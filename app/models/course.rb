@@ -8,7 +8,8 @@ class Course < ActiveRecord::Base
     "Math",
     "Science",
     "Social Studies",
-    "Study Hall"
+    "Study Hall", 
+    "World Languages"
   ]
 
   DIVISIONS = ["MS", "HS", "MS/HS"]

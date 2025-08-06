@@ -89,7 +89,10 @@ class Product < ActiveRecord::Base
   end
 
   def self.band_choir_theater_yearbook_tuition_semester(rp)
-    registration_period(rp).find_by(name: "Band, Choir, Theater, Yearbook/Journalism Tuition - Semester")
+    product = registration_period(rp).find_by(name: "Band, Choir, Theater, Yearbook/Journalism Tuition - Semester")
+    return product if product
+
+    return registration_period(rp).find_by(name: "Band, Choir, Intermediate Art, Journalism Tuition - Semester") 
   end
 
   def self.band_choir_theater_yearbook_tuition_monthly(rp)
