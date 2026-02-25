@@ -1,5 +1,5 @@
 class RegistrationPeriod < ApplicationRecord
-  CURRENT_RP = RegistrationPeriod.find_by(name: "2025-26 Academic Year")
+  CURRENT_RP = RegistrationPeriod.find_by(name: "2026-27 Academic Year")
   CURRENT_ACADEMIC_YEAR = RegistrationPeriod.find_by(name: "2025-26 Academic Year")
   RP_TYPES = %w(academic extracurricular)
   RP_STATUSES = %w(future teachers seniors juniors returning all closed)
