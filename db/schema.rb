@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2025_03_03_123457) do
     t.string "division"
     t.boolean "twice_weekly"
     t.bigint "registration_period_id"
+    t.float "tuition"
     t.index ["registration_period_id"], name: "index_courses_on_registration_period_id"
   end
 

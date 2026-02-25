@@ -15,6 +15,7 @@ class Section < ApplicationRecord
   validates :class_minimum, numericality: true, presence: true
   validates :class_maximum, numericality: true, presence: true
   validates :name, presence: true
+  validates :course, presence: true
 
   scope :open_seats, -> { where("students_count < class_maximum") }
   scope :in_period, -> (rp) { joins(course: :registration_period) .where('courses.registration_period_id = ?', rp.id) }
@@ -50,7 +51,7 @@ class Section < ApplicationRecord
   end
 
   def extracurricular?
-    course.rp_type == "extracurricular"
+    course&.rp_type == "extracurricular"
   end
 
   def grades
@@ -62,7 +63,7 @@ class Section < ApplicationRecord
   end
 
   def name
-    return course.name  unless extracurricular?
+    return course.name unless extracurricular? && course
 
     "#{course.name} (#{semester})"
   end
