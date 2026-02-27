@@ -1,12 +1,12 @@
 <div class="mailer" style="font-family: futura">
 Dear <%= @parent.full_name %>,
-Thank you for enrolling for WEB classes for the 2025/26 academic year!
+Thank you for enrolling for WEB classes for the 2026/27 academic year!
 
 <p>Please complete the following enrollment forms in order to complete your registration:</p>
 <ul>
-  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdueEmHJoVsjpHd5uqqPB2M8EGrPiQEZykvIol8EZhay75_7A/viewform?usp=preview" target="_blank">WEB Tutorial 2025-26 Parent Agreement</a></li>
-  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfklDfRG093gh9Xq5QVIKXOB5EMNCS_hC1oLmSrYf7z-v6ccw/viewform?usp=dialog" target="_blank">Medical and Photo Consent</a></li>
-  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSctckCQZMTFwzwDPpPSK1qmugUNxuEmm2OlB_q7QhOqO5FeMA/viewform?usp=dialog" target="_blank">Liability Waiver</a></li>
+  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScOpziAg70VlhYCCpu89NI0T6Vcg3ZpqexG0DrIzDuVjazCbg/viewform?usp=header" target="_blank">WEB Tutorial 2025-26 Parent Agreement</a></li>
+  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdOavNuHUYQOmiFnSXMa4EtxxpVPi2Ur8HP-xkNLRNuRaV5Yg/viewform?usp=header" target="_blank">Medical and Photo Consent</a></li>
+  <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSem9wfUdf6yPa9FTgZFKBR_GKIFhy4viqmuonN2eISTHkV51A/viewform?usp=publish-editor" target="_blank">Liability Waiver</a></li>
 </ul>
 
 <p><% @parent.registered_students(@rp).each do |student| %>
@@ -32,7 +32,7 @@ Thank you for enrolling for WEB classes for the 2025/26 academic year!
 <p>
   You have elected to pay <%= @parent.tuition_preferences.find_by(registration_period: @rp).frequency %> and to make class fees and tuition 
   payments via <%= @parent.tuition_preferences.find_by(registration_period: @rp).payment_method %>. You may check your balance and make 
-  payments at any time by going to <a href="https://signin.methodportal.com/webtutorialnashville" target="_blank">, which is also accessible via the WEB portal.
+  payments at any time by going to <a href="https://signin.methodportal.com/webtutorialnashville" target="_blank">, which is also linked in the WEB portal.
 
 </p>
 
@@ -41,12 +41,12 @@ Thank you for enrolling for WEB classes for the 2025/26 academic year!
 </p>
 
 <p>
-  Tuition will be due on August 12 and is billed separately from your non-refundable registration 
+  Tuition will be due on August 11 and is billed separately from your non-refundable registration 
   fees.
 </p>
 
 <p>
-  You may request changes to your student's schedule here: <a href="https://docs.google.com/forms/d/e/1FAIpQLSe2czCUlFRHsEHdHK1pqwRzuv5r-8wPxUVn24qTRvuzvk4Prw/viewform?usp=sharing" target="_blank" class="custom-button">Class Change Request Form</a>
+  You may request changes to your student's schedule here: <a href="https://docs.google.com/forms/d/e/1FAIpQLSesm59opDtQcSGtpZ1Ie0fGVyHsk3A8ya9LpgRrm23Yfpmsnw/viewform?usp=publish-editor" target="_blank" class="custom-button">Class Change Request Form</a>
 </p>
 
 <p>
@@ -58,10 +58,9 @@ Thank you for enrolling for WEB classes for the 2025/26 academic year!
 </p>
 
 <p>
-  We look forward to having you at WEB in 2025/26!
+  We look forward to having you at WEB in 2026/27!
 </p>
 
 
-<p>Senae Smith<br>
-Executive Director, WEB<br>
+<p>Senae Smith & Leslie Lutz<br>
 </div>
