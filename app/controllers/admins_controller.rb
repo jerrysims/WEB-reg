@@ -60,6 +60,7 @@ class AdminsController < ApplicationController
   end
 
   def students_schedules
+    @rps = RegistrationPeriod.academic.order(open_date: :desc)
   end
 
   def view_all_grades

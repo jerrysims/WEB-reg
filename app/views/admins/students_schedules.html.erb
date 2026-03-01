@@ -1,6 +1,6 @@
 <h2>View Student Schedule</h2>
 
-<% RegistrationPeriod.open.each do |rp| %>
+<% @rps.each do |rp| %>
   <div class="row ">
     <div class="col-md-6 box">
       <h6><%= rp.name %>
