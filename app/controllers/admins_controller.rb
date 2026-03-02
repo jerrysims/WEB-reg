@@ -64,7 +64,11 @@ class AdminsController < ApplicationController
   end
 
   def view_all_grades
-    @sections = Section.in_period(@rp).includes(:course).order("courses.name asc")
+    @sections = Section.in_period(@rp)
+                       .joins(:course)
+                       .where(courses: { show_in_gradebook: true })
+                       .includes(:course)
+                       .order("courses.name asc")
   end
 
   def view_grades
