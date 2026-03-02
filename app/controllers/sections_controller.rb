@@ -2,7 +2,7 @@ class SectionsController < ApplicationController
   def assign_grading_scale
     @teacher = Teacher.find(params[:teacher_id])
     @section = Section.find(params[:section_id])
-    @registrations = Registration.where(section: @section)
+    @registrations = Registration.joins(section: :course).where(section_id: @section.id, courses: { show_in_gradebook: true })
     @section.update(grading_scale_params)
 
     redirect_to teacher_section_gradebook_path(teacher_id: @teacher.id, section_id: @section.id)
@@ -11,13 +11,15 @@ class SectionsController < ApplicationController
   def gradebook
     @teacher = Teacher.where(id: params[:teacher_id]).first || Parent.find(params[:teacher_id])
     @section = Section.find(params[:section_id])
-    @registrations = Registration.where(section: @section).joins(:student).order(:last_name, :first_name)
+    @registrations = Registration.joins(:student, section: :course)
+                                  .where(section_id: @section.id, courses: { show_in_gradebook: true })
+                                  .order('students.last_name, students.first_name')
   end
 
   def reset_grading_scale
     @teacher = Teacher.find(params[:teacher_id])
     @section = Section.find(params[:section_id])
-    @registrations = Registration.where(section: @section)
+    @registrations = Registration.joins(section: :course).where(section_id: @section.id, courses: { show_in_gradebook: true })
 
     @section.update(grading_scale: nil)
     render :gradebook
@@ -26,7 +28,7 @@ class SectionsController < ApplicationController
   def save_gradebook
     @teacher = Teacher.find(params[:teacher_id])
     @section = Section.find(params[:section_id])
-    @registrations = Registration.where(section: @section)
+    @registrations = Registration.joins(section: :course).where(section_id: @section.id, courses: { show_in_gradebook: true })
 
     gradebook_params[:registration].each do |gb|
       r = Registration.find(gb[:id])
@@ -44,9 +46,10 @@ class SectionsController < ApplicationController
     @teacher = Teacher.find(params[:teacher_id])
     @section = Section.find(params[:id])
     @students = @section.students
-    @registrations = Registration.where(section: @section)
-                                  .joins(:registration_period)
-                                  .where(registration_periods: { id: [RegistrationPeriod::CURRENT_RP.id, RegistrationPeriod::CURRENT_ACADEMIC_YEAR.id] })
+    @registrations = Registration.joins(:registration_period, section: :course)
+                                  .where(section_id: @section.id,
+                                         registration_periods: { id: [RegistrationPeriod::CURRENT_RP.id, RegistrationPeriod::CURRENT_ACADEMIC_YEAR.id] },
+                                         courses: { show_in_gradebook: true })
   end
   
   def update_grades
@@ -76,9 +79,13 @@ class SectionsController < ApplicationController
   def publish_grades
     @teacher = Teacher.find(params[:teacher_id])
     @section = Section.find(params[:section_id])
-    @section.update(published: true)
-    @section.quarterly_scores.update_all(published: true)
-    redirect_to teacher_section_gradebook_path(@teacher, @section), notice: 'Grades have been published.'
+    if @section.course&.show_in_gradebook
+      @section.update(published: true)
+      @section.quarterly_scores.update_all(published: true)
+      redirect_to teacher_section_gradebook_path(@teacher, @section), notice: 'Grades have been published.'
+    else
+      redirect_to teacher_section_gradebook_path(@teacher, @section), alert: 'Section is not included in the gradebook.'
+    end
   end
 
   private
