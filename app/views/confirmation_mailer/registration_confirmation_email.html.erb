@@ -30,7 +30,7 @@ Thank you for enrolling for WEB classes for the 2026/27 academic year!
 <% end %>
 
 <p>
-  You have elected to pay <%= @parent.tuition_preferences.find_by(registration_period: @rp).frequency %> and to make class fees and tuition 
+  You have elected to pay by <%= @parent.tuition_preferences.find_by(registration_period: @rp).frequency %> and to make class fees and tuition 
   payments via <%= @parent.tuition_preferences.find_by(registration_period: @rp).payment_method %>. You may check your balance and make 
   payments at any time by going to https://signin.methodportal.com/webtutorialnashville, which is also linked in the WEB portal.
 
