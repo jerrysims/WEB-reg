@@ -16,7 +16,11 @@ ActiveAdmin.register Registration do
          as: :select,
          collection: Student.all.order(last_name: :asc, first_name: :asc)
 
-  filter :registration_periodG
+  # filter registrations by the registration period of the associated course
+  filter :section_course_registration_period_id,
+         as: :select,
+         label: "Registration Period",
+         collection: RegistrationPeriod.all.pluck(:name, :id)
 
   scope :all, default: true
   scope :missing_invoices
