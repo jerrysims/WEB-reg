@@ -41,18 +41,21 @@ class Course < ActiveRecord::Base
   end
 
   def semester_tuition
-    # return Product.study_hall_tuition_semester(registration_period).unit_price if name == "Study Hall"
-    # return Product.extracurricular_tuition_semester(registration_period).unit_price if subject_area == "Extracurricular"
-    # return Product.band_choir_theater_yearbook_tuition_semester(registration_period).unit_price if ["Performance Art", "Elective - Yearbook"].include?(subject_area)
+    # new structure uses tuition column; use when present
+    return tuition/2 unless tuition.nil?
 
-    # tuition_method = case division
-                    #  when "MS", "MS/HS"
-                    #    twice_weekly ? :middle_school_tuition_twice_weekly_semester : :middle_school_tuition_semester
-                    #  when "HS"
-                    #    twice_weekly ? :high_school_tuition_twice_weekly_semester : :high_school_tuition_semester
-                    #  end
+    # fall back to previous product‑based logic for legacy records
+    return Product.study_hall_tuition_semester(registration_period).unit_price if name == "Study Hall"
+    return Product.extracurricular_tuition_semester(registration_period).unit_price if subject_area == "Extracurricular"
+    return Product.band_choir_theater_yearbook_tuition_semester(registration_period).unit_price if ["Performance Art", "Elective - Yearbook"].include?(subject_area)
 
-    # Product.send(tuition_method, registration_period).unit_price
-    tuition/2
+    tuition_method = case division
+                     when "MS", "MS/HS"
+                       twice_weekly ? :middle_school_tuition_twice_weekly_semester : :middle_school_tuition_semester
+                     when "HS"
+                       twice_weekly ? :high_school_tuition_twice_weekly_semester : :high_school_tuition_semester
+                     end
+
+    Product.send(tuition_method, registration_period).unit_price
   end
 end
