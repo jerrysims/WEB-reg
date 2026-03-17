@@ -15,4 +15,16 @@ permit_params :name, :open_date, :close_date, :rp_type, :semester, :status
 #   permitted
 # end
 
+  form do |f|
+    f.inputs do
+      f.input :name
+      f.input :open_date
+      f.input :close_date
+      f.input :rp_type, as: :select, collection: RegistrationPeriod::RP_TYPES
+      f.input :semester
+      f.input :status, as: :select, collection: RegistrationPeriod::RP_STATUSES
+    end
+    f.actions
+  end
+
 end
