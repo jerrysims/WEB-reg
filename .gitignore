@@ -26,6 +26,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+*.csr
+*.key
 
 # Ignore byebug history
 .byebug_history
