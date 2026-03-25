@@ -3,7 +3,7 @@ We found the following class schedules for you:
 
 <div class="row">
   <% @enrolled_students.each do |student| %>
-    <div class="box student-box shadow col-md-6 d-md-inline-block d-sm-block" >
+    <div class="box student-box shadow col-12" >
       <p><strong><%= student.to_s %></strong></p>
       <% %w(Tuesday Thursday).each do |day| %>
         <div class="review-day-box">
@@ -34,9 +34,14 @@ We found the following class schedules for you:
     </div>
   <% end %>
 </div>
+<div class="row">
+  <div class="col-12">
+    <%= render partial: "admins/tuition_detail" %>
+  </div>
+</div>
 <% unless @not_enrolled.empty? %>
   <div class="row">
-    <div class="box student-box shadow col-md-6 d-md-inline-block d-sm-block" >
+    <div class="box student-box shadow col-12" >
       <span>There is no schedule for the following students:</span>
       <ul>
         <% @not_enrolled.each do |student| %>

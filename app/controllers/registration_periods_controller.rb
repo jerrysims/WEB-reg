@@ -11,6 +11,10 @@ class RegistrationPeriodsController < ApplicationController
   def view_schedules
     @enrolled_students = current_parent.students.enrolled(@rp)
     @not_enrolled = current_parent.students - @enrolled_students
+    @student_tuition_totals = @enrolled_students.map do |student|
+      total = student.rp_courses(@rp).inject(0) { |sum, course| sum + course.semester_tuition }
+      [student.full_name, total]
+    end
   end
 
   def select_student
