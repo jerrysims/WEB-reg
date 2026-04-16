@@ -1,6 +1,6 @@
 <div class="box">
-  <h4>Tuition Detail:</h4>
+  <h4>Tuition Detail (Semester Total):</h4>
   <% @student_tuition_totals.each do |student| %>
-    <h6><span><%= student[0] %>: $<%= student[1] %></span></h6>  
+    <h6><span><%= student[0] %>: <%= number_to_currency(student[1]) %></span></h6>  
   <% end %>
 </div>
