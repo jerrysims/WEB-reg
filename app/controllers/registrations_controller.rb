@@ -224,7 +224,8 @@ class RegistrationsController < ApplicationController
   def available_sections(student, rp)
     Section.all.select do |c| 
       c.grades.split(',').include?(student.grade.to_s) && 
-      c.course.registration_period == rp 
+      c.course.registration_period == rp &&
+      !c.course.admin_only?
     end
   end
 

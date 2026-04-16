@@ -29,6 +29,9 @@ class Course < ActiveRecord::Base
   scope :extracurricular, ->{ select{ |c| c.rp_type == "extracurricular" } }
   scope :academic, ->{ select{ |c| c.rp_type == "academic" } }
 
+  # admin_only courses are not available for parent registration but can be assigned by admins
+  # Typical use: Teaching Assistant positions or staff-only courses
+
   delegate :rp_type, to: :registration_period
   delegate :semester, to: :registration_period
 

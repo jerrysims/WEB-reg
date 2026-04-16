@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_03_123457) do
+ActiveRecord::Schema.define(version: 2026_04_16_204106) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "additional_contacts", force: :cascade do |t|
@@ -47,6 +46,7 @@ ActiveRecord::Schema.define(version: 2025_03_03_123457) do
     t.bigint "registration_period_id"
     t.float "tuition"
     t.boolean "show_in_gradebook", default: true, null: false
+    t.boolean "admin_only", default: false, null: false
     t.index ["registration_period_id"], name: "index_courses_on_registration_period_id"
   end
 
@@ -301,7 +301,6 @@ ActiveRecord::Schema.define(version: 2025_03_03_123457) do
     t.integer "students_count", default: 0, null: false
     t.integer "teacher_id"
     t.string "grading_scale"
-    t.boolean "published"
   end
 
   create_table "students", force: :cascade do |t|
