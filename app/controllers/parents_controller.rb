@@ -58,6 +58,14 @@ class ParentsController < ApplicationController
                                 .group_by(&:student)
   end
 
+  def tuition_details
+    @rp = RegistrationPeriod::CURRENT_RP
+    @student_tuition_totals = current_parent.students.enrolled(@rp).map do |student|
+      total = student.rp_courses(@rp).inject(0) { |sum, course| sum + course.semester_tuition }
+      [student.full_name, total]
+    end
+  end
+
   private
   def build_email_suggestions(student)
     suggestions = []
