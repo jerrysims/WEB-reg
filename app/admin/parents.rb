@@ -9,6 +9,8 @@ ActiveAdmin.register Parent do
 
   form do |f|
     f.input :email
+    f.input :password, as: :password
+    f.input :password_confirmation, as: :password
     f.input :secondary_email
     f.input :first_name
     f.input :last_name
@@ -26,6 +28,8 @@ ActiveAdmin.register Parent do
   permit_params :first_name,
                 :last_name,
                 :email,
+                :password,
+                :password_confirmation,
                 :secondary_email,
                 :locked,
                 :phone_number,
