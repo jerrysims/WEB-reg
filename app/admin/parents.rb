@@ -9,8 +9,8 @@ ActiveAdmin.register Parent do
 
   form do |f|
     f.input :email
-    f.input :password, as: :password
-    f.input :password_confirmation, as: :password
+    f.input :password, as: :password, hint: (f.object.persisted? ? "Leave blank to keep the current password" : nil)
+    f.input :password_confirmation, as: :password, hint: (f.object.persisted? ? "Leave blank to keep the current password" : nil)
     f.input :secondary_email
     f.input :first_name
     f.input :last_name

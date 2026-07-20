@@ -5,6 +5,12 @@ class Parent < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def password_required?
+    return false if persisted? && password.blank? && password_confirmation.blank?
+
+    super
+  end
+
   # These validation should run as soon as a user creates an account
   validates :first_name, presence: true
   validates :last_name, presence: true
