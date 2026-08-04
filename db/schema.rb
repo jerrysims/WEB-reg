@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_04_16_204106) do
+ActiveRecord::Schema.define(version: 2026_08_04_120002) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "additional_contacts", force: :cascade do |t|
@@ -24,6 +25,31 @@ ActiveRecord::Schema.define(version: 2026_04_16_204106) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["student_id"], name: "index_additional_contacts_on_student_id"
+  end
+
+  create_table "attendance_entries", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.bigint "school_day_id", null: false
+    t.string "status", default: "not_yet_reported", null: false
+    t.text "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["school_day_id"], name: "index_attendance_entries_on_school_day_id"
+    t.index ["student_id", "school_day_id"], name: "index_attendance_entries_on_student_id_and_school_day_id", unique: true
+    t.index ["student_id"], name: "index_attendance_entries_on_student_id"
+  end
+
+  create_table "attendance_notices", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.bigint "school_day_id", null: false
+    t.string "kind", null: false
+    t.string "status", default: "pending", null: false
+    t.text "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["school_day_id"], name: "index_attendance_notices_on_school_day_id"
+    t.index ["student_id", "school_day_id"], name: "index_attendance_notices_on_student_id_and_school_day_id", unique: true
+    t.index ["student_id"], name: "index_attendance_notices_on_student_id"
   end
 
   create_table "course_corequisites", force: :cascade do |t|
@@ -289,6 +315,15 @@ ActiveRecord::Schema.define(version: 2026_04_16_204106) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
+  create_table "school_days", force: :cascade do |t|
+    t.date "date", null: false
+    t.string "day_name", null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["date"], name: "index_school_days_on_date", unique: true
+  end
+
   create_table "sections", force: :cascade do |t|
     t.string "day"
     t.time "start_time"
@@ -301,6 +336,7 @@ ActiveRecord::Schema.define(version: 2026_04_16_204106) do
     t.integer "students_count", default: 0, null: false
     t.integer "teacher_id"
     t.string "grading_scale"
+    t.boolean "published"
   end
 
   create_table "students", force: :cascade do |t|
@@ -356,6 +392,10 @@ ActiveRecord::Schema.define(version: 2026_04_16_204106) do
   end
 
   add_foreign_key "additional_contacts", "students"
+  add_foreign_key "attendance_entries", "school_days"
+  add_foreign_key "attendance_entries", "students"
+  add_foreign_key "attendance_notices", "school_days"
+  add_foreign_key "attendance_notices", "students"
   add_foreign_key "courses", "registration_periods"
   add_foreign_key "grades", "sections"
   add_foreign_key "grades", "students"
