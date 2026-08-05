@@ -36,6 +36,36 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include FactoryBot::Syntax::Methods
 
+  config.before(:suite) do
+    [
+      {
+        name: "2025-26 Academic Year",
+        rp_type: "academic",
+        semester: "Fall",
+        status: "all",
+        open_date: Date.new(2025, 8, 1),
+        close_date: Date.new(2026, 6, 30)
+      },
+      {
+        name: "2026-27 Academic Year",
+        rp_type: "academic",
+        semester: "Fall",
+        status: "all",
+        open_date: Date.new(2026, 8, 1),
+        close_date: Date.new(2027, 6, 30)
+      }
+    ].each do |attrs|
+      RegistrationPeriod.find_or_create_by!(name: attrs[:name]) do |registration_period|
+        registration_period.assign_attributes(attrs)
+      end
+    end
+
+    RegistrationPeriod.send(:remove_const, :CURRENT_ACADEMIC_YEAR) if RegistrationPeriod.const_defined?(:CURRENT_ACADEMIC_YEAR, false)
+    RegistrationPeriod.send(:remove_const, :CURRENT_RP) if RegistrationPeriod.const_defined?(:CURRENT_RP, false)
+    RegistrationPeriod.const_set(:CURRENT_ACADEMIC_YEAR, RegistrationPeriod.find_by(name: "2025-26 Academic Year"))
+    RegistrationPeriod.const_set(:CURRENT_RP, RegistrationPeriod.find_by(name: "2026-27 Academic Year"))
+  end
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
