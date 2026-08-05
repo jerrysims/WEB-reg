@@ -1,4 +1,6 @@
 class SectionsController < ApplicationController
+  before_action :set_teacher_and_section_for_check_in, only: [:daily_check_in, :update_daily_check_in]
+
   def assign_grading_scale
     @teacher = Teacher.find(params[:teacher_id])
     @section = Section.find(params[:section_id])
@@ -51,6 +53,30 @@ class SectionsController < ApplicationController
                                          registration_periods: { id: [RegistrationPeriod::CURRENT_RP.id, RegistrationPeriod::CURRENT_ACADEMIC_YEAR.id] },
                                          courses: { show_in_gradebook: true })
   end
+
+  def daily_check_in
+    @school_day = SchoolDay.find_or_create_for!(Date.current)
+    @school_day.build_daily_roster!
+
+    @attendance_entries = @school_day.attendance_entries
+                                   .joins(:student)
+                                   .where(student_id: @section.students.select(:id))
+                                   .order('students.last_name ASC, students.first_name ASC')
+    @attendance_notices_by_student_id = @school_day.attendance_notices
+                                                   .where(student_id: @section.students.select(:id))
+                                                   .index_by(&:student_id)
+  end
+
+  def update_daily_check_in
+    @school_day = SchoolDay.find_or_create_for!(Date.current)
+    entry = @school_day.attendance_entries
+                      .joins(:student)
+                      .where(student_id: @section.students.select(:id))
+                      .find(params[:entry_id])
+    entry.update!(status: params[:status])
+
+    redirect_to teacher_section_daily_check_in_path(teacher_id: @teacher.id, section_id: @section.id, saved_entry_id: entry.id)
+  end
   
   def update_grades
     @registration = Registration.find(params[:registration][:id])
@@ -89,6 +115,11 @@ class SectionsController < ApplicationController
   end
 
   private
+  def set_teacher_and_section_for_check_in
+    @teacher = Teacher.where(id: params[:teacher_id]).first || Parent.find(params[:teacher_id])
+    @section = Section.find(params[:section_id])
+  end
+
   def gradebook_params
     params.require(:section).permit(registration: [:id, :student_id, :section_id, :q1_grade, :q2_grade, :q3_grade, :q4_grade])
   end

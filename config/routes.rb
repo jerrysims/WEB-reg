@@ -56,6 +56,8 @@ Rails.application.routes.draw do
       get "gradebook"
       post "gradebook", to: "sections#save_gradebook", as: :save_gradebook
       get "reset_grading_scale"
+      get "daily_check_in"
+      patch "daily_check_in", to: "sections#update_daily_check_in", as: :update_daily_check_in
       patch "update_grades"
       patch "publish_grades", to: "sections#publish_grades", as: :publish_grades
     end

@@ -33,9 +33,9 @@ class Admin::DailyCheckInsController < ApplicationController
 
   def update_entry
     entry = @school_day.attendance_entries.find(params[:entry_id])
-    entry.update!(status: params[:status], notes: params[:notes])
+    entry.update!(status: params[:status])
 
-    redirect_to admin_daily_check_in_path(@school_day), notice: "Updated attendance for #{entry.student.full_name}."
+    redirect_to admin_daily_check_in_path(@school_day, saved_entry_id: entry.id)
   end
 
   def update_notice
@@ -43,7 +43,7 @@ class Admin::DailyCheckInsController < ApplicationController
     attendance_notice = @school_day.attendance_notices.find_or_initialize_by(student_id: entry.student_id)
     attendance_notice.update!(kind: params[:notice_kind], status: params[:notice_status], notes: params[:notice_notes])
 
-    redirect_to admin_daily_check_in_path(@school_day), notice: "Updated notice for #{entry.student.full_name}."
+    redirect_to admin_daily_check_in_path(@school_day, saved_entry_id: entry.id)
   end
 
   private

@@ -1,4 +1,4 @@
-<h1>Daily Check-In</h1>
+<div><h2><%= @section.name %> Daily Check-In</h2></div>
 
 <% if params[:saved_entry_id].present? %>
   <script>
@@ -34,19 +34,14 @@
 <p>
   <strong>Date:</strong> <%= @school_day.date.strftime('%A, %b %-d, %Y') %><br>
   <strong>Day:</strong> <%= @school_day.day_name %><br>
-  <strong>Entries:</strong> <%= @attendance_entries.size %>
-</p>
-
-<p>
-  <%= link_to 'Build / Refresh Roster', build_roster_admin_daily_check_in_path(@school_day), method: :post, class: 'nav-link' %>
-  <%= link_to 'Mark Unreported as Present', mark_all_present_admin_daily_check_in_path(@school_day), method: :post, class: 'nav-link' %>
+  <strong>Section Entries:</strong> <%= @attendance_entries.size %>
 </p>
 
 <% if @attendance_entries.any? %>
   <% not_yet_reported_entries = @attendance_entries.select { |entry| entry.status == 'not_yet_reported' } %>
   <% reported_entries = @attendance_entries.reject { |entry| entry.status == 'not_yet_reported' } %>
 
-  <table class="table">
+  <table class="table table-hover">
     <thead>
       <tr>
         <th>Student</th>
@@ -71,7 +66,7 @@
           <td><%= entry.status.humanize %></td>
           <td><%= attendance_notice&.notes %></td>
           <td>
-            <%= form_with url: update_entry_admin_daily_check_in_path(@school_day), method: :patch, local: true do %>
+            <%= form_with url: teacher_section_update_daily_check_in_path(teacher_id: @teacher.id, section_id: @section.id), method: :patch, local: true do %>
               <%= hidden_field_tag :entry_id, entry.id %>
               <% AttendanceEntry::STATUSES.each do |status| %>
                 <label style="margin-right: 8px; white-space: nowrap;">
@@ -101,12 +96,12 @@
           <td><%= entry.status.humanize %></td>
           <td><%= attendance_notice&.notes %></td>
           <td>
-            <%= form_with url: update_entry_admin_daily_check_in_path(@school_day), method: :patch, local: true do %>
+            <%= form_with url: teacher_section_update_daily_check_in_path(teacher_id: @teacher.id, section_id: @section.id), method: :patch, local: true do %>
               <%= hidden_field_tag :entry_id, entry.id %>
-              <% AttendanceEntry::STATUSES.each do |option_status| %>
+              <% AttendanceEntry::STATUSES.each do |status| %>
                 <label style="margin-right: 8px; white-space: nowrap;">
-                  <%= radio_button_tag :status, option_status, entry.status == option_status, onchange: 'this.form.requestSubmit()' %>
-                  <%= option_status.humanize %>
+                  <%= radio_button_tag :status, status, entry.status == status, onchange: 'this.form.requestSubmit()' %>
+                  <%= status.humanize %>
                 </label>
               <% end %>
               <% if params[:saved_entry_id].to_s == entry.id.to_s %>
@@ -119,5 +114,5 @@
     </tbody>
   </table>
 <% else %>
-  <p>No attendance entries have been created for this school day yet.</p>
+  <p>No attendance entries were found for students in this section for today.</p>
 <% end %>
