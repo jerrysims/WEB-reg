@@ -2,9 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Attendance::RosterBuilder do
   describe '.create_for!' do
+    let(:current_academic_year) { create(:registration_period, name: 'RosterBuilder Spec Academic Year') }
+
+    before do
+      allow(RegistrationPeriod::CURRENT_ACADEMIC_YEAR).to receive(:id).and_return(current_academic_year.id)
+    end
+
     it 'creates attendance entries for students enrolled in sections that meet that day' do
       school_day = create(:school_day, date: Date.current, day_name: Date.current.strftime('%A'))
-      course = create(:course)
+      course = create(:course, registration_period: current_academic_year)
       section = create(:section, course: course, day: school_day.day_name)
       student = create(:student)
       create(:registration, student: student, section: section)
@@ -21,7 +27,7 @@ RSpec.describe Attendance::RosterBuilder do
 
     it 'does not create duplicate entries when run twice for the same day' do
       school_day = create(:school_day, date: Date.current, day_name: Date.current.strftime('%A'))
-      course = create(:course)
+      course = create(:course, registration_period: current_academic_year)
       section = create(:section, course: course, day: school_day.day_name)
       student = create(:student)
       create(:registration, student: student, section: section)

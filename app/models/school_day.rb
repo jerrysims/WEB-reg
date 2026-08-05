@@ -5,6 +5,13 @@ class SchoolDay < ApplicationRecord
   validates :date, presence: true, uniqueness: true
   validates :day_name, presence: true
 
+  def self.find_or_create_for!(date)
+    find_or_create_by!(date: date) do |school_day|
+      school_day.day_name = date.strftime('%A')
+      school_day.active = true
+    end
+  end
+
   def build_daily_roster!
     expected_student_ids.each do |student_id|
       entry = attendance_entries.find_or_initialize_by(student_id: student_id)

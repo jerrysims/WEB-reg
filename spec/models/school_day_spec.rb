@@ -1,6 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe SchoolDay, type: :model do
+  describe '.find_or_create_for!' do
+    it 'creates a school day with the date-derived day name' do
+      date = Date.new(2026, 8, 6)
+
+      school_day = described_class.find_or_create_for!(date)
+
+      expect(school_day.date).to eq(date)
+      expect(school_day.day_name).to eq('Thursday')
+      expect(school_day.active).to be(true)
+    end
+
+    it 'returns existing school day for the same date' do
+      existing = create(:school_day, date: Date.new(2026, 8, 7), day_name: 'Friday')
+
+      result = described_class.find_or_create_for!(existing.date)
+
+      expect(result.id).to eq(existing.id)
+      expect(described_class.where(date: existing.date).count).to eq(1)
+    end
+  end
+
   describe '#build_daily_roster!' do
     let(:school_day) { create(:school_day, date: Date.new(2026, 8, 4), day_name: 'Tuesday') }
     let(:student_expected) { create(:student) }
