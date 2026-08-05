@@ -1,0 +1,30 @@
+<h1>Daily Check-Ins</h1>
+
+<p>
+  <%= link_to "Open Today's Check-In", start_today_admin_daily_check_ins_path, method: :post, class: "nav-link" %>
+</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Day</th>
+      <th>Entries</th>
+      <th>Unreported</th>
+      <th>Absent</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @school_days.each do |school_day| %>
+      <tr>
+        <td><%= school_day.date.strftime('%b %-d, %Y') %></td>
+        <td><%= school_day.day_name %></td>
+        <td><%= school_day.attendance_entries.size %></td>
+        <td><%= school_day.attendance_entries.count { |entry| entry.status == 'not_yet_reported' } %></td>
+        <td><%= school_day.attendance_entries.count { |entry| entry.status == 'absent' } %></td>
+        <td><%= link_to 'Open', admin_daily_check_in_path(school_day) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,88 @@
+<h1>Daily Check-In</h1>
+
+<p>
+  <strong>Date:</strong> <%= @school_day.date.strftime('%A, %b %-d, %Y') %><br>
+  <strong>Day:</strong> <%= @school_day.day_name %><br>
+  <strong>Entries:</strong> <%= @attendance_entries.size %>
+</p>
+
+<p>
+  <%= link_to 'Build / Refresh Roster', build_roster_admin_daily_check_in_path(@school_day), method: :post, class: 'nav-link' %>
+  <%= link_to 'Mark Unreported as Present', mark_all_present_admin_daily_check_in_path(@school_day), method: :post, class: 'nav-link' %>
+</p>
+
+<% if @attendance_entries.any? %>
+  <% not_yet_reported_entries = @attendance_entries.select { |entry| entry.status == 'not_yet_reported' } %>
+  <% reported_entries = @attendance_entries.reject { |entry| entry.status == 'not_yet_reported' } %>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Grade</th>
+        <th>Status</th>
+        <th>Notes</th>
+        <th>Attendance Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if not_yet_reported_entries.any? %>
+        <tr>
+          <td colspan="5"><strong>Not Yet Reported</strong></td>
+        </tr>
+      <% end %>
+
+      <% not_yet_reported_entries.each do |entry| %>
+        <% attendance_notice = @attendance_notices_by_student_id[entry.student_id] %>
+        <tr>
+          <td><%= entry.student.full_name %></td>
+          <td><%= entry.student.grade %></td>
+          <td><%= entry.status.humanize %></td>
+          <td><%= attendance_notice&.notes %></td>
+          <td>
+            <%= form_with url: update_entry_admin_daily_check_in_path(@school_day), method: :patch, local: true do %>
+              <%= hidden_field_tag :entry_id, entry.id %>
+              <% AttendanceEntry::STATUSES.each do |status| %>
+                <label style="margin-right: 8px; white-space: nowrap;">
+                  <%= radio_button_tag :status, status, entry.status == status %>
+                  <%= status.humanize %>
+                </label>
+              <% end %>
+              <%= submit_tag 'Save', style: 'margin-left: 8px;' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+
+      <% if reported_entries.any? %>
+        <tr>
+          <td colspan="5"><strong>Reported</strong></td>
+        </tr>
+      <% end %>
+
+      <% reported_entries.each do |entry| %>
+        <% attendance_notice = @attendance_notices_by_student_id[entry.student_id] %>
+        <tr>
+          <td><%= entry.student.full_name %></td>
+          <td><%= entry.student.grade %></td>
+          <td><%= entry.status.humanize %></td>
+          <td><%= attendance_notice&.notes %></td>
+          <td>
+            <%= form_with url: update_entry_admin_daily_check_in_path(@school_day), method: :patch, local: true do %>
+              <%= hidden_field_tag :entry_id, entry.id %>
+              <% AttendanceEntry::STATUSES.each do |option_status| %>
+                <label style="margin-right: 8px; white-space: nowrap;">
+                  <%= radio_button_tag :status, option_status, entry.status == option_status %>
+                  <%= option_status.humanize %>
+                </label>
+              <% end %>
+              <%= submit_tag 'Save', style: 'margin-left: 8px;' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No attendance entries have been created for this school day yet.</p>
+<% end %>

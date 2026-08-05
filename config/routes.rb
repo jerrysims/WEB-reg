@@ -77,6 +77,21 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :admin do
+    resources :daily_check_ins, only: [:index, :show] do
+      collection do
+        post :start_today
+      end
+
+      member do
+        post :build_roster
+        post :mark_all_present
+        patch :update_entry
+        patch :update_notice
+      end
+    end
+  end
+
   resources :sections do
     member do
       patch :publish_grades
