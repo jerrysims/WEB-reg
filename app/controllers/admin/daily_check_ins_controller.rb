@@ -3,8 +3,10 @@ class Admin::DailyCheckInsController < ApplicationController
   before_action :set_school_day, only: [:show, :build_roster, :update_entry, :update_notice]
 
   def index
-    @school_days = SchoolDay.includes(:attendance_notices, attendance_entries: :student).order(date: :desc)
-    @today = SchoolDay.find_by(date: Date.current)
+    @school_days = SchoolDay.includes(:attendance_notices, attendance_entries: :student).order(date: :asc)
+    @today = Date.current
+    @future_school_days = @school_days.select { |school_day| school_day.date >= @today }
+    @past_school_days = @school_days.select { |school_day| school_day.date < @today }
   end
 
   def show
