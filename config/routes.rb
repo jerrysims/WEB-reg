@@ -89,7 +89,6 @@ Rails.application.routes.draw do
 
       member do
         post :build_roster
-        post :mark_all_present
         patch :update_entry
         patch :update_notice
       end

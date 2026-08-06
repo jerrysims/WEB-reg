@@ -1,5 +1,6 @@
 class SectionsController < ApplicationController
   before_action :set_teacher_and_section_for_check_in, only: [:daily_check_in, :update_daily_check_in]
+  before_action :set_today_school_day, only: [:daily_check_in, :update_daily_check_in]
 
   def assign_grading_scale
     @teacher = Teacher.find(params[:teacher_id])
@@ -55,7 +56,6 @@ class SectionsController < ApplicationController
   end
 
   def daily_check_in
-    @school_day = SchoolDay.find_or_create_for!(Date.current)
     @school_day.build_daily_roster!
 
     @attendance_entries = @school_day.attendance_entries
@@ -68,7 +68,6 @@ class SectionsController < ApplicationController
   end
 
   def update_daily_check_in
-    @school_day = SchoolDay.find_or_create_for!(Date.current)
     entry = @school_day.attendance_entries
                       .joins(:student)
                       .where(student_id: @section.students.select(:id))
@@ -118,6 +117,14 @@ class SectionsController < ApplicationController
   def set_teacher_and_section_for_check_in
     @teacher = Teacher.where(id: params[:teacher_id]).first || Parent.find(params[:teacher_id])
     @section = Section.find(params[:section_id])
+  end
+
+  def set_today_school_day
+    @school_day = SchoolDay.find_by(date: Date.current)
+
+    return if @school_day.present?
+
+    redirect_to teacher_section_path(teacher_id: @teacher.id, id: @section.id), alert: "Today is not a SchoolDay, so check-in is unavailable."
   end
 
   def gradebook_params

@@ -8,7 +8,13 @@ ActiveAdmin.register SchoolDay do
   end
 
   collection_action :start_today, method: :post do
-    school_day = SchoolDay.find_or_create_for!(Date.current)
+    school_day = SchoolDay.find_by(date: Date.current)
+
+    unless school_day
+      redirect_to admin_school_days_path, alert: "Today is not a SchoolDay, so check-in was not opened."
+      next
+    end
+
     school_day.build_daily_roster!
 
     redirect_to admin_school_day_path(school_day), notice: "Daily check-in opened for #{school_day.date.strftime('%A, %b %-d')}"
@@ -18,12 +24,6 @@ ActiveAdmin.register SchoolDay do
     resource.build_daily_roster!
 
     redirect_to admin_school_day_path(resource), notice: 'Roster refreshed from active registrations.'
-  end
-
-  member_action :mark_all_present, method: :post do
-    resource.attendance_entries.where(status: 'not_yet_reported').update_all(status: 'present', updated_at: Time.current)
-
-    redirect_to admin_school_day_path(resource), notice: 'All unreported students were marked present.'
   end
 
   member_action :update_entry, method: :patch do
@@ -64,9 +64,6 @@ ActiveAdmin.register SchoolDay do
     panel 'Check-In Controls' do
       div do
         span link_to('Build / Refresh Roster', build_roster_admin_school_day_path(resource), method: :post)
-      end
-      div style: 'margin-top: 8px;' do
-        span link_to('Mark Unreported as Present', mark_all_present_admin_school_day_path(resource), method: :post)
       end
     end
 

@@ -1,10 +1,10 @@
 class Admin::DailyCheckInsController < ApplicationController
   before_action :authenticate_admin_or_teacher!
-  before_action :set_school_day, only: [:show, :build_roster, :mark_all_present, :update_entry, :update_notice]
+  before_action :set_school_day, only: [:show, :build_roster, :update_entry, :update_notice]
 
   def index
     @school_days = SchoolDay.includes(:attendance_notices, attendance_entries: :student).order(date: :desc)
-    @today = SchoolDay.find_or_create_for!(Date.current)
+    @today = SchoolDay.find_by(date: Date.current)
   end
 
   def show
@@ -13,7 +13,13 @@ class Admin::DailyCheckInsController < ApplicationController
   end
 
   def start_today
-    school_day = SchoolDay.find_or_create_for!(Date.current)
+    school_day = SchoolDay.find_by(date: Date.current)
+
+    unless school_day
+      redirect_to admin_daily_check_ins_path, alert: "Today is not a SchoolDay, so check-in was not opened."
+      return
+    end
+
     school_day.build_daily_roster!
 
     redirect_to admin_daily_check_in_path(school_day), notice: "Daily check-in opened for #{school_day.date.strftime('%A, %b %-d')}"
@@ -23,12 +29,6 @@ class Admin::DailyCheckInsController < ApplicationController
     @school_day.build_daily_roster!
 
     redirect_to admin_daily_check_in_path(@school_day), notice: 'Roster refreshed from active registrations.'
-  end
-
-  def mark_all_present
-    @school_day.attendance_entries.where(status: 'not_yet_reported').update_all(status: 'present', updated_at: Time.current)
-
-    redirect_to admin_daily_check_in_path(@school_day), notice: 'All unreported students were marked present.'
   end
 
   def update_entry

@@ -39,7 +39,6 @@
 
 <p>
   <%= link_to 'Build / Refresh Roster', build_roster_admin_daily_check_in_path(@school_day), method: :post, class: 'nav-link' %>
-  <%= link_to 'Mark Unreported as Present', mark_all_present_admin_daily_check_in_path(@school_day), method: :post, class: 'nav-link' %>
 </p>
 
 <% if @attendance_entries.any? %>
