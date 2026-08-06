@@ -1,4 +1,4 @@
-namespace :dev do
+namespace :prod do
   EXCLUDED_DATES = %w[
     2026-10-13
     2026-10-15
@@ -15,10 +15,10 @@ namespace :dev do
     2027-03-25
   ].map { |date_string| Date.parse(date_string) }.freeze
 
-  desc "Create SchoolDay records for every Tuesday and Thursday through April 29, 2027"
+  desc "Create SchoolDay records for every Tuesday and Thursday through April 29, 2027 in production"
   task seed_school_days: :environment do
-    unless Rails.env.development? || ENV["ALLOW_NON_DEV"] == "1"
-      abort("This task is intended for local development only. Set ALLOW_NON_DEV=1 to override.")
+    unless Rails.env.production?
+      abort("This task is intended for production only.")
     end
 
     start_date = Date.current
