@@ -1,0 +1,87 @@
+<h2>Student Profile</h2>
+
+<% if @current_academic_period.present? %>
+  <p><strong>Academic Period:</strong> <%= @current_academic_period.name %></p>
+<% else %>
+  <p>No current academic period found.</p>
+<% end %>
+
+<div class="row">
+  <div class="col-md-6 box">
+    <h4>Student & Family</h4>
+    <p><strong>Student:</strong> <%= @student.full_name %></p>
+    <p><strong>Parent:</strong> <%= @parent.full_name %></p>
+    <p><strong>Other Parent:</strong> <%= @other_parent_name %></p>
+    <p><strong>Emergency Contact:</strong> <%= @student.emergency_contact %> (<%= @student.emergency_phone %>)</p>
+    <p><strong>Address:</strong> <%= @address.presence || "Not provided" %></p>
+  </div>
+
+  <div class="col-md-6 box">
+    <h4>Attendance Totals</h4>
+    <ul>
+      <% AttendanceEntry::STATUSES.each do |status| %>
+        <li><strong><%= status.humanize %>:</strong> <%= @attendance_totals.fetch(status, 0) %></li>
+      <% end %>
+    </ul>
+    <p><strong>Total Entries:</strong> <%= @attendance_totals.values.sum %></p>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 16px;">
+  <div class="col-md-6 box">
+    <h4>Current Schedule</h4>
+
+    <% %w(Tuesday Thursday).each do |day| %>
+      <% schedule = day == "Tuesday" ? @tuesday_schedule : @thursday_schedule %>
+      <h5><%= day %></h5>
+      <% if schedule.any? %>
+        <ul>
+          <% schedule.each do |section| %>
+            <li>
+              <%= section.start_time.strftime("%l:%M %p") %> - <%= section.end_time.strftime("%l:%M %p") %>
+              <%= section.name %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>No classes scheduled.</p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="col-md-6 box">
+    <h4>Current Grades</h4>
+    <% if @current_registrations.any? %>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th>Day</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>S1</th>
+            <th>Q3</th>
+            <th>Q4</th>
+            <th>S2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @current_registrations.each do |registration| %>
+            <tr>
+              <td><%= registration.section.name %></td>
+              <td><%= registration.section.day %></td>
+              <td><%= registration.quarterly_scores.find { |score| score.quarter == "q1" || score.quarter == :q1 }&.grade %></td>
+              <td><%= registration.quarterly_scores.find { |score| score.quarter == "q2" || score.quarter == :q2 }&.grade %></td>
+              <td><%= registration.s1_average %></td>
+              <td><%= registration.quarterly_scores.find { |score| score.quarter == "q3" || score.quarter == :q3 }&.grade %></td>
+              <td><%= registration.quarterly_scores.find { |score| score.quarter == "q4" || score.quarter == :q4 }&.grade %></td>
+              <td><%= registration.s2_average %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No current grades found.</p>
+    <% end %>
+  </div>
+</div>

@@ -1,22 +1,23 @@
-<h2>View Student Schedule</h2>
+<h2>Student Profile Lookup</h2>
 
-<% @rps.each do |rp| %>
+<% if @rp.present? %>
   <div class="row ">
     <div class="col-md-6 box">
-      <h6><%= rp.name %>
-        <%= form_with(url: admin_student_schedule_path, local: true) do |f| %>
-          <%= f.hidden_field :registration_period_id, value: rp.id %>
+      <h6><%= @rp.name %>
+        <%= form_with(url: admin_student_profile_path, local: true) do |f| %>
           <%= f.label :Student, "Search for:" %>
           <%= f.collection_select(
-            :student_id, 
-            Student.enrolled(RegistrationPeriod.find(rp.id)).order(:last_name), 
-            :id, 
-            :full_name, 
-            input_html: { id: "students-select" } 
-          )%>
-          <br> 
-          <%= f.submit "Search" %>
+            :student_id,
+            Student.enrolled(@rp).order(:last_name),
+            :id,
+            :full_name,
+            input_html: { id: "students-select" }
+          ) %>
+          <br>
+          <%= f.submit "Open Profile" %>
         <% end %>
     </div>
   </div>
+<% else %>
+  <p>No academic registration period is available yet.</p>
 <% end %>

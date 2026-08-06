@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
   before_action :confirm_admin
-  before_action :set_student, only: [:student_schedule]
+  before_action :set_student, only: [:student_schedule, :student_profile]
   before_action :set_rp, only: [:grades, :missing_documents, :student_schedule, :students_schedules, :view_all_grades]
   before_action :set_other_rps, only: [:grades, :view_all_grades]
   before_action -> { set_total_fees_and_tuition(@rp) }, only: [:student_schedule]
@@ -59,8 +59,23 @@ class AdminsController < ApplicationController
   def student_schedule
   end
 
+  def student_profile
+    @current_academic_period = RegistrationPeriod::CURRENT_ACADEMIC_YEAR || RegistrationPeriod.academic.order(open_date: :desc).first
+    @attendance_totals = attendance_totals_for_current_period
+    @current_registrations = current_period_registrations
+
+    @tuesday_schedule = @current_academic_period.present? ? @student.daily_schedule("Tuesday", @current_academic_period) : []
+    @thursday_schedule = @current_academic_period.present? ? @student.daily_schedule("Thursday", @current_academic_period) : []
+
+    additional_contact = @student.additional_contacts.order(:created_at).first
+    @other_parent_name = [additional_contact&.first_name, additional_contact&.last_name].compact.join(" ").strip
+    @other_parent_name = "Not provided" if @other_parent_name.blank?
+
+    @address = [@parent.street_address_1, @parent.street_address_2, @parent.city, @parent.state, @parent.zip_code].reject(&:blank?).join(", ")
+  end
+
   def students_schedules
-    @rps = RegistrationPeriod.academic.order(open_date: :desc)
+    @rp = RegistrationPeriod.academic.order(open_date: :desc).first || RegistrationPeriod::CURRENT_RP
   end
 
   def view_all_grades
@@ -113,5 +128,26 @@ class AdminsController < ApplicationController
     @parent_tuition_total = @parent.rp_courses(rp).inject(0){ |sum, e| sum + e.semester_tuition }
     @parent_total_course_fees = @parent.courses.inject(0){ |sum, e| sum + e.fee }
     @student_tuition_totals = set_student_tuition_totals
+  end
+
+  def attendance_totals_for_current_period
+    return {} if @current_academic_period.nil?
+
+    date_range = @current_academic_period.open_date..@current_academic_period.close_date
+    AttendanceEntry.joins(:school_day)
+                   .where(student_id: @student.id, school_days: { date: date_range })
+                   .group(:status)
+                   .count
+  end
+
+  def current_period_registrations
+    return Registration.none if @current_academic_period.nil?
+
+    Registration.joins(section: :course)
+                .includes(:quarterly_scores, section: :course)
+                .where(student_id: @student.id,
+                       status: Registration::STATUSES,
+                       courses: { registration_period_id: @current_academic_period.id })
+                .order("sections.day ASC, sections.start_time ASC")
   end
 end

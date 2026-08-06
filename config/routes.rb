@@ -71,6 +71,8 @@ Rails.application.routes.draw do
     get :grades
     get :missing_documents
     get :open_seats
+    get :student_profile
+    post :student_profile
     get :students_schedules
     get :view_all_grades
     resources :sections do
