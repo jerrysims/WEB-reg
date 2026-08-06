@@ -21,6 +21,12 @@ class ApplicationController < ActionController::Base
     raise SecurityError
   end
 
+  def authenticate_admin_or_teacher!
+    return if current_parent&.admin? || current_parent&.teacher?
+
+    raise SecurityError
+  end
+
   protected
 
   def configure_permitted_parameters

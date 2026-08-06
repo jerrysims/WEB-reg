@@ -1,5 +1,5 @@
 class Admin::DailyCheckInsController < ApplicationController
-  before_action :confirm_admin
+  before_action :authenticate_admin_or_teacher!
   before_action :set_school_day, only: [:show, :build_roster, :mark_all_present, :update_entry, :update_notice]
 
   def index
@@ -47,10 +47,6 @@ class Admin::DailyCheckInsController < ApplicationController
   end
 
   private
-
-  def confirm_admin
-    redirect_to root_path unless current_parent&.admin?
-  end
 
   def set_school_day
     @school_day = SchoolDay.find(params[:id])
