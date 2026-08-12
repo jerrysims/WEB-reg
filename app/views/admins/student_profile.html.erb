@@ -56,39 +56,41 @@
     <% end %>
   </div>
 
-  <div class="col-md-6 box">
-    <h4>Current Grades</h4>
-    <% if @current_registrations.any? %>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Course</th>
-            <th>Day</th>
-            <th>Q1</th>
-            <th>Q2</th>
-            <th>S1</th>
-            <th>Q3</th>
-            <th>Q4</th>
-            <th>S2</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @current_registrations.each do |registration| %>
+  <% if current_parent.admin? %>
+    <div class="col-md-6 box">
+      <h4>Current Grades</h4>
+      <% if @current_registrations.any? %>
+        <table class="table table-hover">
+          <thead>
             <tr>
-              <td><%= registration.section.name %></td>
-              <td><%= registration.section.day %></td>
-              <td><%= registration.quarterly_scores.find { |score| score.quarter == "q1" || score.quarter == :q1 }&.grade %></td>
-              <td><%= registration.quarterly_scores.find { |score| score.quarter == "q2" || score.quarter == :q2 }&.grade %></td>
-              <td><%= registration.s1_average %></td>
-              <td><%= registration.quarterly_scores.find { |score| score.quarter == "q3" || score.quarter == :q3 }&.grade %></td>
-              <td><%= registration.quarterly_scores.find { |score| score.quarter == "q4" || score.quarter == :q4 }&.grade %></td>
-              <td><%= registration.s2_average %></td>
+              <th>Course</th>
+              <th>Day</th>
+              <th>Q1</th>
+              <th>Q2</th>
+              <th>S1</th>
+              <th>Q3</th>
+              <th>Q4</th>
+              <th>S2</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p>No current grades found.</p>
-    <% end %>
-  </div>
+          </thead>
+          <tbody>
+            <% @current_registrations.each do |registration| %>
+              <tr>
+                <td><%= registration.section.name %></td>
+                <td><%= registration.section.day %></td>
+                <td><%= registration.quarterly_scores.find { |score| score.quarter == "q1" || score.quarter == :q1 }&.grade %></td>
+                <td><%= registration.quarterly_scores.find { |score| score.quarter == "q2" || score.quarter == :q2 }&.grade %></td>
+                <td><%= registration.s1_average %></td>
+                <td><%= registration.quarterly_scores.find { |score| score.quarter == "q3" || score.quarter == :q3 }&.grade %></td>
+                <td><%= registration.quarterly_scores.find { |score| score.quarter == "q4" || score.quarter == :q4 }&.grade %></td>
+                <td><%= registration.s2_average %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>No current grades found.</p>
+      <% end %>
+    </div>
+  <% end %>
 </div>

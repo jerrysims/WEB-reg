@@ -1,5 +1,6 @@
 class AdminsController < ApplicationController
-  before_action :confirm_admin
+  before_action :confirm_admin, except: [:student_profile]
+  before_action :confirm_admin_or_teacher, only: [:student_profile]
   before_action :set_student, only: [:student_schedule, :student_profile]
   before_action :set_rp, only: [:grades, :missing_documents, :student_schedule, :students_schedules, :view_all_grades]
   before_action :set_other_rps, only: [:grades, :view_all_grades]
@@ -93,8 +94,12 @@ class AdminsController < ApplicationController
   
   private
   
-  def confirm_admin     
+  def confirm_admin
     current_parent.admin?
+  end
+
+  def confirm_admin_or_teacher
+    current_parent.admin? || current_parent.is_a?(Teacher)
   end
 
   def set_other_rps
