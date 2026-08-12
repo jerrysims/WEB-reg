@@ -47,6 +47,10 @@
         <p>No classes scheduled.</p>
       <% end %>
     <% end %>
+
+    <% if @current_academic_period.present? %>
+      <p><%= link_to "Edit Schedule", register_path(student_id: @student.id, registration_period_id: @current_academic_period.id) %></p>
+    <% end %>
   </div>
 
   <div class="col-md-6 box">
