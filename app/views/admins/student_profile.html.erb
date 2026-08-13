@@ -51,7 +51,7 @@
       <% end %>
     <% end %>
 
-    <% if @current_academic_period.present? %>
+    <% if current_parent.admin? && @current_academic_period.present? %>
       <p><%= link_to "Edit Schedule", register_path(student_id: @student.id, registration_period_id: @current_academic_period.id) %></p>
     <% end %>
   </div>
