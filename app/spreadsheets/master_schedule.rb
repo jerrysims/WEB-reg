@@ -35,7 +35,7 @@ class MasterSchedule
   end
 
   def column_headers
-    headers = ["Student First", "Student Last", "Grade Level", "Race", "Pronouns", "Zip Code", "Student Email", "Parent First", "Parent Last", "Parent Phone", "Parent Email"]
+    headers = ["Student First", "Student Last", "Grade Level", "Race", "Pronouns", "Zip Code", "Student Email", "WEB Email", "Parent First", "Parent Last", "Parent Phone", "Parent Email"]
     @start_times.each do |k, v|
       v.each do |time|
         headers << "#{k} #{time.strftime("%l:%M")}"
@@ -53,6 +53,7 @@ class MasterSchedule
       student.pronouns,
       student.parent.zip_code,
       student.student_email,
+      student.web_email,
       student.parent.first_name,
       student.parent.last_name,
       student.parent.phone_number,
