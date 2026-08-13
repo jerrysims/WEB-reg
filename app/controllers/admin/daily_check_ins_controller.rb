@@ -1,5 +1,7 @@
 class Admin::DailyCheckInsController < ApplicationController
   before_action :authenticate_admin_or_teacher!
+  skip_before_action :authenticate_admin_or_teacher!, only: [:kiosk]
+  skip_before_action :authenticate_parent!, only: [:kiosk]
   before_action :set_school_day, only: [:show, :build_roster, :update_entry, :update_notice]
 
   def index
@@ -12,6 +14,18 @@ class Admin::DailyCheckInsController < ApplicationController
   def show
     @attendance_entries = @school_day.attendance_entries.includes(:student).order('students.last_name ASC').references(:students)
     @attendance_notices_by_student_id = @school_day.attendance_notices.index_by(&:student_id)
+    @kiosk_mode = false
+  end
+
+  def kiosk
+    @school_day = SchoolDay.find_or_create_for!(Date.current)
+    @school_day.build_daily_roster!
+
+    @attendance_entries = @school_day.attendance_entries.includes(:student).order('students.last_name ASC').references(:students)
+    @attendance_notices_by_student_id = @school_day.attendance_notices.index_by(&:student_id)
+    @kiosk_mode = true
+
+    render 'show', layout: false
   end
 
   def start_today

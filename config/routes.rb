@@ -93,6 +93,7 @@ Rails.application.routes.draw do
         patch :update_notice
       end
     end
+    get 'daily_check_in/kiosk', to: 'daily_check_ins#kiosk', as: :daily_check_in_kiosk
   end
 
   resources :sections do

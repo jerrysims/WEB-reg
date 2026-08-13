@@ -10,6 +10,16 @@
         <%= link_to "School-Wide Daily Check-In", admin_daily_check_in_path(@today_school_day), class: "custom-button" %>
       </div>
     </div>
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <%= link_to "Open Kiosk Check-In",
+                    admin_daily_check_in_kiosk_path,
+                    class: "custom-button",
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    onclick: "window.open(this.href, 'daily_check_in_kiosk', 'noopener,noreferrer,width=1400,height=940'); return false;" %>
+      </div>
+    </div>
   <% end %>
   <div class="container row">
     <% @teacher.sections.group_by(&:registration_period).each do |registration_period, sections| %>

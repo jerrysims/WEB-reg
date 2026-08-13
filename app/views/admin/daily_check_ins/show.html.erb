@@ -1,51 +1,153 @@
-<h1>Daily Check-In</h1>
-
-<% if params[:saved_entry_id].present? %>
+<% if @kiosk_mode %>
   <script>
     (function() {
-      function clearSavedIndicator() {
-        var indicator = document.querySelector('.saved-indicator-row');
-        if (!indicator) return;
-
-        window.setTimeout(function() {
-          indicator.style.opacity = '0';
-        }, 700);
-
-        window.setTimeout(function() {
-          indicator.remove();
-        }, 1100);
-
-        if (window.history && window.history.replaceState) {
-          var url = new URL(window.location.href);
-          url.searchParams.delete('saved_entry_id');
-          window.history.replaceState({}, '', url.toString());
+      if (window.opener) {
+        try {
+          window.opener = null;
+        } catch (error) {
+          // Browsers may block direct opener resets; the kiosk still opens in a separate tab.
         }
       }
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', clearSavedIndicator);
-      } else {
-        clearSavedIndicator();
+      if (window.history && window.history.pushState) {
+        var url = window.location.href;
+        window.history.pushState(null, '', url);
+        window.addEventListener('popstate', function() {
+          window.history.pushState(null, '', url);
+        });
       }
     })();
   </script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+    }
+
+    .kiosk-shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .kiosk-header {
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .kiosk-header h1 {
+      margin: 0;
+      font-size: 42px;
+      font-weight: 700;
+    }
+
+    .kiosk-meta {
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .kiosk-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .kiosk-table th,
+    .kiosk-table td {
+      border: 1px solid #d9d9d9;
+      padding: 14px 12px;
+      font-size: 18px;
+      text-align: left;
+    }
+
+    .kiosk-table th {
+      background: #f0f0f0;
+      font-weight: 700;
+    }
+
+    .kiosk-status label {
+      display: inline-block;
+      margin-right: 10px;
+      font-size: 18px;
+      padding: 8px 10px;
+      background: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .kiosk-status input {
+      transform: scale(1.3);
+      margin-right: 6px;
+    }
+  </style>
 <% end %>
 
-<p>
-  <strong>Date:</strong> <%= @school_day.date.strftime('%A, %b %-d, %Y') %><br>
-  <strong>Day:</strong> <%= @school_day.day_name %><br>
-  <strong>Entries:</strong> <%= @attendance_entries.size %>
-</p>
+<div class="<%= @kiosk_mode ? 'kiosk-shell' : '' %>">
+  <% if @kiosk_mode %>
+    <div class="kiosk-header">
+      <h1>Daily Check-In</h1>
+    </div>
+    <div class="kiosk-meta">
+      <strong>Date:</strong> <%= @school_day.date.strftime('%A, %b %-d, %Y') %>
+      &nbsp;|&nbsp;
+      <strong>Day:</strong> <%= @school_day.day_name %>
+    </div>
+  <% else %>
+    <h1>Daily Check-In</h1>
+  <% end %>
 
-<p>
-  <%= link_to 'Build / Refresh Roster', build_roster_admin_daily_check_in_path(@school_day), method: :post, class: 'nav-link' %>
-</p>
+  <% if params[:saved_entry_id].present? %>
+    <script>
+      (function() {
+        function clearSavedIndicator() {
+          var indicator = document.querySelector('.saved-indicator-row');
+          if (!indicator) return;
+
+          window.setTimeout(function() {
+            indicator.style.opacity = '0';
+          }, 700);
+
+          window.setTimeout(function() {
+            indicator.remove();
+          }, 1100);
+
+          if (window.history && window.history.replaceState) {
+            var url = new URL(window.location.href);
+            url.searchParams.delete('saved_entry_id');
+            window.history.replaceState({}, '', url.toString());
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', clearSavedIndicator);
+        } else {
+          clearSavedIndicator();
+        }
+      })();
+    </script>
+  <% end %>
+
+  <% unless @kiosk_mode %>
+    <p>
+      <strong>Date:</strong> <%= @school_day.date.strftime('%A, %b %-d, %Y') %><br>
+      <strong>Day:</strong> <%= @school_day.day_name %><br>
+      <strong>Entries:</strong> <%= @attendance_entries.size %>
+    </p>
+
+    <p>
+      <%= link_to 'Build / Refresh Roster', build_roster_admin_daily_check_in_path(@school_day), method: :post, class: 'nav-link' %>
+    </p>
+  <% end %>
 
 <% if @attendance_entries.any? %>
   <% not_yet_reported_entries = @attendance_entries.select { |entry| entry.status == 'not_yet_reported' } %>
   <% reported_entries = @attendance_entries.reject { |entry| entry.status == 'not_yet_reported' } %>
 
-  <table class="table">
+  <table class="table <%= @kiosk_mode ? 'kiosk-table' : '' %>">
     <thead>
       <tr>
         <th>Student</th>
@@ -73,7 +175,7 @@
             <%= form_with url: update_entry_admin_daily_check_in_path(@school_day), method: :patch, local: true do %>
               <%= hidden_field_tag :entry_id, entry.id %>
               <% AttendanceEntry::STATUSES.each do |status| %>
-                <label style="margin-right: 8px; white-space: nowrap;">
+                <label class="<%= @kiosk_mode ? 'kiosk-status' : '' %>" style="margin-right: 8px; white-space: nowrap;">
                   <%= radio_button_tag :status, status, entry.status == status, onchange: 'this.form.requestSubmit()' %>
                   <%= status.humanize %>
                 </label>
@@ -103,7 +205,7 @@
             <%= form_with url: update_entry_admin_daily_check_in_path(@school_day), method: :patch, local: true do %>
               <%= hidden_field_tag :entry_id, entry.id %>
               <% AttendanceEntry::STATUSES.each do |option_status| %>
-                <label style="margin-right: 8px; white-space: nowrap;">
+                <label class="<%= @kiosk_mode ? 'kiosk-status' : '' %>" style="margin-right: 8px; white-space: nowrap;">
                   <%= radio_button_tag :status, option_status, entry.status == option_status, onchange: 'this.form.requestSubmit()' %>
                   <%= option_status.humanize %>
                 </label>
