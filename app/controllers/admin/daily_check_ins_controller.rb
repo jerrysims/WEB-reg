@@ -49,9 +49,13 @@ class Admin::DailyCheckInsController < ApplicationController
 
   def update_entry
     entry = @school_day.attendance_entries.find(params[:entry_id])
-    entry.update!(status: params[:status])
+    status = params[:status].presence || entry.status
+    notes = params.key?(:notes) ? params[:notes] : entry.notes
 
-    redirect_to admin_daily_check_in_path(@school_day, saved_entry_id: entry.id)
+    entry.update!(status: status, notes: notes)
+
+    redirect_target = params[:kiosk].present? ? admin_daily_check_in_kiosk_path : admin_daily_check_in_path(@school_day)
+    redirect_to redirect_target, saved_entry_id: entry.id
   end
 
   def update_notice

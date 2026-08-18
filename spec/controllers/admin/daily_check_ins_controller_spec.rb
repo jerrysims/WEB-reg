@@ -47,5 +47,37 @@ RSpec.describe Admin::DailyCheckInsController, type: :controller do
       expect(entry.reload.status).to eq('present')
       expect(entry.reload.notes).to eq('Arrived on time')
     end
+
+    it 'keeps the current status when only notes are saved' do
+      school_day = create(:school_day, date: school_day_date, day_name: school_day_date.strftime('%A'))
+      student = create(:student)
+      entry = AttendanceEntry.create!(school_day: school_day, student: student, status: 'not_yet_reported', notes: 'Previous note')
+
+      patch :update_entry, params: { id: school_day.id, entry_id: entry.id, notes: 'Lunch 10:15' }
+
+      expect(entry.reload.status).to eq('not_yet_reported')
+      expect(entry.reload.notes).to eq('Lunch 10:15')
+    end
+
+    it 'preserves the existing note when only the status changes' do
+      school_day = create(:school_day, date: school_day_date, day_name: school_day_date.strftime('%A'))
+      student = create(:student)
+      entry = AttendanceEntry.create!(school_day: school_day, student: student, status: 'not_yet_reported', notes: 'Existing lunch note')
+
+      patch :update_entry, params: { id: school_day.id, entry_id: entry.id, status: 'present' }
+
+      expect(entry.reload.status).to eq('present')
+      expect(entry.reload.notes).to eq('Existing lunch note')
+    end
+
+    it 'redirects back to the kiosk when the update comes from kiosk mode' do
+      school_day = create(:school_day, date: school_day_date, day_name: school_day_date.strftime('%A'))
+      student = create(:student)
+      entry = AttendanceEntry.create!(school_day: school_day, student: student, status: 'not_yet_reported')
+
+      patch :update_entry, params: { id: school_day.id, entry_id: entry.id, status: 'present', notes: 'Arrived on time', kiosk: true }
+
+      expect(response).to redirect_to(admin_daily_check_in_kiosk_path(saved_entry_id: entry.id))
+    end
   end
 end

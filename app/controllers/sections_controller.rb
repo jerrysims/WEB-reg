@@ -72,7 +72,10 @@ class SectionsController < ApplicationController
                       .joins(:student)
                       .where(student_id: @section.students.select(:id))
                       .find(params[:entry_id])
-    entry.update!(status: params[:status])
+    status = params[:status].presence || entry.status
+    notes = params.key?(:notes) ? params[:notes] : entry.notes
+
+    entry.update!(status: status, notes: notes)
 
     redirect_to teacher_section_daily_check_in_path(teacher_id: @teacher.id, section_id: @section.id, saved_entry_id: entry.id)
   end

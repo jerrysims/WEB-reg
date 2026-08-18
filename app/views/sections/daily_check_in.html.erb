@@ -47,14 +47,15 @@
         <th>Student</th>
         <th>Grade</th>
         <th>Status</th>
-        <th>Notes</th>
+        <th>Attendance Notice</th>
+        <th>Teacher Notes</th>
         <th>Attendance Update</th>
       </tr>
     </thead>
     <tbody>
       <% if not_yet_reported_entries.any? %>
         <tr>
-          <td colspan="5"><strong>Not Yet Reported</strong></td>
+          <td colspan="6"><strong>Not Yet Reported</strong></td>
         </tr>
       <% end %>
 
@@ -65,6 +66,14 @@
           <td><%= entry.student.grade %></td>
           <td><%= entry.status.humanize %></td>
           <td><%= attendance_notice&.notes %></td>
+          <td>
+            <%= form_with url: teacher_section_update_daily_check_in_path(teacher_id: @teacher.id, section_id: @section.id), method: :patch, local: true do %>
+              <%= hidden_field_tag :entry_id, entry.id %>
+              <%= hidden_field_tag :status, entry.status %>
+              <%= text_field_tag :notes, entry.notes, style: 'min-width: 220px;' %>
+              <%= submit_tag 'Save', style: 'margin-left: 6px;' %>
+            <% end %>
+          </td>
           <td>
             <%= form_with url: teacher_section_update_daily_check_in_path(teacher_id: @teacher.id, section_id: @section.id), method: :patch, local: true do %>
               <%= hidden_field_tag :entry_id, entry.id %>
@@ -84,7 +93,7 @@
 
       <% if reported_entries.any? %>
         <tr>
-          <td colspan="5"><strong>Reported</strong></td>
+          <td colspan="6"><strong>Reported</strong></td>
         </tr>
       <% end %>
 
@@ -95,6 +104,14 @@
           <td><%= entry.student.grade %></td>
           <td><%= entry.status.humanize %></td>
           <td><%= attendance_notice&.notes %></td>
+          <td>
+            <%= form_with url: teacher_section_update_daily_check_in_path(teacher_id: @teacher.id, section_id: @section.id), method: :patch, local: true do %>
+              <%= hidden_field_tag :entry_id, entry.id %>
+              <%= hidden_field_tag :status, entry.status %>
+              <%= text_field_tag :notes, entry.notes, style: 'min-width: 220px;' %>
+              <%= submit_tag 'Save', style: 'margin-left: 6px;' %>
+            <% end %>
+          </td>
           <td>
             <%= form_with url: teacher_section_update_daily_check_in_path(teacher_id: @teacher.id, section_id: @section.id), method: :patch, local: true do %>
               <%= hidden_field_tag :entry_id, entry.id %>

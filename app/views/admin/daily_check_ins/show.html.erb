@@ -153,14 +153,15 @@
         <th>Student</th>
         <th>Grade</th>
         <th>Status</th>
-        <th>Notes</th>
+        <th>Attendance Notice</th>
+        <th>Teacher Notes</th>
         <th>Attendance Update</th>
       </tr>
     </thead>
     <tbody>
       <% if not_yet_reported_entries.any? %>
         <tr>
-          <td colspan="5"><strong>Not Yet Reported</strong></td>
+          <td colspan="6"><strong>Not Yet Reported</strong></td>
         </tr>
       <% end %>
 
@@ -174,6 +175,16 @@
           <td>
             <%= form_with url: update_entry_admin_daily_check_in_path(@school_day), method: :patch, local: true do %>
               <%= hidden_field_tag :entry_id, entry.id %>
+              <%= hidden_field_tag :status, entry.status %>
+              <%= hidden_field_tag :kiosk, true if @kiosk_mode %>
+              <%= text_field_tag :notes, entry.notes, style: 'min-width: 220px;' %>
+              <%= submit_tag 'Save', style: 'margin-left: 6px;' %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_with url: update_entry_admin_daily_check_in_path(@school_day), method: :patch, local: true do %>
+              <%= hidden_field_tag :entry_id, entry.id %>
+              <%= hidden_field_tag :kiosk, true if @kiosk_mode %>
               <% AttendanceEntry::STATUSES.each do |status| %>
                 <label class="<%= @kiosk_mode ? 'kiosk-status' : '' %>" style="margin-right: 8px; white-space: nowrap;">
                   <%= radio_button_tag :status, status, entry.status == status, onchange: 'this.form.requestSubmit()' %>
@@ -190,7 +201,7 @@
 
       <% if reported_entries.any? %>
         <tr>
-          <td colspan="5"><strong>Reported</strong></td>
+          <td colspan="6"><strong>Reported</strong></td>
         </tr>
       <% end %>
 
@@ -204,6 +215,16 @@
           <td>
             <%= form_with url: update_entry_admin_daily_check_in_path(@school_day), method: :patch, local: true do %>
               <%= hidden_field_tag :entry_id, entry.id %>
+              <%= hidden_field_tag :status, entry.status %>
+              <%= hidden_field_tag :kiosk, true if @kiosk_mode %>
+              <%= text_field_tag :notes, entry.notes, style: 'min-width: 220px;' %>
+              <%= submit_tag 'Save', style: 'margin-left: 6px;' %>
+            <% end %>
+          </td>
+          <td>
+            <%= form_with url: update_entry_admin_daily_check_in_path(@school_day), method: :patch, local: true do %>
+              <%= hidden_field_tag :entry_id, entry.id %>
+              <%= hidden_field_tag :kiosk, true if @kiosk_mode %>
               <% AttendanceEntry::STATUSES.each do |option_status| %>
                 <label class="<%= @kiosk_mode ? 'kiosk-status' : '' %>" style="margin-right: 8px; white-space: nowrap;">
                   <%= radio_button_tag :status, option_status, entry.status == option_status, onchange: 'this.form.requestSubmit()' %>
